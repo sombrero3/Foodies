@@ -12,5 +12,5 @@ public class RestaurantPage extends AppCompatActivity {
         setContentView(R.layout.activity_restaurant_page);
     }
 
-    ///Varona
+    ///Varonaf
 }
