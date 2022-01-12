@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#B69F9F"
+    tools:context=".MapFragment">
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
+        android:layout_marginBottom="400dp"
+        android:src="@android:drawable/ic_menu_mapmode"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="16:9"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="5dp" />
+
+    <EditText
+        android:id="@+id/Map_search_et"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Search for a restaurant..."
+        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        tools:layout_editor_absoluteX="55dp" />
+
+    <ImageView
+        android:id="@+id/Map_search_img_view"
+        android:layout_width="19dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="16dp"
+        android:src="@drawable/search"
+        app:layout_constraintStart_toEndOf="@+id/Map_search_et"
+        tools:layout_editor_absoluteY="457dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

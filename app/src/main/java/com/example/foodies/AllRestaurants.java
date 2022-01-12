@@ -11,4 +11,5 @@ public class AllRestaurants extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_restaurants);
     }
+
 }
