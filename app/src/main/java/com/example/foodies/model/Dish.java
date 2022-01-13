@@ -122,17 +122,15 @@ public class Dish {
     public String getId() {
         return id;
     }
-
     public String getRating() {
- return rating;
+    return rating;
     }
-
-
     //---------------------------------//
+
     public void updateRating(){
         int sum=0,avg;
-        double f,reminder,res;
-        String result="";
+        double f ,reminder,res;
+
         for(int i=0;i<reviewList.size();i++){
             sum+= reviewList.get(i).getRating();
         }
@@ -141,16 +139,15 @@ public class Dish {
         avg = sum/reviewList.size();
         reminder = f - avg;
         if(reminder<0.25){
-            result = Integer.toString(sum);
+            rating = Integer.toString(sum);
         }
         else if(reminder>=0.25 && reminder < 0.75){
             res = avg +0.5;
-            result = Double.toString(res);
+            rating = Double.toString(res);
         }
         else if(reminder>=0.75){
-            result=Integer.toString(avg+1);
+            rating=Integer.toString(avg+1);
         }
-        return result;
     }
     public void addReview(Review review){
         reviewList.add(review);
