@@ -15,7 +15,7 @@ public class Dish {
     String description;
     List<Image> images;
     String rating;
-    List<String> usersAte;
+    List<String> usersAte;//users that ate this (list of users id)
     boolean vegetarian;
 
     //-------Constructors-------//
@@ -153,6 +153,7 @@ public class Dish {
     public void deleteReview(Review review){
         boolean flag =false;
         reviewList.remove(review);
+        Model.instance.getReviewList().remove(review);
         updateRating();
         Model.instance.getRestaurantById(restaurantId).updateRating();
 

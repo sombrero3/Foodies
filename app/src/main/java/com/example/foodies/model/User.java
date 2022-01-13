@@ -12,6 +12,7 @@ public class User {
     String totalReviews;
     Image image;
     List<Review> reviewList;
+    //List<User> friends
     List<String> restaurantsVisitedId;
 
     //-------Constructors-------//
