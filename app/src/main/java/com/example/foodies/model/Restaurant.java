@@ -7,7 +7,8 @@ public class Restaurant {
     String name;
     String location;
     int rating;
-
     List<Dish> dishList;
+
+
 
 }
