@@ -1,10 +1,13 @@
 package com.example.foodies.model;
 
+import android.media.Image;
+
 public class Review {
     String dishId;
     String restaurantId;
     String userId;
     String id;
+    Image image;
     String description;
     int rating;
 
