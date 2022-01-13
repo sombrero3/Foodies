@@ -25,17 +25,9 @@ public class Review {
         this.rating = rating;
         this.id = IdGenerator.instance.getNextId().toString();
     }
-    public Review(String dishId, String restaurantId, String userId, String description, int rating,String id) {
-        this.dishId = dishId;
-        this.restaurantId = restaurantId;
-        this.userId = userId;
-        this.description = description;
-        this.rating = rating;
-        this.id = id;
-    }
+
 
     //-------Getters and Setters-------//
-
     public String getDishId() {
         return dishId;
     }
@@ -72,6 +64,5 @@ public class Review {
     public void setRating(int rating) {
         this.rating = rating;
     }
-
     //---------------------------------//
 }

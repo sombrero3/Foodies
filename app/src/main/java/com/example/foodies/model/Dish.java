@@ -16,7 +16,7 @@ public class Dish {
 
     //-------Constructors-------//
     public Dish(){
-        id ="";
+        id = IdGenerator.instance.getNextId().toString();
         restaurantId = "";
         name = "";
         price = "";
@@ -25,8 +25,8 @@ public class Dish {
         reviewList = new ArrayList<>();
         images = new LinkedList<>();
     }
-    public Dish( String id,String restaurantId, String name, String price, String description, boolean vegetarian){
-        this.id = id;
+    public Dish( String restaurantId, String name, String price, String description, boolean vegetarian){
+        this.id = IdGenerator.instance.getNextId().toString();
         this.restaurantId = restaurantId;
         this.name = name;
         this.price = price;
@@ -35,8 +35,8 @@ public class Dish {
         images = new LinkedList<>();
         reviewList = new ArrayList<>();
     }
-    public Dish( String id,String restaurantId, String name, String price, String description, boolean vegetarian,String image){
-        this.id = id;
+    public Dish( String restaurantId, String name, String price, String description, boolean vegetarian,String image){
+        this.id = IdGenerator.instance.getNextId().toString();
         this.restaurantId = restaurantId;
         this.name = name;
         this.price = price;
@@ -46,8 +46,8 @@ public class Dish {
         this.vegetarian = vegetarian;
         reviewList = new ArrayList<>();
     }
-    public Dish( String id,String restaurantId, String name, String price, String description, boolean vegetarian, Review review){
-        this.id = id;
+    public Dish( String restaurantId, String name, String price, String description, boolean vegetarian, Review review){
+        this.id = IdGenerator.instance.getNextId().toString();
         this.restaurantId = restaurantId;
         this.name = name;
         this.price = price;
@@ -57,8 +57,8 @@ public class Dish {
         reviewList = new ArrayList<>();
         reviewList.add(review);
     }
-    public Dish( String id,String restaurantId, String name, String price, String description, boolean vegetarian,String image, Review review){
-        this.id = id;
+    public Dish( String restaurantId, String name, String price, String description, boolean vegetarian,String image, Review review){
+        this.id = IdGenerator.instance.getNextId().toString();
         this.restaurantId = restaurantId;
         this.name = name;
         this.price = price;
@@ -116,9 +116,7 @@ public class Dish {
     public String getId() {
         return id;
     }
-    public void setId(String id) {
-        this.id = id;
-    }
+
 
 
     //---------------------------------//
