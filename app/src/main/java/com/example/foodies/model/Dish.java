@@ -12,6 +12,7 @@ public class Dish {
     String price;
     String description;
     List<String> images;
+    String rating;
     boolean vegetarian;
 
     //-------Constructors-------//
@@ -20,6 +21,7 @@ public class Dish {
         restaurantId = "";
         name = "";
         price = "";
+        rating ="No rating yet";
         description = "";
         vegetarian = false;
         reviewList = new ArrayList<>();
@@ -34,6 +36,7 @@ public class Dish {
         this.vegetarian = vegetarian;
         images = new LinkedList<>();
         reviewList = new ArrayList<>();
+        rating ="No rating yet";
     }
     public Dish( String restaurantId, String name, String price, String description, boolean vegetarian,String image){
         this.id = IdGenerator.instance.getNextId().toString();
@@ -45,6 +48,7 @@ public class Dish {
         images.add(image);
         this.vegetarian = vegetarian;
         reviewList = new ArrayList<>();
+        rating ="No rating yet";
     }
     public Dish( String restaurantId, String name, String price, String description, boolean vegetarian, Review review){
         this.id = IdGenerator.instance.getNextId().toString();
@@ -56,6 +60,7 @@ public class Dish {
         images = new LinkedList<>();
         reviewList = new ArrayList<>();
         reviewList.add(review);
+        rating = Integer.toString(review.getRating());
     }
     public Dish( String restaurantId, String name, String price, String description, boolean vegetarian,String image, Review review){
         this.id = IdGenerator.instance.getNextId().toString();
@@ -68,6 +73,7 @@ public class Dish {
         this.vegetarian = vegetarian;
         reviewList = new ArrayList<>();
         reviewList.add(review);
+        rating = Integer.toString(review.getRating());
     }
 
     //-------Getters and Setters-------//
@@ -117,14 +123,42 @@ public class Dish {
         return id;
     }
 
+    public String getRating() {
+ return rating;
+    }
 
 
     //---------------------------------//
+    public void updateRating(){
+        int sum=0,avg;
+        double f,reminder,res;
+        String result="";
+        for(int i=0;i<reviewList.size();i++){
+            sum+= reviewList.get(i).getRating();
+        }
+
+        f = sum/reviewList.size();
+        avg = sum/reviewList.size();
+        reminder = f - avg;
+        if(reminder<0.25){
+            result = Integer.toString(sum);
+        }
+        else if(reminder>=0.25 && reminder < 0.75){
+            res = avg +0.5;
+            result = Double.toString(res);
+        }
+        else if(reminder>=0.75){
+            result=Integer.toString(avg+1);
+        }
+        return result;
+    }
     public void addReview(Review review){
         reviewList.add(review);
+        updateRating();
     }
     public void deleteReview(Review review){
       reviewList.remove(review);
+      updateRating();
     }
     public void addImage(String image){
         images.add(image);
