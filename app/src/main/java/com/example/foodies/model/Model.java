@@ -75,4 +75,37 @@ public class Model {
         }
         return new User();
     }
+
+    public void deleteUser(User user){
+        userList.remove(user); // delete from user list
+
+//        for(int i=0;i<reviewList.size();i++){ //delete all of this user's reviews and updating ratings
+//            if(reviewList.get(i).getUserId().equals(user.getId())){
+//                reviewList.get(i).deleteReview();
+//            }
+//        }
+
+
+    }
+    public void deleteDish(Dish dish){
+        dishList.remove(dish);
+        getRestaurantById(dish.getRestaurantId()).deleteDish(dish);
+        for(int i=0;i<reviewList.size();i++) {
+            if(reviewList.get(i).getDishId().equals(dish.getId())){
+                reviewList.remove(i);
+            }
+        }
+        for(int i=0;i<userList.size();i++) {
+            if(userList.get(i).getReviewList().contains(dish.getId())){
+                userList.get(i).getReviewList().remove(dish.getId());
+            }
+        }
+
+    }
+    public void deleteReview(){
+
+    }
+    public void deleteRestaurant(){
+
+    }
 }
