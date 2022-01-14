@@ -10,15 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Foodies">
         <activity
-            android:name=".UserReviewsOnRestaurant"
-            android:exported="false" />
-        <activity
-            android:name=".RestaurantPage"
-            android:exported="false" />
-        <activity
-            android:name=".AllRestaurants"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

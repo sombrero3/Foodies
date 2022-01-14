@@ -87,7 +87,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
     <ImageView
-        android:id="@+id/MyReviews_plus_img_view"
+        android:id="@+id/MyReviews_add_img_view"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginStart="32dp"
@@ -101,7 +101,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/MyReviews_search_img_btn"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="230dp"
@@ -110,7 +110,7 @@
         android:src="@drawable/search"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"
-        app:layout_constraintTop_toBottomOf="@+id/MyReviews_plus_img_view" />
+        app:layout_constraintTop_toBottomOf="@+id/MyReviews_add_img_view" />
 
     <ImageView
         android:id="@+id/imageView7"
