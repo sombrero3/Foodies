@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#B69F9F"
     tools:context=".RegisteredUserFragment">
 
     <TextView
@@ -14,6 +15,7 @@
         android:layout_marginTop="50dp"
         android:layout_marginEnd="24dp"
         android:text="Welcome Back"
+        android:textColor="@color/white"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,6 +29,7 @@
         android:layout_marginTop="45dp"
         android:layout_marginEnd="274dp"
         android:text="Email"
+        android:textColor="@color/white"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,6 +43,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Enter your email address"
+        android:textColor="@color/white"
         android:textSize="24sp"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
         tools:layout_editor_absoluteX="48dp" />
@@ -51,6 +55,7 @@
         android:layout_marginStart="48dp"
         android:layout_marginTop="32dp"
         android:text="Password"
+        android:textColor="@color/white"
         android:textSize="34sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Registered_email_et" />
@@ -64,17 +69,19 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Enter your password"
+        android:textColor="@color/white"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/RegisteredUzer_sign_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="110dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="110dp"
+        android:backgroundTint="@android:color/holo_orange_light"
         android:text="Sign in"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -89,9 +96,10 @@
         android:layout_marginTop="80dp"
         android:layout_marginEnd="40dp"
         android:text="Forgot your password? Not registered yet click her"
+        android:textColor="@color/white"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/button" />
+        app:layout_constraintTop_toTopOf="@+id/RegisteredUzer_sign_btn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
