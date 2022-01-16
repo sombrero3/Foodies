@@ -12,8 +12,8 @@ public class User {
     String totalReviews;
     Image image;
     List<Review> reviewList;
-    //List<User> friends
-    List<String> restaurantsVisitedId;
+    List<User> friendsList;
+    String totalRestaurantsVisited;
 
     //-------Constructors-------//
     public User(){
@@ -22,7 +22,8 @@ public class User {
         lastName = "";
         totalReviews ="0";
         reviewList = new ArrayList<>();
-        restaurantsVisitedId = new ArrayList<>();
+        friendsList = new ArrayList<>();
+        totalRestaurantsVisited = "0";
     }
     public User(String firstName,String lastName){
         id = Integer.toString(IdGenerator.instance.getNextId());
@@ -30,7 +31,8 @@ public class User {
         this.lastName = lastName;
         totalReviews ="0";
         reviewList = new ArrayList<>();
-        restaurantsVisitedId = new ArrayList<>();
+        friendsList = new ArrayList<>();
+        totalRestaurantsVisited = "0";
     }
 
     //-------Getters and Setters-------//
@@ -67,30 +69,58 @@ public class User {
     public void setReviewList(List<Review> reviewList) {
         this.reviewList = reviewList;
     }
-    public List<String> getRestaurantsVisitedId() {
-        return restaurantsVisitedId;
+    public List<User> getFriendsList() {
+        return friendsList;
     }
-    public void setRestaurantsVisitedId(List<String> restaurantsVisitedId) {
-        this.restaurantsVisitedId = restaurantsVisitedId;
+    public void setFriendsList(List<User> friendsList) {
+        this.friendsList = friendsList;
     }
-    //---------------------------------//
+    public String getTotalRestaurantsVisited() {
+        return totalRestaurantsVisited;
+    }
+    public void setTotalRestaurantsVisited(String totalRestaurantsVisited) {
+        this.totalRestaurantsVisited = totalRestaurantsVisited;
+    }
+//---------------------------------//
 
     public void addReview(Review review){
         reviewList.add(review);
         int newTotal = Integer.valueOf(totalReviews)+1;
         totalReviews = Integer.toString(newTotal);
-        if(!restaurantsVisitedId.contains(review.getRestaurantId())){
-            restaurantsVisitedId.add(review.getRestaurantId());
+        boolean flag = false;
+        for(int i=0;i<reviewList.size();i++){
+            if(reviewList.get(i).getRestaurantId().equals(review.getRestaurantId())){
+                flag = true;
+                break;
+            }
+        }
+        if(!flag){
+           newTotal = Integer.valueOf(totalRestaurantsVisited)+1;
+           totalRestaurantsVisited = Integer.toString(newTotal);
         }
     }
     public void deleteReview(Review review){
         reviewList.remove(review);
         int newTotal = Integer.valueOf(totalReviews)-1;
         totalReviews = Integer.toString(newTotal);
+        String restaurant = review.getRestaurantId();
+        boolean flag = false;
         for(int i=0;i<reviewList.size();i++){
-            if(reviewList.get(i).getRestaurantId().equals(review.getUserId())){
-                restaurantsVisitedId.remove(review.getRestaurantId());
+            if(reviewList.get(i).getRestaurantId().equals(restaurant)){
+                flag = true;
+                break;
             }
         }
+        if(!flag){
+            newTotal = Integer.valueOf(totalRestaurantsVisited)-1;
+            totalRestaurantsVisited = Integer.toString(newTotal);
+        }
     }
+    public void addFriend(User friend){
+        friendsList.add(friend);
+    }
+    public void deleteFriend(User friend){
+        friendsList.remove(friend);
+    }
+
 }
