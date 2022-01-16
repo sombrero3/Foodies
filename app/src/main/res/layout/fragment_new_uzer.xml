@@ -13,6 +13,7 @@
         android:layout_width="141dp"
         android:layout_height="wrap_content"
         android:text="New uzer"
+        android:textColor="@color/white"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,6 +26,7 @@
         android:layout_marginStart="85dp"
         android:layout_marginTop="410dp"
         android:layout_marginEnd="85dp"
+        android:backgroundTint="@android:color/holo_orange_light"
         android:text="Sign up"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -33,7 +35,7 @@
         app:layout_constraintTop_toBottomOf="@+id/NewUzer_title_btn" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/NewUzer_upload_img_view"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="165dp"
@@ -51,7 +53,8 @@
         android:layout_marginStart="45dp"
         android:layout_marginTop="110dp"
         android:text="Full Name"
-        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/NewUzer_title_btn" />
 
@@ -64,6 +67,8 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Enter your full name"
+        android:textColor="@color/white"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
@@ -74,7 +79,8 @@
         android:layout_marginStart="45dp"
         android:layout_marginTop="16dp"
         android:text="Email"
-        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/NewUzer_name_et" />
 
@@ -87,18 +93,20 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Enter your email addres"
-        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <TextView
         android:id="@+id/textView6"
-        android:layout_width="89dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="45dp"
         android:layout_marginTop="16dp"
         android:text="Password"
-        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/NewUzer_email_et" />
 
@@ -111,7 +119,8 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Enter your password"
-        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 

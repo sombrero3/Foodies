@@ -11,48 +11,50 @@
         android:id="@+id/imageView2"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="#B69F9F"
         android:src="@drawable/food"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.0" />
 
-    <Button
-        android:id="@+id/Home_home_btn"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/Home_tv"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:text="Home"
+        android:textColor="@color/white"
+        android:textColorHighlight="@color/white"
         android:textSize="34sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.024"
-        tools:layout_editor_absoluteX="135dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/Home_myreviews_btn"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/Home_myreviews_tv"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="70dp"
-        android:layout_marginEnd="50dp"
+        android:layout_marginTop="12dp"
         android:text="My reviews"
+        android:textColor="#FFFFFF"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/Home_home_btn" />
+        app:layout_constraintTop_toBottomOf="@+id/Home_tv" />
 
-    <Button
-        android:id="@+id/Home_myfreinds_btn"
-        android:layout_width="0dp"
-        android:layout_height="65dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
+    <TextView
+        android:id="@+id/Home_myfriends_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
         android:text="My friends"
+        android:textColor="#FFFFFF"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="615dp" />
+        app:layout_constraintTop_toBottomOf="@+id/Home_myreviews_tv" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
