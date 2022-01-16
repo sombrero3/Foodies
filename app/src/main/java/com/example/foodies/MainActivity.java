@@ -11,6 +11,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+     // NewUzerFragment newUzerFragment = (NewUzerFragment) getSupportFragmentManager().findFragmentById(R.id.NewUzer_frag_container);
     }
 }
