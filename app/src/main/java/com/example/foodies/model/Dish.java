@@ -15,7 +15,6 @@ public class Dish {
     String description;
     List<Image> images;
     String rating;
-    List<String> usersAte;//users that ate this (list of users id)
     boolean vegetarian;
 
     //-------Constructors-------//
@@ -29,7 +28,7 @@ public class Dish {
         vegetarian = false;
         reviewList = new ArrayList<>();
         images = new LinkedList<>();
-        usersAte = new ArrayList<>();
+
     }
     public Dish( String restaurantId, String name, String price, String description, boolean vegetarian){
         this.id = IdGenerator.instance.getNextId().toString();
@@ -41,7 +40,6 @@ public class Dish {
         images = new LinkedList<>();
         reviewList = new ArrayList<>();
         rating ="No rating yet";
-        usersAte = new ArrayList<>();
     }
     public Dish( String restaurantId, String name, String price, String description, boolean vegetarian, Review review){
         this.id = IdGenerator.instance.getNextId().toString();
@@ -54,8 +52,6 @@ public class Dish {
         reviewList = new ArrayList<>();
         reviewList.add(review);
         rating = Integer.toString(review.getRating());
-        usersAte = new ArrayList<>();
-        usersAte.add(review.getUserId());
     }
 
 
@@ -108,12 +104,6 @@ public class Dish {
     public String getRating() {
     return rating;
     }
-    public List<String> getUsersAte() {
-        return usersAte;
-    }
-    public void setUsersAte(List<String> usersAte) {
-        this.usersAte = usersAte;
-    }
     //---------------------------------//
 
     public void updateRating(){
@@ -141,52 +131,10 @@ public class Dish {
     public void addReview(Review review){
         reviewList.add(review);
         updateRating();
-        Model.instance.getRestaurantById(restaurantId).updateRating();
-        if(!Model.instance.getRestaurantById(restaurantId).getUsersVisited().contains(review.getUserId())){
-            Model.instance.getRestaurantById(restaurantId).getUsersVisited().add(review.getUserId());
-        }
-        if(!usersAte.contains(review.getUserId())){
-            usersAte.add(review.getUserId());
-        }
-        Model.instance.getUserById(review.userId).getReviewList().add(review);
     }
     public void deleteReview(Review review){
-        boolean flag =false;
         reviewList.remove(review);
-        Model.instance.getReviewList().remove(review);
         updateRating();
-        Model.instance.getRestaurantById(restaurantId).updateRating();
-
-        // delete review from reviewList
-        for(int i=0;i<reviewList.size();i++){
-            if(reviewList.get(i).getUserId().equals(review.getUserId())){
-                flag =true;
-                break;
-            }
-        }
-        if (!flag){
-            usersAte.remove(review.getUserId());
-        }
-
-        // delete review from dishList
-        flag=false;
-        List<Dish> dishes = Model.instance.getRestaurantById(restaurantId).getDishList();
-        for(int i=0;i<dishes.size();i++){
-            List<Review> reviews = Model.instance.getRestaurantById(restaurantId).getDishList().get(i).getReviewList();
-            for(int j=0;j<reviews.size();j++){
-               if(reviews.get(j).getUserId().equals(review.getUserId())){
-                   flag = true;
-                  break;
-               }
-            }
-        }
-        if (!flag){
-           Model.instance.getRestaurantById(restaurantId).getUsersVisited().remove(review.getUserId());
-        }
-
-        // delete review from relevant user
-        Model.instance.getUserById(review.getUserId()).deleteReview(review);
-
     }
     public void addImage(Image image){
         images.add(image);
