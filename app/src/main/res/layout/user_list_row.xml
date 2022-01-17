@@ -18,7 +18,7 @@
         app:srcCompat="@drawable/user" />
 
     <TextView
-        android:id="@+id/user_row_name_et"
+        android:id="@+id/user_row_name_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -31,7 +31,7 @@
         app:layout_constraintTop_toTopOf="@+id/imageView" />
 
     <TextView
-        android:id="@+id/user_row_resto_et"
+        android:id="@+id/user_row_resto_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -41,10 +41,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/user_row_name_et" />
+        app:layout_constraintTop_toBottomOf="@+id/user_row_name_tv" />
 
     <TextView
-        android:id="@+id/user_row_reviews_et"
+        android:id="@+id/user_row_reviews_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -56,5 +56,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/user_row_resto_et" />
+        app:layout_constraintTop_toBottomOf="@+id/user_row_resto_tv" />
 </androidx.constraintlayout.widget.ConstraintLayout>

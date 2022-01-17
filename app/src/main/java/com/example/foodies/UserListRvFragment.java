@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,9 +29,7 @@ public class UserListRvFragment extends Fragment {
 
         RecyclerView list = view.findViewById(R.id.userlist_rv);
         list.setHasFixedSize(true);
-
         list.setLayoutManager(new LinearLayoutManager(getContext()));
-
         MyAdapter adapter = new MyAdapter();
         list.setAdapter(adapter);
 
@@ -60,9 +57,9 @@ public class UserListRvFragment extends Fragment {
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
-            nameEt = itemView.findViewById(R.id.user_row_name_et);
-            restaurantEt = itemView.findViewById(R.id.user_row_resto_et);
-            reviewsEt = itemView.findViewById(R.id.user_row_reviews_et);
+            nameEt = itemView.findViewById(R.id.user_row_name_tv);
+            restaurantEt = itemView.findViewById(R.id.user_row_resto_tv);
+            reviewsEt = itemView.findViewById(R.id.user_row_reviews_tv);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
