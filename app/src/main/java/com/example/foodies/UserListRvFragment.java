@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.foodies.model.Model;
 import com.example.foodies.model.User;
@@ -51,9 +52,9 @@ public class UserListRvFragment extends Fragment {
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder{
-        EditText nameEt;
-        EditText restaurantEt;
-        EditText reviewsEt;
+        TextView nameEt;
+        TextView restaurantEt;
+        TextView reviewsEt;
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
