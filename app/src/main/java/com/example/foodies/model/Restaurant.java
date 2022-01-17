@@ -108,7 +108,7 @@ public class Restaurant {
 
         for(int i=0;i<dishList.size();i++){
             if(!dishList.get(i).rating.equals("No rating yet")) {
-                sum += Integer.valueOf(dishList.get(i).getRating());
+                sum += Integer.parseInt(dishList.get(i).getRating());
                 counter++;
             }
         }

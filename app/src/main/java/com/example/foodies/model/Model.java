@@ -13,7 +13,11 @@ public class Model {
 
     public static final Model instance = new Model();
 
-    public Model() {
+    private Model() {
+        for(int i=0;i<10;i++){
+            User user = new User("name ", "" + i );
+            userList.add(user);
+        }
     }
 
     //-------Getters and Setters-------//

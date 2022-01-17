@@ -51,7 +51,7 @@ public class Dish {
         images = new LinkedList<>();
         reviewList = new ArrayList<>();
         reviewList.add(review);
-        rating = Integer.toString(review.getRating());
+        rating = review.getRating();
     }
 
 
@@ -111,7 +111,7 @@ public class Dish {
         double f ,reminder,res;
 
         for(int i=0;i<reviewList.size();i++){
-            sum+= reviewList.get(i).getRating();
+            sum+= Integer.parseInt(reviewList.get(i).getRating());
         }
 
         f = sum/reviewList.size();
