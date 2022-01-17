@@ -1,12 +1,16 @@
 package com.example.foodies;
 
+import android.os.Bundle;
+
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -16,49 +20,61 @@ import com.example.foodies.model.User;
 
 import java.util.List;
 
-public class UserListRvActivity extends AppCompatActivity {
+
+public class UserListRvFragment extends Fragment {
     List<User> userList;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_list_rv);
-
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_user_list_rv, container, false);
         userList = Model.instance.getUserList();
-        RecyclerView userListRv = findViewById(R.id.user_list_rv);
-        userListRv.setHasFixedSize(true);
-        userListRv.setLayoutManager(new LinearLayoutManager(this));
+
+        RecyclerView list = view.findViewById(R.id.userlist_rv);
+        list.setHasFixedSize(true);
+
+        list.setLayoutManager(new LinearLayoutManager(getContext()));
+
         MyAdapter adapter = new MyAdapter();
-        userListRv.setAdapter(adapter);
+        list.setAdapter(adapter);
+
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void onItemClick(int position) {
-                Log.d("TAG", "row was clicked "+ position);
+            public void onItemClick(View v, int position) {
+                String userName = userList.get(position).getLastName();
+                Log.d("TAG","user's row clicked: " + userName);
+                //Navigation.findNavController(v).navigate(StudentListRvFragmentDirections.actionStudentListRvFragmentToStudentDetailsFragment(stId));
+
             }
         });
+        //ImageButton add = view.findViewById(R.id.studentlist_add_btn);
+
+        //add.setOnClickListener(Navigation.createNavigateOnClickListener(StudentListRvFragmentDirections.actionGlobalAboutFragment()));
+        //setHasOptionsMenu(true);
+        return view;
 
     }
+
     class MyViewHolder extends RecyclerView.ViewHolder{
         EditText nameEt;
         EditText restaurantEt;
         EditText reviewsEt;
+
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
-
             nameEt = itemView.findViewById(R.id.user_row_name_et);
             restaurantEt = itemView.findViewById(R.id.user_row_resto_et);
             reviewsEt = itemView.findViewById(R.id.user_row_reviews_et);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view) {
+                public void onClick(View v) {
                     int pos = getAdapterPosition();
-                    listener.onItemClick(pos);
+                    listener.onItemClick(v,pos);
                 }
             });
 
         }
     }
     interface OnItemClickListener{
-        void onItemClick(int position);
+        void onItemClick(View v,int position);
     }
     class MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
         OnItemClickListener listener;
