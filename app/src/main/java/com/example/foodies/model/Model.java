@@ -78,18 +78,18 @@ public class Model {
 
     public void addReview(Review review){
         String user = review.getUserId();
-        int size = Model.instance.userList.size();
+        int size = userList.size();
         for(int i=0;i<size;i++){
-            if(Model.instance.userList.get(i).getId().equals(user)){
-                Model.instance.userList.get(i).addReview(review);
+            if(userList.get(i).getId().equals(user)){
+                userList.get(i).addReview(review);
                 break;
             }
         }
         String dish = review.getDishId();
-        size = Model.instance.dishList.size();
+        size = dishList.size();
         for(int i=0;i<size;i++){
-            if(Model.instance.dishList.get(i).getId().equals(dish)){
-                Model.instance.dishList.get(i).addReview(review);
+            if(dishList.get(i).getId().equals(dish)){
+                dishList.get(i).addReview(review);
                 break;
             }
         }
@@ -97,32 +97,32 @@ public class Model {
     }
     public void addDish(Dish dish){
         String restaurant = dish.getRestaurantId();
-        int size = Model.instance.restaurantList.size();
+        int size = restaurantList.size();
         for(int i=0;i<size;i++){
-            if(Model.instance.restaurantList.get(i).getId().equals(restaurant)){
-                Model.instance.restaurantList.get(i).addDish(dish);
+            if(restaurantList.get(i).getId().equals(restaurant)){
+                restaurantList.get(i).addDish(dish);
             }
         }
-        Model.instance.dishList.add(dish);
+        dishList.add(dish);
     }
     public void addRestaurant(Restaurant restaurant){
-        Model.instance.restaurantList.add(restaurant);
+        restaurantList.add(restaurant);
     }
     public void addUser(User user){
-        Model.instance.userList.add(user);
+        userList.add(user);
     }
 
     public void deleteReview(Review review){
-        int size =Model.instance.dishList.size();
+        int size =dishList.size();
         for(int i=0; i<size;i++){                  // remove from the dish's review list
-            if(Model.instance.dishList.get(i).getId().equals(review.getDishId())){
-                Model.instance.dishList.get(i).deleteReview(review);
+            if(dishList.get(i).getId().equals(review.getDishId())){
+                dishList.get(i).deleteReview(review);
             }
         }
-        size =Model.instance.userList.size();
+        size =userList.size();
         for(int i=0; i<size;i++){                  // remove the review from the user's review list
-            if(Model.instance.userList.get(i).getId().equals(review.getUserId())){
-                Model.instance.userList.get(i).deleteReview(review);
+            if(userList.get(i).getId().equals(review.getUserId())){
+                userList.get(i).deleteReview(review);
             }
         }
         reviewList.remove(review);
@@ -131,18 +131,18 @@ public class Model {
         int size = dish.getReviewList().size();
         for(int i=0;i<size;i++){                   // remove the reviews on this dish from each users review list
             String user = dish.getReviewList().get(i).getUserId();
-            int size2 = Model.instance.userList.size();
+            int size2 = userList.size();
             for(int j=0; j<size2;j++){
-                if(Model.instance.userList.get(j).getId().equals(user)){
-                    Model.instance.userList.get(j).deleteReview(dish.getReviewList().get(i));
+                if(userList.get(j).getId().equals(user)){
+                    userList.get(j).deleteReview(dish.getReviewList().get(i));
                 }
             }
         }
-        size = Model.instance.restaurantList.size();
+        size = restaurantList.size();
         for(int i=0;i<size;i++){                  // remove the dish from the restautant's dish list
             String restaurant = dish.getRestaurantId();
-            if(Model.instance.restaurantList.get(i).getId().equals(restaurant)){
-                Model.instance.restaurantList.get(i).deleteDish(dish);
+            if(restaurantList.get(i).getId().equals(restaurant)){
+                restaurantList.get(i).deleteDish(dish);
             }
         }
         dishList.remove(dish);
@@ -152,17 +152,17 @@ public class Model {
         for(int i=0;i<size;i++){                  // for each restaurant's dish
             int size2 = restaurant.getDishList().get(i).getReviewList().size();
             for(int j=0;j<size2;j++) {            // remove all dish's reviews from their user's review list than delete review
-                int size3 = Model.instance.userList.size();
+                int size3 = userList.size();
                 for (int k = 0; k < size3;k++) {
-                    if(restaurant.getDishList().get(i).getReviewList().get(j).userId.equals(Model.instance.userList.get(k).getId())){
-                        Model.instance.userList.get(k).deleteReview(restaurant.getDishList().get(i).getReviewList().get(j));
-                        Model.instance.reviewList.remove(restaurant.getDishList().get(i).getReviewList().get(j));
+                    if(restaurant.getDishList().get(i).getReviewList().get(j).userId.equals(userList.get(k).getId())){
+                        userList.get(k).deleteReview(restaurant.getDishList().get(i).getReviewList().get(j));
+                        reviewList.remove(restaurant.getDishList().get(i).getReviewList().get(j));
                     }
                 }
             }
-            Model.instance.dishList.remove(restaurant.getDishList().get(i));  // remove dishs
+            dishList.remove(restaurant.getDishList().get(i));  // remove dishs
         }
-        Model.instance.restaurantList.remove(restaurant); // remove restaurant
+        restaurantList.remove(restaurant); // remove restaurant
     }
     public void deleteUser(User user){
         int size = user.getFriendsList().size(); // remove user from all of his friend's users list
@@ -171,11 +171,11 @@ public class Model {
         }
         size = user.getReviewList().size();  // remove all user's reviews from their dishes
         for(int i=0;i<size;i++){
-            int size2 =Model.instance.dishList.size();
+            int size2 =dishList.size();
             String dish = user.getReviewList().get(i).getDishId();
             for(int j=0;j<size2;j++) {
-                if(Model.instance.dishList.get(j).getId().equals(dish)){
-                    Model.instance.dishList.get(j).deleteReview(user.getReviewList().get(i));
+                if(dishList.get(j).getId().equals(dish)){
+                    dishList.get(j).deleteReview(user.getReviewList().get(i));
                 }
             }
         }
