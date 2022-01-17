@@ -9,11 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 
 public class NewUserFragment extends Fragment {
 
-       //ImageView upload;
+     ImageView upload;
      Button signUp;
+     EditText email;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -21,9 +24,9 @@ public class NewUserFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_new_user, container, false);
         signUp = view.findViewById(R.id.NewUser_signUp_btn);
         signUp.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_newUserFragment_to_homeFragment));
-       // upload = view.findViewById(R.id.NewUser_upload_img_view);
-       // signUp = view.findViewById(R.id.NewUser_sign_btn);
-      //  signUp.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_newUserFragment_to_homeFragment));
+        upload = view.findViewById(R.id.NewUser_upload_img_view);
+        email = view.findViewById(R.id.NewUzer_email_et);
+
         return view;
     }
 }
