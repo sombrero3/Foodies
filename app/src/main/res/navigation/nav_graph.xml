@@ -3,15 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/newUzerFragment">
+    app:startDestination="@id/newUserFragment">
 
     <fragment
-        android:id="@+id/newUzerFragment"
-        android:name="com.example.foodies.NewUzerFragment"
-        android:label="fragment_new_uzer"
-        tools:layout="@layout/fragment_new_uzer" >
+        android:id="@+id/newUserFragment"
+        android:name="com.example.foodies.NewUserFragment"
+        android:label="fragment_new_user"
+        tools:layout="@layout/fragment_new_user" >
         <action
-            android:id="@+id/action_newUzerFragment_to_homeFragment"
+            android:id="@+id/action_newUserFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
     <fragment
