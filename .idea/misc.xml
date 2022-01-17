@@ -3,27 +3,25 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/activity_friends_rv.xml" value="0.2477355072463768" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/activity_main.xml" value="0.24010416666666667" />
-        <entry key="..\:/Users/ormad/AndroidStudioProjects/Foodies/app/src/main/res/layout/activity_all_restaurants.xml" value="0.24270833333333333" />
-        <entry key="..\:/Users/ormad/AndroidStudioProjects/Foodies/app/src/main/res/layout/activity_main.xml" value="0.1793478260869565" />
-        <entry key="..\:/Users/ormad/AndroidStudioProjects/Foodies/app/src/main/res/layout/activity_restaurant_page.xml" value="0.24270833333333333" />
-        <entry key="..\:/Users/ormad/AndroidStudioProjects/Foodies/app/src/main/res/layout/activity_user_reviews_on_restaurant.xml" value="0.24270833333333333" />
-        <entry key="..\:/Users/ormad/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_blank.xml" value="0.13020833333333334" />
-        <entry key="..\:/Users/ormad/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_home.xml" value="0.25" />
-        <entry key="..\:/Users/ormad/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_map.xml" value="0.24270833333333333" />
-        <entry key="..\:/Users/ormad/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_my_friends.xml" value="0.264" />
-        <entry key="..\:/Users/ormad/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_my_reviews.xml" value="0.13020833333333334" />
-        <entry key="..\:/Users/ormad/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_new_review.xml" value="0.24270833333333333" />
-        <entry key="..\:/Users/ormad/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_new_user.xml" value="0.10371376811594203" />
-        <entry key="..\:/Users/ormad/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_new_uzer.xml" value="0.1793478260869565" />
-        <entry key="..\:/Users/ormad/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_registered_user.xml" value="0.13020833333333334" />
-        <entry key="..\:/Users/ormad/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_restaurant_page.xml" value="0.264" />
-        <entry key="..\:/Users/ormad/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_search_restaurant.xml" value="0.2" />
-        <entry key="..\:/Users/ormad/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_user_name.xml" value="0.3473731884057971" />
-        <entry key="..\:/Users/ormad/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_user_reviews_on_restaurant.xml" value="0.13020833333333334" />
-        <entry key="..\:/Users/ormad/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_uzer_name.xml" value="0.13020833333333334" />
-        <entry key="..\:/Users/ormad/AndroidStudioProjects/Foodies/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.153125" />
-        <entry key="..\:/Users/ormad/AndroidStudioProjects/Foodies/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.153125" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/activity_review_create.xml" value="0.2477355072463768" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/activity_sign_in.xml" value="0.25181159420289856" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/activity_sign_up.xml" value="0.2477355072463768" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/activity_user_reviews.xml" value="0.2477355072463768" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/activity_user_reviews_on_restaurant.xml" value="0.13020833333333334" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_home.xml" value="0.2477355072463768" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_map.xml" value="0.2477355072463768" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_my_friends.xml" value="0.176" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_my_reviews.xml" value="0.2477355072463768" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_new_review.xml" value="0.2477355072463768" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_new_user.xml" value="0.144" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_new_uzer.xml" value="0.2477355072463768" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_restaurant_page.xml" value="0.2477355072463768" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_search_restaurant.xml" value="0.2477355072463768" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_user_reviews_on_restaurant.xml" value="0.2477355072463768" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_uzer_name.xml" value="0.2477355072463768" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/trying.xml" value="0.190625" />
       </map>
     </option>
   </component>
@@ -32,12 +30,5 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
-  </component>
-  <component name="VisualizationToolProject">
-    <option name="state">
-      <ProjectState>
-        <option name="scale" value="0.13020833333333334" />
-      </ProjectState>
-    </option>
   </component>
 </project>
