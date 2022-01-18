@@ -22,6 +22,10 @@ public class Model {
             Restaurant res = new Restaurant("name "+i);
             restaurantList.add(res);
         }
+        for(int i=0;i<10;i++){
+            Dish dish = new Dish("name "+i);
+            dishList.add(dish);
+        }
     }
 
     //-------Getters and Setters-------//

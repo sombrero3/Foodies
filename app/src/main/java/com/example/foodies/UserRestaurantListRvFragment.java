@@ -32,7 +32,7 @@ public class UserRestaurantListRvFragment extends Fragment {
     TextView descriptionTv;
     TextView titleTv;
     Button addReviewBtn;
-    Image image;
+    ImageView image;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_restaurant_list_rv, container, false);

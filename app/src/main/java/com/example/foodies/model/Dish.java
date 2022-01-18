@@ -30,6 +30,18 @@ public class Dish {
         images = new LinkedList<>();
 
     }
+    public Dish(String name){
+        id = IdGenerator.instance.getNextId().toString();
+        restaurantId = "";
+        this.name = name;
+        price = "";
+        rating ="No rating yet";
+        description = "";
+        vegetarian = false;
+        reviewList = new ArrayList<>();
+        images = new LinkedList<>();
+
+    }
     public Dish( String restaurantId, String name, String price, String description, boolean vegetarian){
         this.id = IdGenerator.instance.getNextId().toString();
         this.restaurantId = restaurantId;
