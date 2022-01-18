@@ -18,6 +18,10 @@ public class Model {
             User user = new User("name ", "" + i );
             userList.add(user);
         }
+        for(int i=0;i<10;i++){
+            Restaurant res = new Restaurant("name "+i);
+            restaurantList.add(res);
+        }
     }
 
     //-------Getters and Setters-------//
