@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/userReviewsOnRestaurantRvFragment">
+    app:startDestination="@id/restaurantPageRvFragment">
     <fragment
-        android:id="@+id/userReviewsOnRestaurantRvFragment"
-        android:name="com.example.foodies.UserReviewsOnRestaurantRvFragment"
-        android:label="fragment_user_reviews_on_restaurant_rv"
-        tools:layout="@layout/fragment_user_reviews_on_restaurant_rv" />
+        android:id="@+id/restaurantPageRvFragment"
+        android:name="com.example.foodies.RestaurantPageRvFragment"
+        android:label="fragment_restaurant_page_rv"
+        tools:layout="@layout/fragment_restaurant_page_rv" />
 </navigation>

@@ -24,6 +24,7 @@
         <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_new_user.xml" value="0.144" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_new_uzer.xml" value="0.2477355072463768" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_restaurant_page.xml" value="0.2477355072463768" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_restaurant_page_rv.xml" value="0.2" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_search_restaurant.xml" value="0.136" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_user_list_rv.xml" value="0.180078125" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_user_restaurant_list_rv.xml" value="0.2" />
@@ -34,6 +35,7 @@
         <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/retaurant_list_row.xml" value="0.2" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/trying.xml" value="0.190625" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/user_list_row.xml" value="0.4" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/user_review_list_row.xml" value="0.176" />
       </map>
     </option>
   </component>
