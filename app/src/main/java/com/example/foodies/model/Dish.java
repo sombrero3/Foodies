@@ -30,6 +30,18 @@ public class Dish {
         images = new LinkedList<>();
 
     }
+    public Dish(String name){
+        id = IdGenerator.instance.getNextId().toString();
+        restaurantId = "";
+        this.name = name;
+        price = "";
+        rating ="No rating yet";
+        description = "";
+        vegetarian = false;
+        reviewList = new ArrayList<>();
+        images = new LinkedList<>();
+
+    }
     public Dish( String restaurantId, String name, String price, String description, boolean vegetarian){
         this.id = IdGenerator.instance.getNextId().toString();
         this.restaurantId = restaurantId;
@@ -51,7 +63,7 @@ public class Dish {
         images = new LinkedList<>();
         reviewList = new ArrayList<>();
         reviewList.add(review);
-        rating = Integer.toString(review.getRating());
+        rating = review.getRating();
     }
 
 
@@ -111,7 +123,7 @@ public class Dish {
         double f ,reminder,res;
 
         for(int i=0;i<reviewList.size();i++){
-            sum+= reviewList.get(i).getRating();
+            sum+= Integer.parseInt(reviewList.get(i).getRating());
         }
 
         f = sum/reviewList.size();

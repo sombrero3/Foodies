@@ -10,22 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Foodies">
         <activity
-            android:name=".LocationActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ReviewCreate"
-            android:exported="false" />
-        <activity
-            android:name=".FriendsRv"
-            android:exported="false" />
-        <activity
-            android:name=".UserReviews"
-            android:exported="false" />
-        <activity
-            android:name=".SignUpActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SignInActivity"
+            android:name=".RestaurantListRvActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

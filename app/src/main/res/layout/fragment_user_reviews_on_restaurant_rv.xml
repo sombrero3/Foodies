@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".UserReviewsOnRestaurantRvFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <ImageView
+        android:id="@+id/user_reviews_on_restaurant_image_img"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:src="@drawable/user"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/user_reviews_on_restaurant_name_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="User's name reviews about restaurant's name"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/user_reviews_on_restaurant_image_img"
+        app:layout_constraintTop_toTopOf="@+id/user_reviews_on_restaurant_image_img" />
+
+    <ImageView
+        android:id="@+id/user_reviews_on_restaurant_star1_iv"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/star"
+        app:layout_constraintStart_toStartOf="@+id/user_reviews_on_restaurant_image_img"
+        app:layout_constraintTop_toBottomOf="@+id/user_reviews_on_restaurant_image_img" />
+
+    <ImageView
+        android:id="@+id/user_reviews_on_restaurant_star2_iv"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="16dp"
+        android:src="@drawable/star"
+        app:layout_constraintBottom_toBottomOf="@+id/user_reviews_on_restaurant_star1_iv"
+        app:layout_constraintStart_toEndOf="@+id/user_reviews_on_restaurant_star1_iv"
+        app:layout_constraintTop_toTopOf="@+id/user_reviews_on_restaurant_star1_iv" />
+
+    <ImageView
+        android:id="@+id/user_reviews_on_restaurant_star5_iv"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="16dp"
+        android:src="@drawable/star"
+        app:layout_constraintBottom_toBottomOf="@+id/user_reviews_on_restaurant_star4_iv"
+        app:layout_constraintStart_toEndOf="@+id/user_reviews_on_restaurant_star4_iv"
+        app:layout_constraintTop_toTopOf="@+id/user_reviews_on_restaurant_star4_iv" />
+
+    <ImageView
+        android:id="@+id/user_reviews_on_restaurant_star4_iv"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="16dp"
+        android:src="@drawable/star"
+        app:layout_constraintBottom_toBottomOf="@+id/user_reviews_on_restaurant_star3_iv"
+        app:layout_constraintStart_toEndOf="@+id/user_reviews_on_restaurant_star3_iv"
+        app:layout_constraintTop_toTopOf="@+id/user_reviews_on_restaurant_star3_iv" />
+
+    <ImageView
+        android:id="@+id/user_reviews_on_restaurant_star3_iv"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="16dp"
+        android:src="@drawable/star"
+        app:layout_constraintBottom_toBottomOf="@+id/user_reviews_on_restaurant_star2_iv"
+        app:layout_constraintStart_toEndOf="@+id/user_reviews_on_restaurant_star2_iv"
+        app:layout_constraintTop_toTopOf="@+id/user_reviews_on_restaurant_star2_iv" />
+
+    <TextView
+        android:id="@+id/user_reviews_on_restaurant_general_review_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="General review about Restaurant's name :"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_reviews_on_restaurant_star1_iv" />
+
+    <TextView
+        android:id="@+id/user_reviews_on_restaurant_revies_of_dishes_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="Reviews of dishes : "
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_reviews_on_restaurant_general_review_description_tv" />
+
+    <TextView
+        android:id="@+id/user_reviews_on_restaurant_general_review_description_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Here will be the general review of this specific user about the restaurant and it will be editable"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_reviews_on_restaurant_general_review_tv" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/user_reviews_on_restaurant_dishes_list_rv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_reviews_on_restaurant_revies_of_dishes_tv" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
