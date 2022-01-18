@@ -23,9 +23,9 @@ public class NewUserFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_new_user, container, false);
         signUp = view.findViewById(R.id.NewUser_signUp_btn);
-       // signUp.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_newUserFragment_to_userListRvFragment));
         upload = view.findViewById(R.id.NewUser_upload_img_view);
         email = view.findViewById(R.id.NewUzer_email_et);
+        signUp.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_newUserFragment2_to_homeFragment2));
 
         return view;
     }

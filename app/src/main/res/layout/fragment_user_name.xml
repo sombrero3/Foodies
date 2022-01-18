@@ -2,18 +2,16 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/UserReviews_constrains"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#B69F9F"
-    tools:context=".UserReviewsOnRestaurantFragment" >
+    tools:context=".UserNameFragment">
 
     <Button
-        android:id="@+id/UserReviews_test_btn"
+        android:id="@+id/UserName_test_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
-        android:text="test2"
+        android:layout_marginTop="120dp"
+        android:text="testUs"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
