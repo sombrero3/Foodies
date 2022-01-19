@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -38,7 +39,8 @@ public class UserRestaurantListRvFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_user_restaurant_list_rv, container, false);
 
         //implement usersRestaurantList and replace it with restaurantList---------------------------------------------------------//
-        restaurantList = Model.instance.getRestaurantList();
+        User user = Model.instance.getUserList().get(0);
+        restaurantList = Model.instance.getAllRestaurantsThatUserHasReviewsOnByUserId(user.getId());
         //-------------------------------------------------------------------------------------------------------------------------//
 
         RecyclerView list = view.findViewById(R.id.user_restaurant_list_rv);
@@ -52,7 +54,7 @@ public class UserRestaurantListRvFragment extends Fragment {
             public void onItemClick(View v, int position) {
                 String restaurantName = restaurantList.get(position).getName();
                 Log.d("TAG","restaurant clicked: " + restaurantName);
-                //Navigation.findNavController(v).navigate(StudentListRvFragmentDirections.actionStudentListRvFragmentToStudentDetailsFragment(stId));
+                Navigation.findNavController(v).navigate(UserRestaurantListRvFragmentDirections.actionUserRestaurantListRvFragmentToUserReviewsOnRestaurantRvFragment(user.getId(),restaurantList.get(position).getId()));
 
             }
         });

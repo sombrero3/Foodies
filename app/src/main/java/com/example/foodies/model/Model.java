@@ -1,8 +1,11 @@
 package com.example.foodies.model;
 
+import com.example.foodies.R;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 public class Model {
 
@@ -16,16 +19,34 @@ public class Model {
     private Model() {
         for(int i=0;i<10;i++){
             User user = new User("name ", "" + i );
+
             userList.add(user);
         }
         for(int i=0;i<10;i++){
-            Restaurant res = new Restaurant("name "+i);
-            restaurantList.add(res);
+            for(int j=0;j<4;j++) {
+                Random rand = new Random();
+                int x = rand.nextInt() % 10;
+                if(!userList.get(i).getFriendsList().contains(userList.get(x))) {
+                    userList.get(i).addFriend(userList.get(x));
+                    userList.get(x).addFriend(userList.get(i));
+                }
+            }
         }
         for(int i=0;i<10;i++){
-            Dish dish = new Dish("name "+i);
-            dishList.add(dish);
+            Restaurant res = new Restaurant("Restaurant name "+i);
+            for(int j=0;j<10;j++){
+                Dish dish = new Dish("Dish name "+i + " " + j);
+                for(int k=0;k<10;k++){
+
+                        Review review = new Review(dish.getId(), res.getId(),userList.get(k).getId(),"4");
+                        reviewList.add(review);
+
+                }
+                dishList.add(dish);
+            }
+            restaurantList.add(res);
         }
+
     }
 
     //-------Getters and Setters-------//
@@ -192,5 +213,33 @@ public class Model {
             }
         }
         userList.remove(user); // delete from Model user list
+    }
+
+    public List<User> getAllUsersThatHaveReviewsOnRestaurantByRestaurantId(String restaurantId){
+        List<User> result = new LinkedList<>();
+        for(int i=0;i<reviewList.size();i++){
+            if(reviewList.get(i).getRestaurantId().equals(restaurantId) && !result.contains(getUserById(reviewList.get(i).getUserId()))){
+                result.add(getUserById(reviewList.get(i).getUserId()));
+            }
+        }
+        return result;
+    }
+    public List<Restaurant> getAllRestaurantsThatUserHasReviewsOnByUserId(String userId){
+        List<Restaurant> result = new LinkedList<>();
+        for(int i=0;i<reviewList.size();i++){
+            if(reviewList.get(i).getUserId().equals(userId) && !result.contains(getRestaurantById(reviewList.get(i).getRestaurantId()))){
+                result.add(getRestaurantById(reviewList.get(i).getRestaurantId()));
+            }
+        }
+        return result;
+    }
+    public List<Dish> getAllDishesThatTheUserHasAReviewedOnInThisRestaurantByUserIdAndRestaurantId(String userId,String restaurantId){
+        List<Dish> result = new LinkedList<>();
+        for(int i=0;i<reviewList.size();i++){
+            if(reviewList.get(i).getUserId().equals(userId) && reviewList.get(i).getRestaurantId().equals(restaurantId) && !result.contains(getDishById(reviewList.get(i).getDishId()))){
+                result.add(getDishById(reviewList.get(i).getDishId()));
+            }
+        }
+        return result;
     }
 }
