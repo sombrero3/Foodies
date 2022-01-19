@@ -22,15 +22,66 @@
     <fragment
         android:id="@+id/homeRestaurantListRvFragment"
         android:name="com.example.foodies.HomeRestaurantListRvFragment"
-        android:label="HomeRestaurantListRvFragment" />
+        android:label="HomeRestaurantListRvFragment" >
+        <action
+            android:id="@+id/action_homeRestaurantListRvFragment_to_restaurantPageRvFragment"
+            app:destination="@id/restaurantPageRvFragment" />
+    </fragment>
     <fragment
         android:id="@+id/userRestaurantListRvFragment"
         android:name="com.example.foodies.UserRestaurantListRvFragment"
         android:label="fragment_user_restaurant_list_rv"
-        tools:layout="@layout/fragment_user_restaurant_list_rv" />
+        tools:layout="@layout/fragment_user_restaurant_list_rv" >
+        <argument
+            android:name="userId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_userRestaurantListRvFragment_to_userReviewsOnRestaurantRvFragment"
+            app:destination="@id/userReviewsOnRestaurantRvFragment" />
+    </fragment>
     <fragment
         android:id="@+id/userListRvFragment"
         android:name="com.example.foodies.UserListRvFragment"
         android:label="fragment_user_list_rv"
-        tools:layout="@layout/fragment_user_list_rv" />
+        tools:layout="@layout/fragment_user_list_rv" >
+        <argument
+            android:name="userId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_userListRvFragment_to_userRestaurantListRvFragment"
+            app:destination="@id/userRestaurantListRvFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/restaurantPageRvFragment"
+        android:name="com.example.foodies.RestaurantPageRvFragment"
+        android:label="fragment_restaurant_page_rv"
+        tools:layout="@layout/fragment_restaurant_page_rv" >
+        <argument
+            android:name="restaurantId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/userReviewsOnRestaurantRvFragment"
+        android:name="com.example.foodies.UserReviewsOnRestaurantRvFragment"
+        android:label="fragment_user_reviews_on_restaurant_rv"
+        tools:layout="@layout/fragment_user_reviews_on_restaurant_rv" >
+        <argument
+            android:name="userId"
+            app:argType="string" />
+        <argument
+            android:name="restaurantId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_userReviewsOnRestaurantRvFragment_to_reviewFragment2"
+            app:destination="@id/reviewFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/reviewFragment2"
+        android:name="com.example.foodies.ReviewFragment"
+        android:label="fragment_review"
+        tools:layout="@layout/fragment_review" >
+        <argument
+            android:name="reviewId"
+            app:argType="string" />
+    </fragment>
 </navigation>

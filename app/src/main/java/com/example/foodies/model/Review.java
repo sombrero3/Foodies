@@ -16,9 +16,17 @@ public class Review {
         dishId ="";
         restaurantId = "";
         userId = "";
-        id = IdGenerator.instance.getNextId().toString();
+        id = Integer.toString(IdGenerator.instance.getNextId());
         description = "";
         rating = "0";
+    }
+    public Review(String dishId, String restaurantId, String userId, String rating) {
+        this.dishId = dishId;
+        this.restaurantId = restaurantId;
+        this.userId = userId;
+        this.description = "description";
+        this.rating = rating;
+        this.id = Integer.toString(IdGenerator.instance.getNextId());
     }
     public Review(String dishId, String restaurantId, String userId, String description, String rating) {
         this.dishId = dishId;
@@ -26,7 +34,7 @@ public class Review {
         this.userId = userId;
         this.description = description;
         this.rating = rating;
-        this.id = IdGenerator.instance.getNextId().toString();
+        this.id = Integer.toString(IdGenerator.instance.getNextId());
     }
 
 
@@ -65,6 +73,7 @@ public class Review {
         this.rating = rating;
         Model.instance.getDishById(dishId).updateRating();
     }
+
     //---------------------------------//
 
 

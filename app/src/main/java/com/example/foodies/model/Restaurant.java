@@ -16,7 +16,7 @@ public class Restaurant {
 
     //-------Constructors-------//
     public Restaurant(){
-        String id = Integer.toString(IdGenerator.instance.getNextId());
+        this.id = Integer.toString(IdGenerator.instance.getNextId());
         name = "";
         location = "";
         rating = "No rating yet";
@@ -24,7 +24,7 @@ public class Restaurant {
         numOfUsersVisited = "0";
     }
     public Restaurant(String name) {
-        String id = Integer.toString(IdGenerator.instance.getNextId());
+        this.id = Integer.toString(IdGenerator.instance.getNextId());
         this.name = name;
         this.location = "";
         this.rating = "";
@@ -32,7 +32,7 @@ public class Restaurant {
         numOfUsersVisited ="0";
     }
     public Restaurant(String name, String location) {
-        String id = Integer.toString(IdGenerator.instance.getNextId());
+        this.id = Integer.toString(IdGenerator.instance.getNextId());
         this.name = name;
         this.location = location;
         this.rating = "";
@@ -40,7 +40,7 @@ public class Restaurant {
         numOfUsersVisited ="0";
     }
     public Restaurant(String name, String location, String rating) {
-        String id = Integer.toString(IdGenerator.instance.getNextId());
+        this.id = Integer.toString(IdGenerator.instance.getNextId());
         this.name = name;
         this.location = location;
         this.rating = rating;
@@ -48,7 +48,7 @@ public class Restaurant {
         numOfUsersVisited ="0";
     }
     public Restaurant(String name, String location,  Dish dish) {
-        String id = Integer.toString(IdGenerator.instance.getNextId());
+        this.id = Integer.toString(IdGenerator.instance.getNextId());
         this.name = name;
         this.location = location;
         this.dishList = new ArrayList<>();
@@ -57,7 +57,7 @@ public class Restaurant {
         numOfUsersVisited ="0";
     }
     public Restaurant(String name, String location,  ArrayList<Dish> dishList) {
-        String id = Integer.toString(IdGenerator.instance.getNextId());
+        this.id = Integer.toString(IdGenerator.instance.getNextId());
         this.name = name;
         this.location = location;
         this.dishList = dishList;

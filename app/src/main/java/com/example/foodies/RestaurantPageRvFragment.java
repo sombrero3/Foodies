@@ -35,8 +35,13 @@ public class RestaurantPageRvFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_restaurant_page_rv, container, false);
 
         //implement usersRestaurantList and replace it with restaurantList---------------------------------------------------------//
-        usersList = Model.instance.getUserList();
+
+
+
         //-------------------------------------------------------------------------------------------------------------------------//
+        String resId = RestaurantPageRvFragmentArgs.fromBundle(getArguments()).getRestaurantId();
+        Restaurant restaurant = Model.instance.getRestaurantById(resId);
+        usersList = Model.instance.getAllUsersThatHaveReviewsOnRestaurantByRestaurantId(resId);
 
         RecyclerView list = view.findViewById(R.id.restaurant_page_rv);
         list.setHasFixedSize(true);
@@ -61,6 +66,12 @@ public class RestaurantPageRvFragment extends Fragment {
         star3 = view.findViewById(R.id.restaurant_page_star3_iv);
         star4 = view.findViewById(R.id.restaurant_page_star4_iv);
         star5 = view.findViewById(R.id.restaurant_page_star5_iv);
+
+        nameTv.setText(restaurant.getName());
+        locationTv.setText(restaurant.getLocation());
+
+
+
         //--------controlling the addReview button--------------//
         //   addReviewBtn.setVisibility(View.INVISIBLE);
         //  addReviewBtn.setClickable(false);
