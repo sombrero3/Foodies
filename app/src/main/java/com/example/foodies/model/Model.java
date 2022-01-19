@@ -49,7 +49,6 @@ public class Model {
                         Review review = new Review(dish.getId(), res.getId(),userList.get(k).getId(),"4");
                         dish.setPrice(Integer.toString(k)+"$");
                         reviewList.add(review);
-
                 }
                 dishList.add(dish);
             }
@@ -135,7 +134,6 @@ public class Model {
                 break;
             }
         }
-
     }
     public void addDish(Dish dish){
         String restaurant = dish.getRestaurantId();
@@ -143,9 +141,11 @@ public class Model {
         for(int i=0;i<size;i++){
             if(restaurantList.get(i).getId().equals(restaurant)){
                 restaurantList.get(i).addDish(dish);
+                dishList.add(dish);
+
             }
         }
-        dishList.add(dish);
+
     }
     public void addRestaurant(Restaurant restaurant){
         restaurantList.add(restaurant);
@@ -159,12 +159,14 @@ public class Model {
         for(int i=0; i<size;i++){                  // remove from the dish's review list
             if(dishList.get(i).getId().equals(review.getDishId())){
                 dishList.get(i).deleteReview(review);
+                break;
             }
         }
         size =userList.size();
         for(int i=0; i<size;i++){                  // remove the review from the user's review list
             if(userList.get(i).getId().equals(review.getUserId())){
                 userList.get(i).deleteReview(review);
+                break;
             }
         }
         reviewList.remove(review);
@@ -177,6 +179,7 @@ public class Model {
             for(int j=0; j<size2;j++){
                 if(userList.get(j).getId().equals(user)){
                     userList.get(j).deleteReview(dish.getReviewList().get(i));
+                    break;
                 }
             }
         }
@@ -185,6 +188,7 @@ public class Model {
             String restaurant = dish.getRestaurantId();
             if(restaurantList.get(i).getId().equals(restaurant)){
                 restaurantList.get(i).deleteDish(dish);
+                break;
             }
         }
         dishList.remove(dish);
@@ -229,6 +233,7 @@ public class Model {
         for(int i=0;i<reviewList.size();i++){
             if(reviewList.get(i).getRestaurantId().equals(restaurantId) && !result.contains(getUserById(reviewList.get(i).getUserId()))){
                 result.add(getUserById(reviewList.get(i).getUserId()));
+
             }
         }
         return result;
@@ -238,6 +243,7 @@ public class Model {
         for(int i=0;i<reviewList.size();i++){
             if(reviewList.get(i).getUserId().equals(userId) && !result.contains(getRestaurantById(reviewList.get(i).getRestaurantId()))){
                 result.add(getRestaurantById(reviewList.get(i).getRestaurantId()));
+
             }
         }
         return result;
