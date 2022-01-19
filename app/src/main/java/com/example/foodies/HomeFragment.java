@@ -28,15 +28,15 @@ public class HomeFragment extends Fragment {
        myFriends = view.findViewById(R.id.home_my_friends_tv);
 
 
-        User user = Model.instance.getUserList().get(0);
+       User user = Model.instance.getUserList().get(0);
        home.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_homeFragment_to_homeRestaurantListRvFragment));
-       myReviews.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_homeFragment_to_userRestaurantListRvFragment));
-              myReviews.setOnClickListener((v)->{
+       myReviews.setOnClickListener((v)->{
            Navigation.findNavController(v).navigate(HomeFragmentDirections.actionHomeFragmentToUserRestaurantListRvFragment(user.getId()));
        });
+       myFriends.setOnClickListener((v)->{
+           Navigation.findNavController(v).navigate(HomeFragmentDirections.actionHomeFragmentToUserListRvFragment(user.getId()));
+       });
 
-
-       myFriends.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_homeFragment_to_userListRvFragment));
 
         return view;
     }

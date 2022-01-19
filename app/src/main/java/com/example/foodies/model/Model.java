@@ -18,15 +18,18 @@ public class Model {
 
     private Model() {
         for(int i=0;i<10;i++){
-            User user = new User("name ", "" + i );
-
+            User user = new User("name "+i, "" + i );
             userList.add(user);
         }
+        Random rand = new Random();
         for(int i=0;i<10;i++){
             for(int j=0;j<4;j++) {
-                Random rand = new Random();
-                int x = rand.nextInt() % 10;
-                if(!userList.get(i).getFriendsList().contains(userList.get(x))) {
+                int x = Math.abs(rand.nextInt() % 10);
+
+                if( userList.get(i).getFriendsList().size() == 0 ){
+                    userList.get(i).addFriend(userList.get(x));
+                    userList.get(x).addFriend(userList.get(i));
+                }else if (!userList.get(i).getFriendsList().contains(userList.get(x))) {
                     userList.get(i).addFriend(userList.get(x));
                     userList.get(x).addFriend(userList.get(i));
                 }

@@ -43,7 +43,11 @@
         android:id="@+id/userListRvFragment"
         android:name="com.example.foodies.UserListRvFragment"
         android:label="fragment_user_list_rv"
-        tools:layout="@layout/fragment_user_list_rv" />
+        tools:layout="@layout/fragment_user_list_rv" >
+        <argument
+            android:name="userId"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/restaurantPageRvFragment"
         android:name="com.example.foodies.RestaurantPageRvFragment"

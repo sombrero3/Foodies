@@ -26,7 +26,10 @@ public class UserListRvFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_list_rv, container, false);
-        userList = Model.instance.getUserList();
+
+
+        User user = Model.instance.getUserById(UserListRvFragmentArgs.fromBundle(getArguments()).getUserId());
+        userList = Model.instance.getUserById(user.getId()).getFriendsList();
 
         RecyclerView list = view.findViewById(R.id.userlist_rv);
         list.setHasFixedSize(true);

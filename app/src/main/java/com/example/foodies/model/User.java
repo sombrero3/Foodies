@@ -3,6 +3,7 @@ package com.example.foodies.model;
 import android.media.Image;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class User {
@@ -21,8 +22,8 @@ public class User {
         firstName = "";
         lastName = "";
         totalReviews ="0";
-        reviewList = new ArrayList<>();
-        friendsList = new ArrayList<>();
+        reviewList = new LinkedList<>();
+        friendsList = new LinkedList<>();
         totalRestaurantsVisited = "0";
     }
     public User(String firstName,String lastName){
@@ -30,8 +31,8 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         totalReviews ="0";
-        reviewList = new ArrayList<>();
-        friendsList = new ArrayList<>();
+        reviewList = new LinkedList<>();
+        friendsList = new LinkedList<>();
         totalRestaurantsVisited = "0";
     }
 
