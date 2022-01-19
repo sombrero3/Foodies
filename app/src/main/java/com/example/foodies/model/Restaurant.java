@@ -27,7 +27,7 @@ public class Restaurant {
         this.id = Integer.toString(IdGenerator.instance.getNextId());
         this.name = name;
         this.location = "";
-        this.rating = "";
+        this.rating = "No rating yet";
         dishList=new ArrayList<>();
         numOfUsersVisited ="0";
     }
@@ -35,7 +35,7 @@ public class Restaurant {
         this.id = Integer.toString(IdGenerator.instance.getNextId());
         this.name = name;
         this.location = location;
-        this.rating = "";
+        this.rating = "No rating yet";
         dishList=new ArrayList<>();
         numOfUsersVisited ="0";
     }
@@ -96,7 +96,11 @@ public class Restaurant {
     public void setNumOfUsersVisited(String numOfUsersVisited) {
         this.numOfUsersVisited = numOfUsersVisited;
     }
-//    public void setRating(String rating) {
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+    //    public void setRating(String rating) {
 //        this.rating = rating;
 //    }
 
