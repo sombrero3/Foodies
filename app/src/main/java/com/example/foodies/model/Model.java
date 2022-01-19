@@ -49,7 +49,6 @@ public class Model {
                         Review review = new Review(dish.getId(), res.getId(),userList.get(k).getId(),"4");
                         dish.setPrice(Integer.toString(k)+"$");
                         reviewList.add(review);
-
                 }
                 dishList.add(dish);
             }
@@ -135,7 +134,6 @@ public class Model {
                 break;
             }
         }
-
     }
     public void addDish(Dish dish){
         String restaurant = dish.getRestaurantId();
@@ -144,7 +142,7 @@ public class Model {
             if(restaurantList.get(i).getId().equals(restaurant)){
                 restaurantList.get(i).addDish(dish);
                 dishList.add(dish);
-                break;
+
             }
         }
 
@@ -235,7 +233,7 @@ public class Model {
         for(int i=0;i<reviewList.size();i++){
             if(reviewList.get(i).getRestaurantId().equals(restaurantId) && !result.contains(getUserById(reviewList.get(i).getUserId()))){
                 result.add(getUserById(reviewList.get(i).getUserId()));
-                break;
+
             }
         }
         return result;
@@ -245,7 +243,7 @@ public class Model {
         for(int i=0;i<reviewList.size();i++){
             if(reviewList.get(i).getUserId().equals(userId) && !result.contains(getRestaurantById(reviewList.get(i).getRestaurantId()))){
                 result.add(getRestaurantById(reviewList.get(i).getRestaurantId()));
-                break;
+
             }
         }
         return result;
@@ -255,7 +253,6 @@ public class Model {
         for(int i=0;i<reviewList.size();i++){
             if(reviewList.get(i).getUserId().equals(userId) && reviewList.get(i).getRestaurantId().equals(restaurantId) && !result.contains(getDishById(reviewList.get(i).getDishId()))){
                 result.add(getDishById(reviewList.get(i).getDishId()));
-                break;
             }
         }
         return result;
