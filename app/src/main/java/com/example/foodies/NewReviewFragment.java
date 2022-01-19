@@ -22,7 +22,7 @@ public class NewReviewFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_new_review, container, false);
         addLoc = view.findViewById(R.id.NewReview_addLoc_tv);
-        addLoc.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_newReviewFragment3_to_mapFragment3));
+
 
        return view;
     }

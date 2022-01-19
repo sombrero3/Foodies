@@ -20,13 +20,15 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-       home = view.findViewById(R.id.Home_home_tv);
-       myReviews = view.findViewById(R.id.Home_myReviews_tv);
-       myFriends = view.findViewById(R.id.Home_myFriends_tv);
+       home = view.findViewById(R.id.home_home_tv);
+       myReviews = view.findViewById(R.id.home_my_reviews_tv);
+       myFriends = view.findViewById(R.id.home_my_friends_tv);
 
-       home.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_homeFragment2_to_searchRestaurantFragment3));
-       myReviews.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_homeFragment2_to_myReviewsFragment3));
-       myFriends.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_homeFragment2_to_myFriendsFragment3));
+
+
+       home.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_homeFragment_to_homeRestaurantListRvFragment));
+       myReviews.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_homeFragment_to_userRestaurantListRvFragment));
+       myFriends.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_homeFragment_to_userListRvFragment));
 
         return view;
     }
