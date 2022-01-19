@@ -245,4 +245,13 @@ public class Model {
         }
         return result;
     }
+    public Review getReviewOnDishByDishIdAndUserId(String dishId,String userId){
+
+        for(int i=0;i<reviewList.size();i++){
+            if(reviewList.get(i).getDishId().equals(dishId) && reviewList.get(i).getUserId().equals(userId)){
+                return reviewList.get(i);
+            }
+        }
+        return reviewList.get(0);
+    }
 }

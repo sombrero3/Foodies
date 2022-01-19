@@ -12,12 +12,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodies.model.Dish;
 import com.example.foodies.model.Model;
 import com.example.foodies.model.Restaurant;
+import com.example.foodies.model.Review;
 import com.example.foodies.model.User;
 
 import java.util.List;
@@ -51,7 +53,10 @@ public class UserReviewsOnRestaurantRvFragment extends Fragment {
                 public void onItemClick(View v, int position) {
                     String dishName = dishList.get(position).getName();
                     String price = dishList.get(position).getPrice();
+                    String dishId = dishList.get(position).getId();
+                    Review review = Model.instance.getReviewOnDishByDishIdAndUserId(dishId, user.getId());
                     Log.d("TAG","dish clicked: " + dishName + " price: "+price );
+                    Navigation.findNavController(v).navigate(UserReviewsOnRestaurantRvFragmentDirections.actionUserReviewsOnRestaurantRvFragmentToReviewFragment2(review.getId()));
                     //Navigation.findNavController(v).navigate(StudentListRvFragmentDirections.actionStudentListRvFragmentToStudentDetailsFragment(stId));
 
                 }
