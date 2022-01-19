@@ -40,8 +40,8 @@ public class Model {
             for(int j=0;j<10;j++){
                 Dish dish = new Dish("Dish name "+i + " " + j);
                 for(int k=0;k<10;k++){
-
                         Review review = new Review(dish.getId(), res.getId(),userList.get(k).getId(),"4");
+                        dish.setPrice(Integer.toString(k)+"$");
                         reviewList.add(review);
 
                 }

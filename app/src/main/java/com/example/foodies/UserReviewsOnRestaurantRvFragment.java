@@ -50,7 +50,8 @@ public class UserReviewsOnRestaurantRvFragment extends Fragment {
                 @Override
                 public void onItemClick(View v, int position) {
                     String dishName = dishList.get(position).getName();
-                    Log.d("TAG","dish clicked: " + dishName);
+                    String price = dishList.get(position).getPrice();
+                    Log.d("TAG","dish clicked: " + dishName + " price: "+price );
                     //Navigation.findNavController(v).navigate(StudentListRvFragmentDirections.actionStudentListRvFragmentToStudentDetailsFragment(stId));
 
                 }
@@ -120,6 +121,7 @@ public class UserReviewsOnRestaurantRvFragment extends Fragment {
             public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
                 Dish dish = dishList.get(position);
                 holder.nameTv.setText(dish.getName());
+                holder.priceTv.setText(dish.getPrice());
 
 
             }

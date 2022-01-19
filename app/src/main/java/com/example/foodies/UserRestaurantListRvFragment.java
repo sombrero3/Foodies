@@ -39,7 +39,7 @@ public class UserRestaurantListRvFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_user_restaurant_list_rv, container, false);
 
         //implement usersRestaurantList and replace it with restaurantList---------------------------------------------------------//
-        User user = Model.instance.getUserList().get(0);
+        User user = Model.instance.getUserById(UserRestaurantListRvFragmentArgs.fromBundle(getArguments()).getUserId());
         restaurantList = Model.instance.getAllRestaurantsThatUserHasReviewsOnByUserId(user.getId());
         //-------------------------------------------------------------------------------------------------------------------------//
 
@@ -62,6 +62,7 @@ public class UserRestaurantListRvFragment extends Fragment {
         descriptionTv = view.findViewById(R.id.user_restaurant_description_tv);
         titleTv = view.findViewById(R.id.user_restaurant_title_tv);
         addReviewBtn = view.findViewById(R.id.user_restaurant_list_addreview_btn);
+        nameTv.setText(user.getFirstName() +" "+ user.getLastName());
         //--------controlling the addReview button--------------//
      //   addReviewBtn.setVisibility(View.INVISIBLE);
       //  addReviewBtn.setClickable(false);
