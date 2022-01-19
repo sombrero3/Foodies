@@ -10,6 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.foodies.model.Model;
+import com.example.foodies.model.User;
+
 
 public class HomeFragment extends Fragment {
 
@@ -25,10 +28,15 @@ public class HomeFragment extends Fragment {
        myFriends = view.findViewById(R.id.home_my_friends_tv);
 
 
-
+       User user = Model.instance.getUserList().get(0);
        home.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_homeFragment_to_homeRestaurantListRvFragment));
-       myReviews.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_homeFragment_to_userRestaurantListRvFragment));
-       myFriends.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_homeFragment_to_userListRvFragment));
+       myReviews.setOnClickListener((v)->{
+           Navigation.findNavController(v).navigate(HomeFragmentDirections.actionHomeFragmentToUserRestaurantListRvFragment(user.getId()));
+       });
+       myFriends.setOnClickListener((v)->{
+           Navigation.findNavController(v).navigate(HomeFragmentDirections.actionHomeFragmentToUserListRvFragment(user.getId()));
+       });
+
 
         return view;
     }

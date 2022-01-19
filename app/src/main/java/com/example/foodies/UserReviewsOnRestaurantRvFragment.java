@@ -12,12 +12,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodies.model.Dish;
 import com.example.foodies.model.Model;
 import com.example.foodies.model.Restaurant;
+import com.example.foodies.model.Review;
+import com.example.foodies.model.User;
 
 import java.util.List;
 
@@ -34,7 +37,9 @@ public class UserReviewsOnRestaurantRvFragment extends Fragment {
             View view = inflater.inflate(R.layout.fragment_user_reviews_on_restaurant_rv, container, false);
 
             //implement usersRestaurantList and replace it with restaurantList---------------------------------------------------------//
-            dishList = Model.instance.getDishList();
+            User user = Model.instance.getUserById(UserReviewsOnRestaurantRvFragmentArgs.fromBundle(getArguments()).getUserId());
+            Restaurant restaurant = Model.instance.getRestaurantById(UserReviewsOnRestaurantRvFragmentArgs.fromBundle(getArguments()).getRestaurantId());
+            dishList = Model.instance.getAllDishesThatTheUserHasAReviewedOnInThisRestaurantByUserIdAndRestaurantId(user.getId(),restaurant.getId());
             //-------------------------------------------------------------------------------------------------------------------------//
 
             RecyclerView list = view.findViewById(R.id.user_reviews_on_restaurant_dishes_list_rv);
@@ -47,7 +52,11 @@ public class UserReviewsOnRestaurantRvFragment extends Fragment {
                 @Override
                 public void onItemClick(View v, int position) {
                     String dishName = dishList.get(position).getName();
-                    Log.d("TAG","restaurant clicked: " + dishName);
+                    String price = dishList.get(position).getPrice();
+                    String dishId = dishList.get(position).getId();
+                    Review review = Model.instance.getReviewOnDishByDishIdAndUserId(dishId, user.getId());
+                    Log.d("TAG","dish clicked: " + dishName + " price: "+price );
+                    Navigation.findNavController(v).navigate(UserReviewsOnRestaurantRvFragmentDirections.actionUserReviewsOnRestaurantRvFragmentToReviewFragment2(review.getId()));
                     //Navigation.findNavController(v).navigate(StudentListRvFragmentDirections.actionStudentListRvFragmentToStudentDetailsFragment(stId));
 
                 }
@@ -60,6 +69,8 @@ public class UserReviewsOnRestaurantRvFragment extends Fragment {
             star3 = view.findViewById(R.id.user_reviews_on_restaurant_star3_iv);
             star4 = view.findViewById(R.id.user_reviews_on_restaurant_star4_iv);
             star5 = view.findViewById(R.id.user_reviews_on_restaurant_star5_iv);
+
+            nameTv.setText(user.getFirstName()+"'s reviews on "+restaurant.getName());
             //--------controlling the addReview button--------------//
             //   addReviewBtn.setVisibility(View.INVISIBLE);
             //  addReviewBtn.setClickable(false);
@@ -115,6 +126,7 @@ public class UserReviewsOnRestaurantRvFragment extends Fragment {
             public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
                 Dish dish = dishList.get(position);
                 holder.nameTv.setText(dish.getName());
+                holder.priceTv.setText(dish.getPrice());
 
 
             }

@@ -19,7 +19,7 @@ public class Dish {
 
     //-------Constructors-------//
     public Dish(){
-        id = IdGenerator.instance.getNextId().toString();
+        id = Integer.toString(IdGenerator.instance.getNextId());
         restaurantId = "";
         name = "";
         price = "";
@@ -31,7 +31,7 @@ public class Dish {
 
     }
     public Dish(String name){
-        id = IdGenerator.instance.getNextId().toString();
+        id = Integer.toString(IdGenerator.instance.getNextId());
         restaurantId = "";
         this.name = name;
         price = "";
@@ -43,7 +43,7 @@ public class Dish {
 
     }
     public Dish( String restaurantId, String name, String price, String description, boolean vegetarian){
-        this.id = IdGenerator.instance.getNextId().toString();
+        id = Integer.toString(IdGenerator.instance.getNextId());
         this.restaurantId = restaurantId;
         this.name = name;
         this.price = price;
@@ -54,7 +54,7 @@ public class Dish {
         rating ="No rating yet";
     }
     public Dish( String restaurantId, String name, String price, String description, boolean vegetarian, Review review){
-        this.id = IdGenerator.instance.getNextId().toString();
+        id = Integer.toString(IdGenerator.instance.getNextId());
         this.restaurantId = restaurantId;
         this.name = name;
         this.price = price;
