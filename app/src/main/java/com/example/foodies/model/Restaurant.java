@@ -11,7 +11,7 @@ public class Restaurant {
     String location;
     Image image;
     String rating;
-    List<String> usersVisited;
+    String numOfUsersVisited;
     List<Dish> dishList;
 
     //-------Constructors-------//
@@ -21,7 +21,7 @@ public class Restaurant {
         location = "";
         rating = "No rating yet";
         dishList=new ArrayList<>();
-        usersVisited = new ArrayList<>();
+        numOfUsersVisited = "0";
     }
     public Restaurant(String name) {
         String id = Integer.toString(IdGenerator.instance.getNextId());
@@ -29,7 +29,7 @@ public class Restaurant {
         this.location = "";
         this.rating = "";
         dishList=new ArrayList<>();
-        usersVisited = new ArrayList<>();
+        numOfUsersVisited ="0";
     }
     public Restaurant(String name, String location) {
         String id = Integer.toString(IdGenerator.instance.getNextId());
@@ -37,7 +37,7 @@ public class Restaurant {
         this.location = location;
         this.rating = "";
         dishList=new ArrayList<>();
-        usersVisited = new ArrayList<>();
+        numOfUsersVisited ="0";
     }
     public Restaurant(String name, String location, String rating) {
         String id = Integer.toString(IdGenerator.instance.getNextId());
@@ -45,7 +45,7 @@ public class Restaurant {
         this.location = location;
         this.rating = rating;
         dishList=new ArrayList<>();
-        usersVisited = new ArrayList<>();
+        numOfUsersVisited ="0";
     }
     public Restaurant(String name, String location,  Dish dish) {
         String id = Integer.toString(IdGenerator.instance.getNextId());
@@ -54,7 +54,7 @@ public class Restaurant {
         this.dishList = new ArrayList<>();
         dishList.add(dish);
         rating = dish.getRating();
-        usersVisited = new ArrayList<>();
+        numOfUsersVisited ="0";
     }
     public Restaurant(String name, String location,  ArrayList<Dish> dishList) {
         String id = Integer.toString(IdGenerator.instance.getNextId());
@@ -62,7 +62,7 @@ public class Restaurant {
         this.location = location;
         this.dishList = dishList;
         updateRating();
-        usersVisited = new ArrayList<>();
+        numOfUsersVisited ="0";
     }
 
     //-------Getters and Setters-------//
@@ -90,28 +90,31 @@ public class Restaurant {
     public void setDishList(List<Dish> dishList) {
         this.dishList = dishList;
     }
-    public List<String> getUsersVisited() {
-        return usersVisited;
+    public String getNumOfUsersVisited() {
+        return numOfUsersVisited;
     }
-    public void setUsersVisited(List<String> usersVisited) {
-        this.usersVisited = usersVisited;
+    public void setNumOfUsersVisited(String numOfUsersVisited) {
+        this.numOfUsersVisited = numOfUsersVisited;
     }
-    //    public void setRating(String rating) {
+//    public void setRating(String rating) {
 //        this.rating = rating;
 //    }
 
     //---------------------------------//
 
     public void updateRating(){
-        int sum=0,avg;
+        int sum=0,counter =0,avg;
         double f ,reminder,res;
 
         for(int i=0;i<dishList.size();i++){
-            sum+= Integer.valueOf(dishList.get(i).getRating());
+            if(!dishList.get(i).rating.equals("No rating yet")) {
+                sum += Integer.parseInt(dishList.get(i).getRating());
+                counter++;
+            }
         }
 
-        f = sum/dishList.size();
-        avg = sum/dishList.size();
+        f = sum/counter;
+        avg = sum/counter;
         reminder = f - avg;
         if(reminder<0.25){
             rating = Integer.toString(sum);
@@ -126,10 +129,14 @@ public class Restaurant {
     }
     public void addDish(Dish dish){
         dishList.add(dish);
-        updateRating();
+        if(!dish.getRating().equals("No rating yet")) {
+            updateRating();
+        }
     }
     public void deleteDish(Dish dish){
         dishList.remove(dish);
-        updateRating();
+        if(!dish.getRating().equals("No rating yet")) {
+            updateRating();
+        }
     }
 }

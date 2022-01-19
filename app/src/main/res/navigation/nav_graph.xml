@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.foodies.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_homeRestaurantListRvFragment"
+            app:destination="@id/homeRestaurantListRvFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_userRestaurantListRvFragment"
+            app:destination="@id/userRestaurantListRvFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_userListRvFragment"
+            app:destination="@id/userListRvFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeRestaurantListRvFragment"
+        android:name="com.example.foodies.HomeRestaurantListRvFragment"
+        android:label="HomeRestaurantListRvFragment" />
+    <fragment
+        android:id="@+id/userRestaurantListRvFragment"
+        android:name="com.example.foodies.UserRestaurantListRvFragment"
+        android:label="fragment_user_restaurant_list_rv"
+        tools:layout="@layout/fragment_user_restaurant_list_rv" />
+    <fragment
+        android:id="@+id/userListRvFragment"
+        android:name="com.example.foodies.UserListRvFragment"
+        android:label="fragment_user_list_rv"
+        tools:layout="@layout/fragment_user_list_rv" />
+</navigation>

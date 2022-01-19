@@ -13,7 +13,19 @@ public class Model {
 
     public static final Model instance = new Model();
 
-    public Model() {
+    private Model() {
+        for(int i=0;i<10;i++){
+            User user = new User("name ", "" + i );
+            userList.add(user);
+        }
+        for(int i=0;i<10;i++){
+            Restaurant res = new Restaurant("name "+i);
+            restaurantList.add(res);
+        }
+        for(int i=0;i<10;i++){
+            Dish dish = new Dish("name "+i);
+            dishList.add(dish);
+        }
     }
 
     //-------Getters and Setters-------//
@@ -76,36 +88,109 @@ public class Model {
         return new User();
     }
 
-    public void deleteUser(User user){
-        userList.remove(user); // delete from user list
+    public void addReview(Review review){
+        String user = review.getUserId();
+        int size = userList.size();
+        for(int i=0;i<size;i++){
+            if(userList.get(i).getId().equals(user)){
+                userList.get(i).addReview(review);
+                break;
+            }
+        }
+        String dish = review.getDishId();
+        size = dishList.size();
+        for(int i=0;i<size;i++){
+            if(dishList.get(i).getId().equals(dish)){
+                dishList.get(i).addReview(review);
+                break;
+            }
+        }
 
-//        for(int i=0;i<reviewList.size();i++){ //delete all of this user's reviews and updating ratings
-//            if(reviewList.get(i).getUserId().equals(user.getId())){
-//                reviewList.get(i).deleteReview();
-//            }
-//        }
+    }
+    public void addDish(Dish dish){
+        String restaurant = dish.getRestaurantId();
+        int size = restaurantList.size();
+        for(int i=0;i<size;i++){
+            if(restaurantList.get(i).getId().equals(restaurant)){
+                restaurantList.get(i).addDish(dish);
+            }
+        }
+        dishList.add(dish);
+    }
+    public void addRestaurant(Restaurant restaurant){
+        restaurantList.add(restaurant);
+    }
+    public void addUser(User user){
+        userList.add(user);
+    }
 
-
+    public void deleteReview(Review review){
+        int size =dishList.size();
+        for(int i=0; i<size;i++){                  // remove from the dish's review list
+            if(dishList.get(i).getId().equals(review.getDishId())){
+                dishList.get(i).deleteReview(review);
+            }
+        }
+        size =userList.size();
+        for(int i=0; i<size;i++){                  // remove the review from the user's review list
+            if(userList.get(i).getId().equals(review.getUserId())){
+                userList.get(i).deleteReview(review);
+            }
+        }
+        reviewList.remove(review);
     }
     public void deleteDish(Dish dish){
+        int size = dish.getReviewList().size();
+        for(int i=0;i<size;i++){                   // remove the reviews on this dish from each users review list
+            String user = dish.getReviewList().get(i).getUserId();
+            int size2 = userList.size();
+            for(int j=0; j<size2;j++){
+                if(userList.get(j).getId().equals(user)){
+                    userList.get(j).deleteReview(dish.getReviewList().get(i));
+                }
+            }
+        }
+        size = restaurantList.size();
+        for(int i=0;i<size;i++){                  // remove the dish from the restautant's dish list
+            String restaurant = dish.getRestaurantId();
+            if(restaurantList.get(i).getId().equals(restaurant)){
+                restaurantList.get(i).deleteDish(dish);
+            }
+        }
         dishList.remove(dish);
-        getRestaurantById(dish.getRestaurantId()).deleteDish(dish);
-        for(int i=0;i<reviewList.size();i++) {
-            if(reviewList.get(i).getDishId().equals(dish.getId())){
-                reviewList.remove(i);
+    }
+    public void deleteRestaurant(Restaurant restaurant){
+        int size = restaurant.getDishList().size();
+        for(int i=0;i<size;i++){                  // for each restaurant's dish
+            int size2 = restaurant.getDishList().get(i).getReviewList().size();
+            for(int j=0;j<size2;j++) {            // remove all dish's reviews from their user's review list than delete review
+                int size3 = userList.size();
+                for (int k = 0; k < size3;k++) {
+                    if(restaurant.getDishList().get(i).getReviewList().get(j).userId.equals(userList.get(k).getId())){
+                        userList.get(k).deleteReview(restaurant.getDishList().get(i).getReviewList().get(j));
+                        reviewList.remove(restaurant.getDishList().get(i).getReviewList().get(j));
+                    }
+                }
+            }
+            dishList.remove(restaurant.getDishList().get(i));  // remove dishs
+        }
+        restaurantList.remove(restaurant); // remove restaurant
+    }
+    public void deleteUser(User user){
+        int size = user.getFriendsList().size(); // remove user from all of his friend's users list
+        for(int i=0;i<size;i++){
+            user.getFriendsList().get(i).getFriendsList().remove(user);
+        }
+        size = user.getReviewList().size();  // remove all user's reviews from their dishes
+        for(int i=0;i<size;i++){
+            int size2 =dishList.size();
+            String dish = user.getReviewList().get(i).getDishId();
+            for(int j=0;j<size2;j++) {
+                if(dishList.get(j).getId().equals(dish)){
+                    dishList.get(j).deleteReview(user.getReviewList().get(i));
+                }
             }
         }
-        for(int i=0;i<userList.size();i++) {
-            if(userList.get(i).getReviewList().contains(dish.getId())){
-                userList.get(i).getReviewList().remove(dish.getId());
-            }
-        }
-
-    }
-    public void deleteReview(){
-
-    }
-    public void deleteRestaurant(){
-
+        userList.remove(user); // delete from Model user list
     }
 }

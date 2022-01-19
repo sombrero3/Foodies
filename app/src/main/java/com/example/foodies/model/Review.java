@@ -9,7 +9,7 @@ public class Review {
     String id;
     Image image;
     String description;
-    int rating;
+    String rating;
 
     //-------Constructors-------//
     public Review() {
@@ -18,9 +18,9 @@ public class Review {
         userId = "";
         id = IdGenerator.instance.getNextId().toString();
         description = "";
-        rating = 0;
+        rating = "0";
     }
-    public Review(String dishId, String restaurantId, String userId, String description, int rating) {
+    public Review(String dishId, String restaurantId, String userId, String description, String rating) {
         this.dishId = dishId;
         this.restaurantId = restaurantId;
         this.userId = userId;
@@ -58,10 +58,10 @@ public class Review {
     public void setDescription(String description) {
         this.description = description;
     }
-    public int getRating() {
+    public String getRating() {
         return rating;
     }
-    public void setRating(int rating) {
+    public void setRating(String rating) {
         this.rating = rating;
         Model.instance.getDishById(dishId).updateRating();
     }
