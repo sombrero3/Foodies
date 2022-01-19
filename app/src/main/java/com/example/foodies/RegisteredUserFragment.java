@@ -26,7 +26,7 @@ public class RegisteredUserFragment extends Fragment {
       signIn = view.findViewById(R.id.RegisteredUser_signIn_btn);
       forgot = view.findViewById(R.id.RegisteredUser_forgot_tv);
 
-      forgot.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_registeredUserFragment3_to_newUserFragment2));
+
 
    return view;
     }

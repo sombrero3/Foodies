@@ -3,111 +3,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/searchRestaurantFragment3">
+    app:startDestination="@id/homeFragment">
     <fragment
-        android:id="@+id/searchRestaurantFragment3"
-        android:name="com.example.foodies.SearchRestaurantFragment"
-        android:label="fragment_search_restaurant"
-        tools:layout="@layout/fragment_search_restaurant" >
-        <action
-            android:id="@+id/action_searchRestaurantFragment3_to_restaurantPageFragment3"
-            app:destination="@id/restaurantPageFragment3" />
-    </fragment>
-    <fragment
-        android:id="@+id/restaurantPageFragment3"
-        android:name="com.example.foodies.RestaurantPageFragment"
-        android:label="fragment_restaurant_page"
-        tools:layout="@layout/fragment_restaurant_page" >
-        <action
-            android:id="@+id/action_restaurantPageFragment3_to_userReviewsOnRestaurantFragment3"
-            app:destination="@id/userReviewsOnRestaurantFragment3" />
-    </fragment>
-    <fragment
-        android:id="@+id/userReviewsOnRestaurantFragment3"
-        android:name="com.example.foodies.UserReviewsOnRestaurantFragment"
-        android:label="fragment_user_reviews_on_restaurant"
-        tools:layout="@layout/fragment_user_reviews_on_restaurant" />
-    <fragment
-        android:id="@+id/userName"
-        android:name="com.example.foodies.UserNameFragment"
-        android:label="fragment_user_name"
-        tools:layout="@layout/fragment_user_name" >
-        <action
-            android:id="@+id/action_userName_to_userReviewsOnRestaurantFragment3"
-            app:destination="@id/userReviewsOnRestaurantFragment3" />
-        <action
-            android:id="@+id/action_userName_to_homeFragment2"
-            app:destination="@id/homeFragment2" />
-    </fragment>
-    <fragment
-        android:id="@+id/myFriendsFragment3"
-        android:name="com.example.foodies.MyFriendsFragment"
-        android:label="fragment_my_friends"
-        tools:layout="@layout/fragment_my_friends" >
-        <action
-            android:id="@+id/action_myFriendsFragment3_to_userName"
-            app:destination="@id/userName" />
-    </fragment>
-    <fragment
-        android:id="@+id/homeFragment2"
+        android:id="@+id/homeFragment"
         android:name="com.example.foodies.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_homeFragment2_to_myFriendsFragment3"
-            app:destination="@id/myFriendsFragment3" />
+            android:id="@+id/action_homeFragment_to_homeRestaurantListRvFragment"
+            app:destination="@id/homeRestaurantListRvFragment" />
         <action
-            android:id="@+id/action_homeFragment2_to_searchRestaurantFragment3"
-            app:destination="@id/searchRestaurantFragment3" />
+            android:id="@+id/action_homeFragment_to_userRestaurantListRvFragment"
+            app:destination="@id/userRestaurantListRvFragment" />
         <action
-            android:id="@+id/action_homeFragment2_to_myReviewsFragment3"
-            app:destination="@id/myReviewsFragment3" />
+            android:id="@+id/action_homeFragment_to_userListRvFragment"
+            app:destination="@id/userListRvFragment" />
     </fragment>
     <fragment
-        android:id="@+id/myReviewsFragment3"
-        android:name="com.example.foodies.MyReviewsFragment"
-        android:label="fragment_my_reviews"
-        tools:layout="@layout/fragment_my_reviews" >
-        <action
-            android:id="@+id/action_myReviewsFragment3_to_newReviewFragment3"
-            app:destination="@id/newReviewFragment3" />
-        <action
-            android:id="@+id/action_myReviewsFragment3_to_homeFragment2"
-            app:destination="@id/homeFragment2" />
-    </fragment>
+        android:id="@+id/homeRestaurantListRvFragment"
+        android:name="com.example.foodies.HomeRestaurantListRvFragment"
+        android:label="HomeRestaurantListRvFragment" />
     <fragment
-        android:id="@+id/newReviewFragment3"
-        android:name="com.example.foodies.NewReviewFragment"
-        android:label="fragment_new_review"
-        tools:layout="@layout/fragment_new_review" >
-        <action
-            android:id="@+id/action_newReviewFragment3_to_mapFragment3"
-            app:destination="@id/mapFragment3" />
-    </fragment>
+        android:id="@+id/userRestaurantListRvFragment"
+        android:name="com.example.foodies.UserRestaurantListRvFragment"
+        android:label="fragment_user_restaurant_list_rv"
+        tools:layout="@layout/fragment_user_restaurant_list_rv" />
     <fragment
-        android:id="@+id/mapFragment3"
-        android:name="com.example.foodies.MapFragment"
-        android:label="fragment_map"
-        tools:layout="@layout/fragment_map" />
-    <fragment
-        android:id="@+id/registeredUserFragment3"
-        android:name="com.example.foodies.RegisteredUserFragment"
-        android:label="fragment_registered_user"
-        tools:layout="@layout/fragment_registered_user" >
-        <action
-            android:id="@+id/action_registeredUserFragment3_to_homeFragment2"
-            app:destination="@id/homeFragment2" />
-        <action
-            android:id="@+id/action_registeredUserFragment3_to_newUserFragment2"
-            app:destination="@id/newUserFragment2" />
-    </fragment>
-    <fragment
-        android:id="@+id/newUserFragment2"
-        android:name="com.example.foodies.NewUserFragment"
-        android:label="fragment_new_user"
-        tools:layout="@layout/fragment_new_user" >
-        <action
-            android:id="@+id/action_newUserFragment2_to_homeFragment2"
-            app:destination="@id/homeFragment2" />
-    </fragment>
+        android:id="@+id/userListRvFragment"
+        android:name="com.example.foodies.UserListRvFragment"
+        android:label="fragment_user_list_rv"
+        tools:layout="@layout/fragment_user_list_rv" />
 </navigation>
