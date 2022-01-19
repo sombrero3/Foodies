@@ -19,8 +19,8 @@ public class SearchRestaurantFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_search_restaurant, container, false);
 
-        testSea =view.findViewById(R.id.SearchRestaurant_test_btn);
-        testSea.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_searchRestaurantFragment3_to_restaurantPageFragment3));
+       // testSea =view.findViewById(R.id.SearchRestaurant_test_btn);
+       // testSea.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_searchRestaurantFragment3_to_restaurantPageFragment3));
 
         return view;
     }

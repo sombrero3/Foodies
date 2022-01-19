@@ -21,3 +21,4 @@ public class MainActivity extends AppCompatActivity {
      // NewUserFragment newUserFragment = (NewUserFragment) getSupportFragmentManager().findFragmentById(R.id.NewUser_container_frag_);
     }
 }
+//
