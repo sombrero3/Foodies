@@ -1,5 +1,9 @@
 package com.example.foodies.model;
 
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.example.foodies.R;
 
 import java.util.ArrayList;
@@ -15,6 +19,8 @@ public class Model {
     List<Review> reviewList = new LinkedList<>();
 
     public static final Model instance = new Model();
+
+
 
     private Model() {
         for(int i=0;i<10;i++){
@@ -254,4 +260,95 @@ public class Model {
         }
         return reviewList.get(0);
     }
+    public void setStarByRating(String ratingVal, ImageView star1, ImageView star2, ImageView star3, ImageView star4, ImageView star5, TextView rateTv){
+
+        if(!ratingVal.equals("No rating yet")){
+            rateTv.setText("");
+            float rate =Float.parseFloat(ratingVal);
+            if(rate==0.5){
+                star1.setImageResource(R.drawable.halfstar);
+                star2.setVisibility(View.INVISIBLE);
+                star3.setVisibility(View.INVISIBLE);
+                star4.setVisibility(View.INVISIBLE);
+                star5.setVisibility(View.INVISIBLE);
+            }
+            else if(rate==1){
+                star1.setImageResource(R.drawable.star);
+                star2.setVisibility(View.INVISIBLE);
+                star3.setVisibility(View.INVISIBLE);
+                star4.setVisibility(View.INVISIBLE);
+                star5.setVisibility(View.INVISIBLE);
+
+            }
+            else if(rate==1.5){
+                star1.setImageResource(R.drawable.star);
+                star2.setImageResource(R.drawable.halfstar);
+                star3.setVisibility(View.INVISIBLE);
+                star4.setVisibility(View.INVISIBLE);
+                star5.setVisibility(View.INVISIBLE);
+            }
+            else if(rate==2){
+                star1.setImageResource(R.drawable.star);
+                star2.setImageResource(R.drawable.star);
+                star3.setVisibility(View.INVISIBLE);
+                star4.setVisibility(View.INVISIBLE);
+                star5.setVisibility(View.INVISIBLE);
+            }
+            else if(rate==2.5){
+                star1.setImageResource(R.drawable.star);
+                star2.setImageResource(R.drawable.star);
+                star3.setImageResource(R.drawable.halfstar);
+                star4.setVisibility(View.INVISIBLE);
+                star5.setVisibility(View.INVISIBLE);
+            }
+            else if(rate==3){
+                star1.setImageResource(R.drawable.star);
+                star2.setImageResource(R.drawable.star);
+                star3.setImageResource(R.drawable.star);
+                star4.setVisibility(View.INVISIBLE);
+                star5.setVisibility(View.INVISIBLE);
+            }
+            else if(rate==3.5){
+                star1.setImageResource(R.drawable.star);
+                star2.setImageResource(R.drawable.star);
+                star3.setImageResource(R.drawable.star);
+                star4.setImageResource(R.drawable.halfstar);
+                star5.setVisibility(View.INVISIBLE);
+            }
+            else if(rate==4){
+                star1.setImageResource(R.drawable.star);
+                star2.setImageResource(R.drawable.star);
+                star3.setImageResource(R.drawable.star);
+                star4.setImageResource(R.drawable.star);
+                star5.setVisibility(View.INVISIBLE);
+            }
+            else if(rate==4.5){
+                star1.setImageResource(R.drawable.star);
+                star2.setImageResource(R.drawable.star);
+                star3.setImageResource(R.drawable.star);
+                star4.setImageResource(R.drawable.star);
+                star5.setImageResource(R.drawable.halfstar);
+            }
+            else if(rate==5){
+                star1.setImageResource(R.drawable.star);
+                star2.setImageResource(R.drawable.star);
+                star3.setImageResource(R.drawable.star);
+                star4.setImageResource(R.drawable.star);
+                star5.setImageResource(R.drawable.star);
+
+            }
+
+
+        }
+        else{
+            star1.setVisibility(View.INVISIBLE);
+            star2.setVisibility(View.INVISIBLE);
+            star3.setVisibility(View.INVISIBLE);
+            star4.setVisibility(View.INVISIBLE);
+            star5.setVisibility(View.INVISIBLE);
+        }
+
+    }
+
+
 }

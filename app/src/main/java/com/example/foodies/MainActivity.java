@@ -24,10 +24,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-         super.onCreateOptionsMenu(menu);
-         getMenuInflater().inflate(R.menu.main_menu,menu);
-         return  true;
-    }
+    //@Override
+ //   public boolean onCreateOptionsMenu(Menu menu) {
+   //      super.onCreateOptionsMenu(menu);
+   //      getMenuInflater().inflate(R.menu.main_menu,menu);
+     //    return  true;
+  //  }
 }
