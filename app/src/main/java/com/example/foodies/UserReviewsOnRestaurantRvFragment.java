@@ -25,12 +25,15 @@ import com.example.foodies.model.User;
 import java.util.List;
 
 
+
 public class UserReviewsOnRestaurantRvFragment extends Fragment {
         List<Dish> dishList;
         TextView nameTv;
         TextView generaReviewTitle;
         TextView descriptionTv;
         ImageView image,star1,star2,star3,star4,star5;
+        TextView ratingTv;
+       float rate;
 
         @Override
         public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -69,6 +72,16 @@ public class UserReviewsOnRestaurantRvFragment extends Fragment {
             star3 = view.findViewById(R.id.user_reviews_on_restaurant_star3_iv);
             star4 = view.findViewById(R.id.user_reviews_on_restaurant_star4_iv);
             star5 = view.findViewById(R.id.user_reviews_on_restaurant_star5_iv);
+            ratingTv = view.findViewById(R.id.user_reviews_on_restaurant_rating_tv);
+
+            restaurant.setRating("2.5");
+            Model.instance.setStarByRating(restaurant.getRating(),star1,star2,star3,star4,star5,ratingTv);
+
+
+
+           // star5.setVisibility(View.INVISIBLE);       erase image
+         //   star5.setImageResource(R.drawable.boy1);   change image
+
 
             nameTv.setText(user.getFirstName()+"'s reviews on "+restaurant.getName());
             //--------controlling the addReview button--------------//
@@ -81,9 +94,12 @@ public class UserReviewsOnRestaurantRvFragment extends Fragment {
 
         }
 
+
+
         class MyViewHolder extends RecyclerView.ViewHolder{
-            TextView nameTv,priceTv;
+            TextView nameTv,priceTv,ratingTv;
             ImageView image,star1,star2,star3,star4,star5;
+
 
             public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
                 super(itemView);
@@ -95,6 +111,14 @@ public class UserReviewsOnRestaurantRvFragment extends Fragment {
                 star3 = itemView.findViewById(R.id.dish_list_row_star3_iv);
                 star4 = itemView.findViewById(R.id.dish_list_row_star4_iv);
                 star5 = itemView.findViewById(R.id.dish_list_row_star5_iv);
+              ratingTv =itemView.findViewById(R.id.dish_list_row_rating_tv);
+                //  String dishName=nameTv.toString();
+              //  Model.instance.setStarByRating(,star1,star2,star3,star4,star5,ratingTv);
+              //  Model.instance.setStarByRating(ratingTv.toString(), star1,star2, star3, star4, star5, ratingTv);
+
+
+                //   star5.setVisibility(View.INVISIBLE);
+
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -127,8 +151,7 @@ public class UserReviewsOnRestaurantRvFragment extends Fragment {
                 Dish dish = dishList.get(position);
                 holder.nameTv.setText(dish.getName());
                 holder.priceTv.setText(dish.getPrice());
-
-
+              //  Model.instance.setStarByRating(holder.ratingTv.toString(), holder.star1, holder.star2, holder.star3, holder.star4, holder.star5, holder.ratingTv);
             }
 
             @Override
