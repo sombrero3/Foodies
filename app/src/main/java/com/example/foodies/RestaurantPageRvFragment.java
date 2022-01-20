@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,8 +36,13 @@ public class RestaurantPageRvFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_restaurant_page_rv, container, false);
 
         //implement usersRestaurantList and replace it with restaurantList---------------------------------------------------------//
-        usersList = Model.instance.getUserList();
+
+
+
         //-------------------------------------------------------------------------------------------------------------------------//
+        String resId = RestaurantPageRvFragmentArgs.fromBundle(getArguments()).getRestaurantId();
+        Restaurant restaurant = Model.instance.getRestaurantById(resId);
+        usersList = Model.instance.getAllUsersThatHaveReviewsOnRestaurantByRestaurantId(resId);
 
         RecyclerView list = view.findViewById(R.id.restaurant_page_rv);
         list.setHasFixedSize(true);
@@ -49,7 +55,8 @@ public class RestaurantPageRvFragment extends Fragment {
             public void onItemClick(View v, int position) {
                 String userName = usersList.get(position).getFirstName() + " " +usersList.get(position).getLastName();
                 Log.d("TAG","user clicked: " + userName);
-                //Navigation.findNavController(v).navigate(StudentListRvFragmentDirections.actionStudentListRvFragmentToStudentDetailsFragment(stId));
+                User user = usersList.get(position);
+                Navigation.findNavController(v).navigate(RestaurantPageRvFragmentDirections.actionRestaurantPageRvFragmentToUserReviewsOnRestaurantRvFragment(user.getId(),resId));
 
             }
         });
@@ -61,6 +68,12 @@ public class RestaurantPageRvFragment extends Fragment {
         star3 = view.findViewById(R.id.restaurant_page_star3_iv);
         star4 = view.findViewById(R.id.restaurant_page_star4_iv);
         star5 = view.findViewById(R.id.restaurant_page_star5_iv);
+
+        nameTv.setText(restaurant.getName());
+        locationTv.setText(restaurant.getLocation());
+
+
+
         //--------controlling the addReview button--------------//
         //   addReviewBtn.setVisibility(View.INVISIBLE);
         //  addReviewBtn.setClickable(false);

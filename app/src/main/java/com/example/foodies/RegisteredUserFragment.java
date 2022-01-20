@@ -27,6 +27,9 @@ public class RegisteredUserFragment extends Fragment {
       forgot = view.findViewById(R.id.RegisteredUser_forgot_tv);
 
 
+      signIn.setOnClickListener((v)->{
+          Navigation.findNavController(v).navigate(RegisteredUserFragmentDirections.actionRegisteredUserFragmentToHomeFragment());
+      });
 
    return view;
     }

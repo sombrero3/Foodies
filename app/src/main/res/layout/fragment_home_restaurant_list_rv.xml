@@ -19,11 +19,11 @@
         android:text="Search for a restaurant"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toStartOf="@+id/home_restaurant_search_ibtn"
-        app:layout_constraintStart_toEndOf="@+id/imageView15"
+        app:layout_constraintStart_toEndOf="@+id/home_restaurant_location_iv"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView15"
+        android:id="@+id/home_restaurant_location_iv"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginStart="8dp"

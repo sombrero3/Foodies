@@ -1,8 +1,15 @@
 package com.example.foodies.model;
 
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.example.foodies.R;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 public class Model {
 
@@ -13,19 +20,41 @@ public class Model {
 
     public static final Model instance = new Model();
 
+
+
     private Model() {
         for(int i=0;i<10;i++){
-            User user = new User("name ", "" + i );
+            User user = new User("name "+i, "" + i );
             userList.add(user);
         }
+        Random rand = new Random();
         for(int i=0;i<10;i++){
-            Restaurant res = new Restaurant("name "+i);
+            for(int j=0;j<4;j++) {
+                int x = Math.abs(rand.nextInt() % 10);
+
+                if( userList.get(i).getFriendsList().size() == 0 ){
+                    userList.get(i).addFriend(userList.get(x));
+                    userList.get(x).addFriend(userList.get(i));
+                }else if (!userList.get(i).getFriendsList().contains(userList.get(x))) {
+                    userList.get(i).addFriend(userList.get(x));
+                    userList.get(x).addFriend(userList.get(i));
+                }
+            }
+        }
+        for(int i=0;i<10;i++){
+            Restaurant res = new Restaurant("Restaurant name "+i);
+            for(int j=0;j<10;j++){
+                Dish dish = new Dish("Dish name "+i + " " + j);
+                for(int k=0;k<10;k++){
+                        Review review = new Review(dish.getId(), res.getId(),userList.get(k).getId(),"4");
+                        dish.setPrice(Integer.toString(k)+"$");
+                        reviewList.add(review);
+                }
+                dishList.add(dish);
+            }
             restaurantList.add(res);
         }
-        for(int i=0;i<10;i++){
-            Dish dish = new Dish("name "+i);
-            dishList.add(dish);
-        }
+
     }
 
     //-------Getters and Setters-------//
@@ -89,33 +118,12 @@ public class Model {
     }
 
     public void addReview(Review review){
-        String user = review.getUserId();
-        int size = userList.size();
-        for(int i=0;i<size;i++){
-            if(userList.get(i).getId().equals(user)){
-                userList.get(i).addReview(review);
-                break;
-            }
-        }
-        String dish = review.getDishId();
-        size = dishList.size();
-        for(int i=0;i<size;i++){
-            if(dishList.get(i).getId().equals(dish)){
-                dishList.get(i).addReview(review);
-                break;
-            }
-        }
-
+        getUserById(review.getUserId()).addReview(review);
+        getDishById(review.getDishId()).addReview(review);
     }
     public void addDish(Dish dish){
-        String restaurant = dish.getRestaurantId();
-        int size = restaurantList.size();
-        for(int i=0;i<size;i++){
-            if(restaurantList.get(i).getId().equals(restaurant)){
-                restaurantList.get(i).addDish(dish);
-            }
-        }
-        dishList.add(dish);
+      getRestaurantById(dish.getRestaurantId()).addDish(dish);
+      dishList.add(dish);
     }
     public void addRestaurant(Restaurant restaurant){
         restaurantList.add(restaurant);
@@ -125,18 +133,8 @@ public class Model {
     }
 
     public void deleteReview(Review review){
-        int size =dishList.size();
-        for(int i=0; i<size;i++){                  // remove from the dish's review list
-            if(dishList.get(i).getId().equals(review.getDishId())){
-                dishList.get(i).deleteReview(review);
-            }
-        }
-        size =userList.size();
-        for(int i=0; i<size;i++){                  // remove the review from the user's review list
-            if(userList.get(i).getId().equals(review.getUserId())){
-                userList.get(i).deleteReview(review);
-            }
-        }
+        getDishById(review.getDishId()).deleteReview(review);       // remove from the dish's review list
+        getUserById(review.getUserId()).deleteReview(review);       // remove the review from the user's review list
         reviewList.remove(review);
     }
     public void deleteDish(Dish dish){
@@ -147,6 +145,7 @@ public class Model {
             for(int j=0; j<size2;j++){
                 if(userList.get(j).getId().equals(user)){
                     userList.get(j).deleteReview(dish.getReviewList().get(i));
+                    break;
                 }
             }
         }
@@ -155,6 +154,7 @@ public class Model {
             String restaurant = dish.getRestaurantId();
             if(restaurantList.get(i).getId().equals(restaurant)){
                 restaurantList.get(i).deleteDish(dish);
+                break;
             }
         }
         dishList.remove(dish);
@@ -193,4 +193,153 @@ public class Model {
         }
         userList.remove(user); // delete from Model user list
     }
+
+    public List<User> getAllUsersThatHaveReviewsOnRestaurantByRestaurantId(String restaurantId){
+        List<User> result = new LinkedList<>();
+        for(int i=0;i<reviewList.size();i++){
+            if(reviewList.get(i).getRestaurantId().equals(restaurantId) && !result.contains(getUserById(reviewList.get(i).getUserId()))){
+                result.add(getUserById(reviewList.get(i).getUserId()));
+
+            }
+        }
+        return result;
+    }
+    public List<Restaurant> getAllRestaurantsThatUserHasReviewsOnByUserId(String userId){
+        List<Restaurant> result = new LinkedList<>();
+        for(int i=0;i<reviewList.size();i++){
+            if(reviewList.get(i).getUserId().equals(userId) && !result.contains(getRestaurantById(reviewList.get(i).getRestaurantId()))){
+                result.add(getRestaurantById(reviewList.get(i).getRestaurantId()));
+
+            }
+        }
+        return result;
+    }
+    public List<Dish> getAllDishesThatTheUserHasAReviewedOnInThisRestaurantByUserIdAndRestaurantId(String userId,String restaurantId){
+        List<Dish> result = new LinkedList<>();
+        for(int i=0;i<reviewList.size();i++){
+            if(reviewList.get(i).getUserId().equals(userId) && reviewList.get(i).getRestaurantId().equals(restaurantId) && !result.contains(getDishById(reviewList.get(i).getDishId()))){
+                result.add(getDishById(reviewList.get(i).getDishId()));
+            }
+        }
+        return result;
+    }
+    public Review getReviewOnDishByDishIdAndUserId(String dishId,String userId){
+
+        for(int i=0;i<reviewList.size();i++){
+            if(reviewList.get(i).getDishId().equals(dishId) && reviewList.get(i).getUserId().equals(userId)){
+                return reviewList.get(i);
+            }
+        }
+        return reviewList.get(0);
+    }
+    public String getRestaurantIdByName(String resName){
+        for(int i=0;i<restaurantList.size();i++){
+            if(restaurantList.get(i).getName().equals(resName)){
+                return restaurantList.get(i).getId();
+            }
+        }
+
+        return "No Such Restaurant";
+    }
+    public String getDishIdByRestaurantIdAndDishName(String resId,String dishName){
+        Restaurant restaurant = getRestaurantById(resId);
+        List<Dish> dishl = restaurant.getDishList();
+        for(int i=0;i<dishl.size();i++){
+            if(dishl.get(i).getName().equals(dishName)){
+                return dishl.get(i).getId();
+            }
+        }
+        return "No Such Dish";
+    }
+    public void setStarByRating(String ratingVal, ImageView star1, ImageView star2, ImageView star3, ImageView star4, ImageView star5, TextView rateTv){
+
+        if(!ratingVal.equals("No rating yet")){
+            rateTv.setText("");
+            float rate =Float.parseFloat(ratingVal);
+            if(rate==0.5){
+                star1.setImageResource(R.drawable.halfstar);
+                star2.setVisibility(View.INVISIBLE);
+                star3.setVisibility(View.INVISIBLE);
+                star4.setVisibility(View.INVISIBLE);
+                star5.setVisibility(View.INVISIBLE);
+            }
+            else if(rate==1){
+                star1.setImageResource(R.drawable.star);
+                star2.setVisibility(View.INVISIBLE);
+                star3.setVisibility(View.INVISIBLE);
+                star4.setVisibility(View.INVISIBLE);
+                star5.setVisibility(View.INVISIBLE);
+
+            }
+            else if(rate==1.5){
+                star1.setImageResource(R.drawable.star);
+                star2.setImageResource(R.drawable.halfstar);
+                star3.setVisibility(View.INVISIBLE);
+                star4.setVisibility(View.INVISIBLE);
+                star5.setVisibility(View.INVISIBLE);
+            }
+            else if(rate==2){
+                star1.setImageResource(R.drawable.star);
+                star2.setImageResource(R.drawable.star);
+                star3.setVisibility(View.INVISIBLE);
+                star4.setVisibility(View.INVISIBLE);
+                star5.setVisibility(View.INVISIBLE);
+            }
+            else if(rate==2.5){
+                star1.setImageResource(R.drawable.star);
+                star2.setImageResource(R.drawable.star);
+                star3.setImageResource(R.drawable.halfstar);
+                star4.setVisibility(View.INVISIBLE);
+                star5.setVisibility(View.INVISIBLE);
+            }
+            else if(rate==3){
+                star1.setImageResource(R.drawable.star);
+                star2.setImageResource(R.drawable.star);
+                star3.setImageResource(R.drawable.star);
+                star4.setVisibility(View.INVISIBLE);
+                star5.setVisibility(View.INVISIBLE);
+            }
+            else if(rate==3.5){
+                star1.setImageResource(R.drawable.star);
+                star2.setImageResource(R.drawable.star);
+                star3.setImageResource(R.drawable.star);
+                star4.setImageResource(R.drawable.halfstar);
+                star5.setVisibility(View.INVISIBLE);
+            }
+            else if(rate==4){
+                star1.setImageResource(R.drawable.star);
+                star2.setImageResource(R.drawable.star);
+                star3.setImageResource(R.drawable.star);
+                star4.setImageResource(R.drawable.star);
+                star5.setVisibility(View.INVISIBLE);
+            }
+            else if(rate==4.5){
+                star1.setImageResource(R.drawable.star);
+                star2.setImageResource(R.drawable.star);
+                star3.setImageResource(R.drawable.star);
+                star4.setImageResource(R.drawable.star);
+                star5.setImageResource(R.drawable.halfstar);
+            }
+            else if(rate==5){
+                star1.setImageResource(R.drawable.star);
+                star2.setImageResource(R.drawable.star);
+                star3.setImageResource(R.drawable.star);
+                star4.setImageResource(R.drawable.star);
+                star5.setImageResource(R.drawable.star);
+
+            }
+
+
+        }
+        else{
+            star1.setVisibility(View.INVISIBLE);
+            star2.setVisibility(View.INVISIBLE);
+            star3.setVisibility(View.INVISIBLE);
+            star4.setVisibility(View.INVISIBLE);
+            star5.setVisibility(View.INVISIBLE);
+        }
+
+    }
+
+
 }

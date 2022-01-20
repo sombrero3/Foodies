@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,6 +29,7 @@ public class HomeRestaurantListRvFragment extends Fragment {
     List<Restaurant> restaurantList;
     EditText searchEt;
     ImageButton searchIbtn;
+    ImageView locationIv;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_restaurant_list_rv, container, false);
@@ -43,12 +45,18 @@ public class HomeRestaurantListRvFragment extends Fragment {
             @Override
             public void onItemClick(View v, int position) {
                 String restaurantName = restaurantList.get(position).getName();
-                Log.d("TAG","user's row clicked: " + restaurantName);
+                String restaurantId = restaurantList.get(position).getId();
+                Log.d("TAG","Restaurant clicked: " + restaurantName + " " + restaurantId);
+                Navigation.findNavController(v).navigate(HomeRestaurantListRvFragmentDirections.actionHomeRestaurantListRvFragmentToRestaurantPageRvFragment(restaurantId));
                 //Navigation.findNavController(v).navigate(StudentListRvFragmentDirections.actionStudentListRvFragmentToStudentDetailsFragment(stId));
 
             }
         });
         searchEt = view.findViewById(R.id.home_restaurant_list_search);
+        locationIv = view.findViewById(R.id.home_restaurant_location_iv);
+        locationIv.setOnClickListener((v)->{
+            Navigation.findNavController(v).navigate(HomeRestaurantListRvFragmentDirections.actionHomeRestaurantListRvFragmentToMapFragment());
+        });
         searchIbtn = view.findViewById(R.id.home_restaurant_search_ibtn);
         searchIbtn.setOnClickListener(new View.OnClickListener() {
             @Override
