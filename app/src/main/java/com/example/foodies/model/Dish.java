@@ -53,6 +53,17 @@ public class Dish {
         reviewList = new ArrayList<>();
         rating ="No rating yet";
     }
+    public Dish( String restaurantId, String name, String price){
+        id = Integer.toString(IdGenerator.instance.getNextId());
+        this.restaurantId = restaurantId;
+        this.name = name;
+        this.price = price;
+        this.description = "";
+        this.vegetarian = false;
+        images = new LinkedList<>();
+        reviewList = new ArrayList<>();
+        rating ="No rating yet";
+    }
     public Dish( String restaurantId, String name, String price, String description, boolean vegetarian, Review review){
         id = Integer.toString(IdGenerator.instance.getNextId());
         this.restaurantId = restaurantId;

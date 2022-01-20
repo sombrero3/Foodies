@@ -16,7 +16,7 @@ import com.example.foodies.model.User;
 
 public class HomeFragment extends Fragment {
 
-   TextView home,myReviews,myFriends;
+   TextView home,myReviews,myFriends,signInBtn,signUpBtn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -26,7 +26,8 @@ public class HomeFragment extends Fragment {
        home = view.findViewById(R.id.home_home_tv);
        myReviews = view.findViewById(R.id.home_my_reviews_tv);
        myFriends = view.findViewById(R.id.home_my_friends_tv);
-
+       signInBtn = view.findViewById(R.id.home_signin_tv);
+       signUpBtn = view.findViewById(R.id.home_signup_tv);
 
        User user = Model.instance.getUserList().get(0);
        home.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_homeFragment_to_homeRestaurantListRvFragment));
@@ -36,7 +37,12 @@ public class HomeFragment extends Fragment {
        myFriends.setOnClickListener((v)->{
            Navigation.findNavController(v).navigate(HomeFragmentDirections.actionHomeFragmentToUserListRvFragment(user.getId()));
        });
-
+       signInBtn.setOnClickListener((v)->{
+           Navigation.findNavController(v).navigate(HomeFragmentDirections.actionHomeFragmentToRegisteredUserFragment());
+       });
+       signUpBtn.setOnClickListener((v)->{
+           Navigation.findNavController(v).navigate(HomeFragmentDirections.actionHomeFragmentToNewUserFragment());
+       });
 
         return view;
     }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -54,7 +55,8 @@ public class RestaurantPageRvFragment extends Fragment {
             public void onItemClick(View v, int position) {
                 String userName = usersList.get(position).getFirstName() + " " +usersList.get(position).getLastName();
                 Log.d("TAG","user clicked: " + userName);
-                //Navigation.findNavController(v).navigate(StudentListRvFragmentDirections.actionStudentListRvFragmentToStudentDetailsFragment(stId));
+                User user = usersList.get(position);
+                Navigation.findNavController(v).navigate(RestaurantPageRvFragmentDirections.actionRestaurantPageRvFragmentToUserReviewsOnRestaurantRvFragment(user.getId(),resId));
 
             }
         });
