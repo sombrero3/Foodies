@@ -43,7 +43,7 @@ public class UserRestaurantListRvFragment extends Fragment {
         restaurantList = Model.instance.getAllRestaurantsThatUserHasReviewsOnByUserId(user.getId());
         //-------------------------------------------------------------------------------------------------------------------------//
 
-        RecyclerView list = view.findViewById(R.id.user_restaurant_list_rv);
+        RecyclerView list = view.findViewById(R.id.user_restaurant_rv);
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
         MyAdapter adapter = new MyAdapter();
