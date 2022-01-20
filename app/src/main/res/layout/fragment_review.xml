@@ -34,7 +34,7 @@
     <TextView
         android:id="@+id/review_description_tv"
         android:layout_width="0dp"
-        android:layout_height="234dp"
+        android:layout_height="86dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
@@ -142,4 +142,14 @@
         app:layout_constraintStart_toEndOf="@+id/review_star4_iv"
         app:layout_constraintTop_toTopOf="@+id/review_star4_iv"
         app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/review_rv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/review_description_tv" />
 </androidx.constraintlayout.widget.ConstraintLayout>
