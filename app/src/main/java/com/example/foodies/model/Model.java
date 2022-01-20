@@ -49,6 +49,7 @@ public class Model {
                         Review review = new Review(dish.getId(), res.getId(),userList.get(k).getId(),"4");
                         dish.setPrice(Integer.toString(k)+"$");
                         reviewList.add(review);
+                        dish.addReview(review);
                 }
                 dishList.add(dish);
             }
@@ -250,6 +251,19 @@ public class Model {
             }
         }
         return "No Such Dish";
+    }
+    public List<Review> getAllFriendsReviewsOnDishByDishIdAndUserId(String dishId,String userId){
+        Dish dish = getDishById(dishId);
+        List<User> friends = getUserById(userId).getFriendsList();
+        List<Review> reviews =  new LinkedList<>();
+        for(int i=0;i<dish.getReviewList().size();i++){
+            for(int j=0;j<friends.size();j++){
+                if(dish.reviewList.get(i).getUserId().equals(friends.get(j).getId())){
+                    reviews.add(dish.reviewList.get(i));
+                }
+            }
+        }
+        return reviews;
     }
     public void setStarByRating(String ratingVal, ImageView star1, ImageView star2, ImageView star3, ImageView star4, ImageView star5, TextView rateTv){
 
