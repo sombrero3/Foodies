@@ -1,6 +1,7 @@
 package com.example.foodies;
 
 import android.media.Image;
+import android.media.Rating;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.foodies.model.Model;
@@ -58,6 +60,7 @@ public class RestaurantPageRvFragment extends Fragment {
 
             }
         });
+        
         nameTv = view.findViewById(R.id.restaurant_page_name_tv);
         locationTv = view.findViewById(R.id.restaurant_page_location_tv);
         numOfReviewsTv = view.findViewById(R.id.restaurant_page_num_of_reviews_tv);
@@ -69,6 +72,7 @@ public class RestaurantPageRvFragment extends Fragment {
 
         nameTv.setText(restaurant.getName());
         locationTv.setText(restaurant.getLocation());
+
 
 
 
@@ -86,6 +90,10 @@ public class RestaurantPageRvFragment extends Fragment {
         TextView nameTv;
         ImageView image,star1,star2,star3,star4,star5;
 
+
+
+
+
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
             nameTv = itemView.findViewById(R.id.user_review_list_row_name_tv);
@@ -95,6 +103,10 @@ public class RestaurantPageRvFragment extends Fragment {
             star3 = itemView.findViewById(R.id.user_review_list_row_star3_iv);
             star4 = itemView.findViewById(R.id.user_review_list_row_star4_iv);
             star5 = itemView.findViewById(R.id.user_review_list_row_star5_iv);
+
+
+
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
