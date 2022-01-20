@@ -3,6 +3,7 @@ package com.example.foodies;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +38,21 @@ public class ReviewFragment extends Fragment {
         dishNameTv.setText(dish.getName());
         dishPriceTv.setText(dish.getPrice());
         userNameTv.setText(user.getFirstName()+ " "+user.getLastName());
+        descriptionTv.setText(review.getDescription());
+
 
         return view;
     }
+
+//    @Override
+//    public void onDestroy() {
+//        super.onDestroy();
+//        String revId = ReviewFragmentArgs.fromBundle(getArguments()).getReviewId();
+//        Review review = Model.instance.getReviewById(revId);
+//        if(review.getUserId().equals("1")){
+//            Navigation.findNavController(this.getView()).navigate(ReviewFragmentDirections.actionReviewFragment2ToUserRestaurantListRvFragment(review.getUserId()));
+//        }else{
+//            Navigation.findNavController(this.getView()).navigate(ReviewFragmentDirections.actionReviewFragment2ToUserReviewsOnRestaurantRvFragment(review.getUserId(), review.getRestaurantId()));
+//        }
+//    }
 }

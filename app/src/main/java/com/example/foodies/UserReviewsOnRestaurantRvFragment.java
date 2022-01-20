@@ -59,7 +59,7 @@ public class UserReviewsOnRestaurantRvFragment extends Fragment {
                     String dishId = dishList.get(position).getId();
                     Review review = Model.instance.getReviewOnDishByDishIdAndUserId(dishId, user.getId());
                     Log.d("TAG","dish clicked: " + dishName + " price: "+price );
-                    Navigation.findNavController(v).navigate(UserReviewsOnRestaurantRvFragmentDirections.actionUserReviewsOnRestaurantRvFragmentToReviewFragment2(review.getId()));
+                    Navigation.findNavController(v).navigate(UserReviewsOnRestaurantRvFragmentDirections.actionUserReviewsOnRestaurantRvFragmentToReviewFragment(review.getId()));
                     //Navigation.findNavController(v).navigate(StudentListRvFragmentDirections.actionStudentListRvFragmentToStudentDetailsFragment(stId));
 
                 }

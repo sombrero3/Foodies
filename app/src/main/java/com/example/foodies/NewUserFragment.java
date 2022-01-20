@@ -26,6 +26,9 @@ public class NewUserFragment extends Fragment {
         upload = view.findViewById(R.id.NewUser_upload_img_view);
         email = view.findViewById(R.id.NewUzer_email_et);
 
+        signUp.setOnClickListener((v)->{
+            Navigation.findNavController(v).navigate(NewUserFragmentDirections.actionNewUserFragmentToHomeFragment());
+        });
 
         return view;
     }

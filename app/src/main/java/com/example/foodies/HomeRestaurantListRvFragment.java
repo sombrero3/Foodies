@@ -29,6 +29,7 @@ public class HomeRestaurantListRvFragment extends Fragment {
     List<Restaurant> restaurantList;
     EditText searchEt;
     ImageButton searchIbtn;
+    ImageView locationIv;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_restaurant_list_rv, container, false);
@@ -52,6 +53,10 @@ public class HomeRestaurantListRvFragment extends Fragment {
             }
         });
         searchEt = view.findViewById(R.id.home_restaurant_list_search);
+        locationIv = view.findViewById(R.id.home_restaurant_location_iv);
+        locationIv.setOnClickListener((v)->{
+            Navigation.findNavController(v).navigate(HomeRestaurantListRvFragmentDirections.actionHomeRestaurantListRvFragmentToMapFragment());
+        });
         searchIbtn = view.findViewById(R.id.home_restaurant_search_ibtn);
         searchIbtn.setOnClickListener(new View.OnClickListener() {
             @Override
