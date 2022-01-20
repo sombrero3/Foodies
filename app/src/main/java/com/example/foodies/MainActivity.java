@@ -1,6 +1,7 @@
 package com.example.foodies;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.NavHost;
 import androidx.navigation.ui.NavigationUI;
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
         navCtl = navHost.getNavController();
 
         NavigationUI.setupActionBarWithNavController(this, navCtl);
+
         // NewUserFragment newUserFragment = (NewUserFragment) getSupportFragmentManager().findFragmentById(R.id.NewUser_container_frag_);
 
     }
