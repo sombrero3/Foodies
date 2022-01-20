@@ -41,4 +41,74 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/restaurant_row_name"
         app:layout_constraintTop_toBottomOf="@+id/restaurant_row_name" />
+
+    <ImageView
+        android:id="@+id/restaurant_list_star3_img_view"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/restaurant_row_description"
+        app:layout_constraintEnd_toEndOf="@+id/restaurant_row_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/restaurant_row_name"
+        app:srcCompat="@drawable/star" />
+
+    <ImageView
+        android:id="@+id/restaurant_list_row_star2_img_view"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/restaurant_list_star3_img_view"
+        app:layout_constraintEnd_toEndOf="@+id/restaurant_list_star3_img_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/star" />
+
+    <ImageView
+        android:id="@+id/restaurant_list_row_star1_img_view"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/restaurant_list_row_star2_img_view"
+        app:layout_constraintEnd_toStartOf="@+id/restaurant_list_row_star2_img_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/restaurant_list_row_star2_img_view"
+        app:srcCompat="@drawable/star" />
+
+    <ImageView
+        android:id="@+id/restaurant_list_row_star4_img_view"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="262dp"
+        app:layout_constraintBottom_toBottomOf="@+id/restaurant_list_star3_img_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/restaurant_list_star3_img_view"
+        app:layout_constraintTop_toBottomOf="@+id/restaurant_row_name"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/star" />
+
+    <ImageView
+        android:id="@+id/restaurant_list_row_star5_img_view"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="216dp"
+        app:layout_constraintBottom_toBottomOf="@+id/restaurant_list_row_star4_img_view"
+        app:layout_constraintEnd_toEndOf="@+id/restaurant_row_description"
+        app:layout_constraintStart_toEndOf="@+id/restaurant_list_row_star4_img_view"
+        app:srcCompat="@drawable/star" />
+
+    <TextView
+        android:id="@+id/restaurant_list_row_rating_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="7dp"
+        android:text="No rating yet"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/restaurant_row_description"
+        app:layout_constraintEnd_toEndOf="@+id/restaurant_row_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/restaurant_row_name" />
 </androidx.constraintlayout.widget.ConstraintLayout>
