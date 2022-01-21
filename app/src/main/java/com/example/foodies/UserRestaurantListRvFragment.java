@@ -62,9 +62,15 @@ public class UserRestaurantListRvFragment extends Fragment {
         addReviewBtn = view.findViewById(R.id.user_restaurant_list_addreview_btn);
         nameTv.setText(user.getFirstName() +" "+ user.getLastName());
 
+        if(user.getId().equals("1")){
         addReviewBtn.setOnClickListener((v)->{
-            Navigation.findNavController(v).navigate(UserRestaurantListRvFragmentDirections.actionUserRestaurantListRvFragmentToNewReviewFragment(user.getId()));
+
+                Navigation.findNavController(v).navigate(UserRestaurantListRvFragmentDirections.actionUserRestaurantListRvFragmentToNewReviewFragment(user.getId()));
+
         });
+        }else{
+            addReviewBtn.setVisibility(View.INVISIBLE);
+        }
         //--------controlling the addReview button--------------//
      //   addReviewBtn.setVisibility(View.INVISIBLE);
       //  addReviewBtn.setClickable(false);
@@ -123,7 +129,7 @@ public class UserRestaurantListRvFragment extends Fragment {
             holder.nameTv.setText(restaurant.getName());
             holder.descriptionTv.setText("Friend and 20 other friend visited this text should be dynamic");
 
-            restaurant.setRating("3.5");
+            //restaurant.setRating("3.5");
             Model.instance.setStarByRating(restaurant.getRating(), holder.star1, holder.star2, holder.star3, holder.star4, holder.star5, holder.ratingTv);
 
         }
