@@ -68,6 +68,16 @@
         app:layout_constraintEnd_toEndOf="@+id/restaurant_page_location_tv"
         app:layout_constraintStart_toEndOf="@+id/restaurant_page_star5_iv" />
 
+    <TextView
+        android:id="@+id/restaurant_page_rating_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No rating yet"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/restaurant_page_star5_iv"
+        app:layout_constraintStart_toStartOf="@+id/imageView16" />
+
     <ImageView
         android:id="@+id/imageView16"
         android:layout_width="25dp"

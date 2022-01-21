@@ -108,6 +108,9 @@
             app:destination="@id/userReviewsOnRestaurantRvFragment"
             app:popUpTo="@id/userReviewsOnRestaurantRvFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_reviewFragment_self"
+            app:destination="@id/reviewFragment2" />
     </fragment>
     <fragment
         android:id="@+id/newReviewFragment"

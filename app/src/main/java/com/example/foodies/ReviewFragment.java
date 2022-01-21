@@ -25,7 +25,8 @@ import java.util.List;
 
 
 public class ReviewFragment extends Fragment {
-    TextView dishNameTv,dishPriceTv, userNameTv, descriptionTv;
+    TextView dishNameTv,dishPriceTv, userNameTv, descriptionTv,ratingTv;
+    ImageView image,star1,star2,star3,star4,star5;
     List<Review> reviewList;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,12 +43,31 @@ public class ReviewFragment extends Fragment {
         MyAdapter adapter = new MyAdapter();
         list.setAdapter(adapter);
 
+        adapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                Review rev = reviewList.get(position);
+                Navigation.findNavController(v).navigate(ReviewFragmentDirections.actionReviewFragmentSelf(rev.getId()));
+            }
+        });
+
         dishNameTv = view.findViewById(R.id.review_dish_name_tv);
         dishPriceTv = view.findViewById(R.id.review_price_tv);
         userNameTv = view.findViewById(R.id.review_user_name_tv);
         descriptionTv = view.findViewById(R.id.review_description_tv);
+        ratingTv = view.findViewById(R.id.review_rating_tv);
+        star1 = view.findViewById(R.id.review_star1_iv);
+        star2 = view.findViewById(R.id.review_star2_iv);
+        star3 = view.findViewById(R.id.review_star3_iv);
+        star4 = view.findViewById(R.id.review_star4_iv);
+        star5 = view.findViewById(R.id.review_star5_iv);
+
         Dish dish = Model.instance.getDishById(review.getDishId());
         User user = Model.instance.getUserById(review.getUserId());
+
+
+        Model.instance.setStarByRating(dish.getRating(),star1,star2,star3,star4,star5,ratingTv);
+
         dishNameTv.setText(dish.getName());
         dishPriceTv.setText(dish.getPrice());
         userNameTv.setText(user.getFirstName()+ " "+user.getLastName());
@@ -58,20 +78,25 @@ public class ReviewFragment extends Fragment {
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView nameTv, numOfRestaurantsTv, numOfReviewsTv;
-        ImageView image;
+        TextView nameTv,ratingTv;
+        ImageView image,star1,star2,star3,star4,star5;
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
             nameTv = itemView.findViewById(R.id.user_review_list_row_name_tv);
-//            numOfRestaurantsTv = itemView.findViewById(R.id.user_row_resto_tv);
-//            numOfReviewsTv = itemView.findViewById(R.id.user_row_reviews_tv);
             image = itemView.findViewById(R.id.user_review_list_row_img);
+            ratingTv = itemView.findViewById(R.id.user_review_list_row_rating_tv);
+            star1 = itemView.findViewById(R.id.user_review_list_row_star1_iv);
+            star2 = itemView.findViewById(R.id.user_review_list_row_star2_iv);
+            star3 = itemView.findViewById(R.id.user_review_list_row_star3_iv);
+            star4 = itemView.findViewById(R.id.user_review_list_row_star4_iv);
+            star5 = itemView.findViewById(R.id.user_review_list_row_star5_iv);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int pos = getAdapterPosition();
                     listener.onItemClick(v,pos);
+
                 }
             });
 
@@ -98,7 +123,7 @@ public class ReviewFragment extends Fragment {
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
             Review rev = reviewList.get(position);
             holder.nameTv.setText(Model.instance.getUserById(rev.getUserId()).getFirstName()+ " " +position);
-            //holder.descriptionTv.setText("Friend and 20 other friend visited this text should be dynamic");
+            Model.instance.setStarByRating(rev.getRating(), holder.star1, holder.star2, holder.star3, holder.star4, holder.star5, holder.ratingTv);
 
         }
 
@@ -108,15 +133,5 @@ public class ReviewFragment extends Fragment {
         }
     }
 
-//    @Override
-//    public void onDestroy() {
-//        super.onDestroy();
-//        String revId = ReviewFragmentArgs.fromBundle(getArguments()).getReviewId();
-//        Review review = Model.instance.getReviewById(revId);
-//        if(review.getUserId().equals("1")){
-//            Navigation.findNavController(this.getView()).navigate(ReviewFragmentDirections.actionReviewFragment2ToUserRestaurantListRvFragment(review.getUserId()));
-//        }else{
-//            Navigation.findNavController(this.getView()).navigate(ReviewFragmentDirections.actionReviewFragment2ToUserReviewsOnRestaurantRvFragment(review.getUserId(), review.getRestaurantId()));
-//        }
-//    }
+
 }

@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 
 public class RegisteredUserFragment extends Fragment {
-
       Button signIn;
       TextView forgot;
 

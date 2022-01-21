@@ -91,6 +91,17 @@
         app:layout_constraintStart_toEndOf="@+id/textView17"
         app:layout_constraintTop_toTopOf="@+id/textView17" />
 
+    <TextView
+        android:id="@+id/review_rating_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No rating yet"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/review_star1_iv"
+        app:layout_constraintStart_toStartOf="@+id/review_star1_iv"
+        app:layout_constraintTop_toTopOf="@+id/review_star1_iv" />
+
     <ImageView
         android:id="@+id/review_star1_iv"
         android:layout_width="35dp"
