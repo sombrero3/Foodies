@@ -17,16 +17,20 @@ public class Model {
     List<Restaurant> restaurantList = new ArrayList<>();
     List<Dish> dishList = new LinkedList<>();
     List<Review> reviewList = new LinkedList<>();
+    User signedUser;
+    boolean signedFlag;
 
     public static final Model instance = new Model();
 
 
 
     private Model() {
-        for(int i=0;i<10;i++){
+        signedFlag = false;
+        for(int i=1;i<11;i++){
             User user = new User("name "+i, "" + i );
             userList.add(user);
         }
+
         Random rand = new Random();
         for(int i=0;i<10;i++){
             for(int j=0;j<4;j++) {
@@ -87,8 +91,33 @@ public class Model {
     public void setReviewList(List<Review> reviewList) {
         this.reviewList = reviewList;
     }
-    //---------------------------------//
 
+    public User getSignedUser() {
+        return signedUser;
+    }
+
+    public void setSignedUser(User signedUser) {
+        this.signedUser = signedUser;
+    }
+
+    public boolean isSignedFlag() {
+        return signedFlag;
+    }
+
+    public void setSignedFlag(boolean signedFlag) {
+        this.signedFlag = signedFlag;
+    }
+    //---------------------------------//
+    public boolean confirmUserLogin(String name,String password){
+        for (User user:userList) {
+            if(user.getFirstName().equals(name) && user.getPassword().equals(password)){
+                setSignedFlag(true);
+                setSignedUser(user);
+                return true;
+            }
+        }
+        return false;
+    }
     public Dish getDishById(String dishId){
         for(int i=0;i<dishList.size();i++){
             if(dishList.get(i).id.equals(dishId)){

@@ -29,14 +29,17 @@ public class HomeFragment extends Fragment {
        signInBtn = view.findViewById(R.id.home_signin_tv);
        signUpBtn = view.findViewById(R.id.home_signup_tv);
 
-       User user = Model.instance.getUserList().get(0);
-       home.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_homeFragment_to_homeRestaurantListRvFragment));
-       myReviews.setOnClickListener((v)->{
-           Navigation.findNavController(v).navigate(HomeFragmentDirections.actionHomeFragmentToUserRestaurantListRvFragment(user.getId()));
-       });
-       myFriends.setOnClickListener((v)->{
-           Navigation.findNavController(v).navigate(HomeFragmentDirections.actionHomeFragmentToUserListRvFragment(user.getId()));
-       });
+
+       if(Model.instance.isSignedFlag()) {
+           User user = Model.instance.getSignedUser();
+           home.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_homeFragment_to_homeRestaurantListRvFragment));
+           myReviews.setOnClickListener((v) -> {
+               Navigation.findNavController(v).navigate(HomeFragmentDirections.actionHomeFragmentToUserRestaurantListRvFragment(user.getId()));
+           });
+           myFriends.setOnClickListener((v) -> {
+               Navigation.findNavController(v).navigate(HomeFragmentDirections.actionHomeFragmentToUserListRvFragment(user.getId()));
+           });
+       }
        signInBtn.setOnClickListener((v)->{
            Navigation.findNavController(v).navigate(HomeFragmentDirections.actionHomeFragmentToRegisteredUserFragment());
        });

@@ -62,7 +62,7 @@ public class UserRestaurantListRvFragment extends Fragment {
         addReviewBtn = view.findViewById(R.id.user_restaurant_list_addreview_btn);
         nameTv.setText(user.getFirstName() +" "+ user.getLastName());
 
-        if(user.getId().equals("1")){
+        if(user.getId().equals(Model.instance.getSignedUser().getId())){
         addReviewBtn.setOnClickListener((v)->{
 
                 Navigation.findNavController(v).navigate(UserRestaurantListRvFragmentDirections.actionUserRestaurantListRvFragmentToNewReviewFragment(user.getId()));

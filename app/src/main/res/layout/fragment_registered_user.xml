@@ -44,7 +44,6 @@
         android:backgroundTint="@color/white"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Enter your user name"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="20sp"
@@ -72,7 +71,6 @@
         android:backgroundTint="@color/white"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Enter your password"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -83,16 +81,31 @@
         android:id="@+id/RegisteredUser_signIn_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="110dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="110dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:backgroundTint="@android:color/holo_orange_light"
         android:text="Sign in"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/registered_user_signup_btn"
+        app:layout_constraintTop_toBottomOf="@+id/registered_user_ivalid_details_tv" />
+
+    <Button
+        android:id="@+id/registered_user_signup_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="#8BC34A"
+        android:text="Sign Up"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/RegisteredUser_signIn_btn"
+        app:layout_constraintEnd_toStartOf="@+id/RegisteredUser_signIn_btn"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registered_user_forgot_tv" />
+        app:layout_constraintTop_toTopOf="@+id/RegisteredUser_signIn_btn" />
 
     <TextView
         android:id="@+id/registered_user_forgot_tv"
@@ -106,5 +119,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/registered_user_password_et"
         app:layout_constraintTop_toBottomOf="@+id/registered_user_password_et" />
+
+    <TextView
+        android:id="@+id/registered_user_ivalid_details_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Your details are invalid try again"
+        android:textColor="@color/design_default_color_error"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/registered_user_password_et"
+        app:layout_constraintTop_toBottomOf="@+id/registered_user_forgot_tv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
