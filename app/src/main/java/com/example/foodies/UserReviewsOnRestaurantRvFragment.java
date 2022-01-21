@@ -28,12 +28,8 @@ import java.util.List;
 
 public class UserReviewsOnRestaurantRvFragment extends Fragment {
         List<Dish> dishList;
-        TextView nameTv;
-        TextView generaReviewTitle;
-        TextView descriptionTv;
+        TextView nameTv,descriptionTv,generaReviewTitle,ratingTv;
         ImageView image,star1,star2,star3,star4,star5;
-        TextView ratingTv;
-       float rate;
 
         @Override
         public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -111,10 +107,11 @@ public class UserReviewsOnRestaurantRvFragment extends Fragment {
                 star3 = itemView.findViewById(R.id.dish_list_row_star3_iv);
                 star4 = itemView.findViewById(R.id.dish_list_row_star4_iv);
                 star5 = itemView.findViewById(R.id.dish_list_row_star5_iv);
-              ratingTv =itemView.findViewById(R.id.dish_list_row_rating_tv);
-                //  String dishName=nameTv.toString();
-              //  Model.instance.setStarByRating(,star1,star2,star3,star4,star5,ratingTv);
-              //  Model.instance.setStarByRating(ratingTv.toString(), star1,star2, star3, star4, star5, ratingTv);
+                ratingTv =itemView.findViewById(R.id.dish_list_row_rating_tv);
+
+
+
+              //Model.instance.setStarByRating(ratingTv.toString(), star1,star2, star3, star4, star5, ratingTv);
 
 
                 //   star5.setVisibility(View.INVISIBLE);
@@ -151,7 +148,8 @@ public class UserReviewsOnRestaurantRvFragment extends Fragment {
                 Dish dish = dishList.get(position);
                 holder.nameTv.setText(dish.getName());
                 holder.priceTv.setText(dish.getPrice());
-              //  Model.instance.setStarByRating(holder.ratingTv.toString(), holder.star1, holder.star2, holder.star3, holder.star4, holder.star5, holder.ratingTv);
+                dish.setRating("2");
+                Model.instance.setStarByRating(dish.getRating(), holder.star1, holder.star2, holder.star3, holder.star4, holder.star5, holder.ratingTv);
             }
 
             @Override

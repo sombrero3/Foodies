@@ -13,10 +13,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 public class NewUserFragment extends Fragment {
-
      ImageView upload;
      Button signUp;
      EditText email;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

@@ -29,9 +29,7 @@ import java.util.List;
 
 public class UserRestaurantListRvFragment extends Fragment {
     List<Restaurant> restaurantList;
-    TextView nameTv;
-    TextView descriptionTv;
-    TextView titleTv;
+    TextView nameTv,titleTv,descriptionTv;
     Button addReviewBtn;
     ImageView image;
     @Override
@@ -78,15 +76,20 @@ public class UserRestaurantListRvFragment extends Fragment {
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView nameTv;
-        TextView descriptionTv;
-        ImageView image;
+        TextView nameTv,descriptionTv,ratingTv;
+        ImageView image,star1,star2,star3,star4,star5;
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
             nameTv = itemView.findViewById(R.id.restaurant_row_name);
             descriptionTv = itemView.findViewById(R.id.restaurant_row_description);
+            ratingTv = itemView.findViewById(R.id.restaurant_row_rating_tv);
             image = itemView.findViewById(R.id.restaurant_row_img);
+            star1 = itemView.findViewById(R.id.restaurant_list_row_star1_iv);
+            star2 = itemView.findViewById(R.id.restaurant_list_row_star2_iv);
+            star3 = itemView.findViewById(R.id.restaurant_list_row_star3_iv);
+            star4 = itemView.findViewById(R.id.restaurant_list_row_star4_iv);
+            star5 = itemView.findViewById(R.id.restaurant_list_row_star5_iv);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -119,6 +122,9 @@ public class UserRestaurantListRvFragment extends Fragment {
             Restaurant restaurant = restaurantList.get(position);
             holder.nameTv.setText(restaurant.getName());
             holder.descriptionTv.setText("Friend and 20 other friend visited this text should be dynamic");
+
+            restaurant.setRating("3.5");
+            Model.instance.setStarByRating(restaurant.getRating(), holder.star1, holder.star2, holder.star3, holder.star4, holder.star5, holder.ratingTv);
 
         }
 
