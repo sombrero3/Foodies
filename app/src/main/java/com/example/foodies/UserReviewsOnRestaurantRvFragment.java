@@ -3,6 +3,9 @@ package com.example.foodies;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -90,6 +93,7 @@ public class UserReviewsOnRestaurantRvFragment extends Fragment {
             //-----------------------------------------------------//
             //add.setOnClickListener(Navigation.createNavigateOnClickListener(StudentListRvFragmentDirections.actionGlobalAboutFragment()));
             //setHasOptionsMenu(true);
+            setHasOptionsMenu(true);
             return view;
 
         }
@@ -159,5 +163,22 @@ public class UserReviewsOnRestaurantRvFragment extends Fragment {
                 return dishList.size();
             }
         }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.user_reviews_on_restaurant,menu);
     }
-    //
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId()==R.id.menu_menu){
+            return true;
+        }
+        else{
+            return super.onOptionsItemSelected(item);
+
+        }
+    }
+
+    }

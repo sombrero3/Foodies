@@ -23,8 +23,8 @@ public class RegisteredUserFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
        View view = inflater.inflate(R.layout.fragment_registered_user, container, false);
-      signIn = view.findViewById(R.id.RegisteredUser_signIn_btn);
-      forgot = view.findViewById(R.id.RegisteredUser_forgot_tv);
+      signIn = view.findViewById(R.id.registered_user_sign_btn);
+      forgot = view.findViewById(R.id.registered_user_forgot_tv);
 
 
       signIn.setOnClickListener((v)->{

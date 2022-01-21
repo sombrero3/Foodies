@@ -3,12 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
+    android:label="New Review"
     app:startDestination="@id/homeFragment">
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.foodies.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        android:label="Homepage"
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_homeRestaurantListRvFragment"
             app:destination="@id/homeRestaurantListRvFragment" />
@@ -28,7 +29,7 @@
     <fragment
         android:id="@+id/homeRestaurantListRvFragment"
         android:name="com.example.foodies.HomeRestaurantListRvFragment"
-        android:label="HomeRestaurantListRvFragment" >
+        android:label="HomeRestaurantListRvFragment">
         <action
             android:id="@+id/action_homeRestaurantListRvFragment_to_restaurantPageRvFragment"
             app:destination="@id/restaurantPageRvFragment" />
@@ -40,7 +41,7 @@
         android:id="@+id/userRestaurantListRvFragment"
         android:name="com.example.foodies.UserRestaurantListRvFragment"
         android:label="fragment_user_restaurant_list_rv"
-        tools:layout="@layout/fragment_user_restaurant_list_rv" >
+        tools:layout="@layout/fragment_user_restaurant_list_rv">
         <argument
             android:name="userId"
             app:argType="string" />
@@ -54,8 +55,8 @@
     <fragment
         android:id="@+id/userListRvFragment"
         android:name="com.example.foodies.UserListRvFragment"
-        android:label="fragment_user_list_rv"
-        tools:layout="@layout/fragment_user_list_rv" >
+        android:label="List of users"
+        tools:layout="@layout/fragment_user_list_rv">
         <argument
             android:name="userId"
             app:argType="string" />
@@ -66,8 +67,8 @@
     <fragment
         android:id="@+id/restaurantPageRvFragment"
         android:name="com.example.foodies.RestaurantPageRvFragment"
-        android:label="fragment_restaurant_page_rv"
-        tools:layout="@layout/fragment_restaurant_page_rv" >
+        android:label="Restaurant page"
+        tools:layout="@layout/fragment_restaurant_page_rv">
         <argument
             android:name="restaurantId"
             app:argType="string" />
@@ -78,8 +79,8 @@
     <fragment
         android:id="@+id/userReviewsOnRestaurantRvFragment"
         android:name="com.example.foodies.UserReviewsOnRestaurantRvFragment"
-        android:label="fragment_user_reviews_on_restaurant_rv"
-        tools:layout="@layout/fragment_user_reviews_on_restaurant_rv" >
+        android:label="Reviews of the restaurnt"
+        tools:layout="@layout/fragment_user_reviews_on_restaurant_rv">
         <argument
             android:name="userId"
             app:argType="string" />
@@ -93,8 +94,8 @@
     <fragment
         android:id="@+id/reviewFragment2"
         android:name="com.example.foodies.ReviewFragment"
-        android:label="fragment_review"
-        tools:layout="@layout/fragment_review" >
+        android:label="Reviews"
+        tools:layout="@layout/fragment_review">
         <argument
             android:name="reviewId"
             app:argType="string" />
@@ -112,8 +113,8 @@
     <fragment
         android:id="@+id/newReviewFragment"
         android:name="com.example.foodies.NewReviewFragment"
-        android:label="fragment_new_review"
-        tools:layout="@layout/fragment_new_review" >
+        android:label="New Review"
+        tools:layout="@layout/fragment_new_review">
         <argument
             android:name="userId"
             app:argType="string" />
@@ -127,8 +128,8 @@
     <fragment
         android:id="@+id/registeredUserFragment"
         android:name="com.example.foodies.RegisteredUserFragment"
-        android:label="fragment_registered_user"
-        tools:layout="@layout/fragment_registered_user" >
+        android:label="Registered User"
+        tools:layout="@layout/fragment_registered_user">
         <action
             android:id="@+id/action_registeredUserFragment_to_homeFragment"
             app:destination="@id/homeFragment"
@@ -138,8 +139,8 @@
     <fragment
         android:id="@+id/newUserFragment"
         android:name="com.example.foodies.NewUserFragment"
-        android:label="fragment_new_user"
-        tools:layout="@layout/fragment_new_user" >
+        android:label="New User"
+        tools:layout="@layout/fragment_new_user">
         <action
             android:id="@+id/action_newUserFragment_to_homeFragment"
             app:destination="@id/homeFragment"
@@ -149,6 +150,6 @@
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.example.foodies.MapFragment"
-        android:label="fragment_map"
+        android:label="map"
         tools:layout="@layout/fragment_map" />
 </navigation>
