@@ -63,11 +63,9 @@ public class UserRestaurantListRvFragment extends Fragment {
         nameTv.setText(user.getFirstName() +" "+ user.getLastName());
 
         if(user.getId().equals(Model.instance.getSignedUser().getId())){
-        addReviewBtn.setOnClickListener((v)->{
-
+            addReviewBtn.setOnClickListener((v)->{
                 Navigation.findNavController(v).navigate(UserRestaurantListRvFragmentDirections.actionUserRestaurantListRvFragmentToNewReviewFragment(user.getId()));
-
-        });
+            });
         }else{
             addReviewBtn.setVisibility(View.INVISIBLE);
         }

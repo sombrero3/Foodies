@@ -31,22 +31,25 @@ public class RegisteredUserFragment extends Fragment {
        nameEt = view.findViewById(R.id.registered_user_name_et);
        passwordEt = view.findViewById(R.id.registered_user_password_et);
 
-       signUpBtn.setVisibility(View.INVISIBLE);
-       signUpBtn.setClickable(false);
-       invalidDetaisTv.setVisibility(View.INVISIBLE);
-       signUpBtn.setOnClickListener((v)->{
-           Navigation.findNavController(v).navigate(RegisteredUserFragmentDirections.actionRegisteredUserFragmentToNewUserFragment());
-       });
-       signInBtn.setOnClickListener((v)->{
-           if(Model.instance.confirmUserLogin(nameEt.getEditableText().toString(),passwordEt.getEditableText().toString())){
 
-               Navigation.findNavController(v).navigate(RegisteredUserFragmentDirections.actionRegisteredUserFragmentToHomeFragment());
-           }else{
-               invalidDetaisTv.setVisibility(View.VISIBLE);
-               signUpBtn.setVisibility(View.VISIBLE);
-               signUpBtn.setClickable(true);
-           }
-       });
+       //---to activate user validation cancel all comments below-----//
+//       signUpBtn.setVisibility(View.INVISIBLE);
+//       signUpBtn.setClickable(false);
+//       invalidDetaisTv.setVisibility(View.INVISIBLE);
+//       signUpBtn.setOnClickListener((v)->{
+//           Navigation.findNavController(v).navigate(RegisteredUserFragmentDirections.actionRegisteredUserFragmentToNewUserFragment());
+//       });
+//       signInBtn.setOnClickListener((v)->{
+//           if(Model.instance.confirmUserLogin(nameEt.getEditableText().toString(),passwordEt.getEditableText().toString())){
+//
+//               Navigation.findNavController(v).navigate(RegisteredUserFragmentDirections.actionRegisteredUserFragmentToHomeFragment());
+//           }else{
+//               invalidDetaisTv.setVisibility(View.VISIBLE);
+//               signUpBtn.setVisibility(View.VISIBLE);
+//               signUpBtn.setClickable(true);
+//           }
+//       });
+        //-------------------------------------------------------------//
 
        return view;
     }

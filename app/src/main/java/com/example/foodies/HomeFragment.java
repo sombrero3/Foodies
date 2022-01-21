@@ -30,6 +30,13 @@ public class HomeFragment extends Fragment {
        signUpBtn = view.findViewById(R.id.home_signup_tv);
 
 
+       //----to use user validation put the next two lines in comment----//
+       Model.instance.setSignedUser(Model.instance.getUserById("1"));
+       Model.instance.setSignedFlag(true);
+       //----------------------------------------------------------------//
+
+
+
        if(Model.instance.isSignedFlag()) {
            User user = Model.instance.getSignedUser();
            home.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_homeFragment_to_homeRestaurantListRvFragment));

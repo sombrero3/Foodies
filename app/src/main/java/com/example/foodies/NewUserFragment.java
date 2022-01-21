@@ -40,39 +40,42 @@ public class NewUserFragment extends Fragment {
         invalidMailTv.setVisibility(View.INVISIBLE);
         invalidPassTv.setVisibility(View.INVISIBLE);
 
-        signUpBtn.setOnClickListener((v)->{
-            boolean f = true;
-            while(f) {
-                String name = nameEt.getEditableText().toString();
-                String email = emailEt.getEditableText().toString();
-                String password = passwordEt.getEditableText().toString();
-                boolean flag = true;
-                if (name.equals("") || name.charAt(0) == ' ') {
-                    // must fill name field
-                    flag = false;
-                    invalidNameTv.setVisibility(View.VISIBLE);
+        //---to activate user validation cancel all comments below-----//
+//        signUpBtn.setOnClickListener((v)->{
+//            boolean f = true;
+//            while(f) {
+//                String name = nameEt.getEditableText().toString();
+//                String email = emailEt.getEditableText().toString();
+//                String password = passwordEt.getEditableText().toString();
+//                boolean flag = true;
+//                if (name.equals("") || name.charAt(0) == ' ') {
+//                    // must fill name field
+//                    flag = false;
+//                    invalidNameTv.setVisibility(View.VISIBLE);
+//
+//                }
+//                if (email.charAt(0) == ' ') {
+//                    //email can't start with space
+//                    flag = false;
+//                    invalidMailTv.setVisibility(View.VISIBLE);
+//                }
+//                if (password.equals("") || password.charAt(0) == ' ') {
+//                    // invalid password
+//                    flag = false;
+//                    invalidPassTv.setVisibility(View.VISIBLE);
+//                }
+//                if (flag) {
+//                    f= false;
+//                    User user = new User(name, password, email);
+//                    Model.instance.addUser(user);
+//                    Model.instance.setSignedUser(user);
+//                    Model.instance.setSignedFlag(true);
+//                    Navigation.findNavController(v).navigate(NewUserFragmentDirections.actionNewUserFragmentToHomeFragment());
+//                }
+//            }
+//        });
+         //-------------------------------------------------------------//
 
-                }
-                if (email.charAt(0) == ' ') {
-                    //email can't start with space
-                    flag = false;
-                    invalidMailTv.setVisibility(View.VISIBLE);
-                }
-                if (password.equals("") || password.charAt(0) == ' ') {
-                    // invalid password
-                    flag = false;
-                    invalidPassTv.setVisibility(View.VISIBLE);
-                }
-                if (flag) {
-                    f= false;
-                    User user = new User(name, password, email);
-                    Model.instance.addUser(user);
-                    Model.instance.setSignedUser(user);
-                    Model.instance.setSignedFlag(true);
-                    Navigation.findNavController(v).navigate(NewUserFragmentDirections.actionNewUserFragmentToHomeFragment());
-                }
-            }
-        });
 
         return view;
     }
