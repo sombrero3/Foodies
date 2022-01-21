@@ -137,6 +137,9 @@
             app:destination="@id/homeFragment"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_registeredUserFragment_to_newUserFragment"
+            app:destination="@id/newUserFragment" />
     </fragment>
     <fragment
         android:id="@+id/newUserFragment"
