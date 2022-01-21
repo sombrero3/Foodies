@@ -67,7 +67,6 @@ public class RestaurantPageRvFragment extends Fragment {
         star4 = view.findViewById(R.id.restaurant_page_star4_iv);
         star5 = view.findViewById(R.id.restaurant_page_star5_iv);
 
-        //restaurant.setRating("4.5");
         Model.instance.setStarByRating(restaurant.getRating(),star1,star2,star3,star4,star5,ratingTv);
 
         nameTv.setText(restaurant.getName());

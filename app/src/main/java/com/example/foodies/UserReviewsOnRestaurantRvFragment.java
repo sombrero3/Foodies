@@ -69,8 +69,8 @@ public class UserReviewsOnRestaurantRvFragment extends Fragment {
             star4 = view.findViewById(R.id.user_reviews_on_restaurant_star4_iv);
             star5 = view.findViewById(R.id.user_reviews_on_restaurant_star5_iv);
             ratingTv = view.findViewById(R.id.user_reviews_on_restaurant_rating_tv);
-
-            restaurant.setRating("2.5");
+            //getuserratingonrestaurent
+            //restaurant.setRating("2.5");
             Model.instance.setStarByRating(restaurant.getRating(),star1,star2,star3,star4,star5,ratingTv);
 
 
@@ -148,7 +148,7 @@ public class UserReviewsOnRestaurantRvFragment extends Fragment {
                 Dish dish = dishList.get(position);
                 holder.nameTv.setText(dish.getName());
                 holder.priceTv.setText(dish.getPrice());
-                dish.setRating("2");
+              //  dish.setRating("2");
                 Model.instance.setStarByRating(dish.getRating(), holder.star1, holder.star2, holder.star3, holder.star4, holder.star5, holder.ratingTv);
             }
 

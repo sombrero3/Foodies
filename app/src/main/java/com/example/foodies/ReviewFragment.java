@@ -66,7 +66,7 @@ public class ReviewFragment extends Fragment {
         User user = Model.instance.getUserById(review.getUserId());
 
 
-        Model.instance.setStarByRating(dish.getRating(),star1,star2,star3,star4,star5,ratingTv);
+        Model.instance.setStarByRating(review.getRating(),star1,star2,star3,star4,star5,ratingTv);
 
         dishNameTv.setText(dish.getName());
         dishPriceTv.setText(dish.getPrice());

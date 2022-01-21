@@ -122,7 +122,7 @@ public class HomeRestaurantListRvFragment extends Fragment {
             Restaurant restaurant = restaurantList.get(position);
             holder.nameTv.setText(restaurant.getName());
             holder.descriptionTv.setText("Friend and 20 other friend visited this text should be dynamic");
-            restaurant.setRating("3.5");
+
             Model.instance.setStarByRating(restaurant.getRating(), holder.star1, holder.star2, holder.star3, holder.star4, holder.star5, holder.ratingTv);
 
 

@@ -41,18 +41,22 @@ public class Model {
                 }
             }
         }
+        Random random = new Random();
         for(int i=0;i<10;i++){
             Restaurant res = new Restaurant("Restaurant name "+i);
             for(int j=0;j<10;j++){
                 Dish dish = new Dish("Dish name "+i + " " + j);
                 for(int k=0;k<10;k++){
-                        Review review = new Review(dish.getId(), res.getId(),userList.get(k).getId(),"4");
+                        String rating  = Integer.toString(Math.abs((random.nextInt()%5))+1);
+                        Review review = new Review(dish.getId(), res.getId(),userList.get(k).getId(),rating);
                         dish.setPrice(Integer.toString(k)+"$");
                         reviewList.add(review);
                         dish.addReview(review);
                 }
                 dishList.add(dish);
+                res.addDish(dish);
             }
+
             restaurantList.add(res);
         }
 

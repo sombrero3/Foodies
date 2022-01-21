@@ -133,25 +133,23 @@ public class Dish {
     //---------------------------------//
 
     public void updateRating(){
-        int sum=0,avg;
-        double f ,reminder,res;
+        double f ,reminder,sum=0,avg;
 
         for(int i=0;i<reviewList.size();i++){
-            sum+= Integer.parseInt(reviewList.get(i).getRating());
+            sum+= Double.parseDouble(reviewList.get(i).getRating());
         }
 
         f = sum/reviewList.size();
-        avg = sum/reviewList.size();
+        avg = Math.floor(sum/reviewList.size());
         reminder = f - avg;
         if(reminder<0.25){
-            rating = Integer.toString(sum);
+            rating =Double.toString(avg);
         }
         else if(reminder>=0.25 && reminder < 0.75){
-            res = avg +0.5;
-            rating = Double.toString(res);
+            rating = Double.toString(avg+0.5);
         }
         else if(reminder>=0.75){
-            rating=Integer.toString(avg+1);
+            rating=Double.toString(avg+1);
         }
     }
     public void addReview(Review review){
