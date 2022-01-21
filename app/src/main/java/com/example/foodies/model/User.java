@@ -11,6 +11,7 @@ public class User {
     String firstName;
     String lastName;
     String totalReviews;
+    String password;
     Image image;
     List<Review> reviewList;
     List<User> friendsList;
@@ -24,6 +25,7 @@ public class User {
         totalReviews ="0";
         reviewList = new LinkedList<>();
         friendsList = new LinkedList<>();
+        password = "";
         totalRestaurantsVisited = "0";
     }
     public User(String firstName,String lastName){
@@ -31,6 +33,7 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         totalReviews ="0";
+        password = lastName;
         reviewList = new LinkedList<>();
         friendsList = new LinkedList<>();
         totalRestaurantsVisited = "0";
