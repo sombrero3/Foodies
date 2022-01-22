@@ -298,6 +298,19 @@ public class Model {
         }
         return reviews;
     }
+    public List<User> peopleYouMayKnow(){
+        List<User> friends , result;
+        result = new LinkedList<>();
+        friends = getSignedUser().getFriendsList();
+        for (User friend: friends) {
+            for (User friendfriends:friend.getFriendsList()) {
+                if(!result.contains(friendfriends)) {
+                    result.add(friendfriends);
+                }
+            }
+        }
+        return result;
+    }
     public void setStarByRating(String ratingVal, ImageView star1, ImageView star2, ImageView star3, ImageView star4, ImageView star5, TextView rateTv){
 
         if(!ratingVal.equals("No rating yet")){

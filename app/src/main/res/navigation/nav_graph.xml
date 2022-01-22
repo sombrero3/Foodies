@@ -62,6 +62,9 @@
         <action
             android:id="@+id/action_userListRvFragment_to_userRestaurantListRvFragment"
             app:destination="@id/userRestaurantListRvFragment" />
+        <action
+            android:id="@+id/action_userListRvFragment_to_addFriendFragment"
+            app:destination="@id/addFriendFragment" />
     </fragment>
     <fragment
         android:id="@+id/restaurantPageRvFragment"
@@ -157,4 +160,9 @@
         android:name="com.example.foodies.MapFragment"
         android:label="fragment_map"
         tools:layout="@layout/fragment_map" />
+    <fragment
+        android:id="@+id/addFriendFragment"
+        android:name="com.example.foodies.AddFriendFragment"
+        android:label="fragment_add_friend"
+        tools:layout="@layout/fragment_add_friend" />
 </navigation>
