@@ -298,6 +298,23 @@ public class Model {
         }
         return reviews;
     }
+
+    public String getNumOfFriendsVisitedInRestaurant(String restaurantID){
+        int count=0;
+        String userID=getSignedUser().getId();
+        List<User> myFriends=getSignedUser().getFriendsList();
+        for (User friend: myFriends) {
+            for(Review rev: reviewList){
+                if(rev.restaurantId.equals(restaurantID) && friend.getReviewList().contains(rev)){
+                    count++;
+                }
+            }
+        }
+
+
+
+        return null;
+    }
     public void setStarByRating(String ratingVal, ImageView star1, ImageView star2, ImageView star3, ImageView star4, ImageView star5, TextView rateTv){
 
         if(!ratingVal.equals("No rating yet")){
