@@ -1,6 +1,14 @@
 package com.example.foodies;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,35 +17,32 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
-
+import com.example.foodies.model.Dish;
 import com.example.foodies.model.Model;
+import com.example.foodies.model.Restaurant;
+import com.example.foodies.model.Review;
 import com.example.foodies.model.User;
 
 import java.util.List;
 
 
-public class UserListRvFragment extends Fragment {
-    List<User> userList;
-    TextView nameTv,numOfFriendsTv;
-    ImageView imgIv;
-    Button addFriendBtn;
+
+public class AddFriendFragment extends Fragment {
+    List<User> friendsList;
+    TextView rvTitleTv;
+    EditText nameEt,emailEt;
+    Button searchBtn;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_user_list_rv, container, false);
+        View view = inflater.inflate(R.layout.fragment_add_friend, container, false);
 
+        //implement usersRestaurantList and replace it with restaurantList---------------------------------------------------------//
+        //User user = Model.instance.getUserById(UserReviewsOnRestaurantRvFragmentArgs.fromBundle(getArguments()).getUserId());
 
-        User user = Model.instance.getUserById(UserListRvFragmentArgs.fromBundle(getArguments()).getUserId());
-        userList = Model.instance.getUserById(user.getId()).getFriendsList();
+        friendsList = Model.instance.peopleYouMayKnow();
+        //-------------------------------------------------------------------------------------------------------------------------//
 
-        RecyclerView list = view.findViewById(R.id.userlist_rv);
+        RecyclerView list = view.findViewById(R.id.add_friend_rv);
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
         MyAdapter adapter = new MyAdapter();
@@ -46,27 +51,26 @@ public class UserListRvFragment extends Fragment {
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
-                String userName = userList.get(position).getLastName();
-                Log.d("TAG","user's row clicked: " + userName);
-                Navigation.findNavController(v).navigate(UserListRvFragmentDirections.actionUserListRvFragmentToUserRestaurantListRvFragment(userList.get(position).getId()));
-                //Navigation.findNavController(v).navigate(StudentListRvFragmentDirections.actionStudentListRvFragmentToStudentDetailsFragment(stId));
+//                String userName = userList.get(position).getLastName();
+//                Log.d("TAG","user's row clicked: " + userName);
+//                Navigation.findNavController(v).navigate(UserListRvFragmentDirections.actionUserListRvFragmentToUserRestaurantListRvFragment(userList.get(position).getId()));
+//                //Navigation.findNavController(v).navigate(StudentListRvFragmentDirections.actionStudentListRvFragmentToStudentDetailsFragment(stId));
 
             }
         });
+        nameEt = view.findViewById(R.id.add_friend_name_et);
+        emailEt = view.findViewById(R.id.add_friend_email_et);
+        rvTitleTv = view.findViewById(R.id.add_friend_rv_title_tv);
+        searchBtn = view.findViewById(R.id.add_friend_serach_btn);
 
-        nameTv = view.findViewById(R.id.user_list_name_tv);
-        numOfFriendsTv = view.findViewById(R.id.user_list_numOfFriends_tv);
-        imgIv = view.findViewById(R.id.user_list_img_iv);
-        addFriendBtn = view.findViewById(R.id.user_list_addFriend_btn);
 
-        addFriendBtn.setOnClickListener((v)->{
-            Navigation.findNavController(v).navigate(UserListRvFragmentDirections.actionUserListRvFragmentToAddFriendFragment());
-        });
-
+       // nameTv.setText(user.getFirstName()+"'s reviews on "+restaurant.getName());
 
         return view;
 
     }
+
+
 
     class MyViewHolder extends RecyclerView.ViewHolder{
         TextView nameEt;
@@ -78,6 +82,7 @@ public class UserListRvFragment extends Fragment {
             nameEt = itemView.findViewById(R.id.user_row_name_tv);
             restaurantEt = itemView.findViewById(R.id.user_row_resto_tv);
             reviewsEt = itemView.findViewById(R.id.user_row_reviews_tv);
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -107,7 +112,7 @@ public class UserListRvFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-            User user = userList.get(position);
+            User user = friendsList.get(position);
             holder.nameEt.setText(user.getFirstName()+" "+user.getLastName());
             holder.restaurantEt.setText("Visited "+ user.getTotalRestaurantsVisited() +" restaurants total");
             holder.reviewsEt.setText("Has total of " + user.getReviewList().size()+ " reviews");
@@ -115,7 +120,7 @@ public class UserListRvFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            return userList.size();
+            return friendsList.size();
         }
     }
 }
