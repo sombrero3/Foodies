@@ -30,6 +30,21 @@
         app:layout_constraintTop_toBottomOf="@+id/add_friend_serach_btn" />
 
     <TextView
+        android:id="@+id/add_friend_wrong_details_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:text="Invalid details!! please correct the details and try again"
+        android:textColor="#FD0303"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_friend_email_et" />
+
+    <TextView
         android:id="@+id/textView23"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -84,17 +99,17 @@
         android:id="@+id/add_friend_serach_btn"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:backgroundTint="@color/orange_1"
         android:text="Serach"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_friend_email_et" />
+        app:layout_constraintTop_toBottomOf="@+id/add_friend_wrong_details_tv" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/add_friend_rv"
         android:layout_width="409dp"
-        android:layout_height="393dp"
+        android:layout_height="0dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -1,8 +1,11 @@
 package com.example.foodies.model;
 
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodies.R;
 
@@ -297,6 +300,35 @@ public class Model {
             }
         }
         return reviews;
+    }
+    public List<User> getUsersByName(String name){
+        List<User> result = new LinkedList<>();
+        for (User user :userList) {
+            if(user.getFirstName().contains(name)){
+                result.add(user);
+            }
+        }
+        return result;
+    }
+    public List<User> getUsersByEmail(String email){
+
+        List<User> result = new LinkedList<>();
+        for (User user : userList) {
+            if (user.getEmail().contains(email)&& !user.getEmail().equals("No email address")) {
+                result.add(user);
+            }
+        }
+
+        return result;
+    }
+    public List<User> getUsersByNameAndEmail(String name,String email){
+        List<User> result = new LinkedList<>();
+        for (User user :userList) {
+            if(user.getFirstName().contains(name)&& user.getEmail().contains(email)){
+                result.add(user);
+            }
+        }
+        return result;
     }
     public List<User> peopleYouMayKnow(){
         List<User> friends , result;
