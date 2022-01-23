@@ -50,9 +50,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Friends reviews : "
+        android:layout_marginEnd="16dp"
+        android:text="Dishes which reviewed by your friends :"
         android:textColor="@color/white"
         android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/restaurant_page_star1_iv"
         app:layout_constraintTop_toBottomOf="@+id/restaurant_page_star1_iv" />
 

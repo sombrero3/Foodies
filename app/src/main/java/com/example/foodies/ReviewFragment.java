@@ -39,7 +39,8 @@ public class ReviewFragment extends Fragment {
         reviewList = Model.instance.getAllFriendsReviewsOnDishByDishIdAndUserId(review.getDishId(),review.getUserId());
         RecyclerView list = view.findViewById(R.id.review_rv);
         list.setHasFixedSize(true);
-        list.setLayoutManager(new LinearLayoutManager(getContext()));
+        RecyclerView.LayoutManager horizontalLayout = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
+        list.setLayoutManager(horizontalLayout);
         MyAdapter adapter = new MyAdapter();
         list.setAdapter(adapter);
 
