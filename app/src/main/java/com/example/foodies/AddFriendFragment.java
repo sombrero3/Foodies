@@ -60,7 +60,6 @@ public class AddFriendFragment extends Fragment {
                 String name = nameEt.getEditableText().toString();
                 String email = emailEt.getEditableText().toString();
                 boolean flag = true;
-
                 if (name.equals("") || name.charAt(0) == ' ') {
                     if (email.equals("") || email.charAt(0) == ' ') {
                         wrongDetailsTv.setVisibility(View.VISIBLE);
@@ -75,8 +74,7 @@ public class AddFriendFragment extends Fragment {
                 } else {
                     suggestionList = Model.instance.getUsersByNameAndEmail(name,email);
                 }
-
-                list.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
                 if(flag){
                     wrongDetailsTv.setVisibility(View.INVISIBLE);
                     if(suggestionList.size()>0) {
