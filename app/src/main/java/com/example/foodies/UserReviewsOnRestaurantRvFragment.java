@@ -36,6 +36,8 @@ public class UserReviewsOnRestaurantRvFragment extends Fragment {
         TextView descriptionTv;
         ImageView image,star1,star2,star3,star4,star5;
         TextView ratingTv;
+
+        MenuItem user;
        float rate;
 
         @Override
@@ -76,6 +78,8 @@ public class UserReviewsOnRestaurantRvFragment extends Fragment {
             star4 = view.findViewById(R.id.user_reviews_on_restaurant_star4_iv);
             star5 = view.findViewById(R.id.user_reviews_on_restaurant_star5_iv);
             ratingTv = view.findViewById(R.id.user_reviews_on_restaurant_rating_tv);
+
+
 
             restaurant.setRating("2.5");
             Model.instance.setStarByRating(restaurant.getRating(),star1,star2,star3,star4,star5,ratingTv);
@@ -173,6 +177,8 @@ public class UserReviewsOnRestaurantRvFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId()==R.id.menu_menu){
+            //case R.id.home_restaurant_menu_user
+
             return true;
         }
         else{

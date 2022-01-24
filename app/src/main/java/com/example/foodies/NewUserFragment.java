@@ -33,6 +33,7 @@ public class NewUserFragment extends Fragment {
         return view;
     }
 }
+//
 
 
 
