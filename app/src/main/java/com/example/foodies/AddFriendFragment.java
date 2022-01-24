@@ -20,8 +20,6 @@ import com.example.foodies.model.User;
 import java.util.LinkedList;
 import java.util.List;
 
-
-
 public class AddFriendFragment extends Fragment {
     List<User> suggestionList;
     TextView rvTitleTv,wrongDetailsTv;
