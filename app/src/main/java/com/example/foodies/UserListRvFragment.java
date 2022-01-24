@@ -11,11 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.foodies.model.Model;
@@ -26,9 +27,6 @@ import java.util.List;
 
 public class UserListRvFragment extends Fragment {
     List<User> userList;
-    TextView nameTv,numOfFriendsTv;
-    ImageView imgIv;
-    Button addFriendBtn;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_list_rv, container, false);
@@ -53,17 +51,11 @@ public class UserListRvFragment extends Fragment {
 
             }
         });
+        //ImageButton add = view.findViewById(R.id.studentlist_add_btn);
 
-        nameTv = view.findViewById(R.id.user_list_name_tv);
-        numOfFriendsTv = view.findViewById(R.id.user_list_numOfFriends_tv);
-        imgIv = view.findViewById(R.id.user_list_img_iv);
-        addFriendBtn = view.findViewById(R.id.user_list_addFriend_btn);
-
-        addFriendBtn.setOnClickListener((v)->{
-            Navigation.findNavController(v).navigate(UserListRvFragmentDirections.actionUserListRvFragmentToAddFriendFragment());
-        });
-
-
+        //add.setOnClickListener(Navigation.createNavigateOnClickListener(StudentListRvFragmentDirections.actionGlobalAboutFragment()));
+        //setHasOptionsMenu(true);
+        setHasOptionsMenu(true);
         return view;
 
     }
@@ -118,4 +110,23 @@ public class UserListRvFragment extends Fragment {
             return userList.size();
         }
     }
+
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.user_list,menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId()==R.id.menu_menu){
+            return true;
+        }
+        else{
+            return super.onOptionsItemSelected(item);
+
+        }
+    }
 }
+
