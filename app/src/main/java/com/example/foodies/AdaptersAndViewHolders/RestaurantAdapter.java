@@ -1,4 +1,4 @@
-package com.example.foodies.model;
+package com.example.foodies.AdaptersAndViewHolders;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodies.R;
+import com.example.foodies.model.Model;
+import com.example.foodies.model.Restaurant;
 
 import java.util.List;
 

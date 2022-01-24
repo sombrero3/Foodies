@@ -1,4 +1,4 @@
-package com.example.foodies.model;
+package com.example.foodies.AdaptersAndViewHolders;
 
 import android.view.View;
 import android.widget.ImageView;
@@ -7,7 +7,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.foodies.HomeRestaurantListRvFragment;
 import com.example.foodies.R;
 
 public class RestaurantViewHolder extends RecyclerView.ViewHolder {

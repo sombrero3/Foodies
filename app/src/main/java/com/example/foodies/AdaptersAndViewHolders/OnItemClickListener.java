@@ -1,4 +1,4 @@
-package com.example.foodies.model;
+package com.example.foodies.AdaptersAndViewHolders;
 
 import android.view.View;
 

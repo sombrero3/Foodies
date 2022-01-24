@@ -18,9 +18,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.foodies.model.Model;
-import com.example.foodies.model.OnItemClickListener;
+import com.example.foodies.AdaptersAndViewHolders.OnItemClickListener;
 import com.example.foodies.model.Restaurant;
-import com.example.foodies.model.RestaurantAdapter;
+import com.example.foodies.AdaptersAndViewHolders.RestaurantAdapter;
 import com.example.foodies.model.User;
 
 import java.util.List;

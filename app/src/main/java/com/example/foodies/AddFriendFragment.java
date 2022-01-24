@@ -75,6 +75,7 @@ public class AddFriendFragment extends Fragment {
                     suggestionList = Model.instance.getUsersByNameAndEmail(name,email);
                 }
                 adapter.notifyDataSetChanged();
+//                list.setAdapter(adapter);
                 if(flag){
                     wrongDetailsTv.setVisibility(View.INVISIBLE);
                     if(suggestionList.size()>0) {
