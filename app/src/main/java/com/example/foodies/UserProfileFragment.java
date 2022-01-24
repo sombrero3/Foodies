@@ -34,8 +34,12 @@ public class UserProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_user_profile, container, false);
+
+        ///-------------temp, need to get userId by nav Args-----------------------///
         User user = Model.instance.getSignedUser();
-        friendsList = user.getFriendsList(); // temp, need to get userId by nav Args
+        friendsList = user.getFriendsList();
+        //------------------------------------------------------------------------///
+
         reviewList = Model.instance.getUserHighestRatingReviewsByUserId(user.getId());
 
         reviewsRv = view.findViewById(R.id.user_profile_favorit_dishes_rv);
@@ -71,6 +75,13 @@ public class UserProfileFragment extends Fragment {
                 //Navigation.findNavController(v).navigate(UserListRvFragmentDirections.actionUserListRvFragmentToUserRestaurantListRvFragment(userList.get(position).getId()));
             }
         });
+
+        nameTv = view.findViewById(R.id.user_profile_name_tv);
+        totalRestaurantsTv =view.findViewById(R.id.user_profile_total_restaurants_num_tv);
+        totalReviewsTv = view.findViewById(R.id.user_profile_total_reviews_num_tv);
+
+        totalReviewsTv.setText("Posted total of "+user.getTotalReviews()+" reviews");
+        totalRestaurantsTv.setText("Posted reviews on "+user.getTotalRestaurantsVisited()+" restaurants");
 
         return view;
     }

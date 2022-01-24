@@ -48,6 +48,7 @@ public class Model {
                 }
             }
         }
+
         Random random = new Random();
         for(int i=0;i<10;i++){
             Restaurant res = new Restaurant("Restaurant name "+i);
@@ -67,7 +68,6 @@ public class Model {
 
             restaurantList.add(res);
         }
-
     }
 
     //-------Getters and Setters-------//
@@ -459,18 +459,6 @@ public class Model {
             star5.setVisibility(View.INVISIBLE);
         }
 
-    }
-
-
-    public List<Dish> getFavoriteDishesByUserId(String userId) {
-        List<Dish> result = new LinkedList<>();
-        List<Review> reviews = getUserById(userId).getReviewList();
-        for (Review review:reviews) {
-            if(Double.parseDouble(review.getRating())>4.0){
-                result.add(Model.instance.getDishById(review.getDishId()));
-            }
-        }
-        return result;
     }
 
     public List<Review> getUserHighestRatingReviewsByUserId(String userId) {
