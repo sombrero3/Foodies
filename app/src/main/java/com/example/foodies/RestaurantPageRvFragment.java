@@ -27,17 +27,13 @@ public class RestaurantPageRvFragment extends Fragment {
     List<User> usersList;
     TextView nameTv, locationTv, numOfReviewsTv,ratingTv;
     ImageView image,star1,star2,star3,star4,star5;
+    Restaurant restaurant;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_restaurant_page_rv, container, false);
 
-        //implement usersRestaurantList and replace it with restaurantList---------------------------------------------------------//
-
-
-
-        //-------------------------------------------------------------------------------------------------------------------------//
         String resId = RestaurantPageRvFragmentArgs.fromBundle(getArguments()).getRestaurantId();
-        Restaurant restaurant = Model.instance.getRestaurantById(resId);
+        restaurant = Model.instance.getRestaurantById(resId);
         usersList = Model.instance.getAllUsersThatHaveReviewsOnRestaurantByRestaurantId(resId);
 
         RecyclerView list = view.findViewById(R.id.restaurant_page_rv);
@@ -72,13 +68,6 @@ public class RestaurantPageRvFragment extends Fragment {
         nameTv.setText(restaurant.getName());
         locationTv.setText(restaurant.getLocation());
 
-
-
-        //--------controlling the addReview button--------------//
-        //   addReviewBtn.setVisibility(View.INVISIBLE);
-        //  addReviewBtn.setClickable(false);
-        //-----------------------------------------------------//
-        //add.setOnClickListener(Navigation.createNavigateOnClickListener(StudentListRvFragmentDirections.actionGlobalAboutFragment()));
         //setHasOptionsMenu(true);
         return view;
 
@@ -108,9 +97,11 @@ public class RestaurantPageRvFragment extends Fragment {
 
         }
     }
+
     interface OnItemClickListener{
         void onItemClick(View v,int position);
     }
+
     class MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
         OnItemClickListener listener;
         public void setOnItemClickListener(OnItemClickListener listener){
@@ -130,10 +121,8 @@ public class RestaurantPageRvFragment extends Fragment {
             User user = usersList.get(position);
             holder.nameTv.setText(user.getFirstName()+" "+user.getLastName());
 
-            String rating = "2.5";
+            String rating = Model.instance.getRestaurantRatingGivenByAUser(user,restaurant.getId());
             Model.instance.setStarByRating(rating, holder.star1, holder.star2, holder.star3, holder.star4, holder.star5, holder.ratingTv);
-
-
 
         }
 

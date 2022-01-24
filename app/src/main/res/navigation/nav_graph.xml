@@ -11,7 +11,9 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_homeRestaurantListRvFragment"
-            app:destination="@id/homeRestaurantListRvFragment" />
+            app:destination="@id/homeRestaurantListRvFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out" />
         <action
             android:id="@+id/action_homeFragment_to_userRestaurantListRvFragment"
             app:destination="@id/userRestaurantListRvFragment" />

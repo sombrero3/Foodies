@@ -1,6 +1,5 @@
 package com.example.foodies;
 
-import android.media.Image;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,8 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,10 +33,10 @@ public class UserRestaurantListRvFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_restaurant_list_rv, container, false);
 
-        //implement usersRestaurantList and replace it with restaurantList---------------------------------------------------------//
+
         User user = Model.instance.getUserById(UserRestaurantListRvFragmentArgs.fromBundle(getArguments()).getUserId());
         restaurantList = Model.instance.getAllRestaurantsThatUserHasReviewsOnByUserId(user.getId());
-        //-------------------------------------------------------------------------------------------------------------------------//
+
 
         RecyclerView list = view.findViewById(R.id.user_restaurant_list_rv);
         list.setHasFixedSize(true);
@@ -69,11 +66,6 @@ public class UserRestaurantListRvFragment extends Fragment {
         }else{
             addReviewBtn.setVisibility(View.INVISIBLE);
         }
-        //--------controlling the addReview button--------------//
-     //   addReviewBtn.setVisibility(View.INVISIBLE);
-      //  addReviewBtn.setClickable(false);
-        //-----------------------------------------------------//
-        //add.setOnClickListener(Navigation.createNavigateOnClickListener(StudentListRvFragmentDirections.actionGlobalAboutFragment()));
         //setHasOptionsMenu(true);
         return view;
 
@@ -126,8 +118,6 @@ public class UserRestaurantListRvFragment extends Fragment {
             Restaurant restaurant = restaurantList.get(position);
             holder.nameTv.setText(restaurant.getName());
             holder.descriptionTv.setText("Friend and 20 other friend visited this text should be dynamic");
-
-            //restaurant.setRating("3.5");
             Model.instance.setStarByRating(restaurant.getRating(), holder.star1, holder.star2, holder.star3, holder.star4, holder.star5, holder.ratingTv);
 
         }

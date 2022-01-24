@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,11 +34,9 @@ public class UserReviewsOnRestaurantRvFragment extends Fragment {
         public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.fragment_user_reviews_on_restaurant_rv, container, false);
 
-            //implement usersRestaurantList and replace it with restaurantList---------------------------------------------------------//
             User user = Model.instance.getUserById(UserReviewsOnRestaurantRvFragmentArgs.fromBundle(getArguments()).getUserId());
             Restaurant restaurant = Model.instance.getRestaurantById(UserReviewsOnRestaurantRvFragmentArgs.fromBundle(getArguments()).getRestaurantId());
             dishList = Model.instance.getAllDishesThatTheUserHasAReviewedOnInThisRestaurantByUserIdAndRestaurantId(user.getId(),restaurant.getId());
-            //-------------------------------------------------------------------------------------------------------------------------//
 
             RecyclerView list = view.findViewById(R.id.user_reviews_on_restaurant_dishes_list_rv);
             list.setHasFixedSize(true);
@@ -56,10 +53,9 @@ public class UserReviewsOnRestaurantRvFragment extends Fragment {
                     Review review = Model.instance.getReviewOnDishByDishIdAndUserId(dishId, user.getId());
                     Log.d("TAG","dish clicked: " + dishName + " price: "+price );
                     Navigation.findNavController(v).navigate(UserReviewsOnRestaurantRvFragmentDirections.actionUserReviewsOnRestaurantRvFragmentToReviewFragment(review.getId()));
-                    //Navigation.findNavController(v).navigate(StudentListRvFragmentDirections.actionStudentListRvFragmentToStudentDetailsFragment(stId));
-
                 }
             });
+
             nameTv = view.findViewById(R.id.user_reviews_on_restaurant_name_tv);
             generaReviewTitle = view.findViewById(R.id.user_reviews_on_restaurant_general_review_tv);
             descriptionTv = view.findViewById(R.id.user_reviews_on_restaurant_general_review_description_tv);
@@ -69,28 +65,14 @@ public class UserReviewsOnRestaurantRvFragment extends Fragment {
             star4 = view.findViewById(R.id.user_reviews_on_restaurant_star4_iv);
             star5 = view.findViewById(R.id.user_reviews_on_restaurant_star5_iv);
             ratingTv = view.findViewById(R.id.user_reviews_on_restaurant_rating_tv);
-            //getuserratingonrestaurent
-            //restaurant.setRating("2.5");
+
             Model.instance.setStarByRating(restaurant.getRating(),star1,star2,star3,star4,star5,ratingTv);
 
-
-
-           // star5.setVisibility(View.INVISIBLE);       erase image
-         //   star5.setImageResource(R.drawable.boy1);   change image
-
-
             nameTv.setText(user.getFirstName()+"'s reviews on "+restaurant.getName());
-            //--------controlling the addReview button--------------//
-            //   addReviewBtn.setVisibility(View.INVISIBLE);
-            //  addReviewBtn.setClickable(false);
-            //-----------------------------------------------------//
-            //add.setOnClickListener(Navigation.createNavigateOnClickListener(StudentListRvFragmentDirections.actionGlobalAboutFragment()));
             //setHasOptionsMenu(true);
             return view;
 
         }
-
-
 
         class MyViewHolder extends RecyclerView.ViewHolder{
             TextView nameTv,priceTv,ratingTv;
@@ -109,13 +91,6 @@ public class UserReviewsOnRestaurantRvFragment extends Fragment {
                 star5 = itemView.findViewById(R.id.dish_list_row_star5_iv);
                 ratingTv =itemView.findViewById(R.id.dish_list_row_rating_tv);
 
-
-
-              //Model.instance.setStarByRating(ratingTv.toString(), star1,star2, star3, star4, star5, ratingTv);
-
-
-                //   star5.setVisibility(View.INVISIBLE);
-
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -126,9 +101,11 @@ public class UserReviewsOnRestaurantRvFragment extends Fragment {
 
             }
         }
+
         interface OnItemClickListener{
             void onItemClick(View v,int position);
         }
+
         class MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
             OnItemClickListener listener;
             public void setOnItemClickListener(OnItemClickListener listener){
@@ -148,7 +125,6 @@ public class UserReviewsOnRestaurantRvFragment extends Fragment {
                 Dish dish = dishList.get(position);
                 holder.nameTv.setText(dish.getName());
                 holder.priceTv.setText(dish.getPrice());
-              //  dish.setRating("2");
                 Model.instance.setStarByRating(dish.getRating(), holder.star1, holder.star2, holder.star3, holder.star4, holder.star5, holder.ratingTv);
             }
 

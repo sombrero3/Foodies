@@ -87,8 +87,8 @@
         android:text="More friends reviews about that dish :"
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@+id/review_description_tv"
-        tools:layout_editor_absoluteX="16dp" />
+        app:layout_constraintStart_toStartOf="@+id/textView17"
+        app:layout_constraintTop_toBottomOf="@+id/review_description_tv" />
 
     <TextView
         android:id="@+id/review_user_name_tv"

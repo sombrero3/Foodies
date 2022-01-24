@@ -14,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -49,8 +48,6 @@ public class UserListRvFragment extends Fragment {
                 String userName = userList.get(position).getLastName();
                 Log.d("TAG","user's row clicked: " + userName);
                 Navigation.findNavController(v).navigate(UserListRvFragmentDirections.actionUserListRvFragmentToUserRestaurantListRvFragment(userList.get(position).getId()));
-                //Navigation.findNavController(v).navigate(StudentListRvFragmentDirections.actionStudentListRvFragmentToStudentDetailsFragment(stId));
-
             }
         });
 
@@ -62,7 +59,6 @@ public class UserListRvFragment extends Fragment {
         addFriendBtn.setOnClickListener((v)->{
             Navigation.findNavController(v).navigate(UserListRvFragmentDirections.actionUserListRvFragmentToAddFriendFragment());
         });
-
 
         return view;
 
@@ -88,9 +84,11 @@ public class UserListRvFragment extends Fragment {
 
         }
     }
+
     interface OnItemClickListener{
         void onItemClick(View v,int position);
     }
+
     class MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
         OnItemClickListener listener;
         public void setOnItemClickListener(OnItemClickListener listener){

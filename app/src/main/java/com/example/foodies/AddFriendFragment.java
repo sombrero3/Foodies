@@ -1,26 +1,20 @@
 package com.example.foodies;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.foodies.model.Dish;
 import com.example.foodies.model.Model;
-import com.example.foodies.model.Restaurant;
-import com.example.foodies.model.Review;
 import com.example.foodies.model.User;
 
 import java.util.LinkedList;
@@ -51,7 +45,6 @@ public class AddFriendFragment extends Fragment {
 //                String userName = userList.get(position).getLastName();
 //                Log.d("TAG","user's row clicked: " + userName);
 //                Navigation.findNavController(v).navigate(UserListRvFragmentDirections.actionUserListRvFragmentToUserRestaurantListRvFragment(userList.get(position).getId()));
-//                //Navigation.findNavController(v).navigate(StudentListRvFragmentDirections.actionStudentListRvFragmentToStudentDetailsFragment(stId));
 
             }
         });
@@ -97,12 +90,8 @@ public class AddFriendFragment extends Fragment {
             }
         });
 
-
         return view;
-
     }
-
-
 
     class MyViewHolder extends RecyclerView.ViewHolder{
         TextView nameEt;

@@ -48,7 +48,6 @@ public class HomeRestaurantListRvFragment extends Fragment {
                 String restaurantId = restaurantList.get(position).getId();
                 Log.d("TAG","Restaurant clicked: " + restaurantName + " " + restaurantId);
                 Navigation.findNavController(v).navigate(HomeRestaurantListRvFragmentDirections.actionHomeRestaurantListRvFragmentToRestaurantPageRvFragment(restaurantId));
-                //Navigation.findNavController(v).navigate(StudentListRvFragmentDirections.actionStudentListRvFragmentToStudentDetailsFragment(stId));
 
             }
         });
@@ -68,7 +67,6 @@ public class HomeRestaurantListRvFragment extends Fragment {
             }
         });
 
-        //add.setOnClickListener(Navigation.createNavigateOnClickListener(StudentListRvFragmentDirections.actionGlobalAboutFragment()));
         //setHasOptionsMenu(true);
         return view;
 
@@ -122,10 +120,7 @@ public class HomeRestaurantListRvFragment extends Fragment {
             Restaurant restaurant = restaurantList.get(position);
             holder.nameTv.setText(restaurant.getName());
             holder.descriptionTv.setText("Friend and 20 other friend visited this text should be dynamic");
-
             Model.instance.setStarByRating(restaurant.getRating(), holder.star1, holder.star2, holder.star3, holder.star4, holder.star5, holder.ratingTv);
-
-
         }
 
         @Override

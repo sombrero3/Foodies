@@ -20,14 +20,5 @@ public class MainActivity extends AppCompatActivity {
         navCtl = navHost.getNavController();
 
         NavigationUI.setupActionBarWithNavController(this, navCtl);
-        // NewUserFragment newUserFragment = (NewUserFragment) getSupportFragmentManager().findFragmentById(R.id.NewUser_container_frag_);
-
     }
-
-    //@Override
- //   public boolean onCreateOptionsMenu(Menu menu) {
-   //      super.onCreateOptionsMenu(menu);
-   //      getMenuInflater().inflate(R.menu.main_menu,menu);
-     //    return  true;
-  //  }
 }
