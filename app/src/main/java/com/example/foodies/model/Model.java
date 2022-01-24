@@ -462,4 +462,25 @@ public class Model {
     }
 
 
+    public List<Dish> getFavoriteDishesByUserId(String userId) {
+        List<Dish> result = new LinkedList<>();
+        List<Review> reviews = getUserById(userId).getReviewList();
+        for (Review review:reviews) {
+            if(Double.parseDouble(review.getRating())>4.0){
+                result.add(Model.instance.getDishById(review.getDishId()));
+            }
+        }
+        return result;
+    }
+
+    public List<Review> getUserHighestRatingReviewsByUserId(String userId) {
+        List<Review> result = new LinkedList<>();
+        List<Review> reviews = getUserById(userId).getReviewList();
+        for (Review review:reviews) {
+            if(Double.parseDouble(review.getRating())>4.0){
+                result.add(review);
+            }
+        }
+        return result;
+    }
 }

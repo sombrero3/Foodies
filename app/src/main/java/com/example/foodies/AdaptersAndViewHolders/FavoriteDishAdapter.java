@@ -8,20 +8,20 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodies.R;
-
 import com.example.foodies.model.Dish;
 import com.example.foodies.model.Model;
+import com.example.foodies.model.Review;
 
 import java.util.List;
 
-public class DishListAdapter extends RecyclerView.Adapter<DishListViewHolder> {
+public class FavoriteDishAdapter extends RecyclerView.Adapter<DishListViewHolder> {
     OnItemClickListener listener;
-    List<Dish> dishList;
+    List<Review> reviewList;
     public void setOnItemClickListener(OnItemClickListener listener){
         this.listener = listener;
     }
-    public DishListAdapter(List<Dish> dishList){
-        this.dishList = dishList;
+    public FavoriteDishAdapter(List<Review> reviewList){
+        this.reviewList = reviewList;
     }
 
     @NonNull
@@ -34,15 +34,16 @@ public class DishListAdapter extends RecyclerView.Adapter<DishListViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull DishListViewHolder holder, int position) {
-        Dish dish = dishList.get(position);
+        Review review = reviewList.get(position);
+        Dish dish =Model.instance.getDishById(review.getDishId());
         holder.nameTv.setText(dish.getName());
         holder.priceTv.setText(dish.getPrice());
-        Model.instance.setStarByRating(dish.getRating(), holder.star1, holder.star2, holder.star3, holder.star4, holder.star5, holder.ratingTv);
+        Model.instance.setStarByRating(review.getRating(), holder.star1, holder.star2, holder.star3, holder.star4, holder.star5, holder.ratingTv);
     }
 
     @Override
     public int getItemCount() {
-        return dishList.size();
+        return reviewList.size();
     }
 
 }
