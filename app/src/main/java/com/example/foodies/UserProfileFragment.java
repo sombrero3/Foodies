@@ -35,10 +35,9 @@ public class UserProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_user_profile, container, false);
 
-        ///-------------temp, need to get userId by nav Args-----------------------///
-        User user = Model.instance.getSignedUser();
+        String userId = UserProfileFragmentArgs.fromBundle(getArguments()).getUserId();
+        User user = Model.instance.getUserById(userId);
         friendsList = user.getFriendsList();
-        //------------------------------------------------------------------------///
 
         reviewList = Model.instance.getUserHighestRatingReviewsByUserId(user.getId());
 
@@ -63,7 +62,7 @@ public class UserProfileFragment extends Fragment {
                 String dishName = dish.getName();
                 String price = dish.getPrice();
                 Log.d("TAG","dish clicked: " + dishName + " price: "+price );
-              //  Navigation.findNavController(v).navigate(UserReviewsOnRestaurantRvFragmentDirections.actionUserReviewsOnRestaurantRvFragmentToReviewFragment(review.getId()));
+                Navigation.findNavController(v).navigate(UserProfileFragmentDirections.actionUserProfileFragmentToReviewFragment2(reviewList.get(position).getDishId()));
             }
         });
 
@@ -72,7 +71,7 @@ public class UserProfileFragment extends Fragment {
             public void onItemClick(View v, int position) {
                 String userName = friendsList.get(position).getLastName();
                 Log.d("TAG","user's row clicked: " + userName);
-                //Navigation.findNavController(v).navigate(UserListRvFragmentDirections.actionUserListRvFragmentToUserRestaurantListRvFragment(userList.get(position).getId()));
+                Navigation.findNavController(v).navigate(UserProfileFragmentDirections.actionUserProfileFragmentSelf(friendsList.get(position).getId()));
             }
         });
 
@@ -80,6 +79,7 @@ public class UserProfileFragment extends Fragment {
         totalRestaurantsTv =view.findViewById(R.id.user_profile_total_restaurants_num_tv);
         totalReviewsTv = view.findViewById(R.id.user_profile_total_reviews_num_tv);
 
+        nameTv.setText(user.getFirstName()+ " "+ user.getLastName());
         totalReviewsTv.setText("Posted total of "+user.getTotalReviews()+" reviews");
         totalRestaurantsTv.setText("Posted reviews on "+user.getTotalRestaurantsVisited()+" restaurants");
 

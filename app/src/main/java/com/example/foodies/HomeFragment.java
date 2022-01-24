@@ -48,7 +48,7 @@ public class HomeFragment extends Fragment {
                Navigation.findNavController(v).navigate(HomeFragmentDirections.actionHomeFragmentToUserListRvFragment(user.getId()));
            });
            myProfile.setOnClickListener((v)->{
-               Navigation.findNavController(v).navigate(HomeFragmentDirections.actionHomeFragmentToUserProfileFragment());
+               Navigation.findNavController(v).navigate(HomeFragmentDirections.actionHomeFragmentToUserProfileFragment(user.getId()));
            });
        }
        signInBtn.setOnClickListener((v)->{

@@ -174,5 +174,15 @@
         android:id="@+id/userProfileFragment"
         android:name="com.example.foodies.UserProfileFragment"
         android:label="fragment_user_profile"
-        tools:layout="@layout/fragment_user_profile" />
+        tools:layout="@layout/fragment_user_profile" >
+        <action
+            android:id="@+id/action_userProfileFragment_to_reviewFragment2"
+            app:destination="@id/reviewFragment2" />
+        <action
+            android:id="@+id/action_userProfileFragment_self"
+            app:destination="@id/userProfileFragment" />
+        <argument
+            android:name="userId"
+            app:argType="string" />
+    </fragment>
 </navigation>
