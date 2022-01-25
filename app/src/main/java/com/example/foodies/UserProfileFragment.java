@@ -120,6 +120,10 @@ public class UserProfileFragment extends Fragment {
             allReviewsBtn.setText("Check out all "+user.getFirstName()+"'s reviews");
         }
 
+        if(Model.instance.getSignedUser().getFriendsList().contains(user)){
+            addFriendBtn.setVisibility(View.INVISIBLE);
+            addFriendBtn.setClickable(false);
+        }
         allReviewsBtn.setOnClickListener((v)-> {
             Navigation.findNavController(v).navigate(UserProfileFragmentDirections.actionUserProfileFragmentToUserRestaurantListRvFragment(userId));
         });
