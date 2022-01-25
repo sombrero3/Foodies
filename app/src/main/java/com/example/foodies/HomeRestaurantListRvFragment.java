@@ -33,13 +33,19 @@ public class HomeRestaurantListRvFragment extends Fragment {
     EditText searchEt;
     TextView nameTv;
     ImageButton searchIbtn;
-    Button addReviewBtn;
+    Button addReviewBtn,menuBtn;
     ImageView locationIv;
     boolean flag;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_restaurant_list_rv, container, false);
+
+        //----to use user validation put the next two lines in comment----//
+        Model.instance.setSignedUser(Model.instance.getUserById("1"));
+        Model.instance.setSignedFlag(true);
+        //----------------------------------------------------------------//
+
         User user = Model.instance.getSignedUser();
         restaurantList = Model.instance.getRestaurantList();
 
@@ -65,6 +71,7 @@ public class HomeRestaurantListRvFragment extends Fragment {
         locationIv = view.findViewById(R.id.home_restaurant_location_iv);
         addReviewBtn = view.findViewById(R.id.home_restaurant_list_review_btn);
         nameTv = view.findViewById(R.id.home_restaurant_list_name_tv);
+        menuBtn = view.findViewById(R.id.home_restaurant_list_menu_btn);
 
         nameTv.setText("Hello "+ user.getFirstName() );
         flag = true;
@@ -97,6 +104,10 @@ public class HomeRestaurantListRvFragment extends Fragment {
                     }
                 });
             }
+        });
+
+        menuBtn.setOnClickListener((v)->{
+            Navigation.findNavController(v).navigate(HomeRestaurantListRvFragmentDirections.actionHomeRestaurantListRvFragmentToHomeFragment());
         });
 
         addReviewBtn.setOnClickListener((v)->{

@@ -104,6 +104,17 @@
         app:layout_constraintStart_toStartOf="@+id/textView24"
         app:layout_constraintTop_toBottomOf="@+id/textView24" />
 
+    <Button
+        android:id="@+id/home_restaurant_list_menu_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/teal_700"
+        android:text="Menu"
+        app:layout_constraintBottom_toBottomOf="@+id/home_restaurant_list_review_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/home_restaurant_list_review_btn"
+        app:layout_constraintTop_toTopOf="@+id/home_restaurant_list_review_btn" />
+
     <TextView
         android:id="@+id/textView30"
         android:layout_width="0dp"
