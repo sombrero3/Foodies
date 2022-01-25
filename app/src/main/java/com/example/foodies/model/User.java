@@ -11,6 +11,8 @@ public class User {
     String firstName;
     String lastName;
     String totalReviews;
+    String email;
+    String password;
     Image image;
     List<Review> reviewList;
     List<User> friendsList;
@@ -21,20 +23,45 @@ public class User {
         id = Integer.toString(IdGenerator.instance.getNextId());
         firstName = "";
         lastName = "";
+        email ="No email address";
         totalReviews ="0";
         reviewList = new LinkedList<>();
         friendsList = new LinkedList<>();
+        password = "";
         totalRestaurantsVisited = "0";
     }
-    public User(String firstName,String lastName){
+    public User(String firstName,String password){
         id = Integer.toString(IdGenerator.instance.getNextId());
         this.firstName = firstName;
-        this.lastName = lastName;
+        this.lastName = password;
+        email ="No email address";
         totalReviews ="0";
+        this.password = password;
         reviewList = new LinkedList<>();
         friendsList = new LinkedList<>();
         totalRestaurantsVisited = "0";
     }
+    public User(String firstName,String password,String email){
+        id = Integer.toString(IdGenerator.instance.getNextId());
+        this.firstName = firstName;
+        this.lastName = password;
+        this.email = email;
+        totalReviews ="0";
+        this.password = password;
+        reviewList = new LinkedList<>();
+        friendsList = new LinkedList<>();
+        totalRestaurantsVisited = "0";
+    }
+//    public User(String firstName,String lastName){
+//        id = Integer.toString(IdGenerator.instance.getNextId());
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        totalReviews ="0";
+//        password = lastName;
+//        reviewList = new LinkedList<>();
+//        friendsList = new LinkedList<>();
+//        totalRestaurantsVisited = "0";
+//    }
 
     //-------Getters and Setters-------//
     public String getId() {
@@ -82,23 +109,40 @@ public class User {
     public void setTotalRestaurantsVisited(String totalRestaurantsVisited) {
         this.totalRestaurantsVisited = totalRestaurantsVisited;
     }
-//---------------------------------//
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    //---------------------------------//
 
     public void addReview(Review review){
-        reviewList.add(review);
-        int newTotal = Integer.valueOf(totalReviews)+1;
+
+        int newTotal = Integer.parseInt(totalReviews)+1;
         totalReviews = Integer.toString(newTotal);
         boolean flag = false;
-        for(int i=0;i<reviewList.size();i++){
-            if(reviewList.get(i).getRestaurantId().equals(review.getRestaurantId())){
+        for(Review rev:reviewList){
+            if(rev.getRestaurantId().equals(review.getRestaurantId())){
                 flag = true;
                 break;
             }
         }
         if(!flag){
-           newTotal = Integer.valueOf(totalRestaurantsVisited)+1;
+           newTotal = Integer.parseInt(totalRestaurantsVisited)+1;
            totalRestaurantsVisited = Integer.toString(newTotal);
         }
+        reviewList.add(review);
     }
     public void deleteReview(Review review){
         reviewList.remove(review);

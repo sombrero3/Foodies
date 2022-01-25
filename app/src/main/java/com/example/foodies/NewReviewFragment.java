@@ -41,7 +41,7 @@ public class NewReviewFragment extends Fragment {
         dishEt = view.findViewById(R.id.new_review_dish_et);
         priceEt = view.findViewById(R.id.new_review_price_et);
         descriptionEt = view.findViewById(R.id.new_review_description_et);
-        locationIv = view.findViewById(R.id.new_review_location_iv);
+        locationIv = view.findViewById(R.id.user_row_img);
         locationTv = view.findViewById(R.id.new_review_location_tv);
 
         locationTv.setOnClickListener((v)->{

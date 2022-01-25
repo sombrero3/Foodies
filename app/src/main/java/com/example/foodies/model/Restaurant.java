@@ -126,6 +126,7 @@ public class Restaurant {
             rating=Double.toString(avg+1);
         }
     }
+
     public void addDish(Dish dish){
         dishList.add(dish);
         if(!dish.getRating().equals("No rating yet")) {

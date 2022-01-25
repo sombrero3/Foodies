@@ -114,7 +114,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/textView13"
-        app:layout_constraintTop_toBottomOf="@+id/new_review_location_iv" />
+        app:layout_constraintTop_toBottomOf="@+id/user_row_img" />
 
     <Button
         android:id="@+id/new_review_uploadImg_btn"
@@ -177,7 +177,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:shadowColor="@color/purple_700"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textView16"
         app:layout_constraintTop_toBottomOf="@+id/textView16" />
@@ -220,7 +220,7 @@
         app:layout_constraintTop_toTopOf="@+id/new_review_uploadImg_btn" />
 
     <ImageView
-        android:id="@+id/new_review_location_iv"
+        android:id="@+id/user_row_img"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginStart="8dp"
@@ -237,8 +237,8 @@
         android:text="Find restaurant by location"
         android:textColor="@color/white"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/new_review_location_iv"
+        app:layout_constraintBottom_toBottomOf="@+id/user_row_img"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/new_review_location_iv" />
+        app:layout_constraintTop_toTopOf="@+id/user_row_img" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
