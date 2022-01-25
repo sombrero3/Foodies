@@ -31,6 +31,7 @@ public class UserProfileFragment extends Fragment {
     RecyclerView reviewsRv,friendsRv;
     List<User> friendsList;
     List<Review> reviewList;
+    boolean flagRequest;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -39,7 +40,10 @@ public class UserProfileFragment extends Fragment {
 
         String userId = UserProfileFragmentArgs.fromBundle(getArguments()).getUserId();
         User user = Model.instance.getUserById(userId);
+
         friendsList = user.getFriendsList();
+        friendsList.remove(Model.instance.getSignedUser());
+
 
         reviewList = Model.instance.getUserHighestRatingReviewsByUserId(user.getId());
 
@@ -70,7 +74,7 @@ public class UserProfileFragment extends Fragment {
                 String dishName = dish.getName();
                 String price = dish.getPrice();
                 Log.d("TAG","dish clicked: " + dishName + " price: "+price );
-                Navigation.findNavController(v).navigate(UserProfileFragmentDirections.actionUserProfileFragmentToReviewFragment2(reviewList.get(position).getDishId()));
+                Navigation.findNavController(v).navigate(UserProfileFragmentDirections.actionUserProfileFragmentToReviewFragment2(reviewList.get(position).getId()));
             }
         });
 
@@ -87,11 +91,30 @@ public class UserProfileFragment extends Fragment {
         totalReviewsTv.setText("Posted total of "+user.getTotalReviews()+" reviews");
         totalRestaurantsTv.setText("Posted reviews on "+user.getTotalRestaurantsVisited()+" restaurants");
 
-        addFriendBtn.setOnClickListener((v)->{
-            Navigation.findNavController(v).navigate(UserProfileFragmentDirections.actionUserProfileFragmentToAddFriendFragment());
-        });
+        String signedUserId = Model.instance.getSignedUser().getId();
 
-        if(Model.instance.getSignedUser().getId().equals(userId)){
+        if(userId.equals(signedUserId)) {
+            addFriendBtn.setOnClickListener((v) -> {
+                Navigation.findNavController(v).navigate(UserProfileFragmentDirections.actionUserProfileFragmentToAddFriendFragment());
+            });
+        }else if(!Model.instance.getSignedUser().getFriendsList().contains(Model.instance.getUserById(userId))){
+            addFriendBtn.setText("Send friend request");
+            flagRequest =false;
+            addFriendBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(!flagRequest) {
+                        addFriendBtn.setText("cancel friend request");
+                        flagRequest = true;
+                    }else{
+                        addFriendBtn.setText("Send friend request");
+                        flagRequest = false;
+                    }
+                }
+            });
+        }
+
+        if(signedUserId.equals(userId)){
             allReviewsBtn.setText("My reviews");
         }else{
             allReviewsBtn.setText("Check out all "+user.getFirstName()+"'s reviews");

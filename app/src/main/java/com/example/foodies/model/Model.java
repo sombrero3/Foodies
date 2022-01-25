@@ -30,13 +30,10 @@ public class Model {
         }
 
         Random rand = new Random();
-        for(int i=0;i<10;i++){
-            for(int j=0;j<4;j++) {
-                int x = Math.abs(rand.nextInt() % 10);
-                if( userList.get(i).getFriendsList().size() == 0 ){
-                    userList.get(i).addFriend(userList.get(x));
-                    userList.get(x).addFriend(userList.get(i));
-                }else if (!userList.get(i).getFriendsList().contains(userList.get(x))) {
+        for(int j=0;j<userList.size();j++){
+            for(int i=0;i<2;i++) {
+                int x = Math.abs(rand.nextInt() % userList.size());
+                if (!userList.get(j).getFriendsList().contains(userList.get(x)) && x!=j ) {
                     userList.get(i).addFriend(userList.get(x));
                     userList.get(x).addFriend(userList.get(i));
                 }
@@ -150,7 +147,7 @@ public class Model {
     }
 
     public void addReview(Review review){
-        getUserById(review.getUserId()).addReview(review);
+        getSignedUser().addReview(review);
         getDishById(review.getDishId()).addReview(review);
         reviewList.add(review);
     }
@@ -284,14 +281,16 @@ public class Model {
         }
         return "No Such Dish";
     }
-    public List<Review> getAllFriendsReviewsOnDishByDishIdAndUserId(String dishId,String userId){
+    public List<Review> getAllFriendsReviewsOnDishByDishId(String dishId){
+        User signedUser = getSignedUser();
+        String signedUserId = signedUser.getId();
         Dish dish = getDishById(dishId);
-        List<User> friends = getUserById(userId).getFriendsList();
+        List<User> friends = signedUser.getFriendsList();
         List<Review> reviews =  new LinkedList<>();
-        for(int i=0;i<dish.getReviewList().size();i++){
-            for(int j=0;j<friends.size();j++){
-                if(dish.reviewList.get(i).getUserId().equals(friends.get(j).getId())){
-                    reviews.add(dish.reviewList.get(i));
+        for(Review rev:dish.getReviewList()){
+            for(User friend:friends){
+                if(rev.getUserId().equals(friend.getId()) && !rev.getUserId().equals(signedUserId)){
+                    reviews.add(rev);
                 }
             }
         }

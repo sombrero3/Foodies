@@ -162,7 +162,9 @@ public class User {
         }
     }
     public void addFriend(User friend){
-        friendsList.add(friend);
+        if(!friendsList.contains(friend)) {
+            friendsList.add(friend);
+        }
     }
     public void deleteFriend(User friend){
         friendsList.remove(friend);

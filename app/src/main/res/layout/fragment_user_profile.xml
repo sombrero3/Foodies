@@ -104,7 +104,7 @@
         android:textColor="@color/orange_1"
         app:layout_constraintBottom_toBottomOf="@+id/textView26"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/user_profile_total_restaurants_num_tv"
+        app:layout_constraintStart_toEndOf="@+id/textView26"
         app:layout_constraintTop_toTopOf="@+id/textView26" />
 
     <Button

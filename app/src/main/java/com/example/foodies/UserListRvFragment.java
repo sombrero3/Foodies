@@ -58,6 +58,8 @@ public class UserListRvFragment extends Fragment {
         imgIv = view.findViewById(R.id.user_list_img_iv);
         addFriendBtn = view.findViewById(R.id.user_list_addFriend_btn);
 
+        nameTv.setText(user.getFirstName()+ " "+user.getLastName());
+
         addFriendBtn.setOnClickListener((v)->{
             Navigation.findNavController(v).navigate(UserListRvFragmentDirections.actionUserListRvFragmentToAddFriendFragment());
         });
