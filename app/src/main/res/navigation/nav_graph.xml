@@ -12,8 +12,8 @@
         <action
             android:id="@+id/action_homeFragment_to_homeRestaurantListRvFragment"
             app:destination="@id/homeRestaurantListRvFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:popEnterAnim="@android:anim/slide_out_right"
             app:popUpTo="@id/homeRestaurantListRvFragment"
             app:popUpToInclusive="true" />
         <action
@@ -50,7 +50,9 @@
             app:destination="@id/newReviewFragment" />
         <action
             android:id="@+id/action_homeRestaurantListRvFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/userRestaurantListRvFragment"
@@ -182,7 +184,9 @@
             app:destination="@id/reviewFragment2" />
         <action
             android:id="@+id/action_userProfileFragment_self"
-            app:destination="@id/userProfileFragment" />
+            app:destination="@id/userProfileFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out" />
         <argument
             android:name="userId"
             app:argType="string" />
