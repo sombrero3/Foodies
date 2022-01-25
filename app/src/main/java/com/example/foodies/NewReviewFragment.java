@@ -30,8 +30,7 @@ public class NewReviewFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_new_review, container, false);
-        String userId = NewReviewFragmentArgs.fromBundle(getArguments()).getUserId();
-        User user = Model.instance.getUserById(userId);
+        User user = Model.instance.getSignedUser();
         postReviewBtn = view.findViewById(R.id.new_review_postReview_btn);
         restaurantEt = view.findViewById(R.id.new_review_restaurant_et);
         dishEt = view.findViewById(R.id.new_review_dish_et);
@@ -51,7 +50,7 @@ public class NewReviewFragment extends Fragment {
 
         postReviewBtn.setOnClickListener((v)->{
             Review review = new Review();
-            review.setUserId(userId);
+            review.setUserId(user.getId());
             review.setDescription(descriptionEt.getText().toString());
             String resId = Model.instance.getRestaurantIdByName(restaurantEt.getText().toString());
             if(resId.equals("No Such Restaurant")){
@@ -62,6 +61,7 @@ public class NewReviewFragment extends Fragment {
                 review.setDishId(dish.getId());
                 dish.addReview(review);
                 restaurant.addDish(dish);
+                Model.instance.addDish(dish);
                 Model.instance.addRestaurant(restaurant);
             }else{
                 review.setRestaurantId(resId);

@@ -96,13 +96,13 @@
         app:layout_constraintTop_toBottomOf="@+id/user_reviews_on_restaurant_star1_iv" />
 
     <TextView
-        android:id="@+id/user_reviews_on_restaurant_revies_of_dishes_tv"
+        android:id="@+id/user_reviews_on_restaurant_secondary_title_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:text="Reviews of dishes : "
+        android:text="Dishes username posted reviews on :"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -133,7 +133,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_reviews_on_restaurant_revies_of_dishes_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/user_reviews_on_restaurant_secondary_title_tv" />
 
     <TextView
         android:id="@+id/user_reviews_on_restaurant_rating_tv"

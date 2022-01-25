@@ -29,7 +29,7 @@ import java.util.List;
 
 public class UserReviewsOnRestaurantRvFragment extends Fragment {
         List<Dish> dishList;
-        TextView nameTv,descriptionTv,generaReviewTitle,ratingTv;
+        TextView nameTv,descriptionTv,generaReviewTitle,ratingTv,secondaryTitleTv;
         ImageView image,star1,star2,star3,star4,star5;
 
         @Override
@@ -43,7 +43,7 @@ public class UserReviewsOnRestaurantRvFragment extends Fragment {
             RecyclerView list = view.findViewById(R.id.user_reviews_on_restaurant_dishes_list_rv);
             list.setHasFixedSize(true);
             list.setLayoutManager(new LinearLayoutManager(getContext()));
-            DishListAdapter adapter = new DishListAdapter(dishList);
+            DishListAdapter adapter = new DishListAdapter(dishList,user);
             list.setAdapter(adapter);
 
             adapter.setOnItemClickListener(new OnItemClickListener() {
@@ -61,6 +61,7 @@ public class UserReviewsOnRestaurantRvFragment extends Fragment {
             nameTv = view.findViewById(R.id.user_reviews_on_restaurant_name_tv);
             generaReviewTitle = view.findViewById(R.id.user_reviews_on_restaurant_general_review_tv);
             descriptionTv = view.findViewById(R.id.user_reviews_on_restaurant_general_review_description_tv);
+            secondaryTitleTv = view.findViewById(R.id.user_reviews_on_restaurant_secondary_title_tv);
             star1 = view.findViewById(R.id.user_reviews_on_restaurant_star1_iv);
             star2 = view.findViewById(R.id.user_reviews_on_restaurant_star2_iv);
             star3 = view.findViewById(R.id.user_reviews_on_restaurant_star3_iv);
@@ -68,9 +69,11 @@ public class UserReviewsOnRestaurantRvFragment extends Fragment {
             star5 = view.findViewById(R.id.user_reviews_on_restaurant_star5_iv);
             ratingTv = view.findViewById(R.id.user_reviews_on_restaurant_rating_tv);
 
-            Model.instance.setStarByRating(restaurant.getRating(),star1,star2,star3,star4,star5,ratingTv);
+            String rating = Model.instance.getRestaurantRatingGivenByAUser(user,restaurant.getId());
+            Model.instance.setStarByRating(rating,star1,star2,star3,star4,star5,ratingTv);
 
             nameTv.setText(user.getFirstName()+"'s reviews on "+restaurant.getName());
+            secondaryTitleTv.setText("Dishes "+user.getFirstName()+" posted reviews on :");
             //setHasOptionsMenu(true);
             return view;
 
