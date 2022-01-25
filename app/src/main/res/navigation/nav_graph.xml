@@ -11,7 +11,9 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_homeRestaurantListRvFragment"
-            app:destination="@id/homeRestaurantListRvFragment" />
+            app:destination="@id/homeRestaurantListRvFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out" />
         <action
             android:id="@+id/action_homeFragment_to_userRestaurantListRvFragment"
             app:destination="@id/userRestaurantListRvFragment" />
@@ -24,6 +26,9 @@
         <action
             android:id="@+id/action_homeFragment_to_registeredUserFragment"
             app:destination="@id/registeredUserFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_userProfileFragment"
+            app:destination="@id/userProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeRestaurantListRvFragment"
@@ -165,4 +170,19 @@
         android:name="com.example.foodies.AddFriendFragment"
         android:label="fragment_add_friend"
         tools:layout="@layout/fragment_add_friend" />
+    <fragment
+        android:id="@+id/userProfileFragment"
+        android:name="com.example.foodies.UserProfileFragment"
+        android:label="fragment_user_profile"
+        tools:layout="@layout/fragment_user_profile" >
+        <action
+            android:id="@+id/action_userProfileFragment_to_reviewFragment2"
+            app:destination="@id/reviewFragment2" />
+        <action
+            android:id="@+id/action_userProfileFragment_self"
+            app:destination="@id/userProfileFragment" />
+        <argument
+            android:name="userId"
+            app:argType="string" />
+    </fragment>
 </navigation>

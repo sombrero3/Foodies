@@ -14,10 +14,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.foodies.R;
 import com.example.foodies.model.Dish;
 import com.example.foodies.model.Model;
-import com.example.foodies.model.Restaurant;
 import com.example.foodies.model.Review;
 import com.example.foodies.model.User;
 
@@ -39,7 +37,8 @@ public class ReviewFragment extends Fragment {
         reviewList = Model.instance.getAllFriendsReviewsOnDishByDishIdAndUserId(review.getDishId(),review.getUserId());
         RecyclerView list = view.findViewById(R.id.review_rv);
         list.setHasFixedSize(true);
-        list.setLayoutManager(new LinearLayoutManager(getContext()));
+        RecyclerView.LayoutManager horizontalLayout = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
+        list.setLayoutManager(horizontalLayout);
         MyAdapter adapter = new MyAdapter();
         list.setAdapter(adapter);
 
@@ -65,14 +64,12 @@ public class ReviewFragment extends Fragment {
         Dish dish = Model.instance.getDishById(review.getDishId());
         User user = Model.instance.getUserById(review.getUserId());
 
-
         Model.instance.setStarByRating(review.getRating(),star1,star2,star3,star4,star5,ratingTv);
 
         dishNameTv.setText(dish.getName());
         dishPriceTv.setText(dish.getPrice());
         userNameTv.setText(user.getFirstName()+ " "+user.getLastName());
         descriptionTv.setText(review.getDescription());
-
 
         return view;
     }
@@ -102,9 +99,11 @@ public class ReviewFragment extends Fragment {
 
         }
     }
+
     interface OnItemClickListener{
         void onItemClick(View v,int position);
     }
+
     class MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
         OnItemClickListener listener;
         public void setOnItemClickListener(OnItemClickListener listener){
@@ -124,7 +123,6 @@ public class ReviewFragment extends Fragment {
             Review rev = reviewList.get(position);
             holder.nameTv.setText(Model.instance.getUserById(rev.getUserId()).getFirstName()+ " " +position);
             Model.instance.setStarByRating(rev.getRating(), holder.star1, holder.star2, holder.star3, holder.star4, holder.star5, holder.ratingTv);
-
         }
 
         @Override

@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/review_dish_img"
         android:layout_width="0dp"
-        android:layout_height="250dp"
+        android:layout_height="150dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -26,7 +26,7 @@
         android:layout_marginTop="16dp"
         android:text="dish name"
         android:textColor="@color/white"
-        android:textSize="34sp"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="@+id/review_dish_img"
         app:layout_constraintStart_toStartOf="@+id/review_dish_img"
         app:layout_constraintTop_toBottomOf="@+id/review_dish_img" />
@@ -34,13 +34,13 @@
     <TextView
         android:id="@+id/review_description_tv"
         android:layout_width="0dp"
-        android:layout_height="86dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:text="my review content will be applied here in this space"
         android:textColor="@color/white"
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/review_user_name_tv" />
@@ -53,7 +53,7 @@
         android:layout_marginTop="16dp"
         android:text="Price :"
         android:textColor="@color/white"
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/review_star1_iv" />
 
@@ -64,7 +64,7 @@
         android:layout_marginStart="8dp"
         android:text="set price "
         android:textColor="@color/white"
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/textView10"
         app:layout_constraintTop_toTopOf="@+id/textView10" />
 
@@ -75,9 +75,20 @@
         android:layout_marginTop="16dp"
         android:text="Review By :"
         android:textColor="@color/white"
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@+id/textView10"
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+    <TextView
+        android:id="@+id/textView25"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="More friends reviews about that dish :"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/textView17"
+        app:layout_constraintTop_toBottomOf="@+id/review_description_tv" />
 
     <TextView
         android:id="@+id/review_user_name_tv"
@@ -86,7 +97,7 @@
         android:layout_marginStart="8dp"
         android:text="set user name"
         android:textColor="@color/white"
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/textView17"
         app:layout_constraintStart_toEndOf="@+id/textView17"
         app:layout_constraintTop_toTopOf="@+id/textView17" />
@@ -97,7 +108,7 @@
         android:layout_height="wrap_content"
         android:text="No rating yet"
         android:textColor="@color/white"
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/review_star1_iv"
         app:layout_constraintStart_toStartOf="@+id/review_star1_iv"
         app:layout_constraintTop_toTopOf="@+id/review_star1_iv" />
@@ -157,10 +168,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/review_rv"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/review_description_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/textView25" />
 </androidx.constraintlayout.widget.ConstraintLayout>
