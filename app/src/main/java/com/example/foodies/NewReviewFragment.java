@@ -30,7 +30,7 @@ public class NewReviewFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_new_review, container, false);
-        String userId = NewReviewFragmentArgs.fromBundle(getArguments()).getUserId();
+        String userId = Model.instance.getSignedUser().getId();
         User user = Model.instance.getUserById(userId);
         postReviewBtn = view.findViewById(R.id.new_review_postReview_btn);
         restaurantEt = view.findViewById(R.id.new_review_restaurant_et);

@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.foodies.AdaptersAndViewHolders.DishListAdapter;
@@ -26,6 +27,7 @@ import java.util.List;
 
 public class UserProfileFragment extends Fragment {
     TextView nameTv,totalReviewsTv,totalRestaurantsTv;
+    Button addFriendBtn,allReviewsBtn;
     RecyclerView reviewsRv,friendsRv;
     List<User> friendsList;
     List<Review> reviewList;
@@ -55,6 +57,12 @@ public class UserProfileFragment extends Fragment {
         UserListAdapter userAdapter = new UserListAdapter(friendsList);
         friendsRv.setAdapter(userAdapter);
 
+        nameTv = view.findViewById(R.id.user_profile_name_tv);
+        totalRestaurantsTv =view.findViewById(R.id.user_profile_total_restaurants_num_tv);
+        totalReviewsTv = view.findViewById(R.id.user_profile_total_reviews_num_tv);
+        addFriendBtn = view.findViewById(R.id.user_profile_add_friend_btn);
+        allReviewsBtn = view.findViewById(R.id.user_profile_all_reviews_btn);
+
         favoriteDishAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
@@ -75,13 +83,24 @@ public class UserProfileFragment extends Fragment {
             }
         });
 
-        nameTv = view.findViewById(R.id.user_profile_name_tv);
-        totalRestaurantsTv =view.findViewById(R.id.user_profile_total_restaurants_num_tv);
-        totalReviewsTv = view.findViewById(R.id.user_profile_total_reviews_num_tv);
-
         nameTv.setText(user.getFirstName()+ " "+ user.getLastName());
         totalReviewsTv.setText("Posted total of "+user.getTotalReviews()+" reviews");
         totalRestaurantsTv.setText("Posted reviews on "+user.getTotalRestaurantsVisited()+" restaurants");
+
+        addFriendBtn.setOnClickListener((v)->{
+            Navigation.findNavController(v).navigate(UserProfileFragmentDirections.actionUserProfileFragmentToAddFriendFragment());
+        });
+
+        if(Model.instance.getSignedUser().getId().equals(userId)){
+            allReviewsBtn.setText("My reviews");
+        }else{
+            allReviewsBtn.setText("Check out all "+user.getFirstName()+"'s reviews");
+        }
+
+        allReviewsBtn.setOnClickListener((v)-> {
+            Navigation.findNavController(v).navigate(UserProfileFragmentDirections.actionUserProfileFragmentToUserRestaurantListRvFragment(userId));
+        });
+
 
         return view;
     }

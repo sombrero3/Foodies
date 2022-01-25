@@ -49,7 +49,7 @@ public class UserListRvFragment extends Fragment {
             public void onItemClick(View v, int position) {
                 String userName = userList.get(position).getLastName();
                 Log.d("TAG","user's row clicked: " + userName);
-                Navigation.findNavController(v).navigate(UserListRvFragmentDirections.actionUserListRvFragmentToUserRestaurantListRvFragment(userList.get(position).getId()));
+                Navigation.findNavController(v).navigate(UserListRvFragmentDirections.actionUserListRvFragmentToUserProfileFragment2(userList.get(position).getId()));
             }
         });
 

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
+    android:backgroundTint="@color/black"
     tools:context=".UserProfileFragment">
 
     <ImageView
@@ -94,4 +95,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView27" />
+
+    <Button
+        android:id="@+id/user_profile_add_friend_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:text="+ Add friend"
+        android:textColor="@color/orange_1"
+        app:layout_constraintBottom_toBottomOf="@+id/textView26"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/user_profile_total_restaurants_num_tv"
+        app:layout_constraintTop_toTopOf="@+id/textView26" />
+
+    <Button
+        android:id="@+id/user_profile_all_reviews_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        android:backgroundTint="@color/orange_1"
+        android:text="Check out all name's reviews"
+        android:textColor="@color/orange_1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

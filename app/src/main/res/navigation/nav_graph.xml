@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_homeRestaurantListRvFragment_to_mapFragment"
             app:destination="@id/mapFragment" />
+        <action
+            android:id="@+id/action_homeRestaurantListRvFragment_to_newReviewFragment"
+            app:destination="@id/newReviewFragment" />
     </fragment>
     <fragment
         android:id="@+id/userRestaurantListRvFragment"
@@ -65,11 +68,11 @@
             android:name="userId"
             app:argType="string" />
         <action
-            android:id="@+id/action_userListRvFragment_to_userRestaurantListRvFragment"
-            app:destination="@id/userRestaurantListRvFragment" />
-        <action
             android:id="@+id/action_userListRvFragment_to_addFriendFragment"
             app:destination="@id/addFriendFragment" />
+        <action
+            android:id="@+id/action_userListRvFragment_to_userProfileFragment2"
+            app:destination="@id/userProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/restaurantPageRvFragment"
@@ -107,16 +110,6 @@
             android:name="reviewId"
             app:argType="string" />
         <action
-            android:id="@+id/action_reviewFragment2_to_userRestaurantListRvFragment"
-            app:destination="@id/userRestaurantListRvFragment"
-            app:popUpTo="@id/userRestaurantListRvFragment"
-            app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/action_reviewFragment2_to_userReviewsOnRestaurantRvFragment"
-            app:destination="@id/userReviewsOnRestaurantRvFragment"
-            app:popUpTo="@id/userReviewsOnRestaurantRvFragment"
-            app:popUpToInclusive="true" />
-        <action
             android:id="@+id/action_reviewFragment_self"
             app:destination="@id/reviewFragment2" />
     </fragment>
@@ -125,12 +118,11 @@
         android:name="com.example.foodies.NewReviewFragment"
         android:label="fragment_new_review"
         tools:layout="@layout/fragment_new_review" >
-        <argument
-            android:name="userId"
-            app:argType="string" />
         <action
             android:id="@+id/action_newReviewFragment_to_reviewFragment2"
-            app:destination="@id/reviewFragment2" />
+            app:destination="@id/reviewFragment2"
+            app:popUpTo="@id/newReviewFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_newReviewFragment_to_mapFragment"
             app:destination="@id/mapFragment" />
@@ -147,7 +139,9 @@
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_registeredUserFragment_to_newUserFragment"
-            app:destination="@id/newUserFragment" />
+            app:destination="@id/newUserFragment"
+            app:popUpTo="@id/registeredUserFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/newUserFragment"
@@ -184,5 +178,11 @@
         <argument
             android:name="userId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_userProfileFragment_to_userRestaurantListRvFragment"
+            app:destination="@id/userRestaurantListRvFragment" />
+        <action
+            android:id="@+id/action_userProfileFragment_to_addFriendFragment"
+            app:destination="@id/addFriendFragment" />
     </fragment>
 </navigation>

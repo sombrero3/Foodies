@@ -13,14 +13,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.foodies.model.Model;
 import com.example.foodies.AdaptersAndViewHolders.OnItemClickListener;
 import com.example.foodies.model.Restaurant;
 import com.example.foodies.AdaptersAndViewHolders.RestaurantAdapter;
+import com.example.foodies.model.User;
 
 import java.util.List;
 
@@ -28,12 +31,16 @@ import java.util.List;
 public class HomeRestaurantListRvFragment extends Fragment {
     List<Restaurant> restaurantList;
     EditText searchEt;
+    TextView nameTv;
     ImageButton searchIbtn;
+    Button addReviewBtn;
     ImageView locationIv;
+    boolean flag;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_restaurant_list_rv, container, false);
+        User user = Model.instance.getSignedUser();
         restaurantList = Model.instance.getRestaurantList();
 
         RecyclerView list = view.findViewById(R.id.home_restaurant_list_rv);
@@ -53,9 +60,23 @@ public class HomeRestaurantListRvFragment extends Fragment {
             }
         });
 
-        searchEt = view.findViewById(R.id.home_restaurant_list_search);
+        searchEt = view.findViewById(R.id.home_restaurant_list_search_et);
         searchIbtn = view.findViewById(R.id.home_restaurant_search_ibtn);
         locationIv = view.findViewById(R.id.home_restaurant_location_iv);
+        addReviewBtn = view.findViewById(R.id.home_restaurant_list_review_btn);
+        nameTv = view.findViewById(R.id.home_restaurant_list_name_tv);
+
+        nameTv.setText("Hello "+ user.getFirstName() );
+        flag = true;
+        searchEt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(flag) {
+                    searchEt.setText("");
+                    flag = false;
+                }
+            }
+        });
 
         locationIv.setOnClickListener((v)->{
             Navigation.findNavController(v).navigate(HomeRestaurantListRvFragmentDirections.actionHomeRestaurantListRvFragmentToMapFragment());
@@ -64,10 +85,23 @@ public class HomeRestaurantListRvFragment extends Fragment {
         searchIbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //implement here search func
+                restaurantList = Model.instance.serachRestaurantByName(searchEt.getEditableText().toString());
+                //adapter.notifyDataSetChanged();
+                RestaurantAdapter newAdapter = new RestaurantAdapter(restaurantList);
+                list.setAdapter(newAdapter);
+                newAdapter.setOnItemClickListener(new OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View v, int position) {
+                        String restaurantId = restaurantList.get(position).getId();
+                        Navigation.findNavController(v).navigate(HomeRestaurantListRvFragmentDirections.actionHomeRestaurantListRvFragmentToRestaurantPageRvFragment(restaurantId));
+                    }
+                });
             }
         });
 
+        addReviewBtn.setOnClickListener((v)->{
+            Navigation.findNavController(v).navigate(HomeRestaurantListRvFragmentDirections.actionHomeRestaurantListRvFragmentToNewReviewFragment());
+        });
         //setHasOptionsMenu(true);
         return view;
 
