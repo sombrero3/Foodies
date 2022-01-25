@@ -1,11 +1,8 @@
 package com.example.foodies.model;
 
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodies.R;
 
@@ -25,8 +22,6 @@ public class Model {
 
     public static final Model instance = new Model();
 
-
-
     private Model() {
         signedFlag = false;
         for(int i=1;i<11;i++){
@@ -38,7 +33,6 @@ public class Model {
         for(int i=0;i<10;i++){
             for(int j=0;j<4;j++) {
                 int x = Math.abs(rand.nextInt() % 10);
-
                 if( userList.get(i).getFriendsList().size() == 0 ){
                     userList.get(i).addFriend(userList.get(x));
                     userList.get(x).addFriend(userList.get(i));
@@ -158,6 +152,7 @@ public class Model {
     public void addReview(Review review){
         getUserById(review.getUserId()).addReview(review);
         getDishById(review.getDishId()).addReview(review);
+        reviewList.add(review);
     }
     public void addDish(Dish dish){
       getRestaurantById(dish.getRestaurantId()).addDish(dish);
