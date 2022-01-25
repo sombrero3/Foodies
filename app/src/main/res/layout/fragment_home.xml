@@ -26,8 +26,10 @@
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/home_my_profile_tv"
@@ -37,8 +39,9 @@
         android:textColor="#FFFFFF"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/home_my_friends_tv"
-        app:layout_constraintTop_toBottomOf="@+id/home_home_tv"
-        tools:layout_editor_absoluteX="138dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/home_home_tv" />
 
     <TextView
         android:id="@+id/home_home_tv"
@@ -48,8 +51,9 @@
         android:textColor="#FFFFFF"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/home_my_profile_tv"
-        app:layout_constraintTop_toTopOf="@+id/imageView2"
-        tools:layout_editor_absoluteX="165dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView2" />
 
     <TextView
         android:id="@+id/home_my_reviews_tv"
@@ -59,8 +63,9 @@
         android:textColor="@color/white"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/home_my_friends_tv"
-        tools:layout_editor_absoluteX="130dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/home_my_friends_tv" />
 
     <TextView
         android:id="@+id/home_my_friends_tv"
@@ -70,8 +75,9 @@
         android:textColor="@color/white"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/home_my_reviews_tv"
-        app:layout_constraintTop_toBottomOf="@+id/home_my_profile_tv"
-        tools:layout_editor_absoluteX="130dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/home_my_profile_tv" />
 
     <TextView
         android:id="@+id/home_signin_tv"
