@@ -37,6 +37,7 @@ public class UserReviewsOnRestaurantRvFragment extends Fragment {
         ImageView image,star1,star2,star3,star4,star5;
         TextView ratingTv;
 
+
         MenuItem user;
        float rate;
 
