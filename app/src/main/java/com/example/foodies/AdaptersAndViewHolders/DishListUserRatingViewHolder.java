@@ -9,11 +9,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodies.R;
 
-public class DishListViewHolder extends RecyclerView.ViewHolder{
+public class DishListUserRatingViewHolder extends RecyclerView.ViewHolder{
     TextView nameTv,priceTv,ratingTv;
     ImageView image,star1,star2,star3,star4,star5;
 
-    public DishListViewHolder(@NonNull View itemView, OnItemClickListener listener) {
+    public DishListUserRatingViewHolder(@NonNull View itemView, OnItemClickListener listener) {
         super(itemView);
         nameTv = itemView.findViewById(R.id.dish_list_row_name_tv);
         priceTv = itemView.findViewById(R.id.dish_list_row_price_tv);

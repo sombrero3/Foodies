@@ -9,12 +9,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodies.R;
 
-public class RestaurantViewHolder extends RecyclerView.ViewHolder {
+public class RestaurantWithRatingViewHolder extends RecyclerView.ViewHolder {
 
     TextView nameTv,descriptionTv,ratingTv;
     ImageView image,star1,star2,star3,star4,star5;
 
-    public RestaurantViewHolder(@NonNull View itemView, OnItemClickListener listener) {
+    public RestaurantWithRatingViewHolder(@NonNull View itemView, OnItemClickListener listener) {
         super(itemView);
         nameTv = itemView.findViewById(R.id.restaurant_row_name);
         descriptionTv = itemView.findViewById(R.id.restaurant_row_description);

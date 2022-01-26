@@ -11,42 +11,32 @@ import com.example.foodies.R;
 import com.example.foodies.model.Model;
 import com.example.foodies.model.Restaurant;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.foodies.R;
-import com.example.foodies.model.Model;
-import com.example.foodies.model.Restaurant;
 import com.example.foodies.model.User;
 
 import java.util.List;
 
-public class UserRestaurantListAdapter extends RecyclerView.Adapter<RestaurantViewHolder> {
+public class RestaurantListUserRatingAdapter extends RecyclerView.Adapter<RestaurantWithRatingViewHolder> {
         OnItemClickListener listener;
         List<Restaurant> restaurantList;
         User user;
         public void setOnItemClickListener(OnItemClickListener listener){
             this.listener = listener;
         }
-        public UserRestaurantListAdapter(List<Restaurant> restaurantList,User user){
+        public RestaurantListUserRatingAdapter(List<Restaurant> restaurantList, User user){
             this.user=user;
             this.restaurantList=restaurantList;
         }
 
         @NonNull
         @Override
-        public RestaurantViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        public RestaurantWithRatingViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.restaurant_list_row,parent,false);
-            RestaurantViewHolder holder = new RestaurantViewHolder(view,listener);
+            RestaurantWithRatingViewHolder holder = new RestaurantWithRatingViewHolder(view,listener);
             return holder;
         }
 
         @Override
-        public void onBindViewHolder(@NonNull RestaurantViewHolder holder, int position ) {
+        public void onBindViewHolder(@NonNull RestaurantWithRatingViewHolder holder, int position ) {
             Restaurant restaurant = restaurantList.get(position);
             holder.nameTv.setText(restaurant.getName());
             holder.descriptionTv.setText("Friend and 20 other friend visited this text should be dynamic");
