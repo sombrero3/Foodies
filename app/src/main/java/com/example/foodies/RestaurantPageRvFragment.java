@@ -31,6 +31,7 @@ public class RestaurantPageRvFragment extends Fragment {
     TextView nameTv, locationTv, numOfReviewsTv,ratingTv,secondaryTitleTv;
     ImageView image,star1,star2,star3,star4,star5;
     Restaurant restaurant;
+    MenuItem user_profile;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_restaurant_page_rv, container, false);
@@ -66,6 +67,8 @@ public class RestaurantPageRvFragment extends Fragment {
         star3 = view.findViewById(R.id.restaurant_page_star3_iv);
         star4 = view.findViewById(R.id.restaurant_page_star4_iv);
         star5 = view.findViewById(R.id.restaurant_page_star5_iv);
+        user_profile =view.findViewById(R.id.restaurant_page_rv);
+
 
         Model.instance.setStarByRating(restaurant.getRating(),star1,star2,star3,star4,star5,ratingTv);
 
@@ -92,6 +95,8 @@ public class RestaurantPageRvFragment extends Fragment {
             star4 = itemView.findViewById(R.id.user_review_list_row_star4_iv);
             star5 = itemView.findViewById(R.id.user_review_list_row_star5_iv);
             ratingTv = itemView.findViewById(R.id.user_review_list_row_rating_tv);
+
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -153,4 +158,6 @@ public class RestaurantPageRvFragment extends Fragment {
 
         }
     }
+
+
 }
