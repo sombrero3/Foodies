@@ -196,5 +196,10 @@
         <action
             android:id="@+id/action_userProfileFragment_to_addFriendFragment"
             app:destination="@id/addFriendFragment" />
+        <action
+            android:id="@+id/action_userProfileFragment_to_userListRvFragment"
+            app:destination="@id/userListRvFragment"
+            app:popUpTo="@id/userListRvFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

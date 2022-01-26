@@ -120,8 +120,14 @@ public class UserProfileFragment extends Fragment {
         }
 
         if(Model.instance.getSignedUser().getFriendsList().contains(user)){
-            addFriendBtn.setVisibility(View.INVISIBLE);
-            addFriendBtn.setClickable(false);
+            addFriendBtn.setText("Cancel friendship");
+            addFriendBtn.setOnClickListener((v)->{
+
+                    Model.instance.getSignedUser().deleteFriend(user);
+                    user.deleteFriend(Model.instance.getSignedUser());
+                    Navigation.findNavController(v).navigate(UserProfileFragmentDirections.actionUserProfileFragmentToUserListRvFragment(Model.instance.getSignedUser().getId()));
+
+            });
         }
         allReviewsBtn.setOnClickListener((v)-> {
             Navigation.findNavController(v).navigate(UserProfileFragmentDirections.actionUserProfileFragmentToUserRestaurantListRvFragment(userId));
