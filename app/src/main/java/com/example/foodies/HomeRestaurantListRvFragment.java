@@ -120,9 +120,10 @@ public class HomeRestaurantListRvFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+            Log.d("alert", "position"+restaurantList.get(position).getId());
             Restaurant restaurant = restaurantList.get(position);
             holder.nameTv.setText(restaurant.getName());
-            holder.descriptionTv.setText("Friend and 20 other friend visited this text should be dynamic");
+            holder.descriptionTv.setText("Friend and "+Model.instance.getNumOfFriendsVisitedInRestaurant(restaurantList.get(position).getId())+ " other friend visited this text should be dynamic");
 
             Model.instance.setStarByRating(restaurant.getRating(), holder.star1, holder.star2, holder.star3, holder.star4, holder.star5, holder.ratingTv);
 
