@@ -18,7 +18,7 @@ public class Review {
         userId = "";
         id = Integer.toString(IdGenerator.instance.getNextId());
         description = "";
-        rating = "0";
+        rating = "No rating yet";
     }
     public Review(String dishId, String restaurantId, String userId, String rating) {
         this.dishId = dishId;
@@ -71,7 +71,6 @@ public class Review {
     }
     public void setRating(String rating) {
         this.rating = rating;
-        Model.instance.getDishById(dishId).updateRating();
     }
 
     //---------------------------------//

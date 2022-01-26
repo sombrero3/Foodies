@@ -38,7 +38,7 @@ public class Dish {
         rating ="No rating yet";
         description = "";
         vegetarian = false;
-        reviewList = new ArrayList<>();
+        reviewList = new LinkedList<>();
         images = new LinkedList<>();
 
     }
@@ -50,7 +50,7 @@ public class Dish {
         this.description = description;
         this.vegetarian = vegetarian;
         images = new LinkedList<>();
-        reviewList = new ArrayList<>();
+        reviewList = new LinkedList<>();
         rating ="No rating yet";
     }
     public Dish( String restaurantId, String name, String price){
@@ -61,7 +61,7 @@ public class Dish {
         this.description = "";
         this.vegetarian = false;
         images = new LinkedList<>();
-        reviewList = new ArrayList<>();
+        reviewList = new LinkedList<>();
         rating ="No rating yet";
     }
     public Dish( String restaurantId, String name, String price, String description, boolean vegetarian, Review review){
@@ -72,7 +72,7 @@ public class Dish {
         this.description = description;
         this.vegetarian = vegetarian;
         images = new LinkedList<>();
-        reviewList = new ArrayList<>();
+        reviewList = new LinkedList<>();
         reviewList.add(review);
         rating = review.getRating();
     }
@@ -133,23 +133,28 @@ public class Dish {
     //---------------------------------//
 
     public void updateRating(){
-        double f ,reminder,sum=0,avg;
+        double f ,reminder,sum=0,avg,counter=0;
 
-        for(int i=0;i<reviewList.size();i++){
-            sum+= Double.parseDouble(reviewList.get(i).getRating());
+        for(Review review:reviewList){
+            if(!review.getRating().equals("No rating yet")) {
+                sum += Double.parseDouble(review.getRating());
+                counter++;
+            }
         }
 
-        f = sum/reviewList.size();
-        avg = Math.floor(sum/reviewList.size());
-        reminder = f - avg;
-        if(reminder<0.25){
-            rating =Double.toString(avg);
-        }
-        else if(reminder>=0.25 && reminder < 0.75){
-            rating = Double.toString(avg+0.5);
-        }
-        else if(reminder>=0.75){
-            rating=Double.toString(avg+1);
+        if(counter>0) {
+            f = sum / counter;
+            avg = Math.floor(sum / counter);
+            reminder = f - avg;
+            if (reminder < 0.25) {
+                rating = Double.toString(avg);
+            } else if (reminder >= 0.25 && reminder < 0.75) {
+                rating = Double.toString(avg + 0.5);
+            } else if (reminder >= 0.75) {
+                rating = Double.toString(avg + 1);
+            }
+        }else{
+            rating = "No rating yet";
         }
     }
     public void addReview(Review review){

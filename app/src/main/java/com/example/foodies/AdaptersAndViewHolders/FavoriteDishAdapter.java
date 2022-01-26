@@ -14,7 +14,7 @@ import com.example.foodies.model.Review;
 
 import java.util.List;
 
-public class FavoriteDishAdapter extends RecyclerView.Adapter<DishListViewHolder> {
+public class FavoriteDishAdapter extends RecyclerView.Adapter<DishListUserRatingViewHolder> {
     OnItemClickListener listener;
     List<Review> reviewList;
     public void setOnItemClickListener(OnItemClickListener listener){
@@ -26,14 +26,14 @@ public class FavoriteDishAdapter extends RecyclerView.Adapter<DishListViewHolder
 
     @NonNull
     @Override
-    public DishListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public DishListUserRatingViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.dish_list_row,parent,false);
-        DishListViewHolder holder = new DishListViewHolder(view,listener);
+        DishListUserRatingViewHolder holder = new DishListUserRatingViewHolder(view,listener);
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull DishListViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull DishListUserRatingViewHolder holder, int position) {
         Review review = reviewList.get(position);
         Dish dish =Model.instance.getDishById(review.getDishId());
         holder.nameTv.setText(dish.getName());
