@@ -5,12 +5,16 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -30,6 +34,7 @@ public class HomeRestaurantListRvFragment extends Fragment {
     EditText searchEt;
     ImageButton searchIbtn;
     ImageView locationIv;
+    MenuItem user;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -53,6 +58,7 @@ public class HomeRestaurantListRvFragment extends Fragment {
             }
         });
 
+
         searchEt = view.findViewById(R.id.home_restaurant_list_search);
         searchIbtn = view.findViewById(R.id.home_restaurant_search_ibtn);
         locationIv = view.findViewById(R.id.home_restaurant_location_iv);
@@ -68,10 +74,35 @@ public class HomeRestaurantListRvFragment extends Fragment {
             }
         });
 
-        //setHasOptionsMenu(true);
+        setHasOptionsMenu(true);
         return view;
 
     }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.home_restaurant_menu,menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId()==R.id.menu_menu){
+            return true;
+        }
+        else{
+            return super.onOptionsItemSelected(item);
+
+        }
+    }
+
+
+
+
+
+
+
+
 
 //    class MyViewHolder extends RecyclerView.ViewHolder{
 //        TextView nameTv,descriptionTv,ratingTv;

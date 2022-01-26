@@ -9,6 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -71,6 +74,7 @@ public class ReviewFragment extends Fragment {
         userNameTv.setText(user.getFirstName()+ " "+user.getLastName());
         descriptionTv.setText(review.getDescription());
 
+        setHasOptionsMenu(true);
         return view;
     }
 
@@ -131,5 +135,22 @@ public class ReviewFragment extends Fragment {
         }
     }
 
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.review,menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId()==R.id.menu_menu){
+            return true;
+        }
+        else{
+            return super.onOptionsItemSelected(item);
+
+        }
+    }
 
 }

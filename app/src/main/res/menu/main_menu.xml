@@ -9,4 +9,8 @@
         android:id="@+id/menu_menu"
         android:icon="@drawable/menu22"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_add"
+        android:icon="@android:drawable/ic_input_add"
+        app:showAsAction="ifRoom" />
 </menu>
