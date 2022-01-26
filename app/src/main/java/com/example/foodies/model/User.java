@@ -128,20 +128,21 @@ public class User {
     //---------------------------------//
 
     public void addReview(Review review){
-        reviewList.add(review);
-        int newTotal = Integer.valueOf(totalReviews)+1;
+
+        int newTotal = Integer.parseInt(totalReviews)+1;
         totalReviews = Integer.toString(newTotal);
         boolean flag = false;
-        for(int i=0;i<reviewList.size();i++){
-            if(reviewList.get(i).getRestaurantId().equals(review.getRestaurantId())){
+        for(Review rev:reviewList){
+            if(rev.getRestaurantId().equals(review.getRestaurantId())){
                 flag = true;
                 break;
             }
         }
         if(!flag){
-           newTotal = Integer.valueOf(totalRestaurantsVisited)+1;
+           newTotal = Integer.parseInt(totalRestaurantsVisited)+1;
            totalRestaurantsVisited = Integer.toString(newTotal);
         }
+        reviewList.add(review);
     }
     public void deleteReview(Review review){
         reviewList.remove(review);
@@ -161,7 +162,9 @@ public class User {
         }
     }
     public void addFriend(User friend){
-        friendsList.add(friend);
+        if(!friendsList.contains(friend)) {
+            friendsList.add(friend);
+        }
     }
     public void deleteFriend(User friend){
         friendsList.remove(friend);
