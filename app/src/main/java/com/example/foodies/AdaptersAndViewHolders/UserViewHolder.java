@@ -8,12 +8,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodies.R;
 
-public class UserListViewHolder extends RecyclerView.ViewHolder{
+public class UserViewHolder extends RecyclerView.ViewHolder{
     TextView nameEt;
     TextView restaurantEt;
     TextView reviewsEt;
 
-    public UserListViewHolder(@NonNull View itemView, OnItemClickListener listener) {
+    public UserViewHolder(@NonNull View itemView, OnItemClickListener listener) {
         super(itemView);
         nameEt = itemView.findViewById(R.id.user_row_name_tv);
         restaurantEt = itemView.findViewById(R.id.user_row_resto_tv);

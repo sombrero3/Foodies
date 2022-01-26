@@ -17,12 +17,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.foodies.AdaptersAndViewHolders.RestaurantViewHolder;
-import com.example.foodies.AdaptersAndViewHolders.UserRestaurantListAdapter;
+import com.example.foodies.AdaptersAndViewHolders.RestaurantListUserRatingAdapter;
 import com.example.foodies.model.Model;
 import com.example.foodies.AdaptersAndViewHolders.OnItemClickListener;
 import com.example.foodies.model.Restaurant;
-import com.example.foodies.AdaptersAndViewHolders.RestaurantAdapter;
 import com.example.foodies.model.User;
 
 import java.util.List;
@@ -45,7 +43,7 @@ public class UserRestaurantListRvFragment extends Fragment {
         RecyclerView list = view.findViewById(R.id.user_restaurant_list_rv);
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
-        UserRestaurantListAdapter adapter = new UserRestaurantListAdapter(restaurantList,user);
+        RestaurantListUserRatingAdapter adapter = new RestaurantListUserRatingAdapter(restaurantList,user);
         list.setAdapter(adapter);
 
         adapter.setOnItemClickListener(new OnItemClickListener() {

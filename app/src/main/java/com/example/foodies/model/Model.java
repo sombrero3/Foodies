@@ -332,7 +332,7 @@ public class Model {
         friends = getSignedUser().getFriendsList();
         for (User friend: friends) {
             for (User friendfriends:friend.getFriendsList()) {
-                if(!result.contains(friendfriends) && !friends.contains(friendfriends)) {
+                if(!result.contains(friendfriends) && !friends.contains(friendfriends) && !friendfriends.getId().equals(getSignedUser().getId())) {
                     result.add(friendfriends);
                 }
             }
@@ -476,7 +476,7 @@ public class Model {
 
     }
 
-    public List<Restaurant> serachRestaurantByName(String text) {
+    public List<Restaurant> searchRestaurantByName(String text) {
         List<Restaurant> result = new LinkedList<>();
         for (Restaurant res:restaurantList) {
             if(res.getName().contains(text)){
@@ -485,6 +485,7 @@ public class Model {
         }
         return result;
     }
+
     public List<Restaurant> serachRestaurantByNameAndRestaurantList(String text,List<Restaurant> restaurantList) {
         List<Restaurant> result = new LinkedList<>();
         for (Restaurant res:restaurantList) {
@@ -506,4 +507,35 @@ public class Model {
 
         return rating;
     }
+
+    public List<User> getUsersFromListByEmail(List<User> userList, String email) {
+        List<User> result = new LinkedList<>();
+        for (User user : userList) {
+            if (user.getEmail().contains(email)&& !user.getEmail().equals("No email address")) {
+                result.add(user);
+            }
+        }
+        return result;
+    }
+
+    public List<User> getUsersFromListByName(List<User> userList,String name){
+        List<User> result = new LinkedList<>();
+        for (User user :userList) {
+            if(user.getFirstName().contains(name)){
+                result.add(user);
+            }
+        }
+        return result;
+    }
+
+    public List<User> getUsersFromListByNameAndEmail(List<User> userList,String name,String email){
+        List<User> result = new LinkedList<>();
+        for (User user :userList) {
+            if(user.getFirstName().contains(name)&& user.getEmail().contains(email)){
+                result.add(user);
+            }
+        }
+        return result;
+    }
+
 }

@@ -2,7 +2,6 @@ package com.example.foodies;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.foodies.AdaptersAndViewHolders.OnItemClickListener;
+import com.example.foodies.AdaptersAndViewHolders.UserListReviewRatingAdapter;
 import com.example.foodies.model.Dish;
 import com.example.foodies.model.Model;
 import com.example.foodies.model.Review;
@@ -39,7 +40,7 @@ public class ReviewFragment extends Fragment {
         list.setHasFixedSize(true);
         RecyclerView.LayoutManager horizontalLayout = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
         list.setLayoutManager(horizontalLayout);
-        MyAdapter adapter = new MyAdapter();
+        UserListReviewRatingAdapter adapter = new UserListReviewRatingAdapter(reviewList);
         list.setAdapter(adapter);
 
         adapter.setOnItemClickListener(new OnItemClickListener() {
@@ -73,63 +74,4 @@ public class ReviewFragment extends Fragment {
 
         return view;
     }
-
-    class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView nameTv,ratingTv;
-        ImageView image,star1,star2,star3,star4,star5;
-
-        public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
-            super(itemView);
-            nameTv = itemView.findViewById(R.id.user_review_list_row_name_tv);
-            image = itemView.findViewById(R.id.user_review_list_row_img);
-            ratingTv = itemView.findViewById(R.id.user_review_list_row_rating_tv);
-            star1 = itemView.findViewById(R.id.user_review_list_row_star1_iv);
-            star2 = itemView.findViewById(R.id.user_review_list_row_star2_iv);
-            star3 = itemView.findViewById(R.id.user_review_list_row_star3_iv);
-            star4 = itemView.findViewById(R.id.user_review_list_row_star4_iv);
-            star5 = itemView.findViewById(R.id.user_review_list_row_star5_iv);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int pos = getAdapterPosition();
-                    listener.onItemClick(v,pos);
-
-                }
-            });
-
-        }
-    }
-
-    interface OnItemClickListener{
-        void onItemClick(View v,int position);
-    }
-
-    class MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
-        OnItemClickListener listener;
-        public void setOnItemClickListener(OnItemClickListener listener){
-            this.listener = listener;
-        }
-
-        @NonNull
-        @Override
-        public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = getLayoutInflater().inflate(R.layout.user_review_list_row,parent,false);
-            MyViewHolder holder = new MyViewHolder(view,listener);
-            return holder;
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-            Review rev = reviewList.get(position);
-            holder.nameTv.setText(Model.instance.getUserById(rev.getUserId()).getFirstName()+ " " +position);
-            Model.instance.setStarByRating(rev.getRating(), holder.star1, holder.star2, holder.star3, holder.star4, holder.star5, holder.ratingTv);
-        }
-
-        @Override
-        public int getItemCount() {
-            return reviewList.size();
-        }
-    }
-
-
 }

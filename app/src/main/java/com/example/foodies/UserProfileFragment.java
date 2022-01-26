@@ -14,10 +14,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.foodies.AdaptersAndViewHolders.DishListAdapter;
 import com.example.foodies.AdaptersAndViewHolders.FavoriteDishAdapter;
 import com.example.foodies.AdaptersAndViewHolders.OnItemClickListener;
-import com.example.foodies.AdaptersAndViewHolders.UserListAdapter;
+import com.example.foodies.AdaptersAndViewHolders.UserAdapter;
 import com.example.foodies.model.Dish;
 import com.example.foodies.model.Model;
 import com.example.foodies.model.Review;
@@ -58,7 +57,7 @@ public class UserProfileFragment extends Fragment {
         friendsRv.setHasFixedSize(true);
         RecyclerView.LayoutManager horizontalLayout2 = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
         friendsRv.setLayoutManager(horizontalLayout2);
-        UserListAdapter userAdapter = new UserListAdapter(friendsList);
+        UserAdapter userAdapter = new UserAdapter(friendsList);
         friendsRv.setAdapter(userAdapter);
 
         nameTv = view.findViewById(R.id.user_profile_name_tv);
