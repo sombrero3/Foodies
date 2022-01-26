@@ -11,15 +11,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.foodies.AdaptersAndViewHolders.RestaurantViewHolder;
+import com.example.foodies.AdaptersAndViewHolders.UserRestaurantListAdapter;
 import com.example.foodies.model.Model;
 import com.example.foodies.AdaptersAndViewHolders.OnItemClickListener;
 import com.example.foodies.model.Restaurant;
@@ -46,7 +45,7 @@ public class UserRestaurantListRvFragment extends Fragment {
         RecyclerView list = view.findViewById(R.id.user_restaurant_list_rv);
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
-        RestaurantAdapter adapter = new RestaurantAdapter(restaurantList);
+        UserRestaurantListAdapter adapter = new UserRestaurantListAdapter(restaurantList,user);
         list.setAdapter(adapter);
 
         adapter.setOnItemClickListener(new OnItemClickListener() {
@@ -66,87 +65,13 @@ public class UserRestaurantListRvFragment extends Fragment {
 
         if(user.getId().equals(Model.instance.getSignedUser().getId())){
             addReviewBtn.setOnClickListener((v)->{
-                Navigation.findNavController(v).navigate(UserRestaurantListRvFragmentDirections.actionUserRestaurantListRvFragmentToNewReviewFragment(user.getId()));
+                Navigation.findNavController(v).navigate(UserRestaurantListRvFragmentDirections.actionUserRestaurantListRvFragmentToNewReviewFragment());
             });
         }else{
             addReviewBtn.setVisibility(View.INVISIBLE);
         }
-        setHasOptionsMenu(true);
+        //setHasOptionsMenu(true);
         return view;
 
     }
-
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.user_restaurant_list,menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId()==R.id.menu_menu){
-            return true;
-        }
-        else{
-            return super.onOptionsItemSelected(item);
-
-        }
-    }
-
-//    class MyViewHolder extends RecyclerView.ViewHolder{
-//        TextView nameTv,descriptionTv,ratingTv;
-//        ImageView image,star1,star2,star3,star4,star5;
-//
-//        public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
-//            super(itemView);
-//            nameTv = itemView.findViewById(R.id.restaurant_row_name);
-//            descriptionTv = itemView.findViewById(R.id.restaurant_row_description);
-//            ratingTv = itemView.findViewById(R.id.restaurant_row_rating_tv);
-//            image = itemView.findViewById(R.id.restaurant_row_img);
-//            star1 = itemView.findViewById(R.id.restaurant_list_row_star1_iv);
-//            star2 = itemView.findViewById(R.id.restaurant_list_row_star2_iv);
-//            star3 = itemView.findViewById(R.id.restaurant_list_row_star3_iv);
-//            star4 = itemView.findViewById(R.id.restaurant_list_row_star4_iv);
-//            star5 = itemView.findViewById(R.id.restaurant_list_row_star5_iv);
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    int pos = getAdapterPosition();
-//                    listener.onItemClick(v,pos);
-//                }
-//            });
-//
-//        }
-//    }
-//    interface OnItemClickListener{
-//        void onItemClick(View v,int position);
-//    }
-//    class MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
-//        OnItemClickListener listener;
-//        public void setOnItemClickListener(OnItemClickListener listener){
-//            this.listener = listener;
-//        }
-//
-//        @NonNull
-//        @Override
-//        public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//            View view = getLayoutInflater().inflate(R.layout.restaurant_list_row,parent,false);
-//            MyViewHolder holder = new MyViewHolder(view,listener);
-//            return holder;
-//        }
-//
-//        @Override
-//        public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-//            Restaurant restaurant = restaurantList.get(position);
-//            holder.nameTv.setText(restaurant.getName());
-//            holder.descriptionTv.setText("Friend and 20 other friend visited this text should be dynamic");
-//            Model.instance.setStarByRating(restaurant.getRating(), holder.star1, holder.star2, holder.star3, holder.star4, holder.star5, holder.ratingTv);
-//
-//        }
-//
-//        @Override
-//        public int getItemCount() {
-//            return restaurantList.size();
-//        }
-//    }
 }
