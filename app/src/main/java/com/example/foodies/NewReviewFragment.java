@@ -23,14 +23,17 @@ import com.example.foodies.model.User;
 public class NewReviewFragment extends Fragment {
        EditText restaurantEt,dishEt,priceEt,descriptionEt;
        Button postReviewBtn, uploadImgBtn;
-       TextView locationTv;
+       TextView locationTv,titleTv;
        ImageView locationIv;
+       Review review;
+       boolean flagEditing;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_new_review, container, false);
         User user = Model.instance.getSignedUser();
+        String args = NewReviewFragmentArgs.fromBundle(getArguments()).getEditSpaceReviewId();
         postReviewBtn = view.findViewById(R.id.new_review_postReview_btn);
         restaurantEt = view.findViewById(R.id.new_review_restaurant_et);
         dishEt = view.findViewById(R.id.new_review_dish_et);
@@ -38,6 +41,27 @@ public class NewReviewFragment extends Fragment {
         descriptionEt = view.findViewById(R.id.new_review_description_et);
         locationIv = view.findViewById(R.id.user_row_img);
         locationTv = view.findViewById(R.id.new_review_location_tv);
+        titleTv = view.findViewById(R.id.new_review_title_tv);
+        flagEditing = false;
+
+        if(!args.equals("")){
+            flagEditing = true;
+            titleTv.setText("REVIEW EDITOR");
+            String []arr = args.split(" ");
+            String reviewId = arr[1];
+            review = Model.instance.getReviewById(reviewId);
+            Dish dish = Model.instance.getDishById(review.getDishId());
+            String restaurantName = Model.instance.getRestaurantById(review.getRestaurantId()).getName();
+
+            restaurantEt.setText(restaurantName);
+            dishEt.setText(dish.getName());
+            priceEt.setText(dish.getPrice());
+            descriptionEt.setText(review.getDescription());
+        }
+
+
+
+
 
         locationTv.setOnClickListener((v)->{
             Navigation.findNavController(v).navigate(NewReviewFragmentDirections.actionNewReviewFragmentToMapFragment());
@@ -49,8 +73,10 @@ public class NewReviewFragment extends Fragment {
 
 
         postReviewBtn.setOnClickListener((v)->{
-            Review review = new Review();
-            review.setUserId(user.getId());
+            if(!flagEditing) {
+                review = new Review();
+                review.setUserId(user.getId());
+            }
             review.setDescription(descriptionEt.getText().toString());
             String resId = Model.instance.getRestaurantIdByName(restaurantEt.getText().toString());
             if(resId.equals("No Such Restaurant")){
@@ -59,7 +85,6 @@ public class NewReviewFragment extends Fragment {
                 Dish dish = new Dish(resId,dishEt.getText().toString(),priceEt.getText().toString());
                 review.setRestaurantId(resId);
                 review.setDishId(dish.getId());
-                dish.addReview(review);
                 restaurant.addDish(dish);
                 Model.instance.addDish(dish);
                 Model.instance.addRestaurant(restaurant);
@@ -69,7 +94,6 @@ public class NewReviewFragment extends Fragment {
                 if(dishId.equals("No Such Dish")){
                     Dish dish = new Dish(resId,dishEt.getText().toString(),priceEt.getText().toString());
                     review.setDishId(dish.getId());
-                    dish.addReview(review);
                     Model.instance.addDish(dish);
                 }else{
                     review.setDishId(dishId);

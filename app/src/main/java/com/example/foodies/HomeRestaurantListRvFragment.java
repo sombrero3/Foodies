@@ -111,7 +111,7 @@ public class HomeRestaurantListRvFragment extends Fragment {
         });
 
         addReviewBtn.setOnClickListener((v)->{
-            Navigation.findNavController(v).navigate(HomeRestaurantListRvFragmentDirections.actionHomeRestaurantListRvFragmentToNewReviewFragment());
+            Navigation.findNavController(v).navigate(HomeRestaurantListRvFragmentDirections.actionHomeRestaurantListRvFragmentToNewReviewFragment(""));
         });
         //setHasOptionsMenu(true);
         return view;

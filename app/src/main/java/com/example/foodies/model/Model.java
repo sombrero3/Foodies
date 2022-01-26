@@ -114,9 +114,9 @@ public class Model {
         return false;
     }
     public Dish getDishById(String dishId){
-        for(int i=0;i<dishList.size();i++){
-            if(dishList.get(i).id.equals(dishId)){
-                return dishList.get(i);
+        for(Dish dish:dishList){
+            if(dish.getId().equals(dishId)){
+                return dish;
             }
         }
         return new Dish();
@@ -149,6 +149,7 @@ public class Model {
     public void addReview(Review review){
         getSignedUser().addReview(review);
         getDishById(review.getDishId()).addReview(review);
+        //getRestaurantById(review.getRestaurantId()).updateRating();
         reviewList.add(review);
     }
     public void addDish(Dish dish){
@@ -165,6 +166,7 @@ public class Model {
     public void deleteReview(Review review){
         getDishById(review.getDishId()).deleteReview(review);       // remove from the dish's review list
         getUserById(review.getUserId()).deleteReview(review);       // remove the review from the user's review list
+        getRestaurantById(review.getRestaurantId()).updateRating();
         reviewList.remove(review);
     }
     public void deleteDish(Dish dish){
@@ -389,7 +391,7 @@ public class Model {
     public void setStarByRating(String ratingVal, ImageView star1, ImageView star2, ImageView star3, ImageView star4, ImageView star5, TextView rateTv){
 
         if(!ratingVal.equals("No rating yet")){
-            rateTv.setText("");
+            rateTv.setVisibility(View.INVISIBLE);
             float rate =Float.parseFloat(ratingVal);
             if(rate==0.5){
                 star1.setImageResource(R.drawable.halfstar);

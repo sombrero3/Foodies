@@ -122,6 +122,16 @@
         <action
             android:id="@+id/action_reviewFragment_self"
             app:destination="@id/reviewFragment2" />
+        <action
+            android:id="@+id/action_reviewFragment2_to_newReviewFragment"
+            app:destination="@id/newReviewFragment"
+            app:popUpTo="@id/reviewFragment2"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_reviewFragment2_to_homeRestaurantListRvFragment"
+            app:destination="@id/homeRestaurantListRvFragment"
+            app:popUpTo="@id/homeRestaurantListRvFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/newReviewFragment"
@@ -136,6 +146,9 @@
         <action
             android:id="@+id/action_newReviewFragment_to_mapFragment"
             app:destination="@id/mapFragment" />
+        <argument
+            android:name="edit_space_reviewId"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/registeredUserFragment"

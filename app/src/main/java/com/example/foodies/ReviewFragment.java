@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,6 +28,7 @@ public class ReviewFragment extends Fragment {
     TextView dishNameTv,dishPriceTv, userNameTv, descriptionTv,ratingTv;
     ImageView image,star1,star2,star3,star4,star5;
     List<Review> reviewList;
+    Button editBtn,deleteBtn;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -53,9 +55,11 @@ public class ReviewFragment extends Fragment {
 
         dishNameTv = view.findViewById(R.id.review_dish_name_tv);
         dishPriceTv = view.findViewById(R.id.review_price_tv);
-        userNameTv = view.findViewById(R.id.review_user_name_tv);
+//        userNameTv = view.findViewById(R.id.review_user_name_tv);
         descriptionTv = view.findViewById(R.id.review_description_tv);
         ratingTv = view.findViewById(R.id.review_rating_tv);
+        editBtn = view.findViewById(R.id.review_edit_btn);
+        deleteBtn = view.findViewById(R.id.review_delete_btn);
         star1 = view.findViewById(R.id.review_star1_iv);
         star2 = view.findViewById(R.id.review_star2_iv);
         star3 = view.findViewById(R.id.review_star3_iv);
@@ -67,11 +71,29 @@ public class ReviewFragment extends Fragment {
 
         Model.instance.setStarByRating(review.getRating(),star1,star2,star3,star4,star5,ratingTv);
 
-        dishNameTv.setText(dish.getName());
+        dishNameTv.setText(Model.instance.getUserById(review.getUserId()).getFirstName()+"'s review about "+dish.getName());
         dishPriceTv.setText(dish.getPrice());
-        userNameTv.setText(user.getFirstName()+ " "+user.getLastName());
+//        userNameTv.setText(user.getFirstName()+ " "+user.getLastName());
         descriptionTv.setText(review.getDescription());
 
+        if(review.getUserId().equals(Model.instance.getSignedUser().getId())) {
+            editBtn.setOnClickListener((v) -> {
+                Navigation.findNavController(v).navigate(ReviewFragmentDirections.actionReviewFragment2ToNewReviewFragment("edit " + review.getId()));
+            });
+
+            deleteBtn.setOnClickListener((v) -> {
+                Model.instance.deleteReview(review);
+               // Model.instance.getRestaurantById(review.getRestaurantId()).updateRating();
+                //Navigation.findNavController(v).navigate(ReviewFragmentDirections.actionReviewFragment2ToHomeRestaurantListRvFragment());
+                Navigation.findNavController(v).navigateUp();
+            });
+        }else{
+            editBtn.setVisibility(View.INVISIBLE);
+            editBtn.setClickable(false);
+            deleteBtn.setVisibility(View.INVISIBLE);
+            deleteBtn.setClickable(false);
+
+        }
         return view;
     }
 }

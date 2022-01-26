@@ -107,31 +107,34 @@ public class Restaurant {
     //---------------------------------//
 
     public void updateRating(){
-        double f ,reminder,sum=0,avg;
+        double f ,reminder,sum=0,avg,counter=0;
 
-        for(int i=0;i<dishList.size();i++){
-            sum+= Double.parseDouble(dishList.get(i).getRating());
+        for(Dish dish:dishList){
+            if(!dish.getRating().equals("No rating yet")) {
+                sum += Double.parseDouble(dish.getRating());
+                counter++;
+            }
         }
-
-        f = sum/dishList.size();
-        avg = Math.floor(sum/dishList.size());
-        reminder = f - avg;
-        if(reminder<0.25){
-            rating =Double.toString(avg);
-        }
-        else if(reminder>=0.25 && reminder < 0.75){
-            rating = Double.toString(avg+0.5);
-        }
-        else if(reminder>=0.75){
-            rating=Double.toString(avg+1);
+        if(counter>0) {
+            f = sum / counter;
+            avg = Math.floor(sum / counter);
+            reminder = f - avg;
+            if (reminder < 0.25) {
+                rating = Double.toString(avg);
+            } else if (reminder >= 0.25 && reminder < 0.75) {
+                rating = Double.toString(avg + 0.5);
+            } else if (reminder >= 0.75) {
+                rating = Double.toString(avg + 1);
+            }
+        }else{
+            rating = "No rating yet";
         }
     }
 
     public void addDish(Dish dish){
         dishList.add(dish);
-        if(!dish.getRating().equals("No rating yet")) {
-            updateRating();
-        }
+        updateRating();
+
     }
     public void deleteDish(Dish dish){
         dishList.remove(dish);

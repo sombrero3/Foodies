@@ -36,14 +36,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:text="my review content will be applied here in this space"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/review_user_name_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
     <TextView
         android:id="@+id/textView10"
@@ -72,8 +72,8 @@
         android:id="@+id/textView17"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Review By :"
+        android:layout_marginTop="24dp"
+        android:text="Review :"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@+id/textView10"
@@ -83,7 +83,7 @@
         android:id="@+id/textView25"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:text="Friends who also posted reviews about that dish ;"
         android:textColor="@color/white"
@@ -91,18 +91,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textView17"
         app:layout_constraintTop_toBottomOf="@+id/review_description_tv" />
-
-    <TextView
-        android:id="@+id/review_user_name_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="set user name"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView17"
-        app:layout_constraintStart_toEndOf="@+id/textView17"
-        app:layout_constraintTop_toTopOf="@+id/textView17" />
 
     <TextView
         android:id="@+id/review_rating_tv"
@@ -175,4 +163,33 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView25" />
+
+    <Button
+        android:id="@+id/review_edit_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="4dp"
+        android:backgroundTint="@color/orange_1"
+        android:text="Edit"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/review_delete_btn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/review_delete_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@color/orange_1"
+        android:text="Delete"
+        android:textColor="#F30505"
+        app:layout_constraintBottom_toBottomOf="@+id/review_edit_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/review_edit_btn"
+        app:layout_constraintTop_toTopOf="@+id/review_edit_btn" />
 </androidx.constraintlayout.widget.ConstraintLayout>

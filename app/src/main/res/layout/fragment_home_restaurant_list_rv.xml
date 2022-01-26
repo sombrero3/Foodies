@@ -122,7 +122,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
-        android:text="Find a restaurant and see what your friends thought about their dishes :"
+        android:text="Find a restaurant to see what you and your friends thought about their dishes :"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"

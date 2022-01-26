@@ -63,7 +63,7 @@ public class UserRestaurantListRvFragment extends Fragment {
 
         if(user.getId().equals(Model.instance.getSignedUser().getId())){
             addReviewBtn.setOnClickListener((v)->{
-                Navigation.findNavController(v).navigate(UserRestaurantListRvFragmentDirections.actionUserRestaurantListRvFragmentToNewReviewFragment());
+                Navigation.findNavController(v).navigate(UserRestaurantListRvFragmentDirections.actionUserRestaurantListRvFragmentToNewReviewFragment(""));
             });
         }else{
             addReviewBtn.setVisibility(View.INVISIBLE);
