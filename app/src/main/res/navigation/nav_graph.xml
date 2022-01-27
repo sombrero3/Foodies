@@ -95,6 +95,9 @@
         <action
             android:id="@+id/action_restaurantPageRvFragment_to_userReviewsOnRestaurantRvFragment"
             app:destination="@id/userReviewsOnRestaurantRvFragment" />
+        <action
+            android:id="@+id/action_restaurantPageRvFragment_to_newReviewFragment"
+            app:destination="@id/newReviewFragment" />
     </fragment>
     <fragment
         android:id="@+id/userReviewsOnRestaurantRvFragment"
