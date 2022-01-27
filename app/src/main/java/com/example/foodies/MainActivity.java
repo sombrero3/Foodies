@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.NavHost;
+import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
@@ -39,10 +40,18 @@ public class MainActivity extends AppCompatActivity {
                 case android.R.id.home:
                     navCtl.navigateUp();
                     return true;
+                case R.id.menu_add:
+                    navCtl.navigate(R.id.action_global_newReviewFragment);
+                    return true;
+                case R.id.menu_menu:
+                    navCtl.navigate(R.id.action_global_homeFragment);
+                    return true;
+
             }
         }
         else{
-            return true;
+        return true;
+
         }
         return false;
     }

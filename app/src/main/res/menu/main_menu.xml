@@ -4,13 +4,16 @@
     <item
         android:id="@+id/user_profile"
         android:icon="@drawable/user"
+        android:title="profile"
         app:showAsAction="always" />
     <item
         android:id="@+id/menu_menu"
         android:icon="@drawable/menu22"
+        android:title="menu"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/menu_add"
         android:icon="@android:drawable/ic_input_add"
+        android:title="add"
         app:showAsAction="ifRoom" />
 </menu>

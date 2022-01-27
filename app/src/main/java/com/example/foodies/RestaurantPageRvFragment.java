@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -18,7 +21,6 @@ import android.widget.TextView;
 
 import com.example.foodies.AdaptersAndViewHolders.OnItemClickListener;
 import com.example.foodies.AdaptersAndViewHolders.UserListRestaurantRatingAdapter;
-import com.example.foodies.AdaptersAndViewHolders.UserWithRatingViewHolder;
 import com.example.foodies.model.Model;
 import com.example.foodies.model.Restaurant;
 import com.example.foodies.model.User;
@@ -73,8 +75,23 @@ public class RestaurantPageRvFragment extends Fragment {
         locationTv.setText(restaurant.getLocation());
         secondaryTitleTv.setText("Friends which posted review about "+restaurant.getName()+" :");
 
-        //setHasOptionsMenu(true);
+        setHasOptionsMenu(true);
         return view;
+
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.restaurant_page,menu);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+            return super.onOptionsItemSelected(item);
 
     }
 }
