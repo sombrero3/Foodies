@@ -1,19 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/user_profile"
-        android:icon="@drawable/user"
-        android:title="profile"
+<!--    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">-->
+
+<!--    <group android:checkableBehavior="single">-->
+
+   <!-- <item
+        android:id="@+id/main_menu_home"
+        android:icon="@drawable/ic_baseline_home_white24"
+        android:title="Home"
         app:showAsAction="always" />
+       --> <item
+            android:id="@+id/main_menu_profile"
+            android:icon="@drawable/ic_baseline_person_24"
+            android:title="My profile" />
+        <item
+            android:id="@+id/main_menu_add_review"
+            android:icon="@drawable/ic_baseline_post_add_24"
+            android:title="Post new review" />
     <item
-        android:id="@+id/menu_menu"
-        android:icon="@drawable/menu22"
-        android:title="menu"
-        app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/menu_add"
-        android:icon="@android:drawable/ic_input_add"
-        android:title="add"
-        app:showAsAction="ifRoom" />
+        android:id="@+id/main_menu_my_reviews"
+        android:icon="@drawable/ic_baseline_reviews_24"
+        android:title="My reviews" />
+        <item
+            android:id="@+id/main_menu_my_friends"
+            android:icon="@drawable/ic_baseline_supervised_user_circle_24"
+            android:title="My friends" />
+
+        <item
+            android:id="@+id/main_menu_add_friend"
+            android:icon="@drawable/ic_baseline_person_add_24"
+            android:title="Add friend" />
+
+    <!--</group>-->
 </menu>

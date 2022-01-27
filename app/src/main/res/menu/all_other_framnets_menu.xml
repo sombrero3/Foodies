@@ -7,7 +7,7 @@
         android:icon="@drawable/ic_baseline_home_white24"
         android:title="Home"
         app:showAsAction="always" />
-    <item
+  <!--  <item
         android:id="@+id/main_menu_profile"
         android:icon="@drawable/ic_baseline_person_24"
         android:title="My profile" />
@@ -28,4 +28,5 @@
         android:id="@+id/main_menu_add_friend"
         android:icon="@drawable/ic_baseline_person_add_24"
         android:title="Add friend" />
+-->
 </menu>
