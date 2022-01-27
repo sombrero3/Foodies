@@ -488,7 +488,7 @@ public class Model {
         return result;
     }
 
-    public List<Restaurant> serachRestaurantByNameAndRestaurantList(String text,List<Restaurant> restaurantList) {
+    public List<Restaurant> searchRestaurantByNameAndRestaurantList(String text, List<Restaurant> restaurantList) {
         List<Restaurant> result = new LinkedList<>();
         for (Restaurant res:restaurantList) {
             if(res.getName().contains(text)){
