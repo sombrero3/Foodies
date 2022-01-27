@@ -64,6 +64,9 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.main_menu_add_friend:
                     navCtl.navigate(R.id.action_global_addFriendFragment);
                     return true;
+                case R.id.main_menu_friend_requests:
+                    navCtl.navigate(R.id.action_global_friendRequestsFragment);
+                    return true;
             }
         }
         else{

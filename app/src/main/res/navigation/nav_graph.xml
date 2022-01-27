@@ -221,9 +221,16 @@
             app:popUpTo="@id/userListRvFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/friendRequestsFragment"
+        android:name="com.example.foodies.FriendRequestsFragment"
+        android:label="fragment_friend_requests"
+        tools:layout="@layout/fragment_friend_requests" >
+    </fragment>
+
     <action android:id="@+id/action_global_newReviewFragment" app:destination="@id/newReviewFragment" />
     <action android:id="@+id/action_global_userProfileFragment" app:destination="@id/userProfileFragment" />
     <action android:id="@+id/action_global_homeRestaurantListRvFragment" app:destination="@id/homeRestaurantListRvFragment" />
     <action android:id="@+id/action_global_userListRvFragment" app:destination="@id/userListRvFragment" />
-    <action android:id="@+id/action_global_addFriendFragment" app:destination="@id/addFriendFragment" /><action android:id="@+id/action_global_userRestaurantListRvFragment" app:destination="@id/userRestaurantListRvFragment"/>
+    <action android:id="@+id/action_global_addFriendFragment" app:destination="@id/addFriendFragment" /><action android:id="@+id/action_global_userRestaurantListRvFragment" app:destination="@id/userRestaurantListRvFragment"/><action android:id="@+id/action_global_friendRequestsFragment" app:destination="@id/friendRequestsFragment"/>
 </navigation>
