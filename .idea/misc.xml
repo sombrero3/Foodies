@@ -20,6 +20,7 @@
         <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/activity_user_reviews_on_restaurant.xml" value="0.13020833333333334" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/dish_list_row.xml" value="0.264" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_add_friend.xml" value="0.190625" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_friend_requests.xml" value="0.190625" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_home.xml" value="0.176" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_home_restaurant_list_rv.xml" value="0.264" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_map.xml" value="0.2477355072463768" />
@@ -40,6 +41,7 @@
         <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_user_reviews_on_restaurant.xml" value="0.2477355072463768" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_user_reviews_on_restaurant_rv.xml" value="0.264" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_uzer_name.xml" value="0.2477355072463768" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/friend_request_row.xml" value="0.190625" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/my_menu_header.xml" value="0.4" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/restaurant_list_row.xml" value="0.264" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/retaurant_list_row.xml" value="0.2" />

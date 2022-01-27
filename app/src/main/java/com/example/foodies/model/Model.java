@@ -540,4 +540,28 @@ public class Model {
         return result;
     }
 
+    public void friendRequestCreateRequest(User user1,User user2 ){
+        user2.friendRequestToConfirm(user1);
+        user1.friendRequestWaitForConfirmation(user2);
+    }
+
+    public void friendRequestIgnore(User user1,User user2){
+        user1.friendRequestIgnoring(user2);
+        user2.friendRequestIgnored(user1);
+    }
+
+    public void friendRequestCancel(User user1,User user2){
+        user2.friendRequestDelete(user1);
+        user2.friendRequestDelete(user2);
+    }
+
+    public void cancelFriendsihp(User user1,User user2){
+        user1.deleteFriend(user2);
+        user2.deleteFriend(user1);
+    }
+
+    public void recoverFriendship(User user1, User user2) {
+        user1.addFriend(user2);
+        user2.addFriend(user1);
+    }
 }

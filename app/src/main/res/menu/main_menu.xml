@@ -32,6 +32,10 @@
             android:id="@+id/main_menu_add_friend"
             android:icon="@drawable/ic_baseline_person_add_24"
             android:title="Add friend" />
+    <item
+        android:id="@+id/main_menu_friend_requests"
+        android:icon="@drawable/ic_baseline_person_24"
+        android:title="Friend Requests" />
 
     <!--</group>-->
 </menu>

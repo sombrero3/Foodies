@@ -94,26 +94,43 @@ public class UserProfileFragment extends Fragment {
         nameTv.setText(user.getFirstName()+ " "+ user.getLastName());
         totalReviewsTv.setText("Posted total of "+user.getTotalReviews()+" reviews");
         totalRestaurantsTv.setText("Posted reviews on "+user.getTotalRestaurantsVisited()+" restaurants");
-
-        String signedUserId = Model.instance.getSignedUser().getId();
+        User signedUser = Model.instance.getSignedUser();
+        String signedUserId = signedUser.getId();
 
         if(userId.equals(signedUserId)) {
             addFriendBtn.setOnClickListener((v) -> {
                 Navigation.findNavController(v).navigate(UserProfileFragmentDirections.actionUserProfileFragmentToAddFriendFragment());
             });
         }else if(!Model.instance.getSignedUser().getFriendsList().contains(Model.instance.getUserById(userId))){
+            User userProfile = Model.instance.getUserById(userId);
             addFriendBtn.setText("Send friend request");
             flagRequest =false;
             addFriendBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if(!flagRequest) {
+                        Model.instance.friendRequestCreateRequest(signedUser,userProfile);
                         addFriendBtn.setText("cancel friend request");
                         flagRequest = true;
                     }else{
+                        Model.instance.friendRequestCancel(signedUser,userProfile);
                         addFriendBtn.setText("Send friend request");
                         flagRequest = false;
                     }
+                }
+            });
+        }else if(signedUser.getFriendsList().contains(user)){
+            User userProfile = Model.instance.getUserById(userId);
+            addFriendBtn.setText("Cancel friendship");
+            flagRequest =false;
+            addFriendBtn.setOnClickListener((v)->{
+                if(!flagRequest) {
+                    Model.instance.cancelFriendsihp(signedUser, userProfile);
+                    addFriendBtn.setText("Recover Friendship");
+                    //Navigation.findNavController(v).navigate((NavDirections) UserProfileFragmentDirections.actionUserProfileFragmentToUserListRvFragment(Model.instance.getSignedUser().getId()));
+                }else{
+                    Model.instance.recoverFriendship(signedUser,userProfile);
+                    addFriendBtn.setText("Cancel friendship");
                 }
             });
         }
@@ -124,16 +141,7 @@ public class UserProfileFragment extends Fragment {
             allReviewsBtn.setText("Check out all "+user.getFirstName()+"'s reviews");
         }
 
-        if(Model.instance.getSignedUser().getFriendsList().contains(user)){
-            addFriendBtn.setText("Cancel friendship");
-            addFriendBtn.setOnClickListener((v)->{
 
-                    Model.instance.getSignedUser().deleteFriend(user);
-                    user.deleteFriend(Model.instance.getSignedUser());
-                    Navigation.findNavController(v).navigate((NavDirections) UserProfileFragmentDirections.actionUserProfileFragmentToUserListRvFragment(Model.instance.getSignedUser().getId()));
-
-            });
-        }
         allReviewsBtn.setOnClickListener((v)-> {
             Navigation.findNavController(v).navigate((NavDirections) UserProfileFragmentDirections.actionUserProfileFragmentToUserRestaurantListRvFragment(userId));
         });
