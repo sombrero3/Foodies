@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -75,11 +78,28 @@ public class RestaurantPageRvFragment extends Fragment {
         nameTv.setText(restaurant.getName());
         locationTv.setText(restaurant.getLocation());
         secondaryTitleTv.setText("Friends which posted review about "+restaurant.getName()+" :");
+
+        setHasOptionsMenu(true);
         addReviewBtn.setOnClickListener((v)->{
             Navigation.findNavController(v).navigate(RestaurantPageRvFragmentDirections.actionRestaurantPageRvFragmentToNewReviewFragment("restaurant "+restaurant.getId()));
         });
         //setHasOptionsMenu(true);
         return view;
+
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.restaurant_page,menu);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+            return super.onOptionsItemSelected(item);
 
     }
 }

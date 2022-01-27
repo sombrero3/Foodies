@@ -96,16 +96,6 @@
         app:layout_constraintStart_toStartOf="@+id/user_restaurant_img"
         app:layout_constraintTop_toBottomOf="@+id/user_restaurant_list_search_et" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/user_restaurant_list_rv"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_restaurant_list_addreview_btn" />
-
     <Button
         android:id="@+id/user_restaurant_list_addreview_btn"
         android:layout_width="153dp"
@@ -120,4 +110,15 @@
         app:layout_constraintBottom_toBottomOf="@+id/user_restaurant_title_tv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/user_restaurant_title_tv" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/user_restaurant_rv"
+        android:layout_width="409dp"
+        android:layout_height="548dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_restaurant_title_tv" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

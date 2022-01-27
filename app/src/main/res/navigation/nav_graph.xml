@@ -218,4 +218,6 @@
             app:popUpTo="@id/userListRvFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <action android:id="@+id/action_global_newReviewFragment" app:destination="@id/newReviewFragment" />
+    <action android:id="@+id/action_global_homeFragment" app:destination="@id/homeFragment" />
 </navigation>
