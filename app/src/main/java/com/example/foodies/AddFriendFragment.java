@@ -2,6 +2,9 @@ package com.example.foodies;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -11,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -43,10 +47,8 @@ public class AddFriendFragment extends Fragment {
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
-//                String userName = userList.get(position).getLastName();
-//                Log.d("TAG","user's row clicked: " + userName);
-//                Navigation.findNavController(v).navigate(UserListRvFragmentDirections.actionUserListRvFragmentToUserRestaurantListRvFragment(userList.get(position).getId()));
-
+                String userId = searchResultList.get(position).getId();
+                Navigation.findNavController(v).navigate(AddFriendFragmentDirections.actionAddFriendFragmentToUserProfileFragment(userId));
             }
         });
         nameEt = view.findViewById(R.id.add_friend_name_et);
@@ -90,13 +92,15 @@ public class AddFriendFragment extends Fragment {
                 }
             }
         });
-
+        setHasOptionsMenu(true);
         return view;
     }
+
 
     class MyViewHolder extends RecyclerView.ViewHolder{
         TextView nameEt;
         TextView restaurantEt;
+
         TextView reviewsEt;
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
@@ -115,9 +119,9 @@ public class AddFriendFragment extends Fragment {
 
         }
     }
-
     class MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
         OnItemClickListener listener;
+
         public void setOnItemClickListener(OnItemClickListener listener){
             this.listener = listener;
         }
@@ -137,10 +141,20 @@ public class AddFriendFragment extends Fragment {
             holder.restaurantEt.setText("Visited "+ user.getTotalRestaurantsVisited() +" restaurants total");
             holder.reviewsEt.setText("Has total of " + user.getReviewList().size()+ " reviews");
         }
-
         @Override
         public int getItemCount() {
             return searchResultList.size();
         }
+    }
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.all_other_framnets_menu,menu);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return super.onOptionsItemSelected(item);
     }
 }

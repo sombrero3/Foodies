@@ -79,27 +79,25 @@ public class RestaurantPageRvFragment extends Fragment {
         locationTv.setText(restaurant.getLocation());
         secondaryTitleTv.setText("Friends which posted review about "+restaurant.getName()+" :");
 
-        setHasOptionsMenu(true);
         addReviewBtn.setOnClickListener((v)->{
             Navigation.findNavController(v).navigate(RestaurantPageRvFragmentDirections.actionRestaurantPageRvFragmentToNewReviewFragment("restaurant "+restaurant.getId()));
         });
-        //setHasOptionsMenu(true);
+        setHasOptionsMenu(true);
+
         return view;
 
     }
 
-
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.restaurant_page,menu);
+        inflater.inflate(R.menu.all_other_framnets_menu,menu);
 
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-            return super.onOptionsItemSelected(item);
-
+        return super.onOptionsItemSelected(item);
     }
+
 }

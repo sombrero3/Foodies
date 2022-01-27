@@ -86,7 +86,7 @@ public class NewReviewFragment extends Fragment {
             postReview();
             Navigation.findNavController(v).navigate(NewReviewFragmentDirections.actionNewReviewFragmentToReviewFragment2(review.getId()));
         });
-
+        setHasOptionsMenu(true);
        return view;
     }
 

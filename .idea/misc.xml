@@ -3,9 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.202734375" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/drawable/ic_baseline_person_add_24.xml" value="0.202734375" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/drawable/ic_baseline_person_add_alt_white_1_24.xml" value="0.202734375" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/drawable/ic_baseline_person_white_24.xml" value="0.202734375" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/activity_friends_list.xml" value="0.190625" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/activity_friends_rv.xml" value="0.2477355072463768" />
-        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/activity_main.xml" value="0.24010416666666667" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/activity_restaurant_list_rv.xml" value="0.152" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/activity_review_create.xml" value="0.2477355072463768" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/activity_sign_in.xml" value="0.25181159420289856" />
@@ -36,16 +40,26 @@
         <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_user_reviews_on_restaurant.xml" value="0.2477355072463768" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_user_reviews_on_restaurant_rv.xml" value="0.264" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_uzer_name.xml" value="0.2477355072463768" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/my_menu_header.xml" value="0.4" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/restaurant_list_row.xml" value="0.264" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/retaurant_list_row.xml" value="0.2" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/trying.xml" value="0.190625" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/user_list_row.xml" value="0.4" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/user_review_list_row.xml" value="0.6" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/menu/all_other_framnets_menu.xml" value="0.190625" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/menu/home_restaurant_menu.xml" value="0.190625" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/menu/main_menu.xml" value="0.190625" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/menu/my_menu.xml" value="0.190625" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/menu/navdrawer_menu.xml" value="0.180078125" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/menu/new_review_menu.xml" value="0.190625" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/menu/options_menu.xml" value="0.180078125" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/menu/restaurant_page.xml" value="0.190625" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/menu/review.xml" value="0.190625" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/menu/user_list.xml" value="0.190625" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/menu/user_restaurant_list.xml" value="0.190625" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/menu/user_reviews_on_restaurant.xml" value="0.190625" />
         <entry key="..\:/Users/ormad/AndroidStudioProjects/Foodies/app/src/main/res/layout/activity_main.xml" value="0.2758152173913043" />
-        <entry key="..\:/Users/ormad/AndroidStudioProjects/Foodies/app/src/main/res/layout/dish_list_row.xml" value="0.13179347826086957" />
-        <entry key="..\:/Users/ormad/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_add_friend.xml" value="0.13179347826086957" />
         <entry key="..\:/Users/ormad/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_home.xml" value="0.2758152173913043" />
-        <entry key="..\:/Users/ormad/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_home_restaurant_list_rv.xml" value="0.2907608695652174" />
         <entry key="..\:/Users/ormad/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_map.xml" value="0.2758152173913043" />
         <entry key="..\:/Users/ormad/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_my_friends.xml" value="0.2758152173913043" />
         <entry key="..\:/Users/ormad/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_my_reviews.xml" value="0.2758152173913043" />
@@ -53,18 +67,9 @@
         <entry key="..\:/Users/ormad/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_new_user.xml" value="0.2758152173913043" />
         <entry key="..\:/Users/ormad/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_registered_user.xml" value="0.2758152173913043" />
         <entry key="..\:/Users/ormad/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_restaurant_page.xml" value="0.2758152173913043" />
-        <entry key="..\:/Users/ormad/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_restaurant_page_rv.xml" value="0.2907608695652174" />
-        <entry key="..\:/Users/ormad/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_review.xml" value="0.13179347826086957" />
         <entry key="..\:/Users/ormad/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_search_restaurant.xml" value="0.2758152173913043" />
         <entry key="..\:/Users/ormad/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_user_name.xml" value="0.24635416666666668" />
         <entry key="..\:/Users/ormad/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_user_reviews_on_restaurant.xml" value="0.2758152173913043" />
-        <entry key="..\:/Users/ormad/AndroidStudioProjects/Foodies/app/src/main/res/menu/home_restaurant_menu.xml" value="0.67" />
-        <entry key="..\:/Users/ormad/AndroidStudioProjects/Foodies/app/src/main/res/menu/main_menu.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/ormad/AndroidStudioProjects/Foodies/app/src/main/res/menu/new_review_menu.xml" value="0.296875" />
-        <entry key="..\:/Users/ormad/AndroidStudioProjects/Foodies/app/src/main/res/menu/restaurant_page.xml" value="0.296875" />
-        <entry key="..\:/Users/ormad/AndroidStudioProjects/Foodies/app/src/main/res/menu/review.xml" value="0.296875" />
-        <entry key="..\:/Users/ormad/AndroidStudioProjects/Foodies/app/src/main/res/menu/user_list.xml" value="0.296875" />
-        <entry key="..\:/Users/ormad/AndroidStudioProjects/Foodies/app/src/main/res/menu/user_reviews_on_restaurant.xml" value="0.296875" />
       </map>
     </option>
   </component>
