@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -64,7 +65,7 @@ public class HomeRestaurantListRvFragment extends Fragment {
                 String restaurantName = restaurantList.get(position).getName();
                 String restaurantId = restaurantList.get(position).getId();
                 Log.d("TAG","Restaurant clicked: " + restaurantName + " " + restaurantId);
-                Navigation.findNavController(v).navigate(HomeRestaurantListRvFragmentDirections.actionHomeRestaurantListRvFragmentToRestaurantPageRvFragment(restaurantId));
+                Navigation.findNavController(v).navigate((NavDirections) HomeRestaurantListRvFragmentDirections.actionHomeRestaurantListRvFragmentToRestaurantPageRvFragment(restaurantId));
 
             }
         });
@@ -103,7 +104,7 @@ public class HomeRestaurantListRvFragment extends Fragment {
                     @Override
                     public void onItemClick(View v, int position) {
                         String restaurantId = restaurantList.get(position).getId();
-                        Navigation.findNavController(v).navigate(HomeRestaurantListRvFragmentDirections.actionHomeRestaurantListRvFragmentToRestaurantPageRvFragment(restaurantId));
+                        Navigation.findNavController(v).navigate((NavDirections) HomeRestaurantListRvFragmentDirections.actionHomeRestaurantListRvFragmentToRestaurantPageRvFragment(restaurantId));
                     }
                 });
             }
@@ -114,7 +115,7 @@ public class HomeRestaurantListRvFragment extends Fragment {
         });
 
         addReviewBtn.setOnClickListener((v)->{
-            Navigation.findNavController(v).navigate(HomeRestaurantListRvFragmentDirections.actionHomeRestaurantListRvFragmentToNewReviewFragment(""));
+            Navigation.findNavController(v).navigate((NavDirections) HomeRestaurantListRvFragmentDirections.actionHomeRestaurantListRvFragmentToNewReviewFragment(""));
         });
 
         setHasOptionsMenu(true);
@@ -124,7 +125,7 @@ public class HomeRestaurantListRvFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.all_other_framnets_menu,menu);
+        inflater.inflate(R.menu.home_restaurant_menu,menu);
 
     }
 

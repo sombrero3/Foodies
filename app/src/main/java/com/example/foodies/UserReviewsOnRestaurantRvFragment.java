@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -57,7 +58,7 @@ public class UserReviewsOnRestaurantRvFragment extends Fragment {
                     String dishId = dishList.get(position).getId();
                     Review review = Model.instance.getReviewOnDishByDishIdAndUserId(dishId, user.getId());
                     Log.d("TAG","dish clicked: " + dishName + " price: "+price );
-                    Navigation.findNavController(v).navigate(UserReviewsOnRestaurantRvFragmentDirections.actionUserReviewsOnRestaurantRvFragmentToReviewFragment(review.getId()));
+                    Navigation.findNavController(v).navigate((NavDirections) UserReviewsOnRestaurantRvFragmentDirections.actionUserReviewsOnRestaurantRvFragmentToReviewFragment(review.getId()));
                 }
             });
 

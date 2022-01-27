@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -54,7 +55,7 @@ public class UserRestaurantListRvFragment extends Fragment {
             public void onItemClick(View v, int position) {
                 String restaurantName = restaurantList.get(position).getName();
                 Log.d("TAG","restaurant clicked: " + restaurantName);
-                Navigation.findNavController(v).navigate(UserRestaurantListRvFragmentDirections.actionUserRestaurantListRvFragmentToUserReviewsOnRestaurantRvFragment(user.getId(),restaurantList.get(position).getId()));
+                Navigation.findNavController(v).navigate((NavDirections) UserRestaurantListRvFragmentDirections.actionUserRestaurantListRvFragmentToUserReviewsOnRestaurantRvFragment(user.getId(),restaurantList.get(position).getId()));
 
             }
         });
@@ -66,7 +67,7 @@ public class UserRestaurantListRvFragment extends Fragment {
 
         if(user.getId().equals(Model.instance.getSignedUser().getId())){
             addReviewBtn.setOnClickListener((v)->{
-                Navigation.findNavController(v).navigate(UserRestaurantListRvFragmentDirections.actionUserRestaurantListRvFragmentToNewReviewFragment(""));
+                Navigation.findNavController(v).navigate((NavDirections) UserRestaurantListRvFragmentDirections.actionUserRestaurantListRvFragmentToNewReviewFragment(""));
             });
         }else{
             addReviewBtn.setVisibility(View.INVISIBLE);

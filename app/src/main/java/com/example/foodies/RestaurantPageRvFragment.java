@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -56,7 +57,7 @@ public class RestaurantPageRvFragment extends Fragment {
                 String userName = usersList.get(position).getFirstName() + " " +usersList.get(position).getLastName();
                 Log.d("TAG","user clicked: " + userName);
                 User user = usersList.get(position);
-                Navigation.findNavController(v).navigate(RestaurantPageRvFragmentDirections.actionRestaurantPageRvFragmentToUserReviewsOnRestaurantRvFragment(user.getId(),resId));
+                Navigation.findNavController(v).navigate((NavDirections) RestaurantPageRvFragmentDirections.actionRestaurantPageRvFragmentToUserReviewsOnRestaurantRvFragment(user.getId(),resId));
 
             }
         });
@@ -80,7 +81,7 @@ public class RestaurantPageRvFragment extends Fragment {
         secondaryTitleTv.setText("Friends which posted review about "+restaurant.getName()+" :");
 
         addReviewBtn.setOnClickListener((v)->{
-            Navigation.findNavController(v).navigate(RestaurantPageRvFragmentDirections.actionRestaurantPageRvFragmentToNewReviewFragment("restaurant "+restaurant.getId()));
+            Navigation.findNavController(v).navigate((NavDirections) RestaurantPageRvFragmentDirections.actionRestaurantPageRvFragmentToNewReviewFragment("restaurant "+restaurant.getId()));
         });
         setHasOptionsMenu(true);
 

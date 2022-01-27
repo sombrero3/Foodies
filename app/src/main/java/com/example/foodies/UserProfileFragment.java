@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -77,7 +78,7 @@ public class UserProfileFragment extends Fragment {
                 String dishName = dish.getName();
                 String price = dish.getPrice();
                 Log.d("TAG","dish clicked: " + dishName + " price: "+price );
-                Navigation.findNavController(v).navigate(UserProfileFragmentDirections.actionUserProfileFragmentToReviewFragment2(reviewList.get(position).getId()));
+                Navigation.findNavController(v).navigate((NavDirections) UserProfileFragmentDirections.actionUserProfileFragmentToReviewFragment2(reviewList.get(position).getId()));
             }
         });
 
@@ -86,7 +87,7 @@ public class UserProfileFragment extends Fragment {
             public void onItemClick(View v, int position) {
                 String userName = friendsList.get(position).getLastName();
                 Log.d("TAG","user's row clicked: " + userName);
-                Navigation.findNavController(v).navigate(UserProfileFragmentDirections.actionUserProfileFragmentSelf(friendsList.get(position).getId()));
+                Navigation.findNavController(v).navigate((NavDirections) UserProfileFragmentDirections.actionUserProfileFragmentSelf(friendsList.get(position).getId()));
             }
         });
 
@@ -129,12 +130,12 @@ public class UserProfileFragment extends Fragment {
 
                     Model.instance.getSignedUser().deleteFriend(user);
                     user.deleteFriend(Model.instance.getSignedUser());
-                    Navigation.findNavController(v).navigate(UserProfileFragmentDirections.actionUserProfileFragmentToUserListRvFragment(Model.instance.getSignedUser().getId()));
+                    Navigation.findNavController(v).navigate((NavDirections) UserProfileFragmentDirections.actionUserProfileFragmentToUserListRvFragment(Model.instance.getSignedUser().getId()));
 
             });
         }
         allReviewsBtn.setOnClickListener((v)-> {
-            Navigation.findNavController(v).navigate(UserProfileFragmentDirections.actionUserProfileFragmentToUserRestaurantListRvFragment(userId));
+            Navigation.findNavController(v).navigate((NavDirections) UserProfileFragmentDirections.actionUserProfileFragmentToUserRestaurantListRvFragment(userId));
         });
 
         setHasOptionsMenu(true);
