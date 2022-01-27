@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -53,7 +54,7 @@ public class ReviewFragment extends Fragment {
             @Override
             public void onItemClick(View v, int position) {
                 Review rev = reviewList.get(position);
-                Navigation.findNavController(v).navigate(ReviewFragmentDirections.actionReviewFragmentSelf(rev.getId()));
+                Navigation.findNavController(v).navigate((NavDirections) ReviewFragmentDirections.actionReviewFragmentSelf(rev.getId()));
             }
         });
 
@@ -82,7 +83,7 @@ public class ReviewFragment extends Fragment {
 
         if(review.getUserId().equals(Model.instance.getSignedUser().getId())) {
             editBtn.setOnClickListener((v) -> {
-                Navigation.findNavController(v).navigate(ReviewFragmentDirections.actionReviewFragment2ToNewReviewFragment("edit " + review.getId()));
+                Navigation.findNavController(v).navigate((NavDirections) ReviewFragmentDirections.actionReviewFragment2ToNewReviewFragment("edit " + review.getId()));
             });
 
             deleteBtn.setOnClickListener((v) -> {

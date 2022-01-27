@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -48,7 +49,7 @@ public class AddFriendFragment extends Fragment {
             @Override
             public void onItemClick(View v, int position) {
                 String userId = searchResultList.get(position).getId();
-                Navigation.findNavController(v).navigate(AddFriendFragmentDirections.actionAddFriendFragmentToUserProfileFragment(userId));
+                Navigation.findNavController(v).navigate((NavDirections) AddFriendFragmentDirections.actionAddFriendFragmentToUserProfileFragment(userId));
             }
         });
         nameEt = view.findViewById(R.id.add_friend_name_et);

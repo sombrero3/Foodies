@@ -3,6 +3,7 @@ package com.example.foodies;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
@@ -84,7 +85,7 @@ public class NewReviewFragment extends Fragment {
 
         postReviewBtn.setOnClickListener((v)->{
             postReview();
-            Navigation.findNavController(v).navigate(NewReviewFragmentDirections.actionNewReviewFragmentToReviewFragment2(review.getId()));
+            Navigation.findNavController(v).navigate((NavDirections) NewReviewFragmentDirections.actionNewReviewFragmentToReviewFragment2(review.getId()));
         });
         setHasOptionsMenu(true);
        return view;
