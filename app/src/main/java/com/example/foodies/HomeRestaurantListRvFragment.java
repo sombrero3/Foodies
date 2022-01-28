@@ -45,10 +45,7 @@ public class HomeRestaurantListRvFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_restaurant_list_rv, container, false);
 
-        //----to use user validation put the next two lines in comment----//
-        Model.instance.setSignedUser(Model.instance.getUserById("1"));
-        Model.instance.setSignedFlag(true);
-        //----------------------------------------------------------------//
+
 
         User user = Model.instance.getSignedUser();
         restaurantList = Model.instance.getRestaurantList();

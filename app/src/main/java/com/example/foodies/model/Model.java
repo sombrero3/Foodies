@@ -30,15 +30,19 @@ public class Model {
         }
 
         Random rand = new Random();
-        for(int j=0;j<userList.size();j++){
+        for(int j=0;j<userList.size()-2;j++){
             for(int i=0;i<2;i++) {
-                int x = Math.abs(rand.nextInt() % userList.size());
+                int x = Math.abs(rand.nextInt() % (userList.size()-2));
                 if (!userList.get(j).getFriendsList().contains(userList.get(x)) && x!=j ) {
                     userList.get(i).addFriend(userList.get(x));
                     userList.get(x).addFriend(userList.get(i));
                 }
             }
         }
+        setSignedUser(userList.get(0));
+        setSignedFlag(true);
+        friendRequestCreateRequestFromUser(userList.get(8));
+        friendRequestCreateRequestFromUser(userList.get(9));
 
         Random random = new Random();
         for(int i=0;i<10;i++){
@@ -381,12 +385,6 @@ public class Model {
         return result;
     }
 
-    public void createFriendship(String userId) {
-        User user1 = getSignedUser();
-        User user2 = getUserById(userId);
-        user1.addFriend(user2);
-        user2.addFriend(user1);
-    }
 
     public void setStarByRating(String ratingVal, ImageView star1, ImageView star2, ImageView star3, ImageView star4, ImageView star5, TextView rateTv){
 
@@ -540,28 +538,47 @@ public class Model {
         return result;
     }
 
-    public void friendRequestCreateRequest(User user1,User user2 ){
-        user2.friendRequestToConfirm(user1);
-        user1.friendRequestWaitForConfirmation(user2);
+
+
+//    public void friendRequestIgnore(User user1,User user2){
+//        user1.friendRequestIgnoring(user2);
+//        user2.friendRequestIgnored(user1);
+//    }
+
+    public void friendRequestCancel(User user2){
+        user2.friendRequestDelete(signedUser);
+    }
+    public void friendRequestCreateRequestFromUser(User user){
+        signedUser.friendRequestToConfirm(user);
+    }
+    public void friendRequestSendRequestToUser(User user2 ){
+        signedUser.friendRequestToConfirm(user2);
     }
 
-    public void friendRequestIgnore(User user1,User user2){
-        user1.friendRequestIgnoring(user2);
-        user2.friendRequestIgnored(user1);
+    public void friendRequestConfirmed(String userId) {
+        createFriendship(userId);
     }
 
-    public void friendRequestCancel(User user1,User user2){
-        user2.friendRequestDelete(user1);
-        user2.friendRequestDelete(user2);
+    public void createFriendship(String userId) {
+        User user1 = getSignedUser();
+        User user2 = getUserById(userId);
+        user1.friendRequestConfirmed(user2);
+        user2.friendRequestConfirmed(user1);
     }
 
-    public void cancelFriendsihp(User user1,User user2){
-        user1.deleteFriend(user2);
-        user2.deleteFriend(user1);
+    public void cancelFriendsihp(User user2){
+        User user1 = getSignedUser();
+        user1.cancelFriendship(user2);
+        user2.cancelFriendship(user1);
     }
 
     public void recoverFriendship(User user1, User user2) {
         user1.addFriend(user2);
         user2.addFriend(user1);
     }
+
+
+//    public void updateFriendRequestListAndHash(){
+//        signedUser.updateFriendRequestListAndHash();
+//    }
 }

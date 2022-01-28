@@ -37,6 +37,7 @@ public class FriendRequestAdapter extends RecyclerView.Adapter<FriendRequestView
         User user = userList.get(position);
         holder.nameTv.setText(user.getFirstName()+" "+user.getLastName());
         holder.emilTv.setText(user.getEmail());
+
     }
 
     @Override
