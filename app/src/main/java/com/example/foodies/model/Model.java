@@ -331,14 +331,41 @@ public class Model {
         }
         return result;
     }
+    public List<User> getNotFriendsUsersByName(String name) {
+        List<User> result = new LinkedList<>();
+        for (User user :userList) {
+            if(!signedUser.getFriendsList().contains(user) && user.getFirstName().contains(name) && !signedUser.getId().equals(user.getId())){
+                result.add(user);
+            }
+        }
+        return result;
+    }
 
+    public List<User> getNotFriendsUsersByEmail(String email) {
+        List<User> result = new LinkedList<>();
+        for (User user : userList) {
+            if (!signedUser.getFriendsList().contains(user) && user.getEmail().contains(email)&& !user.getEmail().equals("No email address")) {
+                result.add(user);
+            }
+        }
+        return result;
+    }
+    public List<User> getNotFriendsUsersByNameAndEmail(String name,String email){
+        List<User> result = new LinkedList<>();
+        for (User user :userList) {
+            if(!signedUser.getFriendsList().contains(user) && user.getFirstName().contains(name)&& user.getEmail().contains(email)){
+                result.add(user);
+            }
+        }
+        return result;
+    }
     public List<User> peopleYouMayKnow(){
-        List<User> friends , result;
+        List<User> signedUserFriends , result;
         result = new LinkedList<>();
-        friends = getSignedUser().getFriendsList();
-        for (User friend: friends) {
+        signedUserFriends = signedUser.getFriendsList();
+        for (User friend: signedUserFriends) {
             for (User friendfriends:friend.getFriendsList()) {
-                if(!result.contains(friendfriends) && !friends.contains(friendfriends) && !friendfriends.getId().equals(getSignedUser().getId())) {
+                if(!result.contains(friendfriends) && !signedUserFriends.contains(friendfriends) && !friendfriends.getId().equals(signedUser.getId())) {
                     result.add(friendfriends);
                 }
             }
@@ -539,12 +566,6 @@ public class Model {
     }
 
 
-
-//    public void friendRequestIgnore(User user1,User user2){
-//        user1.friendRequestIgnoring(user2);
-//        user2.friendRequestIgnored(user1);
-//    }
-
     public void friendRequestCancel(User user2){
         user2.friendRequestDelete(signedUser);
     }
@@ -578,7 +599,5 @@ public class Model {
     }
 
 
-//    public void updateFriendRequestListAndHash(){
-//        signedUser.updateFriendRequestListAndHash();
-//    }
+
 }

@@ -18,7 +18,6 @@ public class User {
     Image image;
     List<Review> reviewList;
     List<User> friendsList,friendRequestList;
-    HashMap<User,String> friendRequestsHash;
     String totalRestaurantsVisited;
 
     //-------Constructors-------//
@@ -31,7 +30,6 @@ public class User {
         reviewList = new LinkedList<>();
         friendsList = new LinkedList<>();
         friendRequestList = new LinkedList<>();
-        friendRequestsHash = new HashMap<>();
         password = "";
         totalRestaurantsVisited = "0";
     }
@@ -45,7 +43,6 @@ public class User {
         reviewList = new LinkedList<>();
         friendsList = new LinkedList<>();
         friendRequestList = new LinkedList<>();
-        friendRequestsHash = new HashMap<>();
         totalRestaurantsVisited = "0";
     }
     public User(String firstName,String password,String email){
@@ -58,19 +55,8 @@ public class User {
         reviewList = new LinkedList<>();
         friendsList = new LinkedList<>();
         friendRequestList = new LinkedList<>();
-        friendRequestsHash = new HashMap<>();
         totalRestaurantsVisited = "0";
     }
-//    public User(String firstName,String lastName){
-//        id = Integer.toString(IdGenerator.instance.getNextId());
-//        this.firstName = firstName;
-//        this.lastName = lastName;
-//        totalReviews ="0";
-//        password = lastName;
-//        reviewList = new LinkedList<>();
-//        friendsList = new LinkedList<>();
-//        totalRestaurantsVisited = "0";
-//    }
 
     //-------Getters and Setters-------//
     public String getId() {
@@ -111,6 +97,9 @@ public class User {
             if(friendRequestList.contains(user)){
                 friendRequestList.remove(user);
             }
+            if(user.getId().equals(id)){
+                friendsList.remove(user);
+            }
         }
         return friendsList;
     }
@@ -123,35 +112,21 @@ public class User {
     public void setTotalRestaurantsVisited(String totalRestaurantsVisited) {
         this.totalRestaurantsVisited = totalRestaurantsVisited;
     }
-
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
-
     public String getEmail() {
         return email;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public HashMap<User, String> getFriendRequestsHash() {
-        return friendRequestsHash;
-    }
-
-    public void setFriendRequestsHash(HashMap<User,String> friendRequestsHash) {
-        this.friendRequestsHash = friendRequestsHash;
-    }
-
     public List<User> getFriendRequestList() {
         return friendRequestList;
     }
-
     public void setFriendRequestList(List<User> friendRequestList) {
         this.friendRequestList = friendRequestList;
     }
@@ -199,21 +174,8 @@ public class User {
     public void deleteFriend(User friend){
         friendsList.remove(friend);
     }
-
-
-//    public void friendRequestWaitForConfirmation(User user){
-//        friendRequestsHash.remove(user);
-//        friendRequestsHash.put(user,"WaitingForConfirmation");
-//    }
-
     public void friendRequestToConfirm(User user){
-        //        friendRequestsHash.remove(user);
-//        friendRequestsHash.put(user,"ToConfirm");
         friendRequestList.add(user);
-    }
-
-    public void friendRequestUnConfirm(User user){
-        deleteFriend(user);
     }
     public void friendRequestConfirmed(User user){
         addFriend(user);
@@ -221,49 +183,7 @@ public class User {
     public void cancelFriendship(User user){
         deleteFriend(user);
     }
-
     public void friendRequestDelete(User user){
-        friendRequestsHash.remove(user);
         friendRequestList.remove(user);
     }
-//    public void friendRequestIgnoring(User user){
-//        friendRequestsHash.remove(user);
-//        friendRequestsHash.put(user,"Ignoring");
-//    }
-//
-//    public void friendRequestIgnored(User user){
-//        friendRequestsHash.remove(user);
-//        friendRequestsHash.put(user,"Ignored");
-//    }
-//    public void friendRequestCanceled(User user){
-//        friendRequestsHash.remove(user);
-//        friendRequestsHash.put(user,"Canceled");
-//        //friendRequestList.remove(user);
-//    }
-//    public void updateFriendRequestListAndHash(){
-//        for(Map.Entry<User ,String> entry:friendRequestsHash.entrySet()){
-//            User user = entry.getKey();
-//            String status = entry.getValue();
-//            if(status.equals("Confirmed")){
-//                addFriend(user);
-//                friendRequestsHash.remove(user);
-//                friendRequestList.remove(user);
-//            }else if(!status.equals("ToConfirm")&&!status.equals("WaitingForConfirmation")){
-//                friendRequestsHash.remove(user);
-//                friendRequestList.remove(user);
-//            }
-//        }
-//    }
-//    public List<User> getAllFriendRequests(){
-//        List<User> result=new LinkedList<>();
-//        for(Map.Entry<User ,String> entry:friendRequestsHash.entrySet()){
-//            User user = entry.getKey();
-//            String status = entry.getValue();
-//            if(status.equals("ToConfirm")){
-//                result.add(user);
-//            }
-//        }
-//        return result;
-//    }
-
 }

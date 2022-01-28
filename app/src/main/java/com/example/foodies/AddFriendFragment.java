@@ -27,7 +27,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class AddFriendFragment extends Fragment {
-    List<User> allPeopleYouMayKnowList,searchResultList;
+    List<User> searchResultList;
     TextView rvTitleTv,wrongDetailsTv;
     EditText nameEt,emailEt;
     Button searchBtn,requestBtn;
@@ -36,8 +36,7 @@ public class AddFriendFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_friend, container, false);
 
-        allPeopleYouMayKnowList = Model.instance.peopleYouMayKnow();
-        searchResultList = allPeopleYouMayKnowList;
+        searchResultList = Model.instance.peopleYouMayKnow();
         RecyclerView list = view.findViewById(R.id.add_friend_rv);
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -73,12 +72,12 @@ public class AddFriendFragment extends Fragment {
                         searchResultList = new LinkedList<>();
                         flag=false;
                     } else {
-                        searchResultList = Model.instance.getUsersFromListByEmail(allPeopleYouMayKnowList,email);
+                        searchResultList = Model.instance.getNotFriendsUsersByEmail(email);
                     }
                 } else if (email.equals("") || email.charAt(0) == ' ') {
-                    searchResultList = Model.instance.getUsersFromListByName(allPeopleYouMayKnowList,name);
+                    searchResultList = Model.instance.getNotFriendsUsersByName(name);
                 } else {
-                    searchResultList = Model.instance.getUsersFromListByNameAndEmail(allPeopleYouMayKnowList,name,email);
+                    searchResultList = Model.instance.getNotFriendsUsersByNameAndEmail(name,email);
                 }
                 adapter.notifyDataSetChanged();
 //                list.setAdapter(adapter);
