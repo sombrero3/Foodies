@@ -23,7 +23,7 @@ public class FriendRequestViewHolder extends RecyclerView.ViewHolder{
     ImageView image;
     Button confirmBtn,ignoreBtn;
     boolean flagConfirm,flagIgnore;
-    User user;
+    User signedUser;
 
     public FriendRequestViewHolder(@NonNull View itemView, OnItemClickListener listener) {
         super(itemView);
@@ -33,19 +33,42 @@ public class FriendRequestViewHolder extends RecyclerView.ViewHolder{
         confirmBtn = itemView.findViewById(R.id.friend_request_row_confirm_btn);
         ignoreBtn = itemView.findViewById(R.id.friend_request_row_ignore_btn);
 
+        signedUser = Model.instance.getSignedUser();
         flagConfirm=false;
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!flagConfirm){
-                    flagConfirm = true;
-                    Model.instance.friendRequestConfirmed(Model.instance.getSignedUser().getFriendRequestList().get(getAdapterPosition()).getId());
-                    confirmBtn.setText("cancel");
-
-                }else{
-                    flagConfirm=false;
-                    Model.instance.cancelFriendsihp(Model.instance.getSignedUser().getFriendRequestList().get(getAdapterPosition()));
-                    confirmBtn.setText("confirm");
+                if(confirmBtn.isEnabled()) {
+                    if (!flagConfirm) {
+                        flagConfirm = true;
+                        Model.instance.friendRequestConfirmed(signedUser.getFriendRequestList().get(getAdapterPosition()).getId());
+                        confirmBtn.setText("cancel");
+                        ignoreBtn.setEnabled(false);
+                    } else {
+                        flagConfirm = false;
+                        Model.instance.cancelFriendsihp(signedUser.getFriendRequestList().get(getAdapterPosition()));
+                        confirmBtn.setText("confirm");
+                        ignoreBtn.setEnabled(true);
+                    }
+                }
+            }
+        });
+        flagIgnore=false;
+        ignoreBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(ignoreBtn.isEnabled()) {
+                    if (!flagIgnore) {
+                        flagIgnore = true;
+                        Model.instance.friendRequestIgnored(signedUser.getFriendRequestList().get(getAdapterPosition()));
+                        ignoreBtn.setText("UnIgnore");
+                        confirmBtn.setEnabled(false);
+                    } else {
+                        flagIgnore = false;
+                        Model.instance.friendRequestCancelIgnore(signedUser.getFriendRequestList().get(getAdapterPosition()));
+                        ignoreBtn.setText("Ignore");
+                        confirmBtn.setEnabled(true);
+                    }
                 }
             }
         });
