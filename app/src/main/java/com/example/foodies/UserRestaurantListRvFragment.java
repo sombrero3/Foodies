@@ -5,12 +5,16 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -51,7 +55,7 @@ public class UserRestaurantListRvFragment extends Fragment {
             public void onItemClick(View v, int position) {
                 String restaurantName = restaurantList.get(position).getName();
                 Log.d("TAG","restaurant clicked: " + restaurantName);
-                Navigation.findNavController(v).navigate(UserRestaurantListRvFragmentDirections.actionUserRestaurantListRvFragmentToUserReviewsOnRestaurantRvFragment(user.getId(),restaurantList.get(position).getId()));
+                Navigation.findNavController(v).navigate((NavDirections) UserRestaurantListRvFragmentDirections.actionUserRestaurantListRvFragmentToUserReviewsOnRestaurantRvFragment(user.getId(),restaurantList.get(position).getId()));
 
             }
         });
@@ -63,13 +67,24 @@ public class UserRestaurantListRvFragment extends Fragment {
 
         if(user.getId().equals(Model.instance.getSignedUser().getId())){
             addReviewBtn.setOnClickListener((v)->{
-                Navigation.findNavController(v).navigate(UserRestaurantListRvFragmentDirections.actionUserRestaurantListRvFragmentToNewReviewFragment(""));
+                Navigation.findNavController(v).navigate((NavDirections) UserRestaurantListRvFragmentDirections.actionUserRestaurantListRvFragmentToNewReviewFragment(""));
             });
         }else{
             addReviewBtn.setVisibility(View.INVISIBLE);
         }
-        //setHasOptionsMenu(true);
+        setHasOptionsMenu(true);
         return view;
 
+    }
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.all_other_framnets_menu,menu);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return super.onOptionsItemSelected(item);
     }
 }

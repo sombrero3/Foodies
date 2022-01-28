@@ -3,6 +3,7 @@ package com.example.foodies;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
@@ -27,7 +28,7 @@ public class NewReviewFragment extends Fragment {
        ImageView locationIv,image,star1,star2,star3,star4,star5;
        Review review;
        User user;
-       boolean flagEditing,flagStar1,flagStar2,flagStar3,flagStar4,flagStar5;
+       boolean flagEditing,flagFromRestaurantPage,flagStar1,flagStar2,flagStar3,flagStar4,flagStar5;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -53,18 +54,25 @@ public class NewReviewFragment extends Fragment {
         flagEditing = false;
         ratingTv.setText("No rating yet");
         if(!args.equals("")){
-            flagEditing = true;
-            titleTv.setText("REVIEW EDITOR");
             String []arr = args.split(" ");
             String reviewId = arr[1];
-            review = Model.instance.getReviewById(reviewId);
-            Dish dish = Model.instance.getDishById(review.getDishId());
-            String restaurantName = Model.instance.getRestaurantById(review.getRestaurantId()).getName();
-            restaurantEt.setText(restaurantName);
-            dishEt.setText(dish.getName());
-            priceEt.setText(dish.getPrice());
-            descriptionEt.setText(review.getDescription());
-            ratingTv.setText(review.getRating());
+
+            if(arr[0].equals("edit")) {
+                flagEditing = true;
+                titleTv.setText("REVIEW EDITOR");
+                review = Model.instance.getReviewById(reviewId);
+                Dish dish = Model.instance.getDishById(review.getDishId());
+                String restaurantName = Model.instance.getRestaurantById(review.getRestaurantId()).getName();
+                restaurantEt.setText(restaurantName);
+                dishEt.setText(dish.getName());
+                priceEt.setText(dish.getPrice());
+                descriptionEt.setText(review.getDescription());
+                ratingTv.setText(review.getRating());
+            }else if(arr[0].equals("restaurant")){
+                flagFromRestaurantPage=true;
+                String restaurantName = Model.instance.getRestaurantById(arr[1]).getName();
+                restaurantEt.setText(restaurantName);
+            }
         }
 
         setStarsOnClick();
@@ -77,9 +85,9 @@ public class NewReviewFragment extends Fragment {
 
         postReviewBtn.setOnClickListener((v)->{
             postReview();
-            Navigation.findNavController(v).navigate(NewReviewFragmentDirections.actionNewReviewFragmentToReviewFragment2(review.getId()));
+            Navigation.findNavController(v).navigate((NavDirections) NewReviewFragmentDirections.actionNewReviewFragmentToReviewFragment2(review.getId()));
         });
-
+        setHasOptionsMenu(true);
        return view;
     }
 

@@ -3,6 +3,9 @@ package com.example.foodies;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -11,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -54,7 +58,7 @@ public class UserReviewsOnRestaurantRvFragment extends Fragment {
                     String dishId = dishList.get(position).getId();
                     Review review = Model.instance.getReviewOnDishByDishIdAndUserId(dishId, user.getId());
                     Log.d("TAG","dish clicked: " + dishName + " price: "+price );
-                    Navigation.findNavController(v).navigate(UserReviewsOnRestaurantRvFragmentDirections.actionUserReviewsOnRestaurantRvFragmentToReviewFragment(review.getId()));
+                    Navigation.findNavController(v).navigate((NavDirections) UserReviewsOnRestaurantRvFragmentDirections.actionUserReviewsOnRestaurantRvFragmentToReviewFragment(review.getId()));
                 }
             });
 
@@ -74,9 +78,19 @@ public class UserReviewsOnRestaurantRvFragment extends Fragment {
 
             nameTv.setText(user.getFirstName()+"'s reviews on "+restaurant.getName());
             secondaryTitleTv.setText("Dishes "+user.getFirstName()+" posted reviews on :");
-            //setHasOptionsMenu(true);
+            setHasOptionsMenu(true);
             return view;
 
         }
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.all_other_framnets_menu,menu);
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }
     }
