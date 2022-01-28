@@ -23,7 +23,6 @@ import android.widget.TextView;
 
 import com.example.foodies.AdaptersAndViewHolders.OnItemClickListener;
 import com.example.foodies.AdaptersAndViewHolders.UserListRestaurantRatingAdapter;
-import com.example.foodies.AdaptersAndViewHolders.UserWithRatingViewHolder;
 import com.example.foodies.model.Model;
 import com.example.foodies.model.Restaurant;
 import com.example.foodies.model.User;
@@ -92,7 +91,7 @@ public class RestaurantPageRvFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.all_other_framnets_menu,menu);
+        inflater.inflate(R.menu.all_other_fragments_menu,menu);
 
     }
 
