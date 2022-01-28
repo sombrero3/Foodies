@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,7 +33,7 @@ public class FriendRequestsFragment extends Fragment {
 
         //User user = Model.instance.getUserById(UserListRvFragmentArgs.fromBundle(getArguments()).getUserId());
 
-        userList = Model.instance.getSignedUser().getFriendsList();
+        userList = Model.instance.getSignedUser().getFriendRequestList();
 
         RecyclerView list = view.findViewById(R.id.friend_request_rv);
         list.setHasFixedSize(true);
@@ -43,8 +44,8 @@ public class FriendRequestsFragment extends Fragment {
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
-//                String userId = searchResultList.get(position).getId();
-//                Navigation.findNavController(v).navigate((NavDirections) AddFriendFragmentDirections.actionAddFriendFragmentToUserProfileFragment(userId));
+                String userId = userList.get(position).getId();
+                Navigation.findNavController(v).navigate(FriendRequestsFragmentDirections.actionFriendRequestsFragmentToUserProfileFragment(userId));
             }
         });
         setHasOptionsMenu(true);

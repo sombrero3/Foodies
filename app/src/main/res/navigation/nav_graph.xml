@@ -226,6 +226,9 @@
         android:name="com.example.foodies.FriendRequestsFragment"
         android:label="fragment_friend_requests"
         tools:layout="@layout/fragment_friend_requests" >
+        <action
+            android:id="@+id/action_friendRequestsFragment_to_userProfileFragment"
+            app:destination="@id/userProfileFragment" />
     </fragment>
 
     <action android:id="@+id/action_global_newReviewFragment" app:destination="@id/newReviewFragment" />

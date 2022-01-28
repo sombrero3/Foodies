@@ -6,13 +6,11 @@
     android:layout_height="100dp"
     android:layout_margin="4dp"
     android:background="@color/black"
-    android:backgroundTint="#7E009688">
-    app:cardCornerRadius="16dp">
-    app:cardElevation="16dp"
+    android:backgroundTint="#08FFC107">
+    app:cardCornerRadius="30dp">
+    app:cardElevation="30dp">
     app:cardPreventCornerOverlap="true">
-    app:cardCornerRadius="16dp">
-    app:cardBackgroundColor="@android:color/white"
-    app:cardElevation="16dp"
+    app:cardBackgroundColor="@android:color/white">
     app:cardPreventCornerOverlap="true">
 
 
