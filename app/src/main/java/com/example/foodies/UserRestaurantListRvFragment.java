@@ -47,14 +47,8 @@ public class UserRestaurantListRvFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_user_restaurant_list_rv, container, false);
 
         String userId = UserRestaurantListRvFragmentArgs.fromBundle(getArguments()).getUserId();
-//        if(userId==null){
-//            user = Model.instance.getSignedUser();
-//        }else{
-            user = Model.instance.getUserById(userId);
-       // }
-
+        user = Model.instance.getUserById(userId);
         restaurantList = Model.instance.getAllRestaurantsThatUserHasReviewsOnByUserId(user.getId());
-
 
         RecyclerView list = view.findViewById(R.id.user_restaurant_rv);
         list.setHasFixedSize(true);
@@ -119,7 +113,6 @@ public class UserRestaurantListRvFragment extends Fragment {
 
         setHasOptionsMenu(true);
         return view;
-
     }
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
