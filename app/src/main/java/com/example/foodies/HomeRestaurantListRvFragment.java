@@ -85,6 +85,8 @@ public class HomeRestaurantListRvFragment extends Fragment {
                 if(flag) {
                     searchEt.setText("");
                     flag = false;
+                }else{
+                    flag = true;
                 }
             }
         });

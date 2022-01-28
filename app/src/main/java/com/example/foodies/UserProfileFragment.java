@@ -35,6 +35,7 @@ public class UserProfileFragment extends Fragment {
     RecyclerView reviewsRv,friendsRv;
     List<User> friendsList;
     List<Review> reviewList;
+    User user;
     boolean flagRequest;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,7 +44,7 @@ public class UserProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_user_profile, container, false);
 
         String userId = UserProfileFragmentArgs.fromBundle(getArguments()).getUserId();
-        User user = Model.instance.getUserById(userId);
+        user = Model.instance.getUserById(userId);
 
         friendsList = user.getFriendsList();
         friendsList.remove(Model.instance.getSignedUser());
@@ -152,12 +153,21 @@ public class UserProfileFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.all_other_framnets_menu,menu);
+        inflater.inflate(R.menu.all_other_fragments_menu,menu);
 
+    }
+    @Override
+    public void onPrepareOptionsMenu (Menu menu) {
+        if (user.getId().equals(Model.instance.getSignedUser().getId())) {
+            menu.findItem(R.id.main_menu_profile).setEnabled(false);
+        }
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        return super.onOptionsItemSelected(item);
+
+
+                return super.onOptionsItemSelected(item);
+
     }
 }

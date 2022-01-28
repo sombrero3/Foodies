@@ -2,11 +2,15 @@ package com.example.foodies;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -36,6 +40,7 @@ public class NewReviewFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_new_review, container, false);
         user = Model.instance.getSignedUser();
         String args = NewReviewFragmentArgs.fromBundle(getArguments()).getEditSpaceReviewId();
+
 
         postReviewBtn = view.findViewById(R.id.new_review_postReview_btn);
         restaurantEt = view.findViewById(R.id.new_review_restaurant_et);
@@ -73,6 +78,8 @@ public class NewReviewFragment extends Fragment {
                 String restaurantName = Model.instance.getRestaurantById(arr[1]).getName();
                 restaurantEt.setText(restaurantName);
             }
+        }else{
+
         }
 
         setStarsOnClick();
@@ -90,7 +97,19 @@ public class NewReviewFragment extends Fragment {
         setHasOptionsMenu(true);
        return view;
     }
-
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.all_other_fragments_menu,menu);
+    }
+    @Override
+    public void onPrepareOptionsMenu (Menu menu) {
+            menu.findItem(R.id.main_menu_add_review).setEnabled(false);
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }
     public void postReview(){
         if(!flagEditing) {
             review = new Review();

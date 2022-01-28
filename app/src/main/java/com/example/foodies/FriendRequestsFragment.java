@@ -2,19 +2,20 @@ package com.example.foodies;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavDirections;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.foodies.AdaptersAndViewHolders.FriendRequestAdapter;
 import com.example.foodies.AdaptersAndViewHolders.OnItemClickListener;
-import com.example.foodies.AdaptersAndViewHolders.UserAdapter;
 import com.example.foodies.model.Model;
 import com.example.foodies.model.User;
 
@@ -46,7 +47,22 @@ public class FriendRequestsFragment extends Fragment {
 //                Navigation.findNavController(v).navigate((NavDirections) AddFriendFragmentDirections.actionAddFriendFragmentToUserProfileFragment(userId));
             }
         });
-    setHasOptionsMenu(true);
+        setHasOptionsMenu(true);
         return view;
+    }
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.all_other_fragments_menu,menu);
+
+    }
+    @Override
+    public void onPrepareOptionsMenu (Menu menu) {
+        menu.findItem(R.id.main_menu_friend_requests).setEnabled(false);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return super.onOptionsItemSelected(item);
     }
 }

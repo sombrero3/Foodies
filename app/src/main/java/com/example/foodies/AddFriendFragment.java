@@ -20,7 +20,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodies.AdaptersAndViewHolders.OnItemClickListener;
-import com.example.foodies.AdaptersAndViewHolders.UserAdapter;
 import com.example.foodies.model.Model;
 import com.example.foodies.model.User;
 
@@ -150,8 +149,12 @@ public class AddFriendFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.all_other_framnets_menu,menu);
+        inflater.inflate(R.menu.all_other_fragments_menu,menu);
 
+    }
+    @Override
+    public void onPrepareOptionsMenu (Menu menu) {
+        menu.findItem(R.id.main_menu_add_friend).setEnabled(false);
     }
 
     @Override

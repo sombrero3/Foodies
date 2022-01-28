@@ -105,7 +105,7 @@ public class ReviewFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.all_other_framnets_menu,menu);
+        inflater.inflate(R.menu.all_other_fragments_menu,menu);
 
     }
 
