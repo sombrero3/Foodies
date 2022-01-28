@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
     <ImageView
@@ -80,4 +80,5 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/user_row_img"
         app:layout_constraintTop_toBottomOf="@+id/user_row_resto_tv" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

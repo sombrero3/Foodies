@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.main_menu_my_reviews:
                     args.putString("userId", Model.instance.getSignedUser().getId());
-                    navCtl.navigate(R.id.action_global_userRestaurantListRvFragment);
+                    navCtl.navigate(R.id.action_global_userRestaurantListRvFragment,args);
                     return true;
                 case R.id.main_menu_my_friends:
                     args.putString("userId", Model.instance.getSignedUser().getId());
