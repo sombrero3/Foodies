@@ -34,12 +34,13 @@ public class UserListRvFragment extends Fragment {
     TextView nameTv,numOfFriendsTv;
     ImageView imgIv;
     Button addFriendBtn;
+    User user;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_list_rv, container, false);
 
 
-        User user = Model.instance.getUserById(UserListRvFragmentArgs.fromBundle(getArguments()).getUserId());
+        user = Model.instance.getUserById(UserListRvFragmentArgs.fromBundle(getArguments()).getUserId());
         userList = Model.instance.getUserById(user.getId()).getFriendsList();
 
         RecyclerView list = view.findViewById(R.id.userlist_rv);
@@ -74,9 +75,18 @@ public class UserListRvFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.all_other_framnets_menu,menu);
+        inflater.inflate(R.menu.all_other_fragments_menu,menu);
 
     }
+
+    @Override
+    public void onPrepareOptionsMenu (Menu menu) {
+        if (user.getId().equals(Model.instance.getSignedUser().getId())) {
+            menu.findItem(R.id.main_menu_my_friends).setEnabled(false);
+        }
+    }
+
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
