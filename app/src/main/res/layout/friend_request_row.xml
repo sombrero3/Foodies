@@ -7,14 +7,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/black"
-    android:backgroundTint="#AC7373">
+    android:backgroundTint="#7E009688">
 
-    app:cardCornerRadius="8dp">
-    app:cardElevation="8dp"
+    app:cardCornerRadius="16dp">
+    app:cardElevation="16dp"
     app:cardPreventCornerOverlap="true">
-    app:cardCornerRadius="8dp">
+    app:cardCornerRadius="16dp">
     app:cardBackgroundColor="@android:color/white"
-    app:cardElevation="8dp"
+    app:cardElevation="16dp"
     app:cardPreventCornerOverlap="true">
 
 
@@ -23,64 +23,62 @@
         android:layout_height="wrap_content">
 
 
+        <ImageView
+            android:id="@+id/friend_request_row_img"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="4dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/user" />
 
+        <TextView
+            android:id="@+id/friend_request_row_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="User name"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/friend_request_row_img"
+            app:layout_constraintTop_toTopOf="@+id/friend_request_row_img" />
 
-    <ImageView
-        android:id="@+id/friend_request_row_img"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_margin="4dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/user" />
+        <TextView
+            android:id="@+id/friend_request_row_mail_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="email@gmail.com"
+            android:textColor="#837F7F"
+            app:layout_constraintStart_toStartOf="@+id/friend_request_row_name_tv"
+            app:layout_constraintTop_toBottomOf="@+id/friend_request_row_name_tv" />
 
-    <TextView
-        android:id="@+id/friend_request_row_name_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="User name"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/friend_request_row_img"
-        app:layout_constraintTop_toTopOf="@+id/friend_request_row_img" />
+        <Button
+            android:id="@+id/friend_request_row_ignore_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#B6B5B2"
+            android:text="ignore"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/friend_request_row_confirm_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/friend_request_row_confirm_btn" />
 
-    <TextView
-        android:id="@+id/friend_request_row_mail_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="email@gmail.com"
-        android:textColor="#837F7F"
-        app:layout_constraintStart_toStartOf="@+id/friend_request_row_name_tv"
-        app:layout_constraintTop_toBottomOf="@+id/friend_request_row_name_tv" />
-
-    <Button
-        android:id="@+id/friend_request_row_ignore_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#B6B5B2"
-        android:text="ignore"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/friend_request_row_confirm_btn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/friend_request_row_confirm_btn" />
-
-    <Button
-        android:id="@+id/friend_request_row_confirm_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/orange_1"
-        android:text="Confirm"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/friend_request_row_img"
-        app:layout_constraintEnd_toStartOf="@+id/friend_request_row_ignore_btn"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/friend_request_row_img" />
+        <Button
+            android:id="@+id/friend_request_row_confirm_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/orange_1"
+            android:text="Confirm"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/friend_request_row_img"
+            app:layout_constraintEnd_toStartOf="@+id/friend_request_row_ignore_btn"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/friend_request_row_img" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
