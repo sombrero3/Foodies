@@ -96,6 +96,7 @@ public class UserProfileFragment extends Fragment {
         totalReviewsTv.setText("Posted total of "+user.getTotalReviews()+" reviews");
         totalRestaurantsTv.setText("Posted reviews on "+user.getTotalRestaurantsVisited()+" restaurants");
         User signedUser = Model.instance.getSignedUser();
+        signedUser.updateFriendLists();
         String signedUserId = signedUser.getId();
 
         if(userId.equals(signedUserId)) {
@@ -144,10 +145,12 @@ public class UserProfileFragment extends Fragment {
                 if(!flagRequest) {
                     Model.instance.cancelFriendsihp(userProfile);
                     addFriendBtn.setText("Recover Friendship");
+                    flagRequest=true;
                     //Navigation.findNavController(v).navigate((NavDirections) UserProfileFragmentDirections.actionUserProfileFragmentToUserListRvFragment(Model.instance.getSignedUser().getId()));
                 }else{
                     Model.instance.recoverFriendship(signedUser,userProfile);
                     addFriendBtn.setText("Cancel friendship");
+                    flagRequest=false;
                 }
             });
         }

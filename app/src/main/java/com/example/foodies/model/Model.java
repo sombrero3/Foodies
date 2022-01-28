@@ -577,7 +577,8 @@ public class Model {
     }
 
     public void friendRequestConfirmed(String userId) {
-        createFriendship(userId);
+        //createFriendship(userId);
+        signedUser.friendRequestConfirmed(getUserById(userId));
     }
 
     public void createFriendship(String userId) {
@@ -596,6 +597,14 @@ public class Model {
     public void recoverFriendship(User user1, User user2) {
         user1.addFriend(user2);
         user2.addFriend(user1);
+    }
+
+    public void friendRequestIgnored(User user){
+        signedUser.friendRequestIgnored(user);
+    }
+
+    public void friendRequestCancelIgnore(User user){
+        signedUser.friendRequestCancelIgnore(user);
     }
 
 

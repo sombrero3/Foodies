@@ -17,7 +17,7 @@ public class User {
     String password;
     Image image;
     List<Review> reviewList;
-    List<User> friendsList,friendRequestList;
+    List<User> friendsList,friendRequestList,ignoredList,confirmedList;
     String totalRestaurantsVisited;
 
     //-------Constructors-------//
@@ -30,6 +30,8 @@ public class User {
         reviewList = new LinkedList<>();
         friendsList = new LinkedList<>();
         friendRequestList = new LinkedList<>();
+        ignoredList = new LinkedList<>();
+        confirmedList = new LinkedList<>();
         password = "";
         totalRestaurantsVisited = "0";
     }
@@ -43,6 +45,8 @@ public class User {
         reviewList = new LinkedList<>();
         friendsList = new LinkedList<>();
         friendRequestList = new LinkedList<>();
+        ignoredList = new LinkedList<>();
+        confirmedList = new LinkedList<>();
         totalRestaurantsVisited = "0";
     }
     public User(String firstName,String password,String email){
@@ -55,6 +59,8 @@ public class User {
         reviewList = new LinkedList<>();
         friendsList = new LinkedList<>();
         friendRequestList = new LinkedList<>();
+        ignoredList = new LinkedList<>();
+        confirmedList = new LinkedList<>();
         totalRestaurantsVisited = "0";
     }
 
@@ -92,17 +98,6 @@ public class User {
     public void setReviewList(List<Review> reviewList) {
         this.reviewList = reviewList;
     }
-    public List<User> getFriendsList() {
-        for (User user:friendsList) {
-            if(friendRequestList.contains(user)){
-                friendRequestList.remove(user);
-            }
-            if(user.getId().equals(id)){
-                friendsList.remove(user);
-            }
-        }
-        return friendsList;
-    }
     public void setFriendsList(List<User> friendsList) {
         this.friendsList = friendsList;
     }
@@ -129,6 +124,29 @@ public class User {
     }
     public void setFriendRequestList(List<User> friendRequestList) {
         this.friendRequestList = friendRequestList;
+    }
+
+    public List<User> getIgnoredList() {
+        return ignoredList;
+    }
+
+    public void setIgnoredList(List<User> ignoredList) {
+        this.ignoredList = ignoredList;
+    }
+
+    public List<User> getFriendsList() {
+        updateFriendLists();
+        return friendsList;
+    }
+
+
+
+    public List<User> getConfirmedList() {
+        return confirmedList;
+    }
+
+    public void setConfirmedList(List<User> confirmedList) {
+        this.confirmedList = confirmedList;
     }
 //---------------------------------//
 
@@ -178,12 +196,33 @@ public class User {
         friendRequestList.add(user);
     }
     public void friendRequestConfirmed(User user){
-        addFriend(user);
+        confirmedList.add(user);
+       // addFriend(user);
     }
     public void cancelFriendship(User user){
         deleteFriend(user);
     }
     public void friendRequestDelete(User user){
         friendRequestList.remove(user);
+    }
+    public void friendRequestIgnored(User user){ignoredList.add(user); }
+    public void friendRequestCancelIgnore(User user){ignoredList.remove(user); }
+    public void friendRequestUnConfirmed(User user){confirmedList.remove(user); }
+    public void updateFriendLists() {
+        for (User user:confirmedList) {
+            friendsList.add(user);
+            friendRequestList.remove(user);
+            confirmedList.remove(user);
+        }
+        for (User user:ignoredList) {
+            friendRequestList.remove(user);
+            ignoredList.remove(user);
+        }
+        for (User user:friendsList) {
+            if(user.id.equals(id)){
+                friendsList.remove(user);
+            }
+        }
+
     }
 }

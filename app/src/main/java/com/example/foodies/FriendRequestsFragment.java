@@ -32,8 +32,9 @@ public class FriendRequestsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_friend_requests, container, false);
 
         //User user = Model.instance.getUserById(UserListRvFragmentArgs.fromBundle(getArguments()).getUserId());
-
-        userList = Model.instance.getSignedUser().getFriendRequestList();
+        User signedUser = Model.instance.getSignedUser();
+        signedUser.updateFriendLists();
+        userList = signedUser.getFriendRequestList();
 
         RecyclerView list = view.findViewById(R.id.friend_request_rv);
         list.setHasFixedSize(true);
