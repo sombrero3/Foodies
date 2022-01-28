@@ -1,15 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/black">
+    android:background="@color/black"
+    android:backgroundTint="#AC7373">
+
+    app:cardCornerRadius="8dp">
+    app:cardElevation="8dp"
+    app:cardPreventCornerOverlap="true">
+    app:cardCornerRadius="8dp">
+    app:cardBackgroundColor="@android:color/white"
+    app:cardElevation="8dp"
+    app:cardPreventCornerOverlap="true">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <ImageView
         android:id="@+id/friend_request_row_img"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_margin="4dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
@@ -62,4 +82,4 @@
         app:layout_constraintEnd_toStartOf="@+id/friend_request_row_ignore_btn"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/friend_request_row_img" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
