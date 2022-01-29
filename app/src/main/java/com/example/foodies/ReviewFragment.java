@@ -31,9 +31,9 @@ import java.util.List;
 
 public class ReviewFragment extends Fragment {
     TextView dishNameTv,dishPriceTv, userNameTv, descriptionTv,ratingTv;
-    ImageView image,star1,star2,star3,star4,star5;
+    ImageView image,star1,star2,star3,star4,star5,editIv,deleteIv;
     List<Review> reviewList;
-    Button editBtn,deleteBtn;
+    //Button editBtn,deleteBtn;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -63,8 +63,8 @@ public class ReviewFragment extends Fragment {
 //        userNameTv = view.findViewById(R.id.review_user_name_tv);
         descriptionTv = view.findViewById(R.id.review_description_tv);
         ratingTv = view.findViewById(R.id.review_rating_tv);
-        editBtn = view.findViewById(R.id.review_edit_btn);
-        deleteBtn = view.findViewById(R.id.review_delete_btn);
+        editIv = view.findViewById(R.id.review_edit_iv);
+        deleteIv = view.findViewById(R.id.review_delete_iv);
         star1 = view.findViewById(R.id.review_star1_iv);
         star2 = view.findViewById(R.id.review_star2_iv);
         star3 = view.findViewById(R.id.review_star3_iv);
@@ -82,21 +82,19 @@ public class ReviewFragment extends Fragment {
         descriptionTv.setText(review.getDescription());
 
         if(review.getUserId().equals(Model.instance.getSignedUser().getId())) {
-            editBtn.setOnClickListener((v) -> {
+            editIv.setOnClickListener((v) -> {
                 Navigation.findNavController(v).navigate((NavDirections) ReviewFragmentDirections.actionReviewFragment2ToNewReviewFragment("edit " + review.getId()));
             });
 
-            deleteBtn.setOnClickListener((v) -> {
+            deleteIv.setOnClickListener((v) -> {
                 Model.instance.deleteReview(review);
-               // Model.instance.getRestaurantById(review.getRestaurantId()).updateRating();
-                //Navigation.findNavController(v).navigate(ReviewFragmentDirections.actionReviewFragment2ToHomeRestaurantListRvFragment());
                 Navigation.findNavController(v).navigateUp();
             });
         }else{
-            editBtn.setVisibility(View.INVISIBLE);
-            editBtn.setClickable(false);
-            deleteBtn.setVisibility(View.INVISIBLE);
-            deleteBtn.setClickable(false);
+            editIv.setVisibility(View.INVISIBLE);
+            editIv.setClickable(false);
+            deleteIv.setVisibility(View.INVISIBLE);
+            deleteIv.setClickable(false);
 
         }
         setHasOptionsMenu(true);

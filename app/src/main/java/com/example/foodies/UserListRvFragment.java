@@ -32,8 +32,7 @@ import java.util.List;
 public class UserListRvFragment extends Fragment {
     List<User> userList;
     TextView nameTv,numOfFriendsTv;
-    ImageView imgIv;
-    Button addFriendBtn;
+    ImageView imgIv,addFriendIv;
     User user;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -61,11 +60,11 @@ public class UserListRvFragment extends Fragment {
         nameTv = view.findViewById(R.id.user_list_name_tv);
         numOfFriendsTv = view.findViewById(R.id.user_list_numOfFriends_tv);
         imgIv = view.findViewById(R.id.user_list_img_iv);
-        addFriendBtn = view.findViewById(R.id.user_list_addFriend_btn);
+        addFriendIv = view.findViewById(R.id.user_list_add_friend_iv);
 
         nameTv.setText(user.getFirstName()+ " "+user.getLastName());
 
-        addFriendBtn.setOnClickListener((v)->{
+        addFriendIv.setOnClickListener((v)->{
             Navigation.findNavController(v).navigate(UserListRvFragmentDirections.actionUserListRvFragmentToAddFriendFragment());
         });
         setHasOptionsMenu(true);

@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.foodies.AdaptersAndViewHolders.FavoriteDishAdapter;
@@ -31,7 +32,9 @@ import java.util.List;
 
 public class UserProfileFragment extends Fragment {
     TextView nameTv,totalReviewsTv,totalRestaurantsTv;
-    Button addFriendBtn,allReviewsBtn;
+    Button allReviewsBtn;
+   // Button addFriendBtn;
+    ImageView addFriendIv;
     RecyclerView reviewsRv,friendsRv;
     List<User> friendsList;
     List<Review> reviewList;
@@ -69,7 +72,8 @@ public class UserProfileFragment extends Fragment {
         nameTv = view.findViewById(R.id.user_profile_name_tv);
         totalRestaurantsTv =view.findViewById(R.id.user_profile_total_restaurants_num_tv);
         totalReviewsTv = view.findViewById(R.id.user_profile_total_reviews_num_tv);
-        addFriendBtn = view.findViewById(R.id.user_profile_add_friend_btn);
+   //     addFriendBtn = view.findViewById(R.id.user_profile_add_friend_btn);
+        addFriendIv = view.findViewById(R.id.user_profile_add_friend_iv);
         allReviewsBtn = view.findViewById(R.id.user_profile_all_reviews_btn);
 
         favoriteDishAdapter.setOnItemClickListener(new OnItemClickListener() {
@@ -100,38 +104,42 @@ public class UserProfileFragment extends Fragment {
         String signedUserId = signedUser.getId();
 
         if(userId.equals(signedUserId)) {
-            addFriendBtn.setOnClickListener((v) -> {
+            addFriendIv.setOnClickListener((v) -> {
                 Navigation.findNavController(v).navigate(UserProfileFragmentDirections.actionUserProfileFragmentToAddFriendFragment());
             });
         }else if(!signedUser.getFriendsList().contains(Model.instance.getUserById(userId))){
             User userProfile = Model.instance.getUserById(userId);
-            if(!signedUser.getFriendRequestList().contains(userProfile)) {
-                addFriendBtn.setText("Send friend request");
-            }else{
-                addFriendBtn.setText("confirm friend request");
-            }
+//            if(!signedUser.getFriendRequestList().contains(userProfile)) {
+//               addFriendBtn.setText("Send friend request");
+//            }else{
+//                addFriendBtn.setText("confirm friend request");
+//            }
             flagRequest =false;
-            addFriendBtn.setOnClickListener(new View.OnClickListener() {
+            addFriendIv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if(signedUser.getFriendRequestList().contains(userProfile)){
                         if(!flagRequest){
                             Model.instance.friendRequestConfirmed(userProfile.getId());
-                            addFriendBtn.setText("cancel friendship");
+                            addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_disabled_orange_24);
+                            //addFriendBtn.setText("cancel friendship");
                             flagRequest = true;
                         }else{
                             Model.instance.cancelFriendsihp(userProfile);
-                            addFriendBtn.setText("confirm friend request");
+                            addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_orange24);
+                            //addFriendBtn.setText("confirm friend request");
                             flagRequest = false;
                         }
                     }else {
                         if (!flagRequest) {
                             Model.instance.friendRequestSendRequestToUser(userProfile);
-                            addFriendBtn.setText("cancel friend request");
+                            addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_disabled_orange_24);
+                           // addFriendBtn.setText("cancel friend request");
                             flagRequest = true;
                         } else {
                             Model.instance.friendRequestCancel(userProfile);
-                            addFriendBtn.setText("Send friend request");
+                            addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_orange24);
+                            //addFriendBtn.setText("Send friend request");
                             flagRequest = false;
                         }
                     }
@@ -139,17 +147,20 @@ public class UserProfileFragment extends Fragment {
             });
         }else if(signedUser.getFriendsList().contains(user)){
             User userProfile = Model.instance.getUserById(userId);
-            addFriendBtn.setText("Cancel friendship");
+            addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_disabled_orange_24);
+            //addFriendBtn.setText("Cancel friendship");
             flagRequest =false;
-            addFriendBtn.setOnClickListener((v)->{
+            addFriendIv.setOnClickListener((v)->{
                 if(!flagRequest) {
                     Model.instance.cancelFriendsihp(userProfile);
-                    addFriendBtn.setText("Recover Friendship");
+                    addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_orange24);
+                    //addFriendBtn.setText("Recover Friendship");
                     flagRequest=true;
                     //Navigation.findNavController(v).navigate((NavDirections) UserProfileFragmentDirections.actionUserProfileFragmentToUserListRvFragment(Model.instance.getSignedUser().getId()));
                 }else{
                     Model.instance.recoverFriendship(signedUser,userProfile);
-                    addFriendBtn.setText("Cancel friendship");
+                    addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_disabled_orange_24);
+                    //addFriendBtn.setText("Cancel friendship");
                     flagRequest=false;
                 }
             });
