@@ -72,6 +72,18 @@
         app:layout_constraintBaseline_toBaselineOf="@+id/new_review_restaurant_et"
         app:layout_constraintStart_toStartOf="@+id/new_review_location_tv" />
 
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Ggeneral review about the restaurant :"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/new_review_restaurant_et"
+        app:layout_constraintStart_toStartOf="@+id/new_review_location_tv"
+        app:layout_constraintTop_toBottomOf="@+id/new_review_restaurant_et" />
+
     <ImageView
         android:id="@+id/new_review_star1_iv"
         android:layout_width="25dp"
@@ -86,17 +98,16 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="32dp"
         android:backgroundTint="@color/white"
         android:ems="10"
         android:inputType="textPersonName"
         android:textColor="@color/white"
         android:textColorHint="@color/black"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/new_review_general_description_et"
         app:layout_constraintStart_toEndOf="@+id/textView7"
-        app:layout_constraintTop_toBottomOf="@+id/new_review_restaurant_et" />
+        app:layout_constraintTop_toBottomOf="@+id/new_review_general_description_et" />
 
     <EditText
         android:id="@+id/new_review_restaurant_et"
@@ -115,6 +126,22 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/textView13"
         app:layout_constraintTop_toBottomOf="@+id/user_row_img" />
+
+    <EditText
+        android:id="@+id/new_review_general_description_et"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/white"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textColor="@color/white"
+        android:textColorHint="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/new_review_restaurant_et"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/textView14"
+        app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
     <Button
         android:id="@+id/new_review_uploadImg_btn"
@@ -157,13 +184,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="8dp"
         android:backgroundTint="@color/white"
         android:ems="10"
         android:inputType="textPersonName"
         android:shadowColor="@color/purple_700"
         android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/new_review_dish_et"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/textView15"
         app:layout_constraintTop_toBottomOf="@+id/new_review_dish_et" />
@@ -187,7 +213,7 @@
         android:id="@+id/textView16"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:text="Enter your review:"
         android:textColor="@color/white"
         android:textSize="20sp"

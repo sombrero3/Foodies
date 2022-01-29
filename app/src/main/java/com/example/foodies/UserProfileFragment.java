@@ -25,7 +25,7 @@ import com.example.foodies.AdaptersAndViewHolders.OnItemClickListener;
 import com.example.foodies.AdaptersAndViewHolders.UserAdapter;
 import com.example.foodies.model.Dish;
 import com.example.foodies.model.Model;
-import com.example.foodies.model.Review;
+import com.example.foodies.model.DishReview;
 import com.example.foodies.model.User;
 
 import java.util.List;
@@ -37,7 +37,7 @@ public class UserProfileFragment extends Fragment {
     ImageView addFriendIv;
     RecyclerView reviewsRv,friendsRv;
     List<User> friendsList;
-    List<Review> reviewList;
+    List<DishReview> dishReviewList;
     User user;
     boolean flagRequest;
     @Override
@@ -53,13 +53,13 @@ public class UserProfileFragment extends Fragment {
         friendsList.remove(Model.instance.getSignedUser());
 
 
-        reviewList = Model.instance.getUserHighestRatingReviewsByUserId(user.getId());
+        dishReviewList = Model.instance.getUserHighestRatingReviewsByUserId(user.getId());
 
         reviewsRv = view.findViewById(R.id.user_profile_favorit_dishes_rv);
         reviewsRv.setHasFixedSize(true);
         RecyclerView.LayoutManager horizontalLayout = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
         reviewsRv.setLayoutManager(horizontalLayout);
-        FavoriteDishAdapter favoriteDishAdapter = new FavoriteDishAdapter(reviewList);
+        FavoriteDishAdapter favoriteDishAdapter = new FavoriteDishAdapter(dishReviewList);
         reviewsRv.setAdapter(favoriteDishAdapter);
 
         friendsRv = view.findViewById(R.id.user_profile_friends_rv);
@@ -79,11 +79,11 @@ public class UserProfileFragment extends Fragment {
         favoriteDishAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
-                Dish dish = Model.instance.getDishById(reviewList.get(position).getDishId());
+                Dish dish = Model.instance.getDishById(dishReviewList.get(position).getDishId());
                 String dishName = dish.getName();
                 String price = dish.getPrice();
                 Log.d("TAG","dish clicked: " + dishName + " price: "+price );
-                Navigation.findNavController(v).navigate((NavDirections) UserProfileFragmentDirections.actionUserProfileFragmentToReviewFragment2(reviewList.get(position).getId()));
+                Navigation.findNavController(v).navigate((NavDirections) UserProfileFragmentDirections.actionUserProfileFragmentToReviewFragment2(dishReviewList.get(position).getId()));
             }
         });
 

@@ -15,10 +15,10 @@
             android:id="@+id/main_menu_profile"
             android:icon="@drawable/ic_baseline_person_24"
             android:title="My profile" />
-        <item
-            android:id="@+id/main_menu_add_review"
-            android:icon="@drawable/ic_baseline_post_add_24"
-            android:title="Post new review" />
+    <item
+        android:id="@+id/main_menu_add_review"
+        android:icon="@drawable/ic_baseline_post_add_24"
+        android:title="Post new review" />
     <item
         android:id="@+id/main_menu_my_reviews"
         android:icon="@drawable/ic_baseline_reviews_24"

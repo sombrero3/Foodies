@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Dish {
     String restaurantId;
-    List<Review> reviewList;
+    List<DishReview> dishReviewList;
     String id;
     String name;
     String price;
@@ -26,7 +26,7 @@ public class Dish {
         rating ="No rating yet";
         description = "";
         vegetarian = false;
-        reviewList = new ArrayList<>();
+        dishReviewList = new ArrayList<>();
         images = new LinkedList<>();
 
     }
@@ -38,7 +38,7 @@ public class Dish {
         rating ="No rating yet";
         description = "";
         vegetarian = false;
-        reviewList = new LinkedList<>();
+        dishReviewList = new LinkedList<>();
         images = new LinkedList<>();
 
     }
@@ -50,7 +50,7 @@ public class Dish {
         this.description = description;
         this.vegetarian = vegetarian;
         images = new LinkedList<>();
-        reviewList = new LinkedList<>();
+        dishReviewList = new LinkedList<>();
         rating ="No rating yet";
     }
     public Dish( String restaurantId, String name, String price){
@@ -61,10 +61,10 @@ public class Dish {
         this.description = "";
         this.vegetarian = false;
         images = new LinkedList<>();
-        reviewList = new LinkedList<>();
+        dishReviewList = new LinkedList<>();
         rating ="No rating yet";
     }
-    public Dish( String restaurantId, String name, String price, String description, boolean vegetarian, Review review){
+    public Dish( String restaurantId, String name, String price, String description, boolean vegetarian, DishReview dishReview){
         id = Integer.toString(IdGenerator.instance.getNextId());
         this.restaurantId = restaurantId;
         this.name = name;
@@ -72,9 +72,9 @@ public class Dish {
         this.description = description;
         this.vegetarian = vegetarian;
         images = new LinkedList<>();
-        reviewList = new LinkedList<>();
-        reviewList.add(review);
-        rating = review.getRating();
+        dishReviewList = new LinkedList<>();
+        dishReviewList.add(dishReview);
+        rating = dishReview.getRating();
     }
 
 
@@ -85,11 +85,11 @@ public class Dish {
     public void setRestaurantId(String restaurantId) {
         this.restaurantId = restaurantId;
     }
-    public List<Review> getReviewList() {
-        return reviewList;
+    public List<DishReview> getReviewList() {
+        return dishReviewList;
     }
-    public void setReviewList(List<Review> reviewList) {
-        this.reviewList = reviewList;
+    public void setReviewList(List<DishReview> dishReviewList) {
+        this.dishReviewList = dishReviewList;
     }
     public String getName() {
         return name;
@@ -135,9 +135,9 @@ public class Dish {
     public void updateRating(){
         double f ,reminder,sum=0,avg,counter=0;
 
-        for(Review review:reviewList){
-            if(!review.getRating().equals("No rating yet")) {
-                sum += Double.parseDouble(review.getRating());
+        for(DishReview dishReview : dishReviewList){
+            if(!dishReview.getRating().equals("No rating yet")) {
+                sum += Double.parseDouble(dishReview.getRating());
                 counter++;
             }
         }
@@ -157,12 +157,12 @@ public class Dish {
             rating = "No rating yet";
         }
     }
-    public void addReview(Review review){
-        reviewList.add(review);
+    public void addReview(DishReview dishReview){
+        dishReviewList.add(dishReview);
         updateRating();
     }
-    public void deleteReview(Review review){
-        reviewList.remove(review);
+    public void deleteReview(DishReview dishReview){
+        dishReviewList.remove(dishReview);
         updateRating();
     }
     public void addImage(Image image){
