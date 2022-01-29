@@ -14,11 +14,11 @@
     <item
         android:id="@+id/main_menu_add_review"
         android:icon="@drawable/ic_baseline_post_add_24"
-        android:title="Post new review" />
+        android:title="Post new dishReview" />
     <item
         android:id="@+id/main_menu_my_reviews"
         android:icon="@drawable/ic_baseline_reviews_24"
-        android:title="My reviews" />
+        android:title="My dishReviews" />
     <item
         android:id="@+id/main_menu_my_friends"
         android:icon="@drawable/ic_baseline_supervised_user_circle_24"

@@ -15,7 +15,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,7 +22,7 @@ import com.example.foodies.AdaptersAndViewHolders.OnItemClickListener;
 import com.example.foodies.AdaptersAndViewHolders.UserListReviewRatingAdapter;
 import com.example.foodies.model.Dish;
 import com.example.foodies.model.Model;
-import com.example.foodies.model.Review;
+import com.example.foodies.model.DishReview;
 import com.example.foodies.model.User;
 
 import java.util.List;
@@ -32,7 +31,7 @@ import java.util.List;
 public class ReviewFragment extends Fragment {
     TextView dishNameTv,dishPriceTv, userNameTv, descriptionTv,ratingTv;
     ImageView image,star1,star2,star3,star4,star5,editIv,deleteIv;
-    List<Review> reviewList;
+    List<DishReview> dishReviewList;
     //Button editBtn,deleteBtn;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,19 +40,19 @@ public class ReviewFragment extends Fragment {
         View view =inflater.inflate(R.layout.fragment_review, container, false);
 
         String revId = ReviewFragmentArgs.fromBundle(getArguments()).getReviewId();
-        Review review = Model.instance.getReviewById(revId);
-        reviewList = Model.instance.getAllFriendsReviewsOnDishByDishId(review.getDishId());
+        DishReview dishReview = Model.instance.getReviewById(revId);
+        dishReviewList = Model.instance.getAllFriendsReviewsOnDishByDishId(dishReview.getDishId());
         RecyclerView list = view.findViewById(R.id.review_rv);
         list.setHasFixedSize(true);
         RecyclerView.LayoutManager horizontalLayout = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
         list.setLayoutManager(horizontalLayout);
-        UserListReviewRatingAdapter adapter = new UserListReviewRatingAdapter(reviewList);
+        UserListReviewRatingAdapter adapter = new UserListReviewRatingAdapter(dishReviewList);
         list.setAdapter(adapter);
 
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
-                Review rev = reviewList.get(position);
+                DishReview rev = dishReviewList.get(position);
                 Navigation.findNavController(v).navigate((NavDirections) ReviewFragmentDirections.actionReviewFragmentSelf(rev.getId()));
             }
         });
@@ -71,23 +70,23 @@ public class ReviewFragment extends Fragment {
         star4 = view.findViewById(R.id.review_star4_iv);
         star5 = view.findViewById(R.id.review_star5_iv);
 
-        Dish dish = Model.instance.getDishById(review.getDishId());
-        User user = Model.instance.getUserById(review.getUserId());
+        Dish dish = Model.instance.getDishById(dishReview.getDishId());
+        User user = Model.instance.getUserById(dishReview.getUserId());
 
-        Model.instance.setStarByRating(review.getRating(),star1,star2,star3,star4,star5,ratingTv);
+        Model.instance.setStarByRating(dishReview.getRating(),star1,star2,star3,star4,star5,ratingTv);
 
-        dishNameTv.setText(Model.instance.getUserById(review.getUserId()).getFirstName()+"'s review about "+dish.getName());
+        dishNameTv.setText(Model.instance.getUserById(dishReview.getUserId()).getFirstName()+"'s review about "+dish.getName());
         dishPriceTv.setText(dish.getPrice());
 //        userNameTv.setText(user.getFirstName()+ " "+user.getLastName());
-        descriptionTv.setText(review.getDescription());
+        descriptionTv.setText(dishReview.getDescription());
 
-        if(review.getUserId().equals(Model.instance.getSignedUser().getId())) {
+        if(dishReview.getUserId().equals(Model.instance.getSignedUser().getId())) {
             editIv.setOnClickListener((v) -> {
-                Navigation.findNavController(v).navigate((NavDirections) ReviewFragmentDirections.actionReviewFragment2ToNewReviewFragment("edit " + review.getId()));
+                Navigation.findNavController(v).navigate((NavDirections) ReviewFragmentDirections.actionReviewFragment2ToNewReviewFragment("edit " + dishReview.getId()));
             });
 
             deleteIv.setOnClickListener((v) -> {
-                Model.instance.deleteReview(review);
+                Model.instance.deleteReview(dishReview);
                 Navigation.findNavController(v).navigateUp();
             });
         }else{

@@ -21,16 +21,17 @@ import android.widget.TextView;
 import com.example.foodies.model.Dish;
 import com.example.foodies.model.Model;
 import com.example.foodies.model.Restaurant;
+import com.example.foodies.model.DishReview;
 import com.example.foodies.model.Review;
 import com.example.foodies.model.User;
 
 
 public class NewReviewFragment extends Fragment {
-       EditText restaurantEt,dishEt,priceEt,descriptionEt;
+       EditText restaurantEt,dishEt,priceEt,descriptionEt,generalDescriptionEt;
        Button postReviewBtn, uploadImgBtn;
        TextView locationTv,titleTv,ratingTv;
        ImageView locationIv,image,star1,star2,star3,star4,star5;
-       Review review;
+       DishReview dishReview;
        User user;
        boolean flagEditing,flagFromRestaurantPage,flagStar1,flagStar2,flagStar3,flagStar4,flagStar5;
     @Override
@@ -47,6 +48,7 @@ public class NewReviewFragment extends Fragment {
         dishEt = view.findViewById(R.id.new_review_dish_et);
         priceEt = view.findViewById(R.id.new_review_price_et);
         descriptionEt = view.findViewById(R.id.new_review_description_et);
+        generalDescriptionEt = view.findViewById(R.id.new_review_general_description_et);
         locationIv = view.findViewById(R.id.user_row_img);
         locationTv = view.findViewById(R.id.new_review_location_tv);
         titleTv = view.findViewById(R.id.new_review_title_tv);
@@ -61,21 +63,26 @@ public class NewReviewFragment extends Fragment {
         if(!args.equals("")){
             String []arr = args.split(" ");
             String reviewId = arr[1];
-
             if(arr[0].equals("edit")) {
                 flagEditing = true;
                 titleTv.setText("REVIEW EDITOR");
-                review = Model.instance.getReviewById(reviewId);
-                Dish dish = Model.instance.getDishById(review.getDishId());
-                String restaurantName = Model.instance.getRestaurantById(review.getRestaurantId()).getName();
+                dishReview = Model.instance.getReviewById(reviewId);
+                Dish dish = Model.instance.getDishById(dishReview.getDishId());
+                Restaurant restaurant = Model.instance.getRestaurantById(dishReview.getRestaurantId());
+                String restaurantName = restaurant.getName();
+                String generalDescription = restaurant.getGeneralReviewDescriptionByUserId(user.getId());
+                generalDescriptionEt.setText(generalDescription);
                 restaurantEt.setText(restaurantName);
                 dishEt.setText(dish.getName());
                 priceEt.setText(dish.getPrice());
-                descriptionEt.setText(review.getDescription());
-                ratingTv.setText(review.getRating());
+                descriptionEt.setText(dishReview.getDescription());
+                ratingTv.setText(dishReview.getRating());
             }else if(arr[0].equals("restaurant")){
                 flagFromRestaurantPage=true;
-                String restaurantName = Model.instance.getRestaurantById(arr[1]).getName();
+                Restaurant restaurant = Model.instance.getRestaurantById(arr[1]);
+                String restaurantName = restaurant.getName();
+                String generalDescription = restaurant.getGeneralReviewDescriptionByUserId(user.getId());
+                generalDescriptionEt.setText(generalDescription);
                 restaurantEt.setText(restaurantName);
             }
         }else{
@@ -92,7 +99,7 @@ public class NewReviewFragment extends Fragment {
 
         postReviewBtn.setOnClickListener((v)->{
             postReview();
-            Navigation.findNavController(v).navigate((NavDirections) NewReviewFragmentDirections.actionNewReviewFragmentToReviewFragment2(review.getId()));
+            Navigation.findNavController(v).navigate((NavDirections) NewReviewFragmentDirections.actionNewReviewFragmentToReviewFragment2(dishReview.getId()));
         });
         setHasOptionsMenu(true);
        return view;
@@ -111,35 +118,40 @@ public class NewReviewFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
     public void postReview(){
+        Restaurant restaurant;
         if(!flagEditing) {
-            review = new Review();
-            review.setUserId(user.getId());
+            dishReview = new DishReview();
+            dishReview.setUserId(user.getId());
         }
-        review.setRating(ratingTv.getText().toString());
-        review.setDescription(descriptionEt.getText().toString());
+        dishReview.setRating(ratingTv.getText().toString());
+        dishReview.setDescription(descriptionEt.getText().toString());
         String resId = Model.instance.getRestaurantIdByName(restaurantEt.getText().toString());
         if(resId.equals("No Such Restaurant")){
-            Restaurant restaurant = new Restaurant(restaurantEt.getText().toString());
+            restaurant = new Restaurant(restaurantEt.getText().toString());
             resId = restaurant.getId();
             Dish dish = new Dish(resId,dishEt.getText().toString(),priceEt.getText().toString());
-            review.setRestaurantId(resId);
-            review.setDishId(dish.getId());
-            restaurant.addDish(dish);
+            dishReview.setRestaurantId(resId);
+            dishReview.setDishId(dish.getId());
+            //restaurant.addDish(dish);
+            Review generalReview =new Review(restaurant.getId(),user.getId(),generalDescriptionEt.getText().toString());
+            restaurant.addGeneralReview(generalReview);
             Model.instance.addDish(dish);
             Model.instance.addRestaurant(restaurant);
         }else{
-            review.setRestaurantId(resId);
+            restaurant = Model.instance.getRestaurantById(resId);
+            Review generalReview =new Review(restaurant.getId(),user.getId(),generalDescriptionEt.getText().toString());
+            restaurant.addGeneralReview(generalReview);
+            dishReview.setRestaurantId(resId);
             String dishId = Model.instance.getDishIdByRestaurantIdAndDishName(resId,dishEt.getText().toString());
             if(dishId.equals("No Such Dish")){
                 Dish dish = new Dish(resId,dishEt.getText().toString(),priceEt.getText().toString());
-                review.setDishId(dish.getId());
+                dishReview.setDishId(dish.getId());
                 Model.instance.addDish(dish);
             }else{
-                review.setDishId(dishId);
+                dishReview.setDishId(dishId);
             }
-
         }
-        Model.instance.addReview(review);
+        Model.instance.addDishReview(dishReview);
     }
     public void setStarsOnClick(){
         flagStar1=false;

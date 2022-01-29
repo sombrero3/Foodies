@@ -2,11 +2,8 @@ package com.example.foodies.model;
 
 import android.media.Image;
 
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 public class User {
     String id;
@@ -16,7 +13,8 @@ public class User {
     String email;
     String password;
     Image image;
-    List<Review> reviewList;
+    List<Review> generalReviewList;
+    List<DishReview> dishReviewList;
     List<User> friendsList,friendRequestList,ignoredList,confirmedList;
     String totalRestaurantsVisited;
 
@@ -27,7 +25,8 @@ public class User {
         lastName = "";
         email ="No email address";
         totalReviews ="0";
-        reviewList = new LinkedList<>();
+        generalReviewList = new LinkedList<>();
+        dishReviewList = new LinkedList<>();
         friendsList = new LinkedList<>();
         friendRequestList = new LinkedList<>();
         ignoredList = new LinkedList<>();
@@ -42,7 +41,8 @@ public class User {
         email ="No email address";
         totalReviews ="0";
         this.password = password;
-        reviewList = new LinkedList<>();
+        generalReviewList = new LinkedList<>();
+        dishReviewList = new LinkedList<>();
         friendsList = new LinkedList<>();
         friendRequestList = new LinkedList<>();
         ignoredList = new LinkedList<>();
@@ -56,7 +56,8 @@ public class User {
         this.email = email;
         totalReviews ="0";
         this.password = password;
-        reviewList = new LinkedList<>();
+        generalReviewList = new LinkedList<>();
+        dishReviewList = new LinkedList<>();
         friendsList = new LinkedList<>();
         friendRequestList = new LinkedList<>();
         ignoredList = new LinkedList<>();
@@ -92,11 +93,11 @@ public class User {
     public void setImage(Image image) {
         this.image = image;
     }
-    public List<Review> getReviewList() {
-        return reviewList;
+    public List<DishReview> getDishReviewList() {
+        return dishReviewList;
     }
-    public void setReviewList(List<Review> reviewList) {
-        this.reviewList = reviewList;
+    public void setDishReviewList(List<DishReview> dishReviewList) {
+        this.dishReviewList = dishReviewList;
     }
     public void setFriendsList(List<User> friendsList) {
         this.friendsList = friendsList;
@@ -125,38 +126,39 @@ public class User {
     public void setFriendRequestList(List<User> friendRequestList) {
         this.friendRequestList = friendRequestList;
     }
-
     public List<User> getIgnoredList() {
         return ignoredList;
     }
-
     public void setIgnoredList(List<User> ignoredList) {
         this.ignoredList = ignoredList;
     }
-
     public List<User> getFriendsList() {
         updateFriendLists();
         return friendsList;
     }
-
-
-
     public List<User> getConfirmedList() {
         return confirmedList;
     }
-
     public void setConfirmedList(List<User> confirmedList) {
         this.confirmedList = confirmedList;
     }
-//---------------------------------//
 
-    public void addReview(Review review){
+    public List<Review> getGeneralReviewList() {
+        return generalReviewList;
+    }
+
+    public void setGeneralReviewList(List<Review> generalReviewList) {
+        this.generalReviewList = generalReviewList;
+    }
+    //---------------------------------//
+
+    public void addReview(DishReview dishReview){
 
         int newTotal = Integer.parseInt(totalReviews)+1;
         totalReviews = Integer.toString(newTotal);
         boolean flag = false;
-        for(Review rev:reviewList){
-            if(rev.getRestaurantId().equals(review.getRestaurantId())){
+        for(DishReview rev: dishReviewList){
+            if(rev.getRestaurantId().equals(dishReview.getRestaurantId())){
                 flag = true;
                 break;
             }
@@ -165,16 +167,16 @@ public class User {
            newTotal = Integer.parseInt(totalRestaurantsVisited)+1;
            totalRestaurantsVisited = Integer.toString(newTotal);
         }
-        reviewList.add(review);
+        dishReviewList.add(dishReview);
     }
-    public void deleteReview(Review review){
-        reviewList.remove(review);
+    public void deleteReview(DishReview dishReview){
+        dishReviewList.remove(dishReview);
         int newTotal = Integer.valueOf(totalReviews)-1;
         totalReviews = Integer.toString(newTotal);
-        String restaurant = review.getRestaurantId();
+        String restaurant = dishReview.getRestaurantId();
         boolean flag = false;
-        for(int i=0;i<reviewList.size();i++){
-            if(reviewList.get(i).getRestaurantId().equals(restaurant)){
+        for(int i = 0; i< dishReviewList.size(); i++){
+            if(dishReviewList.get(i).getRestaurantId().equals(restaurant)){
                 flag = true;
                 break;
             }
