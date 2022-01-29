@@ -109,11 +109,6 @@ public class UserProfileFragment extends Fragment {
             });
         }else if(!signedUser.getFriendsList().contains(Model.instance.getUserById(userId))){
             User userProfile = Model.instance.getUserById(userId);
-//            if(!signedUser.getFriendRequestList().contains(userProfile)) {
-//               addFriendBtn.setText("Send friend request");
-//            }else{
-//                addFriendBtn.setText("confirm friend request");
-//            }
             flagRequest =false;
             addFriendIv.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -122,24 +117,20 @@ public class UserProfileFragment extends Fragment {
                         if(!flagRequest){
                             Model.instance.friendRequestConfirmed(userProfile.getId());
                             addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_disabled_orange_24);
-                            //addFriendBtn.setText("cancel friendship");
                             flagRequest = true;
                         }else{
                             Model.instance.cancelFriendsihp(userProfile);
                             addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_orange24);
-                            //addFriendBtn.setText("confirm friend request");
                             flagRequest = false;
                         }
                     }else {
                         if (!flagRequest) {
                             Model.instance.friendRequestSendRequestToUser(userProfile);
                             addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_disabled_orange_24);
-                           // addFriendBtn.setText("cancel friend request");
                             flagRequest = true;
                         } else {
                             Model.instance.friendRequestCancel(userProfile);
                             addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_orange24);
-                            //addFriendBtn.setText("Send friend request");
                             flagRequest = false;
                         }
                     }
@@ -148,19 +139,15 @@ public class UserProfileFragment extends Fragment {
         }else if(signedUser.getFriendsList().contains(user)){
             User userProfile = Model.instance.getUserById(userId);
             addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_disabled_orange_24);
-            //addFriendBtn.setText("Cancel friendship");
             flagRequest =false;
             addFriendIv.setOnClickListener((v)->{
                 if(!flagRequest) {
                     Model.instance.cancelFriendsihp(userProfile);
                     addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_orange24);
-                    //addFriendBtn.setText("Recover Friendship");
                     flagRequest=true;
-                    //Navigation.findNavController(v).navigate((NavDirections) UserProfileFragmentDirections.actionUserProfileFragmentToUserListRvFragment(Model.instance.getSignedUser().getId()));
                 }else{
                     Model.instance.recoverFriendship(signedUser,userProfile);
                     addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_disabled_orange_24);
-                    //addFriendBtn.setText("Cancel friendship");
                     flagRequest=false;
                 }
             });
@@ -169,7 +156,7 @@ public class UserProfileFragment extends Fragment {
         if(signedUserId.equals(userId)){
             allReviewsBtn.setText("My reviews");
         }else{
-            allReviewsBtn.setText("Check out all "+user.getFirstName()+"'s reviews");
+            allReviewsBtn.setText("All reviews");
         }
 
 

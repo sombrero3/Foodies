@@ -105,7 +105,7 @@ public class UserRestaurantListRvFragment extends Fragment {
                     @Override
                     public void onItemClick(View v, int position) {
                         String restaurantId = restaurantList.get(position).getId();
-                        Navigation.findNavController(v).navigate((NavDirections) HomeRestaurantListRvFragmentDirections.actionHomeRestaurantListRvFragmentToRestaurantPageRvFragment(restaurantId));
+                        Navigation.findNavController(v).navigate((NavDirections) UserRestaurantListRvFragmentDirections.actionUserRestaurantListRvFragmentToUserReviewsOnRestaurantRvFragment(user.getId(),restaurantList.get(position).getId()));
                     }
                 });
             }

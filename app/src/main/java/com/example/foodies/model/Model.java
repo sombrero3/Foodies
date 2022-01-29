@@ -608,5 +608,7 @@ public class Model {
     }
 
 
-
+    public void friendRequestUnConfirmed(User user) {
+        signedUser.friendRequestUnConfirmed(user);
+    }
 }

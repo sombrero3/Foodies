@@ -46,7 +46,7 @@ public class FriendRequestViewHolder extends RecyclerView.ViewHolder{
                         ignoreBtn.setEnabled(false);
                     } else {
                         flagConfirm = false;
-                        Model.instance.cancelFriendsihp(signedUser.getFriendRequestList().get(getAdapterPosition()));
+                        Model.instance.friendRequestUnConfirmed(signedUser.getFriendRequestList().get(getAdapterPosition()));
                         confirmBtn.setText("confirm");
                         ignoreBtn.setEnabled(true);
                     }
