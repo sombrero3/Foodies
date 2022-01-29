@@ -93,7 +93,7 @@
         app:layout_constraintStart_toStartOf="@+id/textView17"
         app:layout_constraintTop_toBottomOf="@+id/review_description_tv" />
     <View
-        android:id="@+id/review_line"
+        android:id="@+id/home_restaurant_line"
         style="@style/line"
         android:layout_width="match_parent"
         android:layout_marginTop="8dp"
@@ -169,7 +169,7 @@
         android:layout_marginTop="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/review_line" />
+        app:layout_constraintTop_toBottomOf="@+id/home_restaurant_line" />
 
     <ImageView
         android:id="@+id/review_edit_iv"
