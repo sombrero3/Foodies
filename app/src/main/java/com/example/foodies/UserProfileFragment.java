@@ -107,7 +107,7 @@ public class UserProfileFragment extends Fragment {
             addFriendIv.setOnClickListener((v) -> {
                 Navigation.findNavController(v).navigate(UserProfileFragmentDirections.actionUserProfileFragmentToAddFriendFragment());
             });
-        }else if(!signedUser.getFriendsList().contains(Model.instance.getUserById(userId))){
+        }else if(!signedUser.getFriendsList().contains(user)){
             User userProfile = Model.instance.getUserById(userId);
             flagRequest =false;
             addFriendIv.setOnClickListener(new View.OnClickListener() {

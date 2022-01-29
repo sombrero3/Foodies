@@ -78,6 +78,7 @@ public class Model {
     public void setRestaurantList(List<Restaurant> restaurantList) {
         this.restaurantList = restaurantList;
     }
+
     public List<Dish> getDishList() {
         return dishList;
     }
@@ -153,7 +154,6 @@ public class Model {
     public void addReview(Review review){
         getSignedUser().addReview(review);
         getDishById(review.getDishId()).addReview(review);
-        //getRestaurantById(review.getRestaurantId()).updateRating();
         reviewList.add(review);
     }
     public void addDish(Dish dish){
@@ -311,7 +311,6 @@ public class Model {
         }
         return result;
     }
-
     public List<User> getUsersByEmail(String email){
         List<User> result = new LinkedList<>();
         for (User user : userList) {
@@ -321,7 +320,6 @@ public class Model {
         }
         return result;
     }
-
     public List<User> getUsersByNameAndEmail(String name,String email){
         List<User> result = new LinkedList<>();
         for (User user :userList) {
@@ -573,25 +571,22 @@ public class Model {
         signedUser.friendRequestToConfirm(user);
     }
     public void friendRequestSendRequestToUser(User user2 ){
-        signedUser.friendRequestToConfirm(user2);
+        user2.friendRequestToConfirm(signedUser);
     }
 
     public void friendRequestConfirmed(String userId) {
-        //createFriendship(userId);
         signedUser.friendRequestConfirmed(getUserById(userId));
     }
 
     public void createFriendship(String userId) {
-        User user1 = getSignedUser();
         User user2 = getUserById(userId);
-        user1.friendRequestConfirmed(user2);
-        user2.friendRequestConfirmed(user1);
+        signedUser.friendRequestConfirmed(user2);
+        user2.friendRequestConfirmed(signedUser);
     }
 
     public void cancelFriendsihp(User user2){
-        User user1 = getSignedUser();
-        user1.cancelFriendship(user2);
-        user2.cancelFriendship(user1);
+        signedUser.cancelFriendship(user2);
+        user2.cancelFriendship(signedUser);
     }
 
     public void recoverFriendship(User user1, User user2) {

@@ -193,10 +193,12 @@ public class User {
         friendsList.remove(friend);
     }
     public void friendRequestToConfirm(User user){
-        friendRequestList.add(user);
+        if(!friendRequestList.contains(user)) {
+            friendRequestList.add(user);
+        }
     }
     public void friendRequestConfirmed(User user){
-        confirmedList.add(user);
+        if(!confirmedList.contains(user)){confirmedList.add(user);}
        // addFriend(user);
     }
     public void cancelFriendship(User user){
@@ -205,7 +207,7 @@ public class User {
     public void friendRequestDelete(User user){
         friendRequestList.remove(user);
     }
-    public void friendRequestIgnored(User user){ignoredList.add(user); }
+    public void friendRequestIgnored(User user){if(!ignoredList.contains(user)){ignoredList.add(user);} }
     public void friendRequestCancelIgnore(User user){ignoredList.remove(user); }
     public void friendRequestUnConfirmed(User user){confirmedList.remove(user); }
     public void updateFriendLists() {
