@@ -210,7 +210,9 @@ public class User {
     public void friendRequestUnConfirmed(User user){confirmedList.remove(user); }
     public void updateFriendLists() {
         for (User user:confirmedList) {
-            friendsList.add(user);
+            if(!friendsList.contains(user)) {
+                friendsList.add(user);
+            }
             friendRequestList.remove(user);
             confirmedList.remove(user);
         }
