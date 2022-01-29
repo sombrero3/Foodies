@@ -3,7 +3,6 @@ package com.example.foodies;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.example.foodies.model.Model;
-import com.example.foodies.model.User;
 
 public class NewUserFragment extends Fragment {
      ImageView uploadIv;
@@ -32,7 +28,7 @@ public class NewUserFragment extends Fragment {
         emailEt = view.findViewById(R.id.new_user_email_et);
         nameEt = view.findViewById(R.id.new_user_name_et);
         passwordEt = view.findViewById(R.id.new_user_password_et);
-        invalidNameTv = view.findViewById(R.id.new_user_invalid_name_tv);
+        invalidNameTv = view.findViewById(R.id.new_user_invalid_email_tv);
         invalidMailTv = view.findViewById(R.id.new_user_invalid_email_tv);
         invalidPassTv = view.findViewById(R.id.new_user_invalid_password_tv);
 
