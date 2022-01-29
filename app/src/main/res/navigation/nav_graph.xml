@@ -83,8 +83,7 @@
     <fragment
         android:id="@+id/restaurantPageRvFragment"
         android:name="com.example.foodies.RestaurantPageRvFragment"
-        android:label="fragment_restaurant_page_rv"
-        tools:layout="@layout/fragment_restaurant_page_rv" >
+        tools:layout="@layout/fragment_restaurant_page_rv">
         <argument
             android:name="restaurantId"
             app:argType="string" />
@@ -213,8 +212,7 @@
     <fragment
         android:id="@+id/friendRequestsFragment"
         android:name="com.example.foodies.FriendRequestsFragment"
-        android:label="fragment_friend_requests"
-        tools:layout="@layout/fragment_friend_requests" >
+        tools:layout="@layout/fragment_friend_requests">
         <action
             android:id="@+id/action_friendRequestsFragment_to_userProfileFragment"
             app:destination="@id/userProfileFragment" />
