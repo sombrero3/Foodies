@@ -30,7 +30,7 @@ public class AddFriendFragment extends Fragment {
     List<User> searchResultList;
     TextView rvTitleTv,wrongDetailsTv;
     EditText nameEt,emailEt;
-    Button searchBtn,requestBtn;
+    Button searchBtn;
     @Override
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -55,7 +55,6 @@ public class AddFriendFragment extends Fragment {
         rvTitleTv = view.findViewById(R.id.add_friend_rv_title_tv);
         searchBtn = view.findViewById(R.id.add_friend_serach_btn);
         wrongDetailsTv = view.findViewById(R.id.add_friend_wrong_details_tv);
-        requestBtn = view.findViewById(R.id.add_friend_request_btn);
 
         wrongDetailsTv.setVisibility(View.INVISIBLE);
 

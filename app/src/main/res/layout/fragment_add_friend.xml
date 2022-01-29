@@ -116,16 +116,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/add_friend_rv_title_tv" />
 
-    <Button
-        android:id="@+id/add_friend_request_btn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:layout_marginEnd="1dp"
-        android:backgroundTint="@color/orange_1"
-        android:text="Send friend request"
-        app:layout_constraintBottom_toBottomOf="@+id/add_friend_rv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
