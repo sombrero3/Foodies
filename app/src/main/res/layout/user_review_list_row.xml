@@ -16,28 +16,24 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="116dp"
         android:backgroundTint="@color/black">
 
-
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/user_review_list_row_img"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/user"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/user" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/user_review_list_row_name_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="24dp"
             android:layout_marginEnd="16dp"
             android:text="User's name"
             android:textColor="@color/white"
@@ -50,22 +46,20 @@
             android:id="@+id/user_review_list_row_rating_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:text="No rating "
             android:textColor="@color/white"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@+id/user_review_list_row_star1_iv"
-            app:layout_constraintStart_toEndOf="@+id/user_review_list_row_img"
+            app:layout_constraintStart_toStartOf="@+id/user_review_list_row_star1_iv"
             app:layout_constraintTop_toTopOf="@+id/user_review_list_row_star1_iv" />
 
         <ImageView
             android:id="@+id/user_review_list_row_star1_iv"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/user_review_list_row_img"
-            app:layout_constraintStart_toEndOf="@+id/user_review_list_row_img"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="@+id/user_review_list_row_name_tv"
+            app:layout_constraintTop_toBottomOf="@+id/user_review_list_row_name_tv"
             app:srcCompat="@drawable/star" />
 
         <ImageView

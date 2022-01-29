@@ -8,7 +8,7 @@
     android:backgroundTint="@color/black"
     tools:context=".UserProfileFragment">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageView"
         android:layout_width="0dp"
         android:layout_height="125dp"
@@ -79,7 +79,7 @@
         app:layout_constraintTop_toBottomOf="@+id/user_profile_line3" />
 
     <View
-        android:id="@+id/user_profile_line1"
+        android:id="@+id/add_friend_line"
         style="@style/line"
         android:layout_width="match_parent"
         android:layout_marginTop="8dp"
@@ -93,7 +93,7 @@
         android:layout_marginTop="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_profile_line1" />
+        app:layout_constraintTop_toBottomOf="@+id/add_friend_line" />
     <View
         android:id="@+id/user_profile_line3"
         style="@style/line"
