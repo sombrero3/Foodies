@@ -9,7 +9,7 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/user_reviews_on_restaurant_image_img"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -111,7 +111,7 @@
         app:layout_constraintTop_toBottomOf="@+id/user_reviews_on_restaurant_general_review_description_tv" />
 
     <View
-        android:id="@+id/user_profile_line1"
+        android:id="@+id/add_friend_line"
         style="@style/line"
         android:layout_width="match_parent"
         android:layout_marginTop="16dp"
@@ -139,7 +139,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_profile_line1" />
+        app:layout_constraintTop_toBottomOf="@+id/add_friend_line" />
 
     <TextView
         android:id="@+id/user_reviews_on_restaurant_rating_tv"
