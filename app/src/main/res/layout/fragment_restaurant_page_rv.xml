@@ -16,7 +16,7 @@
         android:background="@color/black"
         android:backgroundTint="@color/black"
         android:hapticFeedbackEnabled="false"
-        android:text="+ add review"
+        android:text="Post review"
         android:textColor="@color/orange_1"
         app:cornerRadius="35dp"
         app:layout_constraintBottom_toBottomOf="@+id/restaurant_page_star5_iv"
