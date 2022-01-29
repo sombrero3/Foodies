@@ -137,7 +137,7 @@ public class AddFriendFragment extends Fragment {
             User user = searchResultList.get(position);
             holder.nameEt.setText(user.getFirstName()+" "+user.getLastName());
             holder.restaurantEt.setText("Visited "+ user.getTotalRestaurantsVisited() +" restaurants total");
-            holder.reviewsEt.setText("Has total of " + user.getReviewList().size()+ " reviews");
+            holder.reviewsEt.setText("Has total of " + user.getDishReviewList().size()+ " reviews");
         }
         @Override
         public int getItemCount() {
