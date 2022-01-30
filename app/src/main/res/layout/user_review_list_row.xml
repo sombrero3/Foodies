@@ -60,7 +60,7 @@
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="@+id/user_review_list_row_name_tv"
             app:layout_constraintTop_toBottomOf="@+id/user_review_list_row_name_tv"
-            app:srcCompat="@drawable/star" />
+            app:srcCompat="@drawable/ic_baseline_star_24" />
 
         <ImageView
             android:id="@+id/user_review_list_row_star2_iv"
@@ -69,7 +69,7 @@
             android:layout_marginStart="16dp"
             app:layout_constraintBottom_toBottomOf="@+id/user_review_list_row_star1_iv"
             app:layout_constraintStart_toEndOf="@+id/user_review_list_row_star1_iv"
-            app:srcCompat="@drawable/star" />
+            app:srcCompat="@drawable/ic_baseline_star_24" />
 
         <ImageView
             android:id="@+id/user_review_list_row_star3_iv"
@@ -78,7 +78,7 @@
             android:layout_marginStart="16dp"
             app:layout_constraintBottom_toBottomOf="@+id/user_review_list_row_star2_iv"
             app:layout_constraintStart_toEndOf="@+id/user_review_list_row_star2_iv"
-            app:srcCompat="@drawable/star" />
+            app:srcCompat="@drawable/ic_baseline_star_24" />
 
         <ImageView
             android:id="@+id/user_review_list_row_star4_iv"
@@ -87,7 +87,7 @@
             android:layout_marginStart="16dp"
             app:layout_constraintBottom_toBottomOf="@+id/user_review_list_row_star3_iv"
             app:layout_constraintStart_toEndOf="@+id/user_review_list_row_star3_iv"
-            app:srcCompat="@drawable/star" />
+            app:srcCompat="@drawable/ic_baseline_star_24" />
 
         <ImageView
             android:id="@+id/user_review_list_row_star5_iv"
@@ -96,7 +96,7 @@
             android:layout_marginStart="16dp"
             app:layout_constraintBottom_toBottomOf="@+id/user_review_list_row_star4_iv"
             app:layout_constraintStart_toEndOf="@+id/user_review_list_row_star4_iv"
-            app:srcCompat="@drawable/star" />
+            app:srcCompat="@drawable/ic_baseline_star_24" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

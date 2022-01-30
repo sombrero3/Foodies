@@ -76,7 +76,7 @@
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="@+id/restaurant_row_name"
             app:layout_constraintTop_toBottomOf="@+id/restaurant_row_name"
-            app:srcCompat="@drawable/star" />
+            app:srcCompat="@drawable/ic_baseline_star_24" />
 
         <ImageView
             android:id="@+id/restaurant_list_row_star2_iv"
@@ -86,7 +86,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/restaurant_list_row_star1_iv"
             app:layout_constraintStart_toEndOf="@+id/restaurant_list_row_star1_iv"
             app:layout_constraintTop_toTopOf="@+id/restaurant_list_row_star1_iv"
-            app:srcCompat="@drawable/star" />
+            app:srcCompat="@drawable/ic_baseline_star_24" />
 
         <ImageView
             android:id="@+id/restaurant_list_row_star3_iv"
@@ -96,7 +96,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/restaurant_list_row_star2_iv"
             app:layout_constraintStart_toEndOf="@+id/restaurant_list_row_star2_iv"
             app:layout_constraintTop_toTopOf="@+id/restaurant_list_row_star2_iv"
-            app:srcCompat="@drawable/star" />
+            app:srcCompat="@drawable/ic_baseline_star_24" />
 
         <ImageView
             android:id="@+id/restaurant_list_row_star4_iv"
@@ -106,7 +106,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/restaurant_list_row_star3_iv"
             app:layout_constraintStart_toEndOf="@+id/restaurant_list_row_star3_iv"
             app:layout_constraintTop_toTopOf="@+id/restaurant_list_row_star3_iv"
-            app:srcCompat="@drawable/star" />
+            app:srcCompat="@drawable/ic_baseline_star_24" />
 
         <ImageView
             android:id="@+id/restaurant_list_row_star5_iv"
@@ -117,6 +117,6 @@
             app:layout_constraintBottom_toBottomOf="@+id/restaurant_list_row_star4_iv"
             app:layout_constraintStart_toEndOf="@+id/restaurant_list_row_star4_iv"
             app:layout_constraintTop_toTopOf="@+id/restaurant_list_row_star4_iv"
-            app:srcCompat="@drawable/star" />
+            app:srcCompat="@drawable/ic_baseline_star_24" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
