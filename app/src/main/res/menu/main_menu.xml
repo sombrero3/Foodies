@@ -1,20 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-<!--    xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="navigation_view">-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
 
-<!--    <group android:checkableBehavior="single">-->
-
-   <!-- <item
-        android:id="@+id/main_menu_home"
-        android:icon="@drawable/ic_baseline_home_white24"
-        android:title="Home"
-        app:showAsAction="always" />
-       --> <item
-            android:id="@+id/main_menu_profile"
-            android:icon="@drawable/ic_baseline_person_24"
-            android:title="My profile" />
+    <item
+        android:id="@+id/main_menu_profile"
+        android:icon="@drawable/ic_baseline_person_24"
+        android:title="My profile" />
     <item
         android:id="@+id/main_menu_add_review"
         android:icon="@drawable/ic_baseline_post_add_24"
@@ -23,19 +15,18 @@
         android:id="@+id/main_menu_my_reviews"
         android:icon="@drawable/ic_baseline_reviews_24"
         android:title="My reviews" />
-        <item
-            android:id="@+id/main_menu_my_friends"
-            android:icon="@drawable/ic_baseline_supervised_user_circle_24"
-            android:title="My friends" />
+    <item
+        android:id="@+id/main_menu_my_friends"
+        android:icon="@drawable/ic_baseline_supervised_user_circle_24"
+        android:title="My friends" />
 
-        <item
-            android:id="@+id/main_menu_add_friend"
-            android:icon="@drawable/ic_baseline_person_add_24"
-            android:title="Add friend" />
+    <item
+        android:id="@+id/main_menu_add_friend"
+        android:icon="@drawable/ic_baseline_person_add_24"
+        android:title="Add friend" />
     <item
         android:id="@+id/main_menu_friend_requests"
         android:icon="@drawable/ic_baseline_person_24"
         android:title="Friend Requests" />
 
-    <!--</group>-->
 </menu>
