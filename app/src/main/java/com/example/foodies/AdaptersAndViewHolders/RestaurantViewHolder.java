@@ -19,13 +19,13 @@ public class RestaurantViewHolder extends RecyclerView.ViewHolder {
         nameTv = itemView.findViewById(R.id.restaurant_row_name);
         descriptionTv = itemView.findViewById(R.id.restaurant_row_description);
         image = itemView.findViewById(R.id.restaurant_row_img);
-        ratingTv = itemView.findViewById(R.id.restaurant_row_rating_tv);
+        ratingTv = itemView.findViewById(R.id.restaurant_list_row_rating_tv);
         image = itemView.findViewById(R.id.restaurant_row_img);
-        star1 = itemView.findViewById(R.id.restaurant_list_row_star1_iv);
-        star2 = itemView.findViewById(R.id.restaurant_list_row_star2_iv);
-        star3 = itemView.findViewById(R.id.restaurant_list_row_star3_iv);
-        star4 = itemView.findViewById(R.id.restaurant_list_row_star4_iv);
-        star5 = itemView.findViewById(R.id.restaurant_list_row_star5_iv);
+        star1 = itemView.findViewById(R.id.restaurant_list_row_star1_img_view);
+        star2 = itemView.findViewById(R.id.restaurant_list_row_star2_img_view);
+        star3 = itemView.findViewById(R.id.restaurant_list_star3_img_view);
+        star4 = itemView.findViewById(R.id.restaurant_list_row_star4_img_view);
+        star5 = itemView.findViewById(R.id.restaurant_list_row_star5_img_view);
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
