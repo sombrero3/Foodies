@@ -37,9 +37,9 @@ public class HomeRestaurantListRvFragment extends Fragment {
     EditText searchEt;
     TextView nameTv;
     ImageButton searchIbtn;
-    Button addReviewBtn,menuBtn;
     ImageView locationIv;
     boolean flag;
+    //Button addReviewBtn,menuBtn;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -70,9 +70,9 @@ public class HomeRestaurantListRvFragment extends Fragment {
         searchEt = view.findViewById(R.id.home_restaurant_list_search_et);
         searchIbtn = view.findViewById(R.id.home_restaurant_search_ibtn);
         locationIv = view.findViewById(R.id.home_restaurant_location_iv);
-        addReviewBtn = view.findViewById(R.id.home_restaurant_list_review_btn);
+
         nameTv = view.findViewById(R.id.home_restaurant_list_name_tv);
-        menuBtn = view.findViewById(R.id.home_restaurant_list_menu_btn);
+
 
         nameTv.setText("Hello "+ user.getFirstName() );
         flag = true;
@@ -109,13 +109,15 @@ public class HomeRestaurantListRvFragment extends Fragment {
             }
         });
 
-        menuBtn.setOnClickListener((v)->{
-            Navigation.findNavController(v).navigate(HomeRestaurantListRvFragmentDirections.actionHomeRestaurantListRvFragmentToHomeFragment());
-        });
-
-        addReviewBtn.setOnClickListener((v)->{
-            Navigation.findNavController(v).navigate((NavDirections) HomeRestaurantListRvFragmentDirections.actionHomeRestaurantListRvFragmentToNewReviewFragment(""));
-        });
+//          addReviewBtn = view.findViewById(R.id.home_restaurant_list_review_btn);
+//        menuBtn = view.findViewById(R.id.home_restaurant_list_menu_btn);
+//        menuBtn.setOnClickListener((v)->{
+//            Navigation.findNavController(v).navigate(HomeRestaurantListRvFragmentDirections.actionHomeRestaurantListRvFragmentToHomeFragment());
+//        });
+//
+//        addReviewBtn.setOnClickListener((v)->{
+//            Navigation.findNavController(v).navigate((NavDirections) HomeRestaurantListRvFragmentDirections.actionHomeRestaurantListRvFragmentToNewReviewFragment(""));
+//        });
 
         setHasOptionsMenu(true);
         return view;

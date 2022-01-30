@@ -11,8 +11,7 @@
         android:id="@+id/home_restaurant_list_search_et"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         android:backgroundTint="@color/white"
         android:ems="10"
@@ -20,7 +19,7 @@
         android:text="Search for a restaurant"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toStartOf="@+id/home_restaurant_search_ibtn"
-        app:layout_constraintStart_toEndOf="@+id/home_restaurant_location_iv"
+        app:layout_constraintStart_toStartOf="@+id/textView30"
         app:layout_constraintTop_toBottomOf="@+id/textView30" />
 
     <View
@@ -37,6 +36,7 @@
         android:layout_height="30dp"
         android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/home_restaurant_list_search_et"
+        app:layout_constraintEnd_toStartOf="@+id/home_restaurant_list_search_et"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/home_restaurant_list_search_et"
         app:srcCompat="@drawable/checkin" />
@@ -66,14 +66,14 @@
 
     <TextView
         android:id="@+id/home_restaurant_list_name_tv"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:text="Hello User name "
         android:textColor="@color/white"
-        android:textSize="24sp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -82,8 +82,8 @@
         android:id="@+id/textView24"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
         android:text="Wellcome to"
         android:textColor="@color/white"
         android:textSize="34sp"
@@ -96,47 +96,27 @@
         android:id="@+id/textView28"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
         android:text="Foodies"
         android:textColor="@color/orange_1"
         android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView24"
-        app:layout_constraintTop_toBottomOf="@+id/home_restaurant_list_name_tv" />
-
-    <Button
-        android:id="@+id/home_restaurant_list_review_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:backgroundTint="@color/orange_1"
-        android:text="Post new  review"
-        app:layout_constraintStart_toStartOf="@+id/textView24"
-        app:layout_constraintTop_toBottomOf="@+id/textView24" />
-
-    <Button
-        android:id="@+id/home_restaurant_list_menu_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/teal_700"
-        android:text="Menu"
-        app:layout_constraintBottom_toBottomOf="@+id/home_restaurant_list_review_btn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/home_restaurant_list_review_btn"
-        app:layout_constraintTop_toTopOf="@+id/home_restaurant_list_review_btn" />
+        app:layout_constraintTop_toTopOf="@+id/textView24" />
 
     <TextView
         android:id="@+id/textView30"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
-        android:text="Find a restaurant to see what you and your friends thought about their dishes :"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:text="It's easy to remember what you ate and recommend it to your friends. Find a restaurant and see your and your friends' recommendations:"
         android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/home_restaurant_list_review_btn" />
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/textView28"
+        app:layout_constraintStart_toStartOf="@+id/textView24"
+        app:layout_constraintTop_toBottomOf="@+id/textView24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

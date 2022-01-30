@@ -79,6 +79,7 @@ public class UserReviewsOnRestaurantRvFragment extends Fragment {
             Model.instance.setStarByRating(rating,star1,star2,star3,star4,star5,ratingTv);
 
             nameTv.setText(user.getFirstName()+"'s reviews on "+restaurant.getName());
+            generaReviewTitleTv.setText("General review about "+restaurant.getName());
             secondaryTitleTv.setText("Dishes "+user.getFirstName()+" posted reviews on :");
             generalReviewTv.setText(generalReview);
             setHasOptionsMenu(true);
