@@ -25,7 +25,7 @@ public class Model {
     private Model() {
         signedFlag = false;
         for(int i=1;i<11;i++){
-            User user = new User("name "+i, "" + i );
+            User user = new User("name "+i, "" + i ,"email@gmail.com");
             userList.add(user);
         }
 
@@ -606,5 +606,50 @@ public class Model {
 
     public void friendRequestUnConfirmed(User user) {
         signedUser.friendRequestUnConfirmed(user);
+    }
+
+    public int getNumOfReviewsFromFriendsOnRestaurant(String restaurantId) {
+        int counter=0;
+        List<User> friends = signedUser.getFriendsList();
+        for (User user: friends) {
+            List<DishReview> reviews = user.getDishReviewList();
+            for (DishReview rev:reviews) {
+                if(rev.getRestaurantId().equals(restaurantId)){
+                    counter++;
+                }
+            }
+        }
+        return counter;
+    }
+
+    public List<User> getAllFriendssThatHaveReviewsOnRestaurantByRestaurantId(String restaurantId) {
+        List<User> result = new LinkedList<>();
+        List<User> friends = signedUser.getFriendsList();
+        for(User user: friends){
+            List<DishReview> reviews = user.getDishReviewList();
+            for (DishReview rev:reviews) {
+                if(rev.getRestaurantId().equals(restaurantId)){
+                    result.add(user);
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
+    public List<DishReview> getAllFriendsReviewsOnDishByDishIdAndUserId(String dishId, String userId) {
+        User signedUser = getSignedUser();
+        String signedUserId = signedUser.getId();
+        Dish dish = getDishById(dishId);
+        List<User> friends = signedUser.getFriendsList();
+        List<DishReview> dishReviews =  new LinkedList<>();
+        for(DishReview rev:dish.getReviewList()){
+            for(User friend:friends){
+                if(rev.getUserId().equals(friend.getId()) && !rev.getUserId().equals(userId) && !rev.getUserId().equals(signedUserId)){
+                    dishReviews.add(rev);
+                }
+            }
+        }
+        return dishReviews;
     }
 }

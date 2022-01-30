@@ -42,7 +42,7 @@ public class RestaurantPageRvFragment extends Fragment {
 
         String resId = RestaurantPageRvFragmentArgs.fromBundle(getArguments()).getRestaurantId();
         restaurant = Model.instance.getRestaurantById(resId);
-        usersList = Model.instance.getAllUsersThatHaveReviewsOnRestaurantByRestaurantId(resId);
+        usersList = Model.instance.getAllFriendssThatHaveReviewsOnRestaurantByRestaurantId(resId);
 
         RecyclerView list = view.findViewById(R.id.restaurant_page_rv);
         list.setHasFixedSize(true);
@@ -77,6 +77,7 @@ public class RestaurantPageRvFragment extends Fragment {
 
         nameTv.setText(restaurant.getName());
         locationTv.setText(restaurant.getLocation());
+        numOfReviewsTv.setText(Model.instance.getNumOfReviewsFromFriendsOnRestaurant(resId)+ " friends' reviews");
         secondaryTitleTv.setText("Friends which posted review about "+restaurant.getName()+" :");
 
         addReviewBtn.setOnClickListener((v)->{
