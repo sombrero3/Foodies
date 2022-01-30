@@ -9,7 +9,7 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/user_reviews_on_restaurant_image_img"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -23,7 +23,7 @@
         android:id="@+id/user_reviews_on_restaurant_name_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginEnd="8dp"
         android:text="User's name reviews about restaurant's name"
         android:textColor="@color/white"
@@ -96,19 +96,27 @@
         app:layout_constraintTop_toBottomOf="@+id/user_reviews_on_restaurant_star1_iv" />
 
     <TextView
-        android:id="@+id/user_reviews_on_restaurant_revies_of_dishes_tv"
+        android:id="@+id/user_reviews_on_restaurant_secondary_title_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:text="Reviews of dishes : "
+        android:text="Dishes username posted reviews on :"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/user_reviews_on_restaurant_general_review_description_tv" />
+
+    <View
+        android:id="@+id/add_friend_line"
+        style="@style/line"
+        android:layout_width="match_parent"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/user_reviews_on_restaurant_secondary_title_tv"
+        tools:layout_editor_absoluteX="0dp" />
 
     <TextView
         android:id="@+id/user_reviews_on_restaurant_general_review_description_tv"
@@ -129,11 +137,10 @@
         android:id="@+id/user_reviews_on_restaurant_dishes_list_rv"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_reviews_on_restaurant_revies_of_dishes_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/add_friend_line" />
 
     <TextView
         android:id="@+id/user_reviews_on_restaurant_rating_tv"

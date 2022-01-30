@@ -12,30 +12,30 @@ import com.example.foodies.model.User;
 
 import java.util.List;
 
-public class UserListAdapter extends RecyclerView.Adapter<UserListViewHolder>{
+public class UserAdapter extends RecyclerView.Adapter<UserViewHolder>{
     OnItemClickListener listener;
     List<User> userList;
     public void setOnItemClickListener(OnItemClickListener listener){
         this.listener = listener;
     }
 
-    public UserListAdapter(List<User> userList){
+    public UserAdapter(List<User> userList){
         this.userList=userList;
     }
     @NonNull
     @Override
-    public UserListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_list_row,parent,false);
-        UserListViewHolder holder = new UserListViewHolder(view,listener);
+        UserViewHolder holder = new UserViewHolder(view,listener);
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull UserListViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
         User user = userList.get(position);
         holder.nameEt.setText(user.getFirstName()+" "+user.getLastName());
         holder.restaurantEt.setText("Visited "+ user.getTotalRestaurantsVisited() +" restaurants total");
-        holder.reviewsEt.setText("Has total of " + user.getReviewList().size()+ " reviews");
+        holder.reviewsEt.setText("Has total of " + user.getDishReviewList().size()+ " reviews");
     }
 
     @Override

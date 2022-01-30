@@ -13,14 +13,13 @@ import android.widget.TextView;
 import com.example.foodies.model.Model;
 import com.example.foodies.model.User;
 
-
 public class HomeFragment extends Fragment {
 
    TextView home,myReviews,myFriends,signInBtn,signUpBtn,myProfile;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
        View view = inflater.inflate(R.layout.fragment_home, container, false);
        home = view.findViewById(R.id.home_home_tv);
@@ -29,14 +28,6 @@ public class HomeFragment extends Fragment {
        myProfile = view.findViewById(R.id.home_my_profile_tv);
        signInBtn = view.findViewById(R.id.home_signin_tv);
        signUpBtn = view.findViewById(R.id.home_signup_tv);
-
-
-       //----to use user validation put the next two lines in comment----//
-       Model.instance.setSignedUser(Model.instance.getUserById("1"));
-       Model.instance.setSignedFlag(true);
-       //----------------------------------------------------------------//
-
-
 
        if(Model.instance.isSignedFlag()) {
            User user = Model.instance.getSignedUser();
@@ -60,4 +51,7 @@ public class HomeFragment extends Fragment {
 
         return view;
     }
+
+
+
 }
