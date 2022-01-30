@@ -35,7 +35,7 @@ import java.util.List;
 
 public class UserRestaurantListRvFragment extends Fragment {
     List<Restaurant> restaurantList;
-    TextView nameTv,titleTv,descriptionTv;
+    TextView nameTv,titleTv,totalReviewsTv;
     Button addReviewBtn;
     ImageView image;
     ImageButton searchIbtn;
@@ -66,14 +66,15 @@ public class UserRestaurantListRvFragment extends Fragment {
             }
         });
         nameTv = view.findViewById(R.id.user_restaurant_name_tv);
-        descriptionTv = view.findViewById(R.id.user_restaurant_description_tv);
+        totalReviewsTv = view.findViewById(R.id.user_restaurant_num_reviews_tv);
         titleTv = view.findViewById(R.id.user_restaurant_title_tv);
         addReviewBtn = view.findViewById(R.id.user_restaurant_list_addreview_btn);
         searchIbtn = view.findViewById(R.id.user_restaurant_search_ibtn);
         searchEt = view.findViewById(R.id.user_restaurant_list_search_et);
 
         nameTv.setText(user.getFirstName() +" "+ user.getLastName());
-
+        totalReviewsTv.setText("Posted "+user.getTotalReviews()+" reviews");
+        titleTv.setText(user.getFirstName()+"'s reviews :");
         if(user.getId().equals(Model.instance.getSignedUser().getId())){
             addReviewBtn.setOnClickListener((v)->{
                 Navigation.findNavController(v).navigate((NavDirections) UserRestaurantListRvFragmentDirections.actionUserRestaurantListRvFragmentToNewReviewFragment(""));

@@ -101,7 +101,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="8dp"
-        android:backgroundTint="#8BC34A"
+        android:backgroundTint="@color/teal_700"
         android:text="Sign Up"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/RegisteredUser_signIn_btn"

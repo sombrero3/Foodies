@@ -83,6 +83,10 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(this,"My Friend Requests",Toast.LENGTH_SHORT).show();
                     navCtl.navigate(R.id.action_global_friendRequestsFragment);
                     return true;
+                case R.id.main_menu_logout:
+                    Toast.makeText(this,"Logging Out",Toast.LENGTH_SHORT).show();
+                    //navCtl.navigate(R.id.action_global_friendRequestsFragment);
+                    return true;
             }
         }
         else{
