@@ -418,14 +418,14 @@ public class Model {
             rateTv.setVisibility(View.INVISIBLE);
             float rate =Float.parseFloat(ratingVal);
             if(rate==0.5){
-                star1.setImageResource(R.drawable.halfstar);
+                star1.setImageResource(R.drawable.ic_baseline_star_half_24);
                 star2.setVisibility(View.INVISIBLE);
                 star3.setVisibility(View.INVISIBLE);
                 star4.setVisibility(View.INVISIBLE);
                 star5.setVisibility(View.INVISIBLE);
             }
             else if(rate==1){
-                star1.setImageResource(R.drawable.star);
+                star1.setImageResource(R.drawable.ic_baseline_star_24);
                 star2.setVisibility(View.INVISIBLE);
                 star3.setVisibility(View.INVISIBLE);
                 star4.setVisibility(View.INVISIBLE);
@@ -433,64 +433,61 @@ public class Model {
 
             }
             else if(rate==1.5){
-                star1.setImageResource(R.drawable.star);
-                star2.setImageResource(R.drawable.halfstar);
+                star1.setImageResource(R.drawable.ic_baseline_star_24);
+                star2.setImageResource(R.drawable.ic_baseline_star_half_24);
                 star3.setVisibility(View.INVISIBLE);
                 star4.setVisibility(View.INVISIBLE);
                 star5.setVisibility(View.INVISIBLE);
             }
             else if(rate==2){
-                star1.setImageResource(R.drawable.star);
-                star2.setImageResource(R.drawable.star);
+                star1.setImageResource(R.drawable.ic_baseline_star_24);
+                star2.setImageResource(R.drawable.ic_baseline_star_24);
                 star3.setVisibility(View.INVISIBLE);
                 star4.setVisibility(View.INVISIBLE);
                 star5.setVisibility(View.INVISIBLE);
             }
             else if(rate==2.5){
-                star1.setImageResource(R.drawable.star);
-                star2.setImageResource(R.drawable.star);
-                star3.setImageResource(R.drawable.halfstar);
+                star1.setImageResource(R.drawable.ic_baseline_star_24);
+                star2.setImageResource(R.drawable.ic_baseline_star_24);
+                star3.setImageResource(R.drawable.ic_baseline_star_half_24);
                 star4.setVisibility(View.INVISIBLE);
                 star5.setVisibility(View.INVISIBLE);
             }
             else if(rate==3){
-                star1.setImageResource(R.drawable.star);
-                star2.setImageResource(R.drawable.star);
-                star3.setImageResource(R.drawable.star);
+                star1.setImageResource(R.drawable.ic_baseline_star_24);
+                star2.setImageResource(R.drawable.ic_baseline_star_24);
+                star3.setImageResource(R.drawable.ic_baseline_star_24);
                 star4.setVisibility(View.INVISIBLE);
                 star5.setVisibility(View.INVISIBLE);
             }
             else if(rate==3.5){
-                star1.setImageResource(R.drawable.star);
-                star2.setImageResource(R.drawable.star);
-                star3.setImageResource(R.drawable.star);
-                star4.setImageResource(R.drawable.halfstar);
+                star1.setImageResource(R.drawable.ic_baseline_star_24);
+                star2.setImageResource(R.drawable.ic_baseline_star_24);
+                star3.setImageResource(R.drawable.ic_baseline_star_24);
+                star4.setImageResource(R.drawable.ic_baseline_star_half_24);
                 star5.setVisibility(View.INVISIBLE);
             }
             else if(rate==4){
-                star1.setImageResource(R.drawable.star);
-                star2.setImageResource(R.drawable.star);
-                star3.setImageResource(R.drawable.star);
-                star4.setImageResource(R.drawable.star);
+                star1.setImageResource(R.drawable.ic_baseline_star_24);
+                star2.setImageResource(R.drawable.ic_baseline_star_24);
+                star3.setImageResource(R.drawable.ic_baseline_star_24);
+                star4.setImageResource(R.drawable.ic_baseline_star_24);
                 star5.setVisibility(View.INVISIBLE);
             }
             else if(rate==4.5){
-                star1.setImageResource(R.drawable.star);
-                star2.setImageResource(R.drawable.star);
-                star3.setImageResource(R.drawable.star);
-                star4.setImageResource(R.drawable.star);
-                star5.setImageResource(R.drawable.halfstar);
+                star1.setImageResource(R.drawable.ic_baseline_star_24);
+                star2.setImageResource(R.drawable.ic_baseline_star_24);
+                star3.setImageResource(R.drawable.ic_baseline_star_24);
+                star4.setImageResource(R.drawable.ic_baseline_star_24);
+                star5.setImageResource(R.drawable.ic_baseline_star_half_24);
             }
             else if(rate==5){
-                star1.setImageResource(R.drawable.star);
-                star2.setImageResource(R.drawable.star);
-                star3.setImageResource(R.drawable.star);
-                star4.setImageResource(R.drawable.star);
-                star5.setImageResource(R.drawable.star);
-
+                star1.setImageResource(R.drawable.ic_baseline_star_24);
+                star2.setImageResource(R.drawable.ic_baseline_star_24);
+                star3.setImageResource(R.drawable.ic_baseline_star_24);
+                star4.setImageResource(R.drawable.ic_baseline_star_24);
+                star5.setImageResource(R.drawable.ic_baseline_star_24);
             }
-
-
         }
         else{
             star1.setVisibility(View.INVISIBLE);
@@ -499,7 +496,6 @@ public class Model {
             star4.setVisibility(View.INVISIBLE);
             star5.setVisibility(View.INVISIBLE);
         }
-
     }
 
     public List<Restaurant> searchRestaurantByName(String text) {
