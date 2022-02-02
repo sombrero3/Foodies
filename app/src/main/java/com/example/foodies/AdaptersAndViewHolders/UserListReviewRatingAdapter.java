@@ -8,20 +8,20 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodies.R;
+import com.example.foodies.model.DishReview;
 import com.example.foodies.model.Model;
-import com.example.foodies.model.Review;
 
 import java.util.List;
 
 public class UserListReviewRatingAdapter extends RecyclerView.Adapter<UserWithRatingViewHolder>{
     OnItemClickListener listener;
-    List<Review> reviewList;
+    List<DishReview> dishReviewList;
     public void setOnItemClickListener(OnItemClickListener listener){
         this.listener = listener;
     }
 
-    public UserListReviewRatingAdapter(List<Review> reviewList){
-        this.reviewList=reviewList;
+    public UserListReviewRatingAdapter(List<DishReview> dishReviewList){
+        this.dishReviewList = dishReviewList;
     }
 
         @NonNull
@@ -34,14 +34,14 @@ public class UserListReviewRatingAdapter extends RecyclerView.Adapter<UserWithRa
 
         @Override
         public void onBindViewHolder(@NonNull UserWithRatingViewHolder holder, int position) {
-            Review rev = reviewList.get(position);
+            DishReview rev = dishReviewList.get(position);
             holder.nameTv.setText(Model.instance.getUserById(rev.getUserId()).getFirstName()+ " " +position);
             Model.instance.setStarByRating(rev.getRating(), holder.star1, holder.star2, holder.star3, holder.star4, holder.star5, holder.ratingTv);
         }
 
         @Override
         public int getItemCount() {
-            return reviewList.size();
+            return dishReviewList.size();
         }
 
 

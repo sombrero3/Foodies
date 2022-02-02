@@ -5,15 +5,18 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,15 +30,15 @@ import java.util.List;
 
 public class UserListRvFragment extends Fragment {
     List<User> userList;
-    TextView nameTv,numOfFriendsTv;
-    ImageView imgIv;
-    Button addFriendBtn;
+    TextView nameTv,numOfFriendsTv,emailTv;
+    ImageView imgIv,addFriendIv;
+    User user;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_list_rv, container, false);
 
 
-        User user = Model.instance.getUserById(UserListRvFragmentArgs.fromBundle(getArguments()).getUserId());
+        user = Model.instance.getUserById(UserListRvFragmentArgs.fromBundle(getArguments()).getUserId());
         userList = Model.instance.getUserById(user.getId()).getFriendsList();
 
         RecyclerView list = view.findViewById(R.id.userlist_rv);
@@ -49,23 +52,44 @@ public class UserListRvFragment extends Fragment {
             public void onItemClick(View v, int position) {
                 String userName = userList.get(position).getLastName();
                 Log.d("TAG","user's row clicked: " + userName);
-                Navigation.findNavController(v).navigate(UserListRvFragmentDirections.actionUserListRvFragmentToUserProfileFragment2(userList.get(position).getId()));
+                Navigation.findNavController(v).navigate((NavDirections) UserListRvFragmentDirections.actionUserListRvFragmentToUserProfileFragment2(userList.get(position).getId()));
             }
         });
 
         nameTv = view.findViewById(R.id.user_list_name_tv);
+        emailTv = view.findViewById(R.id.user_list_email_tv);
         numOfFriendsTv = view.findViewById(R.id.user_list_numOfFriends_tv);
         imgIv = view.findViewById(R.id.user_list_img_iv);
-        addFriendBtn = view.findViewById(R.id.user_list_addFriend_btn);
+        addFriendIv = view.findViewById(R.id.user_list_add_friend_iv);
 
         nameTv.setText(user.getFirstName()+ " "+user.getLastName());
-
-        addFriendBtn.setOnClickListener((v)->{
+        emailTv.setText(user.getEmail());
+        numOfFriendsTv.setText(Integer.toString(userList.size()) +" friends :");
+        addFriendIv.setOnClickListener((v)->{
             Navigation.findNavController(v).navigate(UserListRvFragmentDirections.actionUserListRvFragmentToAddFriendFragment());
         });
-
+        setHasOptionsMenu(true);
         return view;
 
     }
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.all_other_fragments_menu,menu);
 
+    }
+
+    @Override
+    public void onPrepareOptionsMenu (Menu menu) {
+        if (user.getId().equals(Model.instance.getSignedUser().getId())) {
+            menu.findItem(R.id.main_menu_my_friends).setEnabled(false);
+        }
+    }
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }
 }

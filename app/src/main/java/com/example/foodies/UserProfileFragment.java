@@ -2,16 +2,22 @@ package com.example.foodies;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.foodies.AdaptersAndViewHolders.FavoriteDishAdapter;
@@ -19,17 +25,20 @@ import com.example.foodies.AdaptersAndViewHolders.OnItemClickListener;
 import com.example.foodies.AdaptersAndViewHolders.UserAdapter;
 import com.example.foodies.model.Dish;
 import com.example.foodies.model.Model;
-import com.example.foodies.model.Review;
+import com.example.foodies.model.DishReview;
 import com.example.foodies.model.User;
 
 import java.util.List;
 
 public class UserProfileFragment extends Fragment {
     TextView nameTv,totalReviewsTv,totalRestaurantsTv;
-    Button addFriendBtn,allReviewsBtn;
+    Button allReviewsBtn;
+   // Button addFriendBtn;
+    ImageView addFriendIv;
     RecyclerView reviewsRv,friendsRv;
     List<User> friendsList;
-    List<Review> reviewList;
+    List<DishReview> dishReviewList;
+    User user;
     boolean flagRequest;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,19 +47,19 @@ public class UserProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_user_profile, container, false);
 
         String userId = UserProfileFragmentArgs.fromBundle(getArguments()).getUserId();
-        User user = Model.instance.getUserById(userId);
+        user = Model.instance.getUserById(userId);
 
         friendsList = user.getFriendsList();
         friendsList.remove(Model.instance.getSignedUser());
 
 
-        reviewList = Model.instance.getUserHighestRatingReviewsByUserId(user.getId());
+        dishReviewList = Model.instance.getUserHighestRatingReviewsByUserId(user.getId());
 
         reviewsRv = view.findViewById(R.id.user_profile_favorit_dishes_rv);
         reviewsRv.setHasFixedSize(true);
         RecyclerView.LayoutManager horizontalLayout = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
         reviewsRv.setLayoutManager(horizontalLayout);
-        FavoriteDishAdapter favoriteDishAdapter = new FavoriteDishAdapter(reviewList);
+        FavoriteDishAdapter favoriteDishAdapter = new FavoriteDishAdapter(dishReviewList);
         reviewsRv.setAdapter(favoriteDishAdapter);
 
         friendsRv = view.findViewById(R.id.user_profile_friends_rv);
@@ -63,17 +72,18 @@ public class UserProfileFragment extends Fragment {
         nameTv = view.findViewById(R.id.user_profile_name_tv);
         totalRestaurantsTv =view.findViewById(R.id.user_profile_total_restaurants_num_tv);
         totalReviewsTv = view.findViewById(R.id.user_profile_total_reviews_num_tv);
-        addFriendBtn = view.findViewById(R.id.user_profile_add_friend_btn);
+   //     addFriendBtn = view.findViewById(R.id.user_profile_add_friend_btn);
+        addFriendIv = view.findViewById(R.id.user_profile_add_friend_iv);
         allReviewsBtn = view.findViewById(R.id.user_profile_all_reviews_btn);
 
         favoriteDishAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
-                Dish dish = Model.instance.getDishById(reviewList.get(position).getDishId());
+                Dish dish = Model.instance.getDishById(dishReviewList.get(position).getDishId());
                 String dishName = dish.getName();
                 String price = dish.getPrice();
                 Log.d("TAG","dish clicked: " + dishName + " price: "+price );
-                Navigation.findNavController(v).navigate(UserProfileFragmentDirections.actionUserProfileFragmentToReviewFragment2(reviewList.get(position).getId()));
+                Navigation.findNavController(v).navigate((NavDirections) UserProfileFragmentDirections.actionUserProfileFragmentToReviewFragment2(dishReviewList.get(position).getId()));
             }
         });
 
@@ -82,33 +92,63 @@ public class UserProfileFragment extends Fragment {
             public void onItemClick(View v, int position) {
                 String userName = friendsList.get(position).getLastName();
                 Log.d("TAG","user's row clicked: " + userName);
-                Navigation.findNavController(v).navigate(UserProfileFragmentDirections.actionUserProfileFragmentSelf(friendsList.get(position).getId()));
+                Navigation.findNavController(v).navigate((NavDirections) UserProfileFragmentDirections.actionUserProfileFragmentSelf(friendsList.get(position).getId()));
             }
         });
 
         nameTv.setText(user.getFirstName()+ " "+ user.getLastName());
         totalReviewsTv.setText("Posted total of "+user.getTotalReviews()+" reviews");
         totalRestaurantsTv.setText("Posted reviews on "+user.getTotalRestaurantsVisited()+" restaurants");
-
-        String signedUserId = Model.instance.getSignedUser().getId();
+        User signedUser = Model.instance.getSignedUser();
+        signedUser.updateFriendLists();
+        String signedUserId = signedUser.getId();
 
         if(userId.equals(signedUserId)) {
-            addFriendBtn.setOnClickListener((v) -> {
+            addFriendIv.setOnClickListener((v) -> {
                 Navigation.findNavController(v).navigate(UserProfileFragmentDirections.actionUserProfileFragmentToAddFriendFragment());
             });
-        }else if(!Model.instance.getSignedUser().getFriendsList().contains(Model.instance.getUserById(userId))){
-            addFriendBtn.setText("Send friend request");
+        }else if(!signedUser.getFriendsList().contains(user)){
+            User userProfile = Model.instance.getUserById(userId);
             flagRequest =false;
-            addFriendBtn.setOnClickListener(new View.OnClickListener() {
+            addFriendIv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(!flagRequest) {
-                        addFriendBtn.setText("cancel friend request");
-                        flagRequest = true;
-                    }else{
-                        addFriendBtn.setText("Send friend request");
-                        flagRequest = false;
+                    if(signedUser.getFriendRequestList().contains(userProfile)){
+                        if(!flagRequest){
+                            Model.instance.friendRequestConfirmed(userProfile.getId());
+                            addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_disabled_orange_24);
+                            flagRequest = true;
+                        }else{
+                            Model.instance.cancelFriendsihp(userProfile);
+                            addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_orange24);
+                            flagRequest = false;
+                        }
+                    }else {
+                        if (!flagRequest) {
+                            Model.instance.friendRequestSendRequestToUser(userProfile);
+                            addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_disabled_orange_24);
+                            flagRequest = true;
+                        } else {
+                            Model.instance.friendRequestCancel(userProfile);
+                            addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_orange24);
+                            flagRequest = false;
+                        }
                     }
+                }
+            });
+        }else if(signedUser.getFriendsList().contains(user)){
+            User userProfile = Model.instance.getUserById(userId);
+            addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_disabled_orange_24);
+            flagRequest =false;
+            addFriendIv.setOnClickListener((v)->{
+                if(!flagRequest) {
+                    Model.instance.cancelFriendsihp(userProfile);
+                    addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_orange24);
+                    flagRequest=true;
+                }else{
+                    Model.instance.recoverFriendship(signedUser,userProfile);
+                    addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_disabled_orange_24);
+                    flagRequest=false;
                 }
             });
         }
@@ -116,24 +156,35 @@ public class UserProfileFragment extends Fragment {
         if(signedUserId.equals(userId)){
             allReviewsBtn.setText("My reviews");
         }else{
-            allReviewsBtn.setText("Check out all "+user.getFirstName()+"'s reviews");
+            allReviewsBtn.setText("All reviews");
         }
 
-        if(Model.instance.getSignedUser().getFriendsList().contains(user)){
-            addFriendBtn.setText("Cancel friendship");
-            addFriendBtn.setOnClickListener((v)->{
 
-                    Model.instance.getSignedUser().deleteFriend(user);
-                    user.deleteFriend(Model.instance.getSignedUser());
-                    Navigation.findNavController(v).navigate(UserProfileFragmentDirections.actionUserProfileFragmentToUserListRvFragment(Model.instance.getSignedUser().getId()));
-
-            });
-        }
         allReviewsBtn.setOnClickListener((v)-> {
-            Navigation.findNavController(v).navigate(UserProfileFragmentDirections.actionUserProfileFragmentToUserRestaurantListRvFragment(userId));
+            Navigation.findNavController(v).navigate((NavDirections) UserProfileFragmentDirections.actionUserProfileFragmentToUserRestaurantListRvFragment(userId));
         });
 
-
+        setHasOptionsMenu(true);
         return view;
+    }
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.all_other_fragments_menu,menu);
+
+    }
+    @Override
+    public void onPrepareOptionsMenu (Menu menu) {
+        if (user.getId().equals(Model.instance.getSignedUser().getId())) {
+            menu.findItem(R.id.main_menu_profile).setEnabled(false);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+
+                return super.onOptionsItemSelected(item);
+
     }
 }

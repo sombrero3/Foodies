@@ -14,7 +14,7 @@
         android:layout_marginTop="32dp"
         android:text="Name :"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/textView23"
         app:layout_constraintTop_toBottomOf="@+id/textView23" />
 
@@ -24,10 +24,18 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Peapol you might know :"
-        android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textColor="@color/grey_1"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/textView22"
         app:layout_constraintTop_toBottomOf="@+id/add_friend_serach_btn" />
+
+    <View
+        android:id="@+id/add_friend_line"
+        style="@style/line"
+        android:layout_width="match_parent"
+        android:layout_marginTop="4dp"
+        app:layout_constraintTop_toBottomOf="@+id/add_friend_rv_title_tv"
+        tools:layout_editor_absoluteX="0dp" />
 
     <TextView
         android:id="@+id/add_friend_wrong_details_tv"
@@ -49,10 +57,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="Enter friend's details"
-        android:textColor="@color/white"
-        android:textSize="20sp"
+        android:layout_marginTop="32dp"
+        android:text="Enter friend's details :"
+        android:textColor="@color/grey_1"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -63,7 +71,7 @@
         android:layout_marginTop="16dp"
         android:text="Email :"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/textView21"
         app:layout_constraintTop_toBottomOf="@+id/add_friend_name_et" />
 
@@ -110,22 +118,10 @@
         android:id="@+id/add_friend_rv"
         android:layout_width="409dp"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_friend_rv_title_tv" />
-
-    <Button
-        android:id="@+id/add_friend_request_btn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:layout_marginEnd="1dp"
-        android:backgroundTint="@color/orange_1"
-        android:text="Send friend request"
-        app:layout_constraintBottom_toBottomOf="@+id/add_friend_rv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/add_friend_line" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

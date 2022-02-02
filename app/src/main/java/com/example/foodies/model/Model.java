@@ -16,7 +16,7 @@ public class Model {
     List<User> userList = new LinkedList<>();
     List<Restaurant> restaurantList = new ArrayList<>();
     List<Dish> dishList = new LinkedList<>();
-    List<Review> reviewList = new LinkedList<>();
+    List<DishReview> dishReviewList = new LinkedList<>();
     User signedUser;
     boolean signedFlag;
 
@@ -25,20 +25,24 @@ public class Model {
     private Model() {
         signedFlag = false;
         for(int i=1;i<11;i++){
-            User user = new User("name "+i, "" + i );
+            User user = new User("name "+i, "" + i ,"email@gmail.com");
             userList.add(user);
         }
 
         Random rand = new Random();
-        for(int j=0;j<userList.size();j++){
+        for(int j=0;j<userList.size()-2;j++){
             for(int i=0;i<2;i++) {
-                int x = Math.abs(rand.nextInt() % userList.size());
+                int x = Math.abs(rand.nextInt() % (userList.size()-2));
                 if (!userList.get(j).getFriendsList().contains(userList.get(x)) && x!=j ) {
                     userList.get(i).addFriend(userList.get(x));
                     userList.get(x).addFriend(userList.get(i));
                 }
             }
         }
+        setSignedUser(userList.get(0));
+        setSignedFlag(true);
+        friendRequestCreateRequestFromUser(userList.get(8));
+        friendRequestCreateRequestFromUser(userList.get(9));
 
         Random random = new Random();
         for(int i=0;i<10;i++){
@@ -47,11 +51,11 @@ public class Model {
                 Dish dish = new Dish("Dish name "+i + " " + j);
                 for(int k=0;k<10;k++){
                         String rating  = Integer.toString(Math.abs((random.nextInt()%5))+1);
-                        Review review = new Review(dish.getId(), res.getId(),userList.get(k).getId(),rating);
+                        DishReview dishReview = new DishReview(dish.getId(), res.getId(),userList.get(k).getId(),rating);
                         dish.setPrice(Integer.toString(k)+"$");
-                        userList.get(k).addReview(review);
-                        reviewList.add(review);
-                        dish.addReview(review);
+                        userList.get(k).addReview(dishReview);
+                        dishReviewList.add(dishReview);
+                        dish.addReview(dishReview);
                 }
                 dishList.add(dish);
                 res.addDish(dish);
@@ -74,17 +78,18 @@ public class Model {
     public void setRestaurantList(List<Restaurant> restaurantList) {
         this.restaurantList = restaurantList;
     }
+
     public List<Dish> getDishList() {
         return dishList;
     }
     public void setDishList(List<Dish> dishList) {
         this.dishList = dishList;
     }
-    public List<Review> getReviewList() {
-        return reviewList;
+    public List<DishReview> getReviewList() {
+        return dishReviewList;
     }
-    public void setReviewList(List<Review> reviewList) {
-        this.reviewList = reviewList;
+    public void setReviewList(List<DishReview> dishReviewList) {
+        this.dishReviewList = dishReviewList;
     }
 
     public User getSignedUser() {
@@ -129,13 +134,13 @@ public class Model {
         }
         return new Restaurant();
     }
-    public Review getReviewById(String id){
-        for(int i=0;i<reviewList.size();i++){
-            if(reviewList.get(i).getId().equals(id)){
-                return reviewList.get(i);
+    public DishReview getReviewById(String id){
+        for(int i = 0; i< dishReviewList.size(); i++){
+            if(dishReviewList.get(i).getId().equals(id)){
+                return dishReviewList.get(i);
             }
         }
-        return new Review();
+        return new DishReview();
     }
     public User getUserById(String id){
         for(int i=0;i< userList.size();i++){
@@ -146,11 +151,10 @@ public class Model {
         return new User();
     }
 
-    public void addReview(Review review){
-        getSignedUser().addReview(review);
-        getDishById(review.getDishId()).addReview(review);
-        //getRestaurantById(review.getRestaurantId()).updateRating();
-        reviewList.add(review);
+    public void addDishReview(DishReview dishReview){
+        getSignedUser().addReview(dishReview);
+        getDishById(dishReview.getDishId()).addReview(dishReview);
+        dishReviewList.add(dishReview);
     }
     public void addDish(Dish dish){
       getRestaurantById(dish.getRestaurantId()).addDish(dish);
@@ -163,11 +167,11 @@ public class Model {
         userList.add(user);
     }
 
-    public void deleteReview(Review review){
-        getDishById(review.getDishId()).deleteReview(review);       // remove from the dish's review list
-        getUserById(review.getUserId()).deleteReview(review);       // remove the review from the user's review list
-        getRestaurantById(review.getRestaurantId()).updateRating();
-        reviewList.remove(review);
+    public void deleteReview(DishReview dishReview){
+        getDishById(dishReview.getDishId()).deleteReview(dishReview);       // remove from the dish's review list
+        getUserById(dishReview.getUserId()).deleteReview(dishReview);       // remove the review from the user's review list
+        getRestaurantById(dishReview.getRestaurantId()).updateRating();
+        dishReviewList.remove(dishReview);
     }
     public void deleteDish(Dish dish){
         int size = dish.getReviewList().size();
@@ -200,7 +204,7 @@ public class Model {
                 for (int k = 0; k < size3;k++) {
                     if(restaurant.getDishList().get(i).getReviewList().get(j).userId.equals(userList.get(k).getId())){
                         userList.get(k).deleteReview(restaurant.getDishList().get(i).getReviewList().get(j));
-                        reviewList.remove(restaurant.getDishList().get(i).getReviewList().get(j));
+                        dishReviewList.remove(restaurant.getDishList().get(i).getReviewList().get(j));
                     }
                 }
             }
@@ -213,13 +217,13 @@ public class Model {
         for(int i=0;i<size;i++){
             user.getFriendsList().get(i).getFriendsList().remove(user);
         }
-        size = user.getReviewList().size();  // remove all user's reviews from their dishes
+        size = user.getDishReviewList().size();  // remove all user's reviews from their dishes
         for(int i=0;i<size;i++){
             int size2 =dishList.size();
-            String dish = user.getReviewList().get(i).getDishId();
+            String dish = user.getDishReviewList().get(i).getDishId();
             for(int j=0;j<size2;j++) {
                 if(dishList.get(j).getId().equals(dish)){
-                    dishList.get(j).deleteReview(user.getReviewList().get(i));
+                    dishList.get(j).deleteReview(user.getDishReviewList().get(i));
                 }
             }
         }
@@ -228,9 +232,9 @@ public class Model {
 
     public List<User> getAllUsersThatHaveReviewsOnRestaurantByRestaurantId(String restaurantId){
         List<User> result = new LinkedList<>();
-        for(int i=0;i<reviewList.size();i++){
-            if(reviewList.get(i).getRestaurantId().equals(restaurantId) && !result.contains(getUserById(reviewList.get(i).getUserId()))){
-                result.add(getUserById(reviewList.get(i).getUserId()));
+        for(int i = 0; i< dishReviewList.size(); i++){
+            if(dishReviewList.get(i).getRestaurantId().equals(restaurantId) && !result.contains(getUserById(dishReviewList.get(i).getUserId()))){
+                result.add(getUserById(dishReviewList.get(i).getUserId()));
 
             }
         }
@@ -238,9 +242,9 @@ public class Model {
     }
     public List<Restaurant> getAllRestaurantsThatUserHasReviewsOnByUserId(String userId){
         List<Restaurant> result = new LinkedList<>();
-        for(int i=0;i<reviewList.size();i++){
-            if(reviewList.get(i).getUserId().equals(userId) && !result.contains(getRestaurantById(reviewList.get(i).getRestaurantId()))){
-                result.add(getRestaurantById(reviewList.get(i).getRestaurantId()));
+        for(int i = 0; i< dishReviewList.size(); i++){
+            if(dishReviewList.get(i).getUserId().equals(userId) && !result.contains(getRestaurantById(dishReviewList.get(i).getRestaurantId()))){
+                result.add(getRestaurantById(dishReviewList.get(i).getRestaurantId()));
 
             }
         }
@@ -248,22 +252,22 @@ public class Model {
     }
     public List<Dish> getAllDishesThatTheUserHasAReviewedOnInThisRestaurantByUserIdAndRestaurantId(String userId,String restaurantId){
         List<Dish> result = new LinkedList<>();
-        List<Review> reviews = Model.instance.getUserById(userId).getReviewList();
-        for(Review review:reviews){
-            if(review.getUserId().equals(userId) && review.getRestaurantId().equals(restaurantId) && !result.contains(getDishById(review.getDishId()))){
-                result.add(getDishById(review.getDishId()));
+        List<DishReview> dishReviews = Model.instance.getUserById(userId).getDishReviewList();
+        for(DishReview dishReview : dishReviews){
+            if(dishReview.getUserId().equals(userId) && dishReview.getRestaurantId().equals(restaurantId) && !result.contains(getDishById(dishReview.getDishId()))){
+                result.add(getDishById(dishReview.getDishId()));
             }
         }
         return result;
     }
-    public Review getReviewOnDishByDishIdAndUserId(String dishId,String userId){
-        List<Review> reviews = Model.instance.getUserById(userId).getReviewList();
-        for(Review review:reviews){
-            if(review.getDishId().equals(dishId) && review.getUserId().equals(userId)){
-                return review;
+    public DishReview getReviewOnDishByDishIdAndUserId(String dishId, String userId){
+        List<DishReview> dishReviews = Model.instance.getUserById(userId).getDishReviewList();
+        for(DishReview dishReview : dishReviews){
+            if(dishReview.getDishId().equals(dishId) && dishReview.getUserId().equals(userId)){
+                return dishReview;
             }
         }
-        return reviews.get(0);
+        return dishReviews.get(0);
     }
     public String getRestaurantIdByName(String resName){
         for(int i=0;i<restaurantList.size();i++){
@@ -283,20 +287,20 @@ public class Model {
         }
         return "No Such Dish";
     }
-    public List<Review> getAllFriendsReviewsOnDishByDishId(String dishId){
+    public List<DishReview> getAllFriendsReviewsOnDishByDishId(String dishId){
         User signedUser = getSignedUser();
         String signedUserId = signedUser.getId();
         Dish dish = getDishById(dishId);
         List<User> friends = signedUser.getFriendsList();
-        List<Review> reviews =  new LinkedList<>();
-        for(Review rev:dish.getReviewList()){
+        List<DishReview> dishReviews =  new LinkedList<>();
+        for(DishReview rev:dish.getReviewList()){
             for(User friend:friends){
                 if(rev.getUserId().equals(friend.getId()) && !rev.getUserId().equals(signedUserId)){
-                    reviews.add(rev);
+                    dishReviews.add(rev);
                 }
             }
         }
-        return reviews;
+        return dishReviews;
     }
     public List<User> getUsersByName(String name){
         List<User> result = new LinkedList<>();
@@ -307,7 +311,6 @@ public class Model {
         }
         return result;
     }
-
     public List<User> getUsersByEmail(String email){
         List<User> result = new LinkedList<>();
         for (User user : userList) {
@@ -317,7 +320,6 @@ public class Model {
         }
         return result;
     }
-
     public List<User> getUsersByNameAndEmail(String name,String email){
         List<User> result = new LinkedList<>();
         for (User user :userList) {
@@ -327,14 +329,41 @@ public class Model {
         }
         return result;
     }
+    public List<User> getNotFriendsUsersByName(String name) {
+        List<User> result = new LinkedList<>();
+        for (User user :userList) {
+            if(!signedUser.getFriendsList().contains(user) && user.getFirstName().contains(name) && !signedUser.getId().equals(user.getId())){
+                result.add(user);
+            }
+        }
+        return result;
+    }
 
+    public List<User> getNotFriendsUsersByEmail(String email) {
+        List<User> result = new LinkedList<>();
+        for (User user : userList) {
+            if (!signedUser.getFriendsList().contains(user) && user.getEmail().contains(email)&& !user.getEmail().equals("No email address")) {
+                result.add(user);
+            }
+        }
+        return result;
+    }
+    public List<User> getNotFriendsUsersByNameAndEmail(String name,String email){
+        List<User> result = new LinkedList<>();
+        for (User user :userList) {
+            if(!signedUser.getFriendsList().contains(user) && user.getFirstName().contains(name)&& user.getEmail().contains(email)){
+                result.add(user);
+            }
+        }
+        return result;
+    }
     public List<User> peopleYouMayKnow(){
-        List<User> friends , result;
+        List<User> signedUserFriends , result;
         result = new LinkedList<>();
-        friends = getSignedUser().getFriendsList();
-        for (User friend: friends) {
+        signedUserFriends = signedUser.getFriendsList();
+        for (User friend: signedUserFriends) {
             for (User friendfriends:friend.getFriendsList()) {
-                if(!result.contains(friendfriends) && !friends.contains(friendfriends) && !friendfriends.getId().equals(getSignedUser().getId())) {
+                if(!result.contains(friendfriends) && !signedUserFriends.contains(friendfriends) && !friendfriends.getId().equals(signedUser.getId())) {
                     result.add(friendfriends);
                 }
             }
@@ -343,50 +372,45 @@ public class Model {
     }
 
     public String getRestaurantRatingGivenByAUser(User user,String restaurantId){
-        List<Review> reviews = user.getReviewList();
+        List<DishReview> dishReviews = user.getDishReviewList();
         double f ,reminder,sum=0,avg;
         int counter=0;
         String rating="No rating yet";
-        for (Review review:reviews) {
-            if(review.getRestaurantId().equals(restaurantId)){
-                sum+= Double.parseDouble(review.getRating());
+        for (DishReview dishReview : dishReviews) {
+            if(dishReview.getRestaurantId().equals(restaurantId) && !dishReview.getRating().equals("No rating yet")){
+                sum += Double.parseDouble(dishReview.getRating());
                 counter++;
+
             }
         }
 
-        f = sum/counter;
-        avg = Math.floor(sum/counter);
-        reminder = f - avg;
-        if(reminder<0.25){
-            rating =Double.toString(avg);
-        }
-        else if(reminder>=0.25 && reminder < 0.75){
-            rating = Double.toString(avg+0.5);
-        }
-        else if(reminder>=0.75){
-            rating=Double.toString(avg+1);
+        if(counter>0) {
+            f = sum / counter;
+            avg = Math.floor(sum / counter);
+            reminder = f - avg;
+            if (reminder < 0.25) {
+                rating = Double.toString(avg);
+            } else if (reminder >= 0.25 && reminder < 0.75) {
+                rating = Double.toString(avg + 0.5);
+            } else if (reminder >= 0.75) {
+                rating = Double.toString(avg + 1);
+            }
         }
 
         return rating;
     }
 
-    public List<Review> getUserHighestRatingReviewsByUserId(String userId) {
-        List<Review> result = new LinkedList<>();
-        List<Review> reviews = getUserById(userId).getReviewList();
-        for (Review review:reviews) {
-            if(Double.parseDouble(review.getRating())>4.0){
-                result.add(review);
+    public List<DishReview> getUserHighestRatingReviewsByUserId(String userId) {
+        List<DishReview> result = new LinkedList<>();
+        List<DishReview> dishReviews = getUserById(userId).getDishReviewList();
+        for (DishReview dishReview : dishReviews) {
+            if(Double.parseDouble(dishReview.getRating())>4.0){
+                result.add(dishReview);
             }
         }
         return result;
     }
 
-    public void createFriendship(String userId) {
-        User user1 = getSignedUser();
-        User user2 = getUserById(userId);
-        user1.addFriend(user2);
-        user2.addFriend(user1);
-    }
 
 
     public Integer getNumOfFriendsVisitedInRestaurant(String restaurantID){
@@ -422,14 +446,14 @@ public class Model {
             rateTv.setVisibility(View.INVISIBLE);
             float rate =Float.parseFloat(ratingVal);
             if(rate==0.5){
-                star1.setImageResource(R.drawable.halfstar);
+                star1.setImageResource(R.drawable.ic_baseline_star_half_24);
                 star2.setVisibility(View.INVISIBLE);
                 star3.setVisibility(View.INVISIBLE);
                 star4.setVisibility(View.INVISIBLE);
                 star5.setVisibility(View.INVISIBLE);
             }
             else if(rate==1){
-                star1.setImageResource(R.drawable.star);
+                star1.setImageResource(R.drawable.ic_baseline_star_24);
                 star2.setVisibility(View.INVISIBLE);
                 star3.setVisibility(View.INVISIBLE);
                 star4.setVisibility(View.INVISIBLE);
@@ -437,64 +461,61 @@ public class Model {
 
             }
             else if(rate==1.5){
-                star1.setImageResource(R.drawable.star);
-                star2.setImageResource(R.drawable.halfstar);
+                star1.setImageResource(R.drawable.ic_baseline_star_24);
+                star2.setImageResource(R.drawable.ic_baseline_star_half_24);
                 star3.setVisibility(View.INVISIBLE);
                 star4.setVisibility(View.INVISIBLE);
                 star5.setVisibility(View.INVISIBLE);
             }
             else if(rate==2){
-                star1.setImageResource(R.drawable.star);
-                star2.setImageResource(R.drawable.star);
+                star1.setImageResource(R.drawable.ic_baseline_star_24);
+                star2.setImageResource(R.drawable.ic_baseline_star_24);
                 star3.setVisibility(View.INVISIBLE);
                 star4.setVisibility(View.INVISIBLE);
                 star5.setVisibility(View.INVISIBLE);
             }
             else if(rate==2.5){
-                star1.setImageResource(R.drawable.star);
-                star2.setImageResource(R.drawable.star);
-                star3.setImageResource(R.drawable.halfstar);
+                star1.setImageResource(R.drawable.ic_baseline_star_24);
+                star2.setImageResource(R.drawable.ic_baseline_star_24);
+                star3.setImageResource(R.drawable.ic_baseline_star_half_24);
                 star4.setVisibility(View.INVISIBLE);
                 star5.setVisibility(View.INVISIBLE);
             }
             else if(rate==3){
-                star1.setImageResource(R.drawable.star);
-                star2.setImageResource(R.drawable.star);
-                star3.setImageResource(R.drawable.star);
+                star1.setImageResource(R.drawable.ic_baseline_star_24);
+                star2.setImageResource(R.drawable.ic_baseline_star_24);
+                star3.setImageResource(R.drawable.ic_baseline_star_24);
                 star4.setVisibility(View.INVISIBLE);
                 star5.setVisibility(View.INVISIBLE);
             }
             else if(rate==3.5){
-                star1.setImageResource(R.drawable.star);
-                star2.setImageResource(R.drawable.star);
-                star3.setImageResource(R.drawable.star);
-                star4.setImageResource(R.drawable.halfstar);
+                star1.setImageResource(R.drawable.ic_baseline_star_24);
+                star2.setImageResource(R.drawable.ic_baseline_star_24);
+                star3.setImageResource(R.drawable.ic_baseline_star_24);
+                star4.setImageResource(R.drawable.ic_baseline_star_half_24);
                 star5.setVisibility(View.INVISIBLE);
             }
             else if(rate==4){
-                star1.setImageResource(R.drawable.star);
-                star2.setImageResource(R.drawable.star);
-                star3.setImageResource(R.drawable.star);
-                star4.setImageResource(R.drawable.star);
+                star1.setImageResource(R.drawable.ic_baseline_star_24);
+                star2.setImageResource(R.drawable.ic_baseline_star_24);
+                star3.setImageResource(R.drawable.ic_baseline_star_24);
+                star4.setImageResource(R.drawable.ic_baseline_star_24);
                 star5.setVisibility(View.INVISIBLE);
             }
             else if(rate==4.5){
-                star1.setImageResource(R.drawable.star);
-                star2.setImageResource(R.drawable.star);
-                star3.setImageResource(R.drawable.star);
-                star4.setImageResource(R.drawable.star);
-                star5.setImageResource(R.drawable.halfstar);
+                star1.setImageResource(R.drawable.ic_baseline_star_24);
+                star2.setImageResource(R.drawable.ic_baseline_star_24);
+                star3.setImageResource(R.drawable.ic_baseline_star_24);
+                star4.setImageResource(R.drawable.ic_baseline_star_24);
+                star5.setImageResource(R.drawable.ic_baseline_star_half_24);
             }
             else if(rate==5){
-                star1.setImageResource(R.drawable.star);
-                star2.setImageResource(R.drawable.star);
-                star3.setImageResource(R.drawable.star);
-                star4.setImageResource(R.drawable.star);
-                star5.setImageResource(R.drawable.star);
-
+                star1.setImageResource(R.drawable.ic_baseline_star_24);
+                star2.setImageResource(R.drawable.ic_baseline_star_24);
+                star3.setImageResource(R.drawable.ic_baseline_star_24);
+                star4.setImageResource(R.drawable.ic_baseline_star_24);
+                star5.setImageResource(R.drawable.ic_baseline_star_24);
             }
-
-
         }
         else{
             star1.setVisibility(View.INVISIBLE);
@@ -503,7 +524,6 @@ public class Model {
             star4.setVisibility(View.INVISIBLE);
             star5.setVisibility(View.INVISIBLE);
         }
-
     }
 
     public List<Restaurant> searchRestaurantByName(String text) {
@@ -516,7 +536,7 @@ public class Model {
         return result;
     }
 
-    public List<Restaurant> serachRestaurantByNameAndRestaurantList(String text,List<Restaurant> restaurantList) {
+    public List<Restaurant> searchRestaurantByNameAndRestaurantList(String text, List<Restaurant> restaurantList) {
         List<Restaurant> result = new LinkedList<>();
         for (Restaurant res:restaurantList) {
             if(res.getName().contains(text)){
@@ -529,9 +549,9 @@ public class Model {
     public String getReviewRatingByDishIdAndUserId(String dishId, String userId) {
         String rating ="";
         User user = getUserById(userId);
-        for (Review review :user.getReviewList()) {
-            if(review.getDishId().equals(dishId)){
-                rating = review.getRating();
+        for (DishReview dishReview :user.getDishReviewList()) {
+            if(dishReview.getDishId().equals(dishId)){
+                rating = dishReview.getRating();
             }
         }
 
@@ -568,4 +588,92 @@ public class Model {
         return result;
     }
 
+
+    public void friendRequestCancel(User user2){
+        user2.friendRequestDelete(signedUser);
+    }
+    public void friendRequestCreateRequestFromUser(User user){
+        signedUser.friendRequestToConfirm(user);
+    }
+    public void friendRequestSendRequestToUser(User user2 ){
+        user2.friendRequestToConfirm(signedUser);
+    }
+
+    public void friendRequestConfirmed(String userId) {
+        signedUser.friendRequestConfirmed(getUserById(userId));
+    }
+
+    public void createFriendship(String userId) {
+        User user2 = getUserById(userId);
+        signedUser.friendRequestConfirmed(user2);
+        user2.friendRequestConfirmed(signedUser);
+    }
+
+    public void cancelFriendsihp(User user2){
+        signedUser.cancelFriendship(user2);
+        user2.cancelFriendship(signedUser);
+    }
+
+    public void recoverFriendship(User user1, User user2) {
+        user1.addFriend(user2);
+        user2.addFriend(user1);
+    }
+
+    public void friendRequestIgnored(User user){
+        signedUser.friendRequestIgnored(user);
+    }
+
+    public void friendRequestCancelIgnore(User user){
+        signedUser.friendRequestCancelIgnore(user);
+    }
+
+
+    public void friendRequestUnConfirmed(User user) {
+        signedUser.friendRequestUnConfirmed(user);
+    }
+
+    public int getNumOfReviewsFromFriendsOnRestaurant(String restaurantId) {
+        int counter=0;
+        List<User> friends = signedUser.getFriendsList();
+        for (User user: friends) {
+            List<DishReview> reviews = user.getDishReviewList();
+            for (DishReview rev:reviews) {
+                if(rev.getRestaurantId().equals(restaurantId)){
+                    counter++;
+                }
+            }
+        }
+        return counter;
+    }
+
+    public List<User> getAllFriendssThatHaveReviewsOnRestaurantByRestaurantId(String restaurantId) {
+        List<User> result = new LinkedList<>();
+        List<User> friends = signedUser.getFriendsList();
+        for(User user: friends){
+            List<DishReview> reviews = user.getDishReviewList();
+            for (DishReview rev:reviews) {
+                if(rev.getRestaurantId().equals(restaurantId)){
+                    result.add(user);
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
+    public List<DishReview> getAllFriendsReviewsOnDishByDishIdAndUserId(String dishId, String userId) {
+        User signedUser = getSignedUser();
+        String signedUserId = signedUser.getId();
+        Dish dish = getDishById(dishId);
+        List<User> friends = signedUser.getFriendsList();
+        List<DishReview> dishReviews =  new LinkedList<>();
+        for(DishReview rev:dish.getReviewList()){
+            for(User friend:friends){
+                if(rev.getUserId().equals(friend.getId()) && !rev.getUserId().equals(userId) && !rev.getUserId().equals(signedUserId)){
+                    dishReviews.add(rev);
+                }
+            }
+        }
+        return dishReviews;
+    }
 }

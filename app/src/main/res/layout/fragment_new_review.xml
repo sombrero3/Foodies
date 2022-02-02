@@ -1,52 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/NewReview_constrains"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
     tools:context=".NewReviewFragment">
 
-    <ImageView
-        android:id="@+id/new_review_star3_iv"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="8dp"
-        android:src="@drawable/star"
-        app:layout_constraintBottom_toBottomOf="@+id/new_review_star2_iv"
-        app:layout_constraintStart_toEndOf="@+id/new_review_star2_iv"
-        app:layout_constraintTop_toTopOf="@+id/new_review_star2_iv" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/NewReview_constrains"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        tools:context=".NewReviewFragment">
 
-    <ImageView
-        android:id="@+id/new_review_star4_iv"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="8dp"
-        android:src="@drawable/star"
-        app:layout_constraintBottom_toBottomOf="@+id/new_review_star3_iv"
-        app:layout_constraintStart_toEndOf="@+id/new_review_star3_iv"
-        app:layout_constraintTop_toTopOf="@+id/new_review_star3_iv" />
+        <ImageView
+            android:id="@+id/new_review_star3_iv"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/star"
+            app:layout_constraintBottom_toBottomOf="@+id/new_review_star2_iv"
+            app:layout_constraintStart_toEndOf="@+id/new_review_star2_iv"
+            app:layout_constraintTop_toTopOf="@+id/new_review_star2_iv"
+            app:srcCompat="@drawable/ic_baseline_star_24" />
 
-    <ImageView
-        android:id="@+id/new_review_star5_iv"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="8dp"
-        android:src="@drawable/star"
-        app:layout_constraintBottom_toBottomOf="@+id/new_review_star4_iv"
-        app:layout_constraintStart_toEndOf="@+id/new_review_star4_iv"
-        app:layout_constraintTop_toTopOf="@+id/new_review_star4_iv" />
+        <ImageView
+            android:id="@+id/new_review_star4_iv"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/star"
+            app:layout_constraintBottom_toBottomOf="@+id/new_review_star3_iv"
+            app:layout_constraintStart_toEndOf="@+id/new_review_star3_iv"
+            app:layout_constraintTop_toTopOf="@+id/new_review_star3_iv"
+            app:srcCompat="@drawable/ic_baseline_star_24" />
 
-    <ImageView
-        android:id="@+id/new_review_star2_iv"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="8dp"
-        android:src="@drawable/star"
-        app:layout_constraintBottom_toBottomOf="@+id/new_review_star1_iv"
-        app:layout_constraintStart_toEndOf="@+id/new_review_star1_iv"
-        app:layout_constraintTop_toTopOf="@+id/new_review_star1_iv" />
+        <ImageView
+            android:id="@+id/new_review_star5_iv"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/star"
+            app:layout_constraintBottom_toBottomOf="@+id/new_review_star4_iv"
+            app:layout_constraintStart_toEndOf="@+id/new_review_star4_iv"
+            app:layout_constraintTop_toTopOf="@+id/new_review_star4_iv"
+            app:srcCompat="@drawable/ic_baseline_star_24" />
+
+        <ImageView
+            android:id="@+id/new_review_star2_iv"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/star"
+            app:layout_constraintBottom_toBottomOf="@+id/new_review_star1_iv"
+            app:layout_constraintStart_toEndOf="@+id/new_review_star1_iv"
+            app:layout_constraintTop_toTopOf="@+id/new_review_star1_iv"
+            app:srcCompat="@drawable/ic_baseline_star_24" />
 
     <TextView
         android:id="@+id/new_review_title_tv"
@@ -66,37 +76,49 @@
         android:id="@+id/textView13"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Resturant name :"
+        android:text="Restaurant name :"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/new_review_restaurant_et"
         app:layout_constraintStart_toStartOf="@+id/new_review_location_tv" />
 
-    <ImageView
-        android:id="@+id/new_review_star1_iv"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="16dp"
-        android:src="@drawable/star"
-        app:layout_constraintStart_toEndOf="@+id/textView11"
-        app:layout_constraintTop_toTopOf="@+id/textView11" />
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Ggeneral review about the restaurant :"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/new_review_restaurant_et"
+        app:layout_constraintStart_toStartOf="@+id/new_review_location_tv"
+        app:layout_constraintTop_toBottomOf="@+id/new_review_restaurant_et" />
+
+        <ImageView
+            android:id="@+id/new_review_star1_iv"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/star"
+            app:layout_constraintStart_toEndOf="@+id/textView11"
+            app:layout_constraintTop_toTopOf="@+id/textView11"
+            app:srcCompat="@drawable/ic_baseline_star_24" />
 
     <EditText
         android:id="@+id/new_review_dish_et"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="32dp"
         android:backgroundTint="@color/white"
         android:ems="10"
         android:inputType="textPersonName"
         android:textColor="@color/white"
         android:textColorHint="@color/black"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/new_review_general_description_et"
         app:layout_constraintStart_toEndOf="@+id/textView7"
-        app:layout_constraintTop_toBottomOf="@+id/new_review_restaurant_et" />
+        app:layout_constraintTop_toBottomOf="@+id/new_review_general_description_et" />
 
     <EditText
         android:id="@+id/new_review_restaurant_et"
@@ -115,6 +137,22 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/textView13"
         app:layout_constraintTop_toBottomOf="@+id/user_row_img" />
+
+    <EditText
+        android:id="@+id/new_review_general_description_et"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/white"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textColor="@color/white"
+        android:textColorHint="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/new_review_restaurant_et"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/textView14"
+        app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
     <Button
         android:id="@+id/new_review_uploadImg_btn"
@@ -157,13 +195,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="8dp"
         android:backgroundTint="@color/white"
         android:ems="10"
         android:inputType="textPersonName"
         android:shadowColor="@color/purple_700"
         android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/new_review_dish_et"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/textView15"
         app:layout_constraintTop_toBottomOf="@+id/new_review_dish_et" />
@@ -187,7 +224,7 @@
         android:id="@+id/textView16"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:text="Enter your review:"
         android:textColor="@color/white"
         android:textSize="20sp"
@@ -233,20 +270,22 @@
         app:layout_constraintStart_toEndOf="@+id/textView18"
         app:layout_constraintTop_toTopOf="@+id/textView18" />
 
-    <TextView
-        android:id="@+id/textView18"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="4dp"
-        android:text="Your rating for that dish is :"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/new_review_rating_tv"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="16dp"
+            android:text="Your rating for that dish is :"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/new_review_uploadImg_btn"
+            app:layout_constraintEnd_toStartOf="@+id/new_review_rating_tv"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
     <Button
         android:id="@+id/new_review_postReview_btn"
@@ -286,4 +325,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/user_row_img" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

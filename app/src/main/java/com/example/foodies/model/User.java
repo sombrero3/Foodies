@@ -2,7 +2,6 @@ package com.example.foodies.model;
 
 import android.media.Image;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,8 +13,9 @@ public class User {
     String email;
     String password;
     Image image;
-    List<Review> reviewList;
-    List<User> friendsList;
+    List<Review> generalReviewList;
+    List<DishReview> dishReviewList;
+    List<User> friendsList,friendRequestList,ignoredList,confirmedList;
     String totalRestaurantsVisited;
 
     //-------Constructors-------//
@@ -25,8 +25,12 @@ public class User {
         lastName = "";
         email ="No email address";
         totalReviews ="0";
-        reviewList = new LinkedList<>();
+        generalReviewList = new LinkedList<>();
+        dishReviewList = new LinkedList<>();
         friendsList = new LinkedList<>();
+        friendRequestList = new LinkedList<>();
+        ignoredList = new LinkedList<>();
+        confirmedList = new LinkedList<>();
         password = "";
         totalRestaurantsVisited = "0";
     }
@@ -37,8 +41,12 @@ public class User {
         email ="No email address";
         totalReviews ="0";
         this.password = password;
-        reviewList = new LinkedList<>();
+        generalReviewList = new LinkedList<>();
+        dishReviewList = new LinkedList<>();
         friendsList = new LinkedList<>();
+        friendRequestList = new LinkedList<>();
+        ignoredList = new LinkedList<>();
+        confirmedList = new LinkedList<>();
         totalRestaurantsVisited = "0";
     }
     public User(String firstName,String password,String email){
@@ -48,20 +56,14 @@ public class User {
         this.email = email;
         totalReviews ="0";
         this.password = password;
-        reviewList = new LinkedList<>();
+        generalReviewList = new LinkedList<>();
+        dishReviewList = new LinkedList<>();
         friendsList = new LinkedList<>();
+        friendRequestList = new LinkedList<>();
+        ignoredList = new LinkedList<>();
+        confirmedList = new LinkedList<>();
         totalRestaurantsVisited = "0";
     }
-//    public User(String firstName,String lastName){
-//        id = Integer.toString(IdGenerator.instance.getNextId());
-//        this.firstName = firstName;
-//        this.lastName = lastName;
-//        totalReviews ="0";
-//        password = lastName;
-//        reviewList = new LinkedList<>();
-//        friendsList = new LinkedList<>();
-//        totalRestaurantsVisited = "0";
-//    }
 
     //-------Getters and Setters-------//
     public String getId() {
@@ -91,14 +93,11 @@ public class User {
     public void setImage(Image image) {
         this.image = image;
     }
-    public List<Review> getReviewList() {
-        return reviewList;
+    public List<DishReview> getDishReviewList() {
+        return dishReviewList;
     }
-    public void setReviewList(List<Review> reviewList) {
-        this.reviewList = reviewList;
-    }
-    public List<User> getFriendsList() {
-        return friendsList;
+    public void setDishReviewList(List<DishReview> dishReviewList) {
+        this.dishReviewList = dishReviewList;
     }
     public void setFriendsList(List<User> friendsList) {
         this.friendsList = friendsList;
@@ -109,31 +108,57 @@ public class User {
     public void setTotalRestaurantsVisited(String totalRestaurantsVisited) {
         this.totalRestaurantsVisited = totalRestaurantsVisited;
     }
-
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
-
     public String getEmail() {
         return email;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
+    public List<User> getFriendRequestList() {
+        return friendRequestList;
+    }
+    public void setFriendRequestList(List<User> friendRequestList) {
+        this.friendRequestList = friendRequestList;
+    }
+    public List<User> getIgnoredList() {
+        return ignoredList;
+    }
+    public void setIgnoredList(List<User> ignoredList) {
+        this.ignoredList = ignoredList;
+    }
+    public List<User> getFriendsList() {
+        updateFriendLists();
+        return friendsList;
+    }
+    public List<User> getConfirmedList() {
+        return confirmedList;
+    }
+    public void setConfirmedList(List<User> confirmedList) {
+        this.confirmedList = confirmedList;
+    }
+
+    public List<Review> getGeneralReviewList() {
+        return generalReviewList;
+    }
+
+    public void setGeneralReviewList(List<Review> generalReviewList) {
+        this.generalReviewList = generalReviewList;
+    }
     //---------------------------------//
 
-    public void addReview(Review review){
+    public void addReview(DishReview dishReview){
 
         int newTotal = Integer.parseInt(totalReviews)+1;
         totalReviews = Integer.toString(newTotal);
         boolean flag = false;
-        for(Review rev:reviewList){
-            if(rev.getRestaurantId().equals(review.getRestaurantId())){
+        for(DishReview rev: dishReviewList){
+            if(rev.getRestaurantId().equals(dishReview.getRestaurantId())){
                 flag = true;
                 break;
             }
@@ -142,16 +167,16 @@ public class User {
            newTotal = Integer.parseInt(totalRestaurantsVisited)+1;
            totalRestaurantsVisited = Integer.toString(newTotal);
         }
-        reviewList.add(review);
+        dishReviewList.add(dishReview);
     }
-    public void deleteReview(Review review){
-        reviewList.remove(review);
+    public void deleteReview(DishReview dishReview){
+        dishReviewList.remove(dishReview);
         int newTotal = Integer.valueOf(totalReviews)-1;
         totalReviews = Integer.toString(newTotal);
-        String restaurant = review.getRestaurantId();
+        String restaurant = dishReview.getRestaurantId();
         boolean flag = false;
-        for(int i=0;i<reviewList.size();i++){
-            if(reviewList.get(i).getRestaurantId().equals(restaurant)){
+        for(int i = 0; i< dishReviewList.size(); i++){
+            if(dishReviewList.get(i).getRestaurantId().equals(restaurant)){
                 flag = true;
                 break;
             }
@@ -162,12 +187,48 @@ public class User {
         }
     }
     public void addFriend(User friend){
-        if(!friendsList.contains(friend)) {
+        if(!friendsList.contains(friend)&& !friend.getId().equals(id)) {
             friendsList.add(friend);
         }
     }
     public void deleteFriend(User friend){
         friendsList.remove(friend);
     }
+    public void friendRequestToConfirm(User user){
+        if(!friendRequestList.contains(user)) {
+            friendRequestList.add(user);
+        }
+    }
+    public void friendRequestConfirmed(User user){
+        if(!confirmedList.contains(user)){confirmedList.add(user);}
+       // addFriend(user);
+    }
+    public void cancelFriendship(User user){
+        deleteFriend(user);
+    }
+    public void friendRequestDelete(User user){
+        friendRequestList.remove(user);
+    }
+    public void friendRequestIgnored(User user){if(!ignoredList.contains(user)){ignoredList.add(user);} }
+    public void friendRequestCancelIgnore(User user){ignoredList.remove(user); }
+    public void friendRequestUnConfirmed(User user){confirmedList.remove(user); }
+    public void updateFriendLists() {
+        for (User user:confirmedList) {
+            if(!friendsList.contains(user)) {
+                friendsList.add(user);
+            }
+            friendRequestList.remove(user);
+            confirmedList.remove(user);
+        }
+        for (User user:ignoredList) {
+            friendRequestList.remove(user);
+            ignoredList.remove(user);
+        }
+        for (User user:friendsList) {
+            if(user.id.equals(id)){
+                friendsList.remove(user);
+            }
+        }
 
+    }
 }

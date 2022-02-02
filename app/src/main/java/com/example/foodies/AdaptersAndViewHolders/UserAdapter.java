@@ -35,7 +35,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder>{
         User user = userList.get(position);
         holder.nameEt.setText(user.getFirstName()+" "+user.getLastName());
         holder.restaurantEt.setText("Visited "+ user.getTotalRestaurantsVisited() +" restaurants total");
-        holder.reviewsEt.setText("Has total of " + user.getReviewList().size()+ " reviews");
+        holder.reviewsEt.setText("Has total of " + user.getDishReviewList().size()+ " reviews");
     }
 
     @Override

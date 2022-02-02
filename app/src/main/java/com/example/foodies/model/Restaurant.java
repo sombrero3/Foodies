@@ -3,6 +3,7 @@ package com.example.foodies.model;
 import android.media.Image;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Restaurant {
@@ -12,6 +13,7 @@ public class Restaurant {
     Image image;
     String rating;
     String numOfUsersVisited;
+    List<Review> generalReviewList;
     List<Dish> dishList;
 
     //-------Constructors-------//
@@ -20,6 +22,7 @@ public class Restaurant {
         name = "";
         location = "";
         rating = "No rating yet";
+        generalReviewList = new LinkedList<>();
         dishList=new ArrayList<>();
         numOfUsersVisited = "0";
     }
@@ -28,6 +31,7 @@ public class Restaurant {
         this.name = name;
         this.location = "";
         this.rating = "No rating yet";
+        generalReviewList = new LinkedList<>();
         dishList=new ArrayList<>();
         numOfUsersVisited ="0";
     }
@@ -36,6 +40,7 @@ public class Restaurant {
         this.name = name;
         this.location = location;
         this.rating = "No rating yet";
+        generalReviewList = new LinkedList<>();
         dishList=new ArrayList<>();
         numOfUsersVisited ="0";
     }
@@ -44,6 +49,7 @@ public class Restaurant {
         this.name = name;
         this.location = location;
         this.rating = rating;
+        generalReviewList = new LinkedList<>();
         dishList=new ArrayList<>();
         numOfUsersVisited ="0";
     }
@@ -51,6 +57,7 @@ public class Restaurant {
         this.id = Integer.toString(IdGenerator.instance.getNextId());
         this.name = name;
         this.location = location;
+        generalReviewList = new LinkedList<>();
         this.dishList = new ArrayList<>();
         dishList.add(dish);
         rating = dish.getRating();
@@ -60,6 +67,7 @@ public class Restaurant {
         this.id = Integer.toString(IdGenerator.instance.getNextId());
         this.name = name;
         this.location = location;
+        generalReviewList = new LinkedList<>();
         this.dishList = dishList;
         updateRating();
         numOfUsersVisited ="0";
@@ -96,15 +104,16 @@ public class Restaurant {
     public void setNumOfUsersVisited(String numOfUsersVisited) {
         this.numOfUsersVisited = numOfUsersVisited;
     }
-
     public void setRating(String rating) {
         this.rating = rating;
     }
-    //    public void setRating(String rating) {
-//        this.rating = rating;
-//    }
-
-    //---------------------------------//
+    public List<Review> getGeneralReviewList() {
+        return generalReviewList;
+    }
+    public void setGeneralReviewList(List<Review> generalReviewList) {
+        this.generalReviewList = generalReviewList;
+    }
+//---------------------------------//
 
     public void updateRating(){
         double f ,reminder,sum=0,avg,counter=0;
@@ -130,7 +139,17 @@ public class Restaurant {
             rating = "No rating yet";
         }
     }
-
+    public void addGeneralReview(Review review){
+        for(Review rev:generalReviewList){
+            if(review.getUserId().equals(rev.getUserId())){
+                generalReviewList.remove(rev);
+            }
+        }
+        generalReviewList.add(review);
+    }
+    public void deleteGeneralReview(Review review){
+        generalReviewList.remove(review);
+    }
     public void addDish(Dish dish){
         dishList.add(dish);
         updateRating();
@@ -141,5 +160,13 @@ public class Restaurant {
         if(!dish.getRating().equals("No rating yet")) {
             updateRating();
         }
+    }
+    public String getGeneralReviewDescriptionByUserId(String userId){
+        for(Review review:generalReviewList){
+            if(review.getUserId().equals(userId)){
+                return review.description;
+            }
+        }
+        return "No general review yet";
     }
 }
