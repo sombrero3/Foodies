@@ -18,9 +18,6 @@
             android:value="@string/map_key"/>
 
         <activity
-            android:name=".RestaurantListRvActivity"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
