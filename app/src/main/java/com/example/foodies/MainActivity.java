@@ -8,7 +8,9 @@ import androidx.navigation.NavHost;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -19,11 +21,15 @@ import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
     NavController navCtl;
-
+    Handler h = new Handler();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
+
 
         //----to use user validation put the next two lines in comment----//
 //        Model.instance.setSignedUser(Model.instance.getUserById("1"));
@@ -34,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
         navCtl = navHost.getNavController();
         NavigationUI.setupActionBarWithNavController(this, navCtl);
     }
+
+
 
 
     @Override
@@ -95,4 +103,8 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
+
+
+
+
 }
