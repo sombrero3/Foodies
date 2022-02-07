@@ -412,6 +412,34 @@ public class Model {
     }
 
 
+
+    public Integer getNumOfFriendsVisitedInRestaurant(String restaurantID){
+        int count=0;
+        List<User> myFriends=getSignedUser().getFriendsList();
+        for (User friend: myFriends) {
+            for(Review rev: reviewList){
+                if(rev.restaurantId.equals(restaurantID) && friend.getReviewList().contains(rev)){
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+
+//    public String getRandomFriendNameVisitedInRestaurant(String restaurantID){
+//        List <User> myFriends=getSignedUser().getFriendsList();
+//        Set <User> myFriendsWithReview=new HashSet<User>();
+////        List <User> myFriendsWithReview=new LinkedList<>();
+//        for(User friend:myFriends) {
+//            for (Review rev : reviewList) {
+//                if (rev.restaurantId.equals(restaurantID) && friend.getReviewList().contains(rev)) {
+//                    myFriendsWithReview.add(friend);
+//                }
+//           }
+//        }
+//       return null;
+//    }
     public void setStarByRating(String ratingVal, ImageView star1, ImageView star2, ImageView star3, ImageView star4, ImageView star5, TextView rateTv){
 
         if(!ratingVal.equals("No rating yet")){
