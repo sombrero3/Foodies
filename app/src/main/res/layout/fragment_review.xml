@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+ <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/black"
     tools:context=".ReviewFragment">
-
     <ImageView
         android:id="@+id/review_dish_img"
         android:layout_width="0dp"
@@ -23,14 +26,14 @@
         android:id="@+id/review_dish_name_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
         android:text="dish name"
         android:textColor="@color/white"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="@+id/review_dish_img"
-        app:layout_constraintStart_toStartOf="@+id/review_dish_img"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/review_dish_img" />
 
     <TextView
@@ -51,10 +54,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:text="Price :"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/review_star1_iv" />
 
@@ -66,8 +69,8 @@
         android:text="set price "
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/textView10"
-        app:layout_constraintTop_toTopOf="@+id/textView10" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView10"
+        app:layout_constraintStart_toEndOf="@+id/textView10" />
 
     <TextView
         android:id="@+id/textView17"
@@ -76,7 +79,7 @@
         android:layout_marginTop="24dp"
         android:text="Review :"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/textView10"
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
@@ -87,7 +90,7 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:text="Friends who also posted reviews about that dish ;"
-        android:textColor="@color/white"
+        android:textColor="@color/grey_1"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textView17"
@@ -115,10 +118,11 @@
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:src="@drawable/star"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/review_dish_name_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/review_dish_name_tv"
+        app:srcCompat="@drawable/ic_baseline_star_24" />
 
     <ImageView
         android:id="@+id/review_star2_iv"
@@ -128,7 +132,8 @@
         android:src="@drawable/star"
         app:layout_constraintBottom_toBottomOf="@+id/review_star1_iv"
         app:layout_constraintStart_toEndOf="@+id/review_star1_iv"
-        app:layout_constraintTop_toTopOf="@+id/review_star1_iv" />
+        app:layout_constraintTop_toTopOf="@+id/review_star1_iv"
+        app:srcCompat="@drawable/ic_baseline_star_24" />
 
     <ImageView
         android:id="@+id/review_star3_iv"
@@ -138,7 +143,8 @@
         android:src="@drawable/star"
         app:layout_constraintBottom_toBottomOf="@+id/review_star2_iv"
         app:layout_constraintStart_toEndOf="@+id/review_star2_iv"
-        app:layout_constraintTop_toTopOf="@+id/review_star2_iv" />
+        app:layout_constraintTop_toTopOf="@+id/review_star2_iv"
+        app:srcCompat="@drawable/ic_baseline_star_24" />
 
     <ImageView
         android:id="@+id/review_star4_iv"
@@ -149,7 +155,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/review_star3_iv"
         app:layout_constraintStart_toEndOf="@+id/review_star3_iv"
         app:layout_constraintTop_toTopOf="@+id/review_star3_iv"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_baseline_star_24" />
 
     <ImageView
         android:id="@+id/review_star5_iv"
@@ -160,7 +167,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/review_star4_iv"
         app:layout_constraintStart_toEndOf="@+id/review_star4_iv"
         app:layout_constraintTop_toTopOf="@+id/review_star4_iv"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_baseline_star_24" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/review_rv"
@@ -171,6 +179,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/home_restaurant_line" />
 
+    <View
+        android:id="@+id/home_restaurant_line2"
+        style="@style/line"
+        android:layout_width="match_parent"
+        android:layout_marginTop="2dp"
+        android:background="#3C2E05"
+        app:layout_constraintTop_toBottomOf="@+id/review_rv"
+        tools:layout_editor_absoluteX="0dp" />
     <ImageView
         android:id="@+id/review_edit_iv"
         android:layout_width="wrap_content"
@@ -190,4 +206,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/review_edit_iv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/review_edit_iv" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

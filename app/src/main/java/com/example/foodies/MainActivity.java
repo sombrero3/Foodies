@@ -2,16 +2,20 @@ package com.example.foodies;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.NavHost;
+import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.example.foodies.model.Model;
+import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
     NavController navCtl;
@@ -28,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
 
         NavHost navHost = (NavHost) getSupportFragmentManager().findFragmentById(R.id.main_navhost);
         navCtl = navHost.getNavController();
-
         NavigationUI.setupActionBarWithNavController(this, navCtl);
     }
 
@@ -49,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
                     navCtl.navigateUp();
                     return true;
                 case R.id.main_menu_home:
+                    Toast.makeText(this,"Home",Toast.LENGTH_SHORT).show();
                     navCtl.navigate(R.id.action_global_homeRestaurantListRvFragment);
                     return true;
                 case R.id.main_menu_profile:
@@ -78,6 +82,10 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.main_menu_friend_requests:
                     Toast.makeText(this,"My Friend Requests",Toast.LENGTH_SHORT).show();
                     navCtl.navigate(R.id.action_global_friendRequestsFragment);
+                    return true;
+                case R.id.main_menu_logout:
+                    Toast.makeText(this,"Logging Out",Toast.LENGTH_SHORT).show();
+                    //navCtl.navigate(R.id.action_global_friendRequestsFragment);
                     return true;
             }
         }

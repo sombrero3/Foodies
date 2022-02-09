@@ -25,7 +25,7 @@ public class Model {
     private Model() {
         signedFlag = false;
         for(int i=1;i<11;i++){
-            User user = new User("name "+i, "" + i );
+            User user = new User("name "+i, "" + i ,"email@gmail.com");
             userList.add(user);
         }
 
@@ -412,20 +412,48 @@ public class Model {
     }
 
 
+
+    public Integer getNumOfFriendsVisitedInRestaurant(String restaurantID){
+        int count=0;
+        List<User> myFriends=getSignedUser().getFriendsList();
+        for (User friend: myFriends) {
+            for(Review rev: reviewList){
+                if(rev.restaurantId.equals(restaurantID) && friend.getReviewList().contains(rev)){
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+
+//    public String getRandomFriendNameVisitedInRestaurant(String restaurantID){
+//        List <User> myFriends=getSignedUser().getFriendsList();
+//        Set <User> myFriendsWithReview=new HashSet<User>();
+////        List <User> myFriendsWithReview=new LinkedList<>();
+//        for(User friend:myFriends) {
+//            for (Review rev : reviewList) {
+//                if (rev.restaurantId.equals(restaurantID) && friend.getReviewList().contains(rev)) {
+//                    myFriendsWithReview.add(friend);
+//                }
+//           }
+//        }
+//       return null;
+//    }
     public void setStarByRating(String ratingVal, ImageView star1, ImageView star2, ImageView star3, ImageView star4, ImageView star5, TextView rateTv){
 
         if(!ratingVal.equals("No rating yet")){
             rateTv.setVisibility(View.INVISIBLE);
             float rate =Float.parseFloat(ratingVal);
             if(rate==0.5){
-                star1.setImageResource(R.drawable.halfstar);
+                star1.setImageResource(R.drawable.ic_baseline_star_half_24);
                 star2.setVisibility(View.INVISIBLE);
                 star3.setVisibility(View.INVISIBLE);
                 star4.setVisibility(View.INVISIBLE);
                 star5.setVisibility(View.INVISIBLE);
             }
             else if(rate==1){
-                star1.setImageResource(R.drawable.star);
+                star1.setImageResource(R.drawable.ic_baseline_star_24);
                 star2.setVisibility(View.INVISIBLE);
                 star3.setVisibility(View.INVISIBLE);
                 star4.setVisibility(View.INVISIBLE);
@@ -433,64 +461,61 @@ public class Model {
 
             }
             else if(rate==1.5){
-                star1.setImageResource(R.drawable.star);
-                star2.setImageResource(R.drawable.halfstar);
+                star1.setImageResource(R.drawable.ic_baseline_star_24);
+                star2.setImageResource(R.drawable.ic_baseline_star_half_24);
                 star3.setVisibility(View.INVISIBLE);
                 star4.setVisibility(View.INVISIBLE);
                 star5.setVisibility(View.INVISIBLE);
             }
             else if(rate==2){
-                star1.setImageResource(R.drawable.star);
-                star2.setImageResource(R.drawable.star);
+                star1.setImageResource(R.drawable.ic_baseline_star_24);
+                star2.setImageResource(R.drawable.ic_baseline_star_24);
                 star3.setVisibility(View.INVISIBLE);
                 star4.setVisibility(View.INVISIBLE);
                 star5.setVisibility(View.INVISIBLE);
             }
             else if(rate==2.5){
-                star1.setImageResource(R.drawable.star);
-                star2.setImageResource(R.drawable.star);
-                star3.setImageResource(R.drawable.halfstar);
+                star1.setImageResource(R.drawable.ic_baseline_star_24);
+                star2.setImageResource(R.drawable.ic_baseline_star_24);
+                star3.setImageResource(R.drawable.ic_baseline_star_half_24);
                 star4.setVisibility(View.INVISIBLE);
                 star5.setVisibility(View.INVISIBLE);
             }
             else if(rate==3){
-                star1.setImageResource(R.drawable.star);
-                star2.setImageResource(R.drawable.star);
-                star3.setImageResource(R.drawable.star);
+                star1.setImageResource(R.drawable.ic_baseline_star_24);
+                star2.setImageResource(R.drawable.ic_baseline_star_24);
+                star3.setImageResource(R.drawable.ic_baseline_star_24);
                 star4.setVisibility(View.INVISIBLE);
                 star5.setVisibility(View.INVISIBLE);
             }
             else if(rate==3.5){
-                star1.setImageResource(R.drawable.star);
-                star2.setImageResource(R.drawable.star);
-                star3.setImageResource(R.drawable.star);
-                star4.setImageResource(R.drawable.halfstar);
+                star1.setImageResource(R.drawable.ic_baseline_star_24);
+                star2.setImageResource(R.drawable.ic_baseline_star_24);
+                star3.setImageResource(R.drawable.ic_baseline_star_24);
+                star4.setImageResource(R.drawable.ic_baseline_star_half_24);
                 star5.setVisibility(View.INVISIBLE);
             }
             else if(rate==4){
-                star1.setImageResource(R.drawable.star);
-                star2.setImageResource(R.drawable.star);
-                star3.setImageResource(R.drawable.star);
-                star4.setImageResource(R.drawable.star);
+                star1.setImageResource(R.drawable.ic_baseline_star_24);
+                star2.setImageResource(R.drawable.ic_baseline_star_24);
+                star3.setImageResource(R.drawable.ic_baseline_star_24);
+                star4.setImageResource(R.drawable.ic_baseline_star_24);
                 star5.setVisibility(View.INVISIBLE);
             }
             else if(rate==4.5){
-                star1.setImageResource(R.drawable.star);
-                star2.setImageResource(R.drawable.star);
-                star3.setImageResource(R.drawable.star);
-                star4.setImageResource(R.drawable.star);
-                star5.setImageResource(R.drawable.halfstar);
+                star1.setImageResource(R.drawable.ic_baseline_star_24);
+                star2.setImageResource(R.drawable.ic_baseline_star_24);
+                star3.setImageResource(R.drawable.ic_baseline_star_24);
+                star4.setImageResource(R.drawable.ic_baseline_star_24);
+                star5.setImageResource(R.drawable.ic_baseline_star_half_24);
             }
             else if(rate==5){
-                star1.setImageResource(R.drawable.star);
-                star2.setImageResource(R.drawable.star);
-                star3.setImageResource(R.drawable.star);
-                star4.setImageResource(R.drawable.star);
-                star5.setImageResource(R.drawable.star);
-
+                star1.setImageResource(R.drawable.ic_baseline_star_24);
+                star2.setImageResource(R.drawable.ic_baseline_star_24);
+                star3.setImageResource(R.drawable.ic_baseline_star_24);
+                star4.setImageResource(R.drawable.ic_baseline_star_24);
+                star5.setImageResource(R.drawable.ic_baseline_star_24);
             }
-
-
         }
         else{
             star1.setVisibility(View.INVISIBLE);
@@ -499,7 +524,6 @@ public class Model {
             star4.setVisibility(View.INVISIBLE);
             star5.setVisibility(View.INVISIBLE);
         }
-
     }
 
     public List<Restaurant> searchRestaurantByName(String text) {
@@ -606,5 +630,50 @@ public class Model {
 
     public void friendRequestUnConfirmed(User user) {
         signedUser.friendRequestUnConfirmed(user);
+    }
+
+    public int getNumOfReviewsFromFriendsOnRestaurant(String restaurantId) {
+        int counter=0;
+        List<User> friends = signedUser.getFriendsList();
+        for (User user: friends) {
+            List<DishReview> reviews = user.getDishReviewList();
+            for (DishReview rev:reviews) {
+                if(rev.getRestaurantId().equals(restaurantId)){
+                    counter++;
+                }
+            }
+        }
+        return counter;
+    }
+
+    public List<User> getAllFriendssThatHaveReviewsOnRestaurantByRestaurantId(String restaurantId) {
+        List<User> result = new LinkedList<>();
+        List<User> friends = signedUser.getFriendsList();
+        for(User user: friends){
+            List<DishReview> reviews = user.getDishReviewList();
+            for (DishReview rev:reviews) {
+                if(rev.getRestaurantId().equals(restaurantId)){
+                    result.add(user);
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
+    public List<DishReview> getAllFriendsReviewsOnDishByDishIdAndUserId(String dishId, String userId) {
+        User signedUser = getSignedUser();
+        String signedUserId = signedUser.getId();
+        Dish dish = getDishById(dishId);
+        List<User> friends = signedUser.getFriendsList();
+        List<DishReview> dishReviews =  new LinkedList<>();
+        for(DishReview rev:dish.getReviewList()){
+            for(User friend:friends){
+                if(rev.getUserId().equals(friend.getId()) && !rev.getUserId().equals(userId) && !rev.getUserId().equals(signedUserId)){
+                    dishReviews.add(rev);
+                }
+            }
+        }
+        return dishReviews;
     }
 }

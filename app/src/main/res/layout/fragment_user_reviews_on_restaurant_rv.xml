@@ -7,7 +7,19 @@
     android:background="@color/black"
     tools:context=".UserReviewsOnRestaurantRvFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/user_reviews_on_restaurant_rating_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="80dp"
+        android:text="no rating yet "
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_reviews_on_restaurant_image_img" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/user_reviews_on_restaurant_image_img"
@@ -39,7 +51,8 @@
         android:layout_marginTop="16dp"
         android:src="@drawable/star"
         app:layout_constraintStart_toStartOf="@+id/user_reviews_on_restaurant_image_img"
-        app:layout_constraintTop_toBottomOf="@+id/user_reviews_on_restaurant_image_img" />
+        app:layout_constraintTop_toBottomOf="@+id/user_reviews_on_restaurant_image_img"
+        app:srcCompat="@drawable/ic_baseline_star_24" />
 
     <ImageView
         android:id="@+id/user_reviews_on_restaurant_star2_iv"
@@ -49,7 +62,8 @@
         android:src="@drawable/star"
         app:layout_constraintBottom_toBottomOf="@+id/user_reviews_on_restaurant_star1_iv"
         app:layout_constraintStart_toEndOf="@+id/user_reviews_on_restaurant_star1_iv"
-        app:layout_constraintTop_toTopOf="@+id/user_reviews_on_restaurant_star1_iv" />
+        app:layout_constraintTop_toTopOf="@+id/user_reviews_on_restaurant_star1_iv"
+        app:srcCompat="@drawable/ic_baseline_star_24" />
 
     <ImageView
         android:id="@+id/user_reviews_on_restaurant_star5_iv"
@@ -59,7 +73,8 @@
         android:src="@drawable/star"
         app:layout_constraintBottom_toBottomOf="@+id/user_reviews_on_restaurant_star4_iv"
         app:layout_constraintStart_toEndOf="@+id/user_reviews_on_restaurant_star4_iv"
-        app:layout_constraintTop_toTopOf="@+id/user_reviews_on_restaurant_star4_iv" />
+        app:layout_constraintTop_toTopOf="@+id/user_reviews_on_restaurant_star4_iv"
+        app:srcCompat="@drawable/ic_baseline_star_24" />
 
     <ImageView
         android:id="@+id/user_reviews_on_restaurant_star4_iv"
@@ -69,7 +84,8 @@
         android:src="@drawable/star"
         app:layout_constraintBottom_toBottomOf="@+id/user_reviews_on_restaurant_star3_iv"
         app:layout_constraintStart_toEndOf="@+id/user_reviews_on_restaurant_star3_iv"
-        app:layout_constraintTop_toTopOf="@+id/user_reviews_on_restaurant_star3_iv" />
+        app:layout_constraintTop_toTopOf="@+id/user_reviews_on_restaurant_star3_iv"
+        app:srcCompat="@drawable/ic_baseline_star_24" />
 
     <ImageView
         android:id="@+id/user_reviews_on_restaurant_star3_iv"
@@ -79,7 +95,8 @@
         android:src="@drawable/star"
         app:layout_constraintBottom_toBottomOf="@+id/user_reviews_on_restaurant_star2_iv"
         app:layout_constraintStart_toEndOf="@+id/user_reviews_on_restaurant_star2_iv"
-        app:layout_constraintTop_toTopOf="@+id/user_reviews_on_restaurant_star2_iv" />
+        app:layout_constraintTop_toTopOf="@+id/user_reviews_on_restaurant_star2_iv"
+        app:srcCompat="@drawable/ic_baseline_star_24" />
 
     <TextView
         android:id="@+id/user_reviews_on_restaurant_general_review_tv"
@@ -89,8 +106,8 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:text="General review about Restaurant's name :"
-        android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textColor="@color/grey_1"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/user_reviews_on_restaurant_star1_iv" />
@@ -103,8 +120,8 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:text="Dishes username posted reviews on :"
-        android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textColor="@color/grey_1"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -127,7 +144,7 @@
         android:layout_marginEnd="8dp"
         android:text="Here will be the general review of this specific user about the restaurant and it will be editable"
         android:textColor="@color/white"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -141,19 +158,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/add_friend_line" />
-
-    <TextView
-        android:id="@+id/user_reviews_on_restaurant_rating_tv"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="80dp"
-        android:text="no rating yet "
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_reviews_on_restaurant_image_img" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -56,7 +56,7 @@
         android:layout_marginEnd="8dp"
         android:text="Restaurant's location"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView16"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView16"
@@ -69,8 +69,8 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:text="Friends which posted review about restaurant name:"
-        android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textColor="@color/grey_1"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/restaurant_page_star1_iv"
         app:layout_constraintTop_toBottomOf="@+id/restaurant_page_star1_iv" />
@@ -121,7 +121,8 @@
         android:layout_marginTop="8dp"
         android:src="@drawable/star"
         app:layout_constraintStart_toStartOf="@+id/imageView16"
-        app:layout_constraintTop_toBottomOf="@+id/restaurant_page_num_of_reviews_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/restaurant_page_num_of_reviews_tv"
+        app:srcCompat="@drawable/ic_baseline_star_24" />
 
     <ImageView
         android:id="@+id/restaurant_page_star2_iv"
@@ -131,7 +132,8 @@
         android:src="@drawable/star"
         app:layout_constraintBottom_toBottomOf="@+id/restaurant_page_star1_iv"
         app:layout_constraintStart_toEndOf="@+id/restaurant_page_star1_iv"
-        app:layout_constraintTop_toTopOf="@+id/restaurant_page_star1_iv" />
+        app:layout_constraintTop_toTopOf="@+id/restaurant_page_star1_iv"
+        app:srcCompat="@drawable/ic_baseline_star_24" />
 
     <ImageView
         android:id="@+id/restaurant_page_star3_iv"
@@ -142,7 +144,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/restaurant_page_star2_iv"
         app:layout_constraintStart_toEndOf="@+id/restaurant_page_star2_iv"
         app:layout_constraintTop_toTopOf="@+id/restaurant_page_star2_iv"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_baseline_star_24" />
 
     <ImageView
         android:id="@+id/restaurant_page_star4_iv"
@@ -153,7 +156,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/restaurant_page_star3_iv"
         app:layout_constraintStart_toEndOf="@+id/restaurant_page_star3_iv"
         app:layout_constraintTop_toTopOf="@+id/restaurant_page_star3_iv"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_baseline_star_24" />
 
     <ImageView
         android:id="@+id/restaurant_page_star5_iv"
@@ -164,7 +168,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/restaurant_page_star4_iv"
         app:layout_constraintStart_toEndOf="@+id/restaurant_page_star4_iv"
         app:layout_constraintTop_toTopOf="@+id/restaurant_page_star4_iv"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_baseline_star_24" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/restaurant_page_rv"

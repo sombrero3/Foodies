@@ -17,7 +17,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,7 +30,7 @@ import java.util.List;
 
 public class UserListRvFragment extends Fragment {
     List<User> userList;
-    TextView nameTv,numOfFriendsTv;
+    TextView nameTv,numOfFriendsTv,emailTv;
     ImageView imgIv,addFriendIv;
     User user;
     @Override
@@ -58,12 +57,14 @@ public class UserListRvFragment extends Fragment {
         });
 
         nameTv = view.findViewById(R.id.user_list_name_tv);
+        emailTv = view.findViewById(R.id.user_list_email_tv);
         numOfFriendsTv = view.findViewById(R.id.user_list_numOfFriends_tv);
         imgIv = view.findViewById(R.id.user_list_img_iv);
         addFriendIv = view.findViewById(R.id.user_list_add_friend_iv);
 
         nameTv.setText(user.getFirstName()+ " "+user.getLastName());
-
+        emailTv.setText(user.getEmail());
+        numOfFriendsTv.setText(Integer.toString(userList.size()) +" friends :");
         addFriendIv.setOnClickListener((v)->{
             Navigation.findNavController(v).navigate(UserListRvFragmentDirections.actionUserListRvFragmentToAddFriendFragment());
         });

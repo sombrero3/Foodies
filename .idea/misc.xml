@@ -3,6 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/drawable/ic_baseline_delete_forever_24.xml" value="0.202734375" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/drawable/ic_baseline_edit_24.xml" value="0.202734375" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.202734375" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/drawable/ic_baseline_person_add_24.xml" value="0.202734375" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/drawable/ic_baseline_person_add_alt_white_1_24.xml" value="0.202734375" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/drawable/ic_baseline_person_add_disabled_orange_24.xml" value="0.202734375" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/drawable/ic_baseline_person_add_orange24.xml" value="0.202734375" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/drawable/ic_baseline_person_white_24.xml" value="0.202734375" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/drawable/ic_baseline_star_24.xml" value="0.202734375" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/drawable/ic_baseline_star_half_24.xml" value="0.202734375" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/activity_friends_list.xml" value="0.190625" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/activity_friends_rv.xml" value="0.2477355072463768" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/activity_main.xml" value="0.24010416666666667" />
@@ -16,6 +26,7 @@
         <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/activity_user_reviews_on_restaurant.xml" value="0.13020833333333334" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/dish_list_row.xml" value="0.264" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_add_friend.xml" value="0.190625" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_friend_requests.xml" value="0.190625" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_home.xml" value="0.176" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_home_restaurant_list_rv.xml" value="0.264" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_map.xml" value="0.2477355072463768" />
