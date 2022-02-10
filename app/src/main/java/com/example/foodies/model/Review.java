@@ -2,6 +2,8 @@ package com.example.foodies.model;
 
 import android.media.Image;
 
+import androidx.room.Entity;
+
 public class Review {
     String restaurantId;
     String userId;
