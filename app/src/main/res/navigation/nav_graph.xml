@@ -51,6 +51,9 @@
             app:destination="@id/homeFragment"
             app:enterAnim="@android:anim/slide_in_left"
             app:exitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_homeRestaurantListRvFragment_to_mapsActivity"
+            app:destination="@id/mapsActivity" />
     </fragment>
     <fragment
         android:id="@+id/userRestaurantListRvFragment"
@@ -224,4 +227,9 @@
     <action android:id="@+id/action_global_userListRvFragment" app:destination="@id/userListRvFragment" />
     <action android:id="@+id/action_global_addFriendFragment" app:destination="@id/addFriendFragment" /><action android:id="@+id/action_global_userRestaurantListRvFragment" app:destination="@id/userRestaurantListRvFragment"/>
     <action android:id="@+id/action_global_friendRequestsFragment" app:destination="@id/friendRequestsFragment" />
+    <activity
+        android:id="@+id/mapsActivity"
+        android:name="com.example.foodies.MapsActivity"
+        android:label="activity_maps"
+        tools:layout="@layout/activity_maps" />
 </navigation>
