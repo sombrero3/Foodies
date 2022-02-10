@@ -55,7 +55,6 @@ public class AddFriendFragment extends Fragment {
         rvTitleTv = view.findViewById(R.id.add_friend_rv_title_tv);
         searchBtn = view.findViewById(R.id.add_friend_serach_btn);
         wrongDetailsTv = view.findViewById(R.id.add_friend_wrong_details_tv);
-
         wrongDetailsTv.setVisibility(View.INVISIBLE);
 
         searchBtn.setOnClickListener(new View.OnClickListener() {
