@@ -39,7 +39,7 @@ public class UserListRvFragment extends Fragment {
 
 
         user = Model.instance.getUserById(UserListRvFragmentArgs.fromBundle(getArguments()).getUserId());
-        userList = Model.instance.getUserById(user.getId()).getFriendsList();
+        userList = Model.instance.getFriendsList(user.getId());
 
         RecyclerView list = view.findViewById(R.id.userlist_rv);
         list.setHasFixedSize(true);
