@@ -31,6 +31,7 @@ public class AddFriendFragment extends Fragment {
     TextView rvTitleTv,wrongDetailsTv;
     EditText nameEt,emailEt;
     Button searchBtn;
+    MyAdapter adapter;
     @Override
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -40,7 +41,7 @@ public class AddFriendFragment extends Fragment {
         RecyclerView list = view.findViewById(R.id.add_friend_rv);
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
-        MyAdapter adapter = new MyAdapter();
+        adapter = new MyAdapter(searchResultList);
         list.setAdapter(adapter);
 
         adapter.setOnItemClickListener(new OnItemClickListener() {
@@ -57,47 +58,45 @@ public class AddFriendFragment extends Fragment {
         wrongDetailsTv = view.findViewById(R.id.add_friend_wrong_details_tv);
         wrongDetailsTv.setVisibility(View.INVISIBLE);
 
-        searchBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String name = nameEt.getEditableText().toString();
-                String email = emailEt.getEditableText().toString();
-                boolean flag = true;
-                if (name.equals("") || name.charAt(0) == ' ') {
-                    if (email.equals("") || email.charAt(0) == ' ') {
-                        wrongDetailsTv.setVisibility(View.VISIBLE);
-                        rvTitleTv.setText("No results");
-                        searchResultList = new LinkedList<>();
-                        flag=false;
-                    } else {
-                        searchResultList = Model.instance.getNotFriendsUsersByEmail(email);
-                    }
-                } else if (email.equals("") || email.charAt(0) == ' ') {
-                    searchResultList = Model.instance.getNotFriendsUsersByName(name);
-                } else {
-                    searchResultList = Model.instance.getNotFriendsUsersByNameAndEmail(name,email);
-                }
-                adapter.notifyDataSetChanged();
-//                list.setAdapter(adapter);
-                if(flag){
-                    wrongDetailsTv.setVisibility(View.INVISIBLE);
-                    if(searchResultList.size()>0) {
-                        rvTitleTv.setText("Search result :");
-                    }else{
-                        rvTitleTv.setText("No results");
-                    }
-                }
-            }
-        });
+        searchBtn.setOnClickListener(view1 -> search());
         setHasOptionsMenu(true);
         return view;
+    }
+
+    public void search(){
+        String name = nameEt.getEditableText().toString();
+        String email = emailEt.getEditableText().toString();
+        boolean flag = true;
+        if (name.equals("") || name.charAt(0) == ' ') {
+            if (email.equals("") || email.charAt(0) == ' ') {
+                wrongDetailsTv.setVisibility(View.VISIBLE);
+                rvTitleTv.setText("No results");
+                searchResultList = new LinkedList<>();
+                flag=false;
+            } else {
+                searchResultList = Model.instance.getNotFriendsUsersByEmail(email);
+            }
+        } else if (email.equals("") || email.charAt(0) == ' ') {
+            searchResultList = Model.instance.getNotFriendsUsersByName(name);
+        } else {
+            searchResultList = Model.instance.getNotFriendsUsersByNameAndEmail(name,email);
+        }
+        adapter.notifyDataSetChanged();
+//                list.setAdapter(adapter);
+        if(flag){
+            wrongDetailsTv.setVisibility(View.INVISIBLE);
+            if(searchResultList.size()>0) {
+                rvTitleTv.setText("Search result :");
+            }else{
+                rvTitleTv.setText("No results");
+            }
+        }
     }
 
 
     class MyViewHolder extends RecyclerView.ViewHolder{
         TextView nameEt;
         TextView restaurantEt;
-
         TextView reviewsEt;
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
@@ -109,24 +108,28 @@ public class AddFriendFragment extends Fragment {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int pos = getAdapterPosition();
-                    listener.onItemClick(v,pos);
+                    listener.onItemClick(v,getAdapterPosition());
                 }
             });
 
         }
     }
+    
     class MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
         OnItemClickListener listener;
-
+        List<User> searchResultList;
         public void setOnItemClickListener(OnItemClickListener listener){
             this.listener = listener;
+        }
+
+        public MyAdapter(List<User> searchResultList) {
+            this.searchResultList=searchResultList;
         }
 
         @NonNull
         @Override
         public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = getLayoutInflater().inflate(R.layout.user_list_row,parent,false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_list_row,parent,false);
             MyViewHolder holder = new MyViewHolder(view,listener);
             return holder;
         }
@@ -136,13 +139,14 @@ public class AddFriendFragment extends Fragment {
             User user = searchResultList.get(position);
             holder.nameEt.setText(user.getFirstName()+" "+user.getLastName());
             holder.restaurantEt.setText("Visited "+ user.getTotalRestaurantsVisited() +" restaurants total");
-            holder.reviewsEt.setText("Has total of " + user.getDishReviewList().size()+ " reviews");
+            holder.reviewsEt.setText("Has total of " + user.getTotalReviews()+ " reviews");
         }
         @Override
         public int getItemCount() {
             return searchResultList.size();
         }
     }
+
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
@@ -158,4 +162,5 @@ public class AddFriendFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         return super.onOptionsItemSelected(item);
     }
+
 }
