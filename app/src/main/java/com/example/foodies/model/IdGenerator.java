@@ -10,7 +10,6 @@ public class IdGenerator {
     }
 
     public int getNextId() {
-        nextId+=1;
-        return nextId;
+        return nextId++;
     }
 }
