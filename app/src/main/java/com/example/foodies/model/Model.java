@@ -32,20 +32,6 @@ public class Model {
             userList.add(user);
         }
 
-//        Random rand = new Random();
-//        for(int j=0;j<userList.size()-2;j++){
-//            for(int i=0;i<2;i++) {
-//                int x = Math.abs(rand.nextInt() % (userList.size()-2));
-//                for(FriendshipStatus friendshipStatus: friendshipStatuses) {
-//                    if (friendshipStatus.getUser1Id().equals(userList.get(j).getId())/*!userList.get(j).getFriendsList().contains(userList.get(x))*/ &&x != j ){
-//                        if(!friendshipStatus.getUser2Id().equals(x)){
-//                        userList.get(i).addFriend(userList.get(x));
-//                        userList.get(x).addFriend(userList.get(i));
-//                    }
-//                }
-//            }
-//        }
-
         friendshipStatuses.add(new FriendshipStatus("0","1","friends"));
         friendshipStatuses.add(new FriendshipStatus("0","3","friends"));
         friendshipStatuses.add(new FriendshipStatus("0","5","friends"));
@@ -440,7 +426,7 @@ public class Model {
     public boolean areFriends(String user1Id,String user2Id){
         for(FriendshipStatus fs:friendshipStatuses){
             if(((fs.getUser1Id().equals(user1Id) && fs.getUser2Id().equals(user2Id))
-                || (fs.getUser1Id().equals(user1Id) && fs.getUser2Id().equals(user2Id)))
+                || (fs.getUser1Id().equals(user2Id) && fs.getUser2Id().equals(user1Id)))
                     && fs.getStatus().equals("friends")
                         && fs.isDeleted()==false){
                 return true;
