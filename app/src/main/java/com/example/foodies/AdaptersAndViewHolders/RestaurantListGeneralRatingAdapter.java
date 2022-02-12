@@ -35,7 +35,15 @@ public class RestaurantListGeneralRatingAdapter extends RecyclerView.Adapter<Res
     public void onBindViewHolder(@NonNull RestaurantWithRatingViewHolder holder, int position ) {
         Restaurant restaurant = restaurantList.get(position);
         holder.nameTv.setText(restaurant.getName());
-        holder.descriptionTv.setText("Friend and 20 other friend visited this text should be dynamic");
+        String friend = Model.instance.getAFriendNameWhoVisitedARestaurant(restaurant.getId());
+        int numOfFriendsVisited = (Model.instance.getNumOfFriendVisitedRestaurant(restaurant.getId())-1);
+        if(friend==null || numOfFriendsVisited<0){
+            holder.descriptionTv.setText("No friend's reviews found");
+        }else if (numOfFriendsVisited==0){
+            holder.descriptionTv.setText(friend+" visited "+restaurant.getName());
+        }else{
+            holder.descriptionTv.setText(friend+" and "+numOfFriendsVisited+" visited "+restaurant.getName());
+        }
         Model.instance.setStarByRating(restaurant.getRating(), holder.star1, holder.star2, holder.star3, holder.star4, holder.star5, holder.ratingTv);
     }
 

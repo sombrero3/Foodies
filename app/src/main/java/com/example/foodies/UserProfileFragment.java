@@ -33,7 +33,6 @@ import java.util.List;
 public class UserProfileFragment extends Fragment {
     TextView nameTv,totalReviewsTv,totalRestaurantsTv;
     Button allReviewsBtn;
-   // Button addFriendBtn;
     ImageView addFriendIv;
     RecyclerView reviewsRv,friendsRv;
     List<User> friendsList;
@@ -72,7 +71,6 @@ public class UserProfileFragment extends Fragment {
         nameTv = view.findViewById(R.id.user_profile_name_tv);
         totalRestaurantsTv =view.findViewById(R.id.user_profile_total_restaurants_num_tv);
         totalReviewsTv = view.findViewById(R.id.user_profile_total_reviews_num_tv);
-   //     addFriendBtn = view.findViewById(R.id.user_profile_add_friend_btn);
         addFriendIv = view.findViewById(R.id.user_profile_add_friend_iv);
         allReviewsBtn = view.findViewById(R.id.user_profile_all_reviews_btn);
 

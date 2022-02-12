@@ -70,7 +70,7 @@ public class NewReviewFragment extends Fragment {
                 Dish dish = Model.instance.getDishById(dishReview.getDishId());
                 Restaurant restaurant = Model.instance.getRestaurantById(dishReview.getRestaurantId());
                 String restaurantName = restaurant.getName();
-                String generalDescription = restaurant.getGeneralReviewDescriptionByUserId(user.getId());
+                String generalDescription = Model.instance.getUserGeneralReview(user.getId(),restaurant.getId()).getDescription();
                 generalDescriptionEt.setText(generalDescription);
                 restaurantEt.setText(restaurantName);
                 dishEt.setText(dish.getName());
@@ -81,7 +81,7 @@ public class NewReviewFragment extends Fragment {
                 flagFromRestaurantPage=true;
                 Restaurant restaurant = Model.instance.getRestaurantById(arr[1]);
                 String restaurantName = restaurant.getName();
-                String generalDescription = restaurant.getGeneralReviewDescriptionByUserId(user.getId());
+                String generalDescription = Model.instance.getUserGeneralReview(user.getId(),restaurant.getId()).getDescription();
                 generalDescriptionEt.setText(generalDescription);
                 restaurantEt.setText(restaurantName);
             }
@@ -91,10 +91,10 @@ public class NewReviewFragment extends Fragment {
 
         setStarsOnClick();
         locationTv.setOnClickListener((v)->{
-            Navigation.findNavController(v).navigate(NewReviewFragmentDirections.actionNewReviewFragmentToMapFragment());
+            //Navigation.findNavController(v).navigate(NewReviewFragmentDirections.actionNewReviewFragmentToMapA());
         });
         locationIv.setOnClickListener((v)->{
-            Navigation.findNavController(v).navigate(NewReviewFragmentDirections.actionNewReviewFragmentToMapFragment());
+            //Navigation.findNavController(v).navigate(NewReviewFragmentDirections.actionNewReviewFragmentToMapFragment());
         });
 
         postReviewBtn.setOnClickListener((v)->{
@@ -134,13 +134,13 @@ public class NewReviewFragment extends Fragment {
             dishReview.setDishId(dish.getId());
             //restaurant.addDish(dish);
             Review generalReview =new Review(restaurant.getId(),user.getId(),generalDescriptionEt.getText().toString());
-            restaurant.addGeneralReview(generalReview);
+          //  restaurant.addGeneralReview(generalReview);
             Model.instance.addDish(dish);
             Model.instance.addRestaurant(restaurant);
         }else{
             restaurant = Model.instance.getRestaurantById(resId);
             Review generalReview =new Review(restaurant.getId(),user.getId(),generalDescriptionEt.getText().toString());
-            restaurant.addGeneralReview(generalReview);
+            //restaurant.addGeneralReview(generalReview);
             dishReview.setRestaurantId(resId);
             String dishId = Model.instance.getDishIdByRestaurantIdAndDishName(resId,dishEt.getText().toString());
             if(dishId.equals("No Such Dish")){

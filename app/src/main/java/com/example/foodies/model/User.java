@@ -13,8 +13,6 @@ public class User {
     String email;
     String password;
     Image image;
-    List<Review> generalReviewList;
-    List<DishReview> dishReviewList;
     List<User> friendsList,friendRequestList,ignoredList,confirmedList;
     String totalRestaurantsVisited;
 
@@ -25,8 +23,6 @@ public class User {
         lastName = "";
         email ="No email address";
         totalReviews ="0";
-        generalReviewList = new LinkedList<>();
-        dishReviewList = new LinkedList<>();
         friendsList = new LinkedList<>();
         friendRequestList = new LinkedList<>();
         ignoredList = new LinkedList<>();
@@ -41,8 +37,6 @@ public class User {
         email ="No email address";
         totalReviews ="0";
         this.password = password;
-        generalReviewList = new LinkedList<>();
-        dishReviewList = new LinkedList<>();
         friendsList = new LinkedList<>();
         friendRequestList = new LinkedList<>();
         ignoredList = new LinkedList<>();
@@ -56,8 +50,6 @@ public class User {
         this.email = email;
         totalReviews ="0";
         this.password = password;
-        generalReviewList = new LinkedList<>();
-        dishReviewList = new LinkedList<>();
         friendsList = new LinkedList<>();
         friendRequestList = new LinkedList<>();
         ignoredList = new LinkedList<>();
@@ -92,12 +84,6 @@ public class User {
     }
     public void setImage(Image image) {
         this.image = image;
-    }
-    public List<DishReview> getDishReviewList() {
-        return dishReviewList;
-    }
-    public void setDishReviewList(List<DishReview> dishReviewList) {
-        this.dishReviewList = dishReviewList;
     }
     public void setFriendsList(List<User> friendsList) {
         this.friendsList = friendsList;
@@ -143,49 +129,8 @@ public class User {
         this.confirmedList = confirmedList;
     }
 
-    public List<Review> getGeneralReviewList() {
-        return generalReviewList;
-    }
-
-    public void setGeneralReviewList(List<Review> generalReviewList) {
-        this.generalReviewList = generalReviewList;
-    }
     //---------------------------------//
 
-    public void addReview(DishReview dishReview){
-
-        int newTotal = Integer.parseInt(totalReviews)+1;
-        totalReviews = Integer.toString(newTotal);
-        boolean flag = false;
-        for(DishReview rev: dishReviewList){
-            if(rev.getRestaurantId().equals(dishReview.getRestaurantId())){
-                flag = true;
-                break;
-            }
-        }
-        if(!flag){
-           newTotal = Integer.parseInt(totalRestaurantsVisited)+1;
-           totalRestaurantsVisited = Integer.toString(newTotal);
-        }
-        dishReviewList.add(dishReview);
-    }
-    public void deleteReview(DishReview dishReview){
-        dishReviewList.remove(dishReview);
-        int newTotal = Integer.valueOf(totalReviews)-1;
-        totalReviews = Integer.toString(newTotal);
-        String restaurant = dishReview.getRestaurantId();
-        boolean flag = false;
-        for(int i = 0; i< dishReviewList.size(); i++){
-            if(dishReviewList.get(i).getRestaurantId().equals(restaurant)){
-                flag = true;
-                break;
-            }
-        }
-        if(!flag){
-            newTotal = Integer.valueOf(totalRestaurantsVisited)-1;
-            totalRestaurantsVisited = Integer.toString(newTotal);
-        }
-    }
     public void addFriend(User friend){
         if(!friendsList.contains(friend)&& !friend.getId().equals(id)) {
             friendsList.add(friend);
@@ -201,7 +146,6 @@ public class User {
     }
     public void friendRequestConfirmed(User user){
         if(!confirmedList.contains(user)){confirmedList.add(user);}
-       // addFriend(user);
     }
     public void cancelFriendship(User user){
         deleteFriend(user);
@@ -230,5 +174,15 @@ public class User {
             }
         }
 
+    }
+
+    public void increaseTotalRestaurantsVisited() {
+        int num = Integer.parseInt((totalRestaurantsVisited))+1;
+        totalRestaurantsVisited = Integer.toString(num);
+    }
+
+    public void increaseTotalReviews() {
+        int num = Integer.parseInt((totalReviews))+1;
+        totalReviews = Integer.toString(num);
     }
 }
