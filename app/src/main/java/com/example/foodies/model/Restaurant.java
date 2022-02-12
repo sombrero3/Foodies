@@ -10,9 +10,11 @@ public class Restaurant {
     String id;
     String name;
     String location;
-    Image image;
     String rating;
     String numOfUsersVisited;
+    String imageUrl;
+    boolean deleted = false;
+    Long updateDate = new Long(0);
 
     //-------Constructors-------//
     public Restaurant(){
@@ -79,38 +81,27 @@ public class Restaurant {
     public void setRating(String rating) {
         this.rating = rating;
     }
+    public void setId(String id) {
+        this.id = id;
+    }
+    public String getImageUrl() {
+        return imageUrl;
+    }
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+    public boolean isDeleted() {
+        return deleted;
+    }
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+    public Long getUpdateDate() {
+        return updateDate;
+    }
+    public void setUpdateDate(Long updateDate) {
+        this.updateDate = updateDate;
+    }
+    //---------------------------------//
 
-//---------------------------------//
-
-
-//    public void addGeneralReview(Review review){
-//        for(Review rev:generalReviewList){
-//            if(review.getUserId().equals(rev.getUserId())){
-//                generalReviewList.remove(rev);
-//            }
-//        }
-//        generalReviewList.add(review);
-//    }
-//    public void deleteGeneralReview(Review review){
-//        generalReviewList.remove(review);
-//    }
-//    public void addDish(Dish dish){
-//        dishList.add(dish);
-//        updateRating();
-//
-//    }
-//    public void deleteDish(Dish dish){
-//        dishList.remove(dish);
-//        if(!dish.getRating().equals("No rating yet")) {
-//            updateRating();
-//        }
-//    }
-//    public String getGeneralReviewDescriptionByUserId(String userId){
-//        for(Review review:generalReviewList){
-//            if(review.getUserId().equals(userId)){
-//                return review.description;
-//            }
-//        }
-//        return "No general review yet";
-//    }
 }

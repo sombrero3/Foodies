@@ -4,8 +4,8 @@ import android.media.Image;
 
 public class DishReview extends Review{
     String dishId;
-    Image image;
     String rating;
+    String imageUrl;
 
     //-------Constructors-------//
     public DishReview() {
@@ -15,6 +15,7 @@ public class DishReview extends Review{
         id = Integer.toString(IdGenerator.instance.getNextId());
         description = "";
         rating = "No rating yet";
+
     }
     public DishReview(String dishId, String restaurantId, String userId, String rating) {
         this.dishId = dishId;
@@ -68,8 +69,14 @@ public class DishReview extends Review{
     public void setRating(String rating) {
         this.rating = rating;
     }
+    public String getImageUrl() {
+        return imageUrl;
+    }
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
-    //---------------------------------//
+//---------------------------------//
 
 
 }

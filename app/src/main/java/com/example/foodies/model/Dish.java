@@ -8,13 +8,14 @@ import java.util.List;
 
 public class Dish {
     String restaurantId;
-    //List<DishReview> dishReviewList;
     String id;
     String name;
     String price;
     String description;
     String imageUrl;
     String rating;
+    boolean deleted = false;
+    Long updateDate = new Long(0);
 
 
     //-------Constructors-------//
@@ -25,7 +26,6 @@ public class Dish {
         price = "";
         rating ="No rating yet";
         description = "";
-      //  dishReviewList = new ArrayList<>();
     }
     public Dish(String name){
         id = Integer.toString(IdGenerator.instance.getNextId());
@@ -34,7 +34,6 @@ public class Dish {
         price = "";
         rating ="No rating yet";
         description = "";
-        //dishReviewList = new LinkedList<>();
     }
     public Dish( String restaurantId, String name, String price, String description){
         id = Integer.toString(IdGenerator.instance.getNextId());
@@ -42,7 +41,6 @@ public class Dish {
         this.name = name;
         this.price = price;
         this.description = description;
-        //dishReviewList = new LinkedList<>();
         rating ="No rating yet";
     }
     public Dish( String restaurantId, String name, String price){
@@ -51,7 +49,6 @@ public class Dish {
         this.name = name;
         this.price = price;
         this.description = "";
-        //dishReviewList = new LinkedList<>();
         rating ="No rating yet";
     }
     public Dish( String restaurantId, String name, String price, String description, DishReview dishReview){
@@ -60,8 +57,6 @@ public class Dish {
         this.name = name;
         this.price = price;
         this.description = description;
-        //dishReviewList = new LinkedList<>();
-        //dishReviewList.add(dishReview);
         rating = dishReview.getRating();
     }
 
@@ -73,12 +68,6 @@ public class Dish {
     public void setRestaurantId(String restaurantId) {
         this.restaurantId = restaurantId;
     }
-//    public List<DishReview> getReviewList() {
-//        return dishReviewList;
-//    }
-//    public void setReviewList(List<DishReview> dishReviewList) {
-//        this.dishReviewList = dishReviewList;
-//    }
     public String getName() {
         return name;
     }
@@ -115,16 +104,21 @@ public class Dish {
     public void setRating(String rating) {
         this.rating = rating;
     }
+    public boolean isDeleted() {
+        return deleted;
+    }
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+    public Long getUpdateDate() {
+        return updateDate;
+    }
+    public void setUpdateDate(Long updateDate) {
+        this.updateDate = updateDate;
+    }
     //---------------------------------//
 
 
-//    public void addReview(DishReview dishReview){
-//        dishReviewList.add(dishReview);
-//        updateRating();
-//    }
-//    public void deleteReview(DishReview dishReview){
-//        dishReviewList.remove(dishReview);
-//        updateRating();
-//    }
+
 
 }

@@ -18,6 +18,8 @@ public class Model {
     List<Dish> dishList = new LinkedList<>();
     List<DishReview> dishReviewList = new LinkedList<>();
     List<Review> generalReviewList = new LinkedList<>();
+    List<FriendshipStatus> friendshipStatuses = new LinkedList<>();
+    List<User> signedUserFriends = new LinkedList<>();
     User signedUser;
     boolean signedFlag;
 
@@ -25,25 +27,45 @@ public class Model {
 
     private Model() {
         signedFlag = false;
-        for(int i=1;i<11;i++){
+        for(int i=0;i<10;i++){
             User user = new User("name "+i, "" + i ,"email"+i+"@gmail.com");
             userList.add(user);
         }
 
-        Random rand = new Random();
-        for(int j=0;j<userList.size()-2;j++){
-            for(int i=0;i<2;i++) {
-                int x = Math.abs(rand.nextInt() % (userList.size()-2));
-                if (!userList.get(j).getFriendsList().contains(userList.get(x)) && x!=j ) {
-                    userList.get(i).addFriend(userList.get(x));
-                    userList.get(x).addFriend(userList.get(i));
-                }
-            }
-        }
+//        Random rand = new Random();
+//        for(int j=0;j<userList.size()-2;j++){
+//            for(int i=0;i<2;i++) {
+//                int x = Math.abs(rand.nextInt() % (userList.size()-2));
+//                for(FriendshipStatus friendshipStatus: friendshipStatuses) {
+//                    if (friendshipStatus.getUser1Id().equals(userList.get(j).getId())/*!userList.get(j).getFriendsList().contains(userList.get(x))*/ &&x != j ){
+//                        if(!friendshipStatus.getUser2Id().equals(x)){
+//                        userList.get(i).addFriend(userList.get(x));
+//                        userList.get(x).addFriend(userList.get(i));
+//                    }
+//                }
+//            }
+//        }
+
+        friendshipStatuses.add(new FriendshipStatus("0","1","friends"));
+        friendshipStatuses.add(new FriendshipStatus("0","3","friends"));
+        friendshipStatuses.add(new FriendshipStatus("0","5","friends"));
+        friendshipStatuses.add(new FriendshipStatus("0","7","friends"));
+        friendshipStatuses.add(new FriendshipStatus("1","8","friends"));
+        friendshipStatuses.add(new FriendshipStatus("1","3","friends"));
+        friendshipStatuses.add(new FriendshipStatus("1","4","friends"));
+        friendshipStatuses.add(new FriendshipStatus("1","6","friends"));
+        friendshipStatuses.add(new FriendshipStatus("2","3","friends"));
+        friendshipStatuses.add(new FriendshipStatus("2","5","friends"));
+        friendshipStatuses.add(new FriendshipStatus("2","9","friends"));
+        friendshipStatuses.add(new FriendshipStatus("2","4","friends"));
+        friendshipStatuses.add(new FriendshipStatus("3","5","friends"));
+        friendshipStatuses.add(new FriendshipStatus("3","7","friends"));
+        friendshipStatuses.add(new FriendshipStatus("3","8","friends"));
+        friendshipStatuses.add(new FriendshipStatus("3","6","friends"));
         setSignedUser(userList.get(0));
         setSignedFlag(true);
-        friendRequestCreateRequestFromUser(userList.get(8));
-        friendRequestCreateRequestFromUser(userList.get(9));
+        friendshipStatuses.add(new FriendshipStatus("0","8","pending"));
+        friendshipStatuses.add(new FriendshipStatus("0","9","pending"));
 
         Random random = new Random();
         for(int i=0;i<10;i++){
@@ -415,12 +437,31 @@ public class Model {
         }
         return dishes;
     }
-
+    public boolean areFriends(String user1Id,String user2Id){
+        for(FriendshipStatus fs:friendshipStatuses){
+            if(((fs.getUser1Id().equals(user1Id) && fs.getUser2Id().equals(user2Id))
+                || (fs.getUser1Id().equals(user1Id) && fs.getUser2Id().equals(user2Id)))
+                    && fs.getStatus().equals("friends")
+                        && fs.isDeleted()==false){
+                return true;
+            }
+        }
+        return false;
+    }
+    public List<User> getFriendsList(String user1Id){
+        List<User> res = new LinkedList<>();
+        for(User user:userList) {
+            if (!user1Id.equals(user.getId()) && areFriends(user1Id,user.getId()) && !res.contains(user)){
+                res.add(user);
+            }
+        }
+        return res;
+    }
     public List<DishReview> getAllFriendsReviewsOnDishByDishId(String dishId){
         User signedUser = getSignedUser();
         String signedUserId = signedUser.getId();
         Dish dish = getDishById(dishId);
-        List<User> friends = signedUser.getFriendsList();
+        List<User> friends = getFriendsList(signedUserId);
         List<DishReview> reviews =  new LinkedList<>();
         List<DishReview> dishReviewsList =getAllReviewsOnADish(dishId);
         for(DishReview rev:dishReviewsList){
@@ -470,8 +511,9 @@ public class Model {
     }
     public List<User> getNotFriendsUsersByName(String name) {
         List<User> result = new LinkedList<>();
+        List<User> friends = getFriendsList(signedUser.getId());
         for (User user :userList) {
-            if(!signedUser.getFriendsList().contains(user) && user.getFirstName().contains(name) && !signedUser.getId().equals(user.getId())){
+            if(!friends.contains(user) && user.getFirstName().contains(name) && !signedUser.getId().equals(user.getId())){
                 result.add(user);
             }
         }
@@ -480,8 +522,9 @@ public class Model {
 
     public List<User> getNotFriendsUsersByEmail(String email) {
         List<User> result = new LinkedList<>();
+        List<User> friends = getFriendsList(signedUser.getId());
         for (User user : userList) {
-            if (!signedUser.getFriendsList().contains(user) && user.getEmail().contains(email)&& !user.getEmail().equals("No email address")) {
+            if (!friends.contains(user) && user.getEmail().contains(email)&& !user.getEmail().equals("No email address")) {
                 result.add(user);
             }
         }
@@ -489,19 +532,21 @@ public class Model {
     }
     public List<User> getNotFriendsUsersByNameAndEmail(String name,String email){
         List<User> result = new LinkedList<>();
+        List<User> friends = getFriendsList(signedUser.getId());
         for (User user :userList) {
-            if(!signedUser.getFriendsList().contains(user) && user.getFirstName().contains(name)&& user.getEmail().contains(email)){
+            if(!friends.contains(user) && user.getFirstName().contains(name)&& user.getEmail().contains(email)){
                 result.add(user);
             }
         }
         return result;
     }
     public List<User> peopleYouMayKnow(){
-        List<User> signedUserFriends , result;
+        List<User> signedUserFriends , result ,friendfriendsList;
         result = new LinkedList<>();
-        signedUserFriends = signedUser.getFriendsList();
+        signedUserFriends = getFriendsList(signedUser.getId());
         for (User friend: signedUserFriends) {
-            for (User friendfriends:friend.getFriendsList()) {
+            friendfriendsList = getFriendsList(friend.getId());
+            for (User friendfriends:friendfriendsList) {
                 if(!result.contains(friendfriends) && !signedUserFriends.contains(friendfriends) && !friendfriends.getId().equals(signedUser.getId())) {
                     result.add(friendfriends);
                 }
@@ -728,53 +773,118 @@ public class Model {
         return result;
     }
 
-
-    public void friendRequestCancel(User user2){
-        user2.friendRequestDelete(signedUser);
+    public List<User> getFriendsRequests(String userId){
+        List<User> res = new LinkedList<>();
+        for(FriendshipStatus fs:friendshipStatuses){
+            if(fs.getUser2Id().equals(userId) && fs.getStatus().equals("pending") && fs.isDeleted()==false){
+                res.add(getUserById(fs.getUser1Id()));
+            }
+        }
+        return res;
     }
-    public void friendRequestCreateRequestFromUser(User user){
-        signedUser.friendRequestToConfirm(user);
+    public void friendRequestCancel(User user2){
+        String signedUserId = signedUser.getId();
+        String userId = user2.getId();
+        for(FriendshipStatus fs:friendshipStatuses){
+            if(fs.getUser1Id().equals(userId) && fs.getUser2Id().equals(signedUserId) && fs.getStatus().equals("pending")){
+                fs.setDeleted(true);
+            }
+        }
     }
     public void friendRequestSendRequestToUser(User user2 ){
-        user2.friendRequestToConfirm(signedUser);
+        boolean flag = false;
+        String signedUserId = signedUser.getId();
+        String userId = user2.getId();
+        for(FriendshipStatus fs:friendshipStatuses){
+            if(fs.getUser1Id().equals(userId) && fs.getUser2Id().equals(signedUserId) && !fs.getStatus().equals("pending")){
+                fs.setStatus("pending");
+                flag = true;
+                break;
+            }
+        }
+        if(!flag){
+            friendshipStatuses.add(new FriendshipStatus(userId,signedUserId,"pending"));
+        }
     }
-
     public void friendRequestConfirmed(String userId) {
-        signedUser.friendRequestConfirmed(getUserById(userId));
-    }
-
-    public void createFriendship(String userId) {
-        User user2 = getUserById(userId);
-        signedUser.friendRequestConfirmed(user2);
-        user2.friendRequestConfirmed(signedUser);
+        String signedUserId = signedUser.getId();
+        for(FriendshipStatus fs:friendshipStatuses){
+            if(fs.getUser1Id().equals(signedUserId) && fs.getUser2Id().equals(userId) && fs.getStatus().equals("pending")){
+                fs.setStatus("friends");
+                break;
+            }
+            if(fs.getUser1Id().equals(signedUserId) && fs.getUser2Id().equals(userId) && fs.getStatus().equals("friends") && fs.isDeleted()==true){
+                fs.setDeleted(false);
+                break;
+            }
+        }
     }
 
     public void cancelFriendsihp(User user2){
-        signedUser.cancelFriendship(user2);
-        user2.cancelFriendship(signedUser);
+        String user1Id = signedUser.getId();
+        String user2Id = user2.getId();
+        for(FriendshipStatus fs:friendshipStatuses){
+            if(((fs.getUser1Id().equals(user1Id) && fs.getUser2Id().equals(user2Id))
+                    || (fs.getUser1Id().equals(user1Id) && fs.getUser2Id().equals(user2Id)))
+                    && fs.getStatus().equals("friends")
+                    && fs.isDeleted()==false){
+                fs.setDeleted(true);
+                break;
+            }
+        }
     }
 
-    public void recoverFriendship(User user1, User user2) {
-        user1.addFriend(user2);
-        user2.addFriend(user1);
+    public void recoverFriendship(User user2) {
+        String user1Id = signedUser.getId();
+        String user2Id = user2.getId();
+        for(FriendshipStatus fs:friendshipStatuses){
+            if(((fs.getUser1Id().equals(user1Id) && fs.getUser2Id().equals(user2Id))
+                    || (fs.getUser1Id().equals(user1Id) && fs.getUser2Id().equals(user2Id)))
+                    && fs.getStatus().equals("friends")
+                    && fs.isDeleted()==true){
+                fs.setDeleted(false);
+                break;
+            }
+        }
     }
 
     public void friendRequestIgnored(User user){
-        signedUser.friendRequestIgnored(user);
+        String signedUserId = signedUser.getId();
+        String userId = user.getId();
+        for(FriendshipStatus fs:friendshipStatuses){
+            if(fs.getUser1Id().equals(signedUserId) && fs.getUser2Id().equals(userId) && fs.getStatus().equals("pending")){
+                fs.setStatus("ignored");
+                break;
+            }
+        }
     }
 
     public void friendRequestCancelIgnore(User user){
-        signedUser.friendRequestCancelIgnore(user);
+        String signedUserId = signedUser.getId();
+        String userId = user.getId();
+        for(FriendshipStatus fs:friendshipStatuses){
+            if(fs.getUser1Id().equals(signedUserId) && fs.getUser2Id().equals(userId) && fs.getStatus().equals("ignored")){
+                fs.setStatus("pending");
+                break;
+            }
+        }
     }
 
 
     public void friendRequestUnConfirmed(User user) {
-        signedUser.friendRequestUnConfirmed(user);
+        String signedUserId = signedUser.getId();
+        String userId = user.getId();
+        for(FriendshipStatus fs:friendshipStatuses){
+            if(fs.getUser1Id().equals(signedUserId) && fs.getUser2Id().equals(userId) && fs.getStatus().equals("friends")){
+                fs.setDeleted(true);
+                break;
+            }
+        }
     }
 
     public int getNumOfReviewsFromFriendsOnRestaurant(String restaurantId) {
         int counter=0;
-        List<User> friends = signedUser.getFriendsList();
+        List<User> friends = getFriendsList(signedUser.getId());
         for (User user: friends) {
             List<DishReview> reviews = getAllReviewsOnADish(user.getId());
             for (DishReview rev:reviews) {
@@ -797,7 +907,7 @@ public class Model {
 
     public List<User> getAllFriendsThatHaveReviewsOnRestaurantByRestaurantId(String restaurantId) {
         List<User> result = new LinkedList<>();
-        List<User> friends = signedUser.getFriendsList();
+        List<User> friends = getFriendsList(signedUser.getId());
         for(User user: friends){
             List<DishReview> reviews = getUserDishReviewsList(user.getId());
             for (DishReview rev:reviews) {
@@ -814,7 +924,7 @@ public class Model {
         User signedUser = getSignedUser();
         String signedUserId = signedUser.getId();
         Dish dish = getDishById(dishId);
-        List<User> friends = signedUser.getFriendsList();
+        List<User> friends = getFriendsList(signedUser.getId());
         List<DishReview> dishReviews =  new LinkedList<>();
         List<DishReview> list = getAllReviewsOnADish(dishId);
         for(DishReview rev:list){
@@ -832,7 +942,8 @@ public class Model {
         int res = 0;
         User user = getSignedUser();
         List<User> friends = new LinkedList<>();
-        for(User u:user.getFriendsList()){
+        List<User> list = getFriendsList(user.getId());
+        for(User u:list){
             friends.add(u);
         }
         for(DishReview rev:dishReviewList){
@@ -848,7 +959,8 @@ public class Model {
         String res = null;
         User user = getSignedUser();
         List<User> friends = new LinkedList<>();
-        for(User u:user.getFriendsList()){
+        List<User> list = getFriendsList(user.getId());
+        for(User u:list){
             friends.add(u);
         }
         for(DishReview rev:dishReviewList){

@@ -35,7 +35,7 @@ public class UserProfileFragment extends Fragment {
     Button allReviewsBtn;
     ImageView addFriendIv;
     RecyclerView reviewsRv,friendsRv;
-    List<User> friendsList;
+    List<User> friendsList, signedUserFriendsList,signedUserFriendRequestList;
     List<DishReview> dishReviewList;
     User user;
     boolean flagRequest;
@@ -47,10 +47,14 @@ public class UserProfileFragment extends Fragment {
 
         String userId = UserProfileFragmentArgs.fromBundle(getArguments()).getUserId();
         user = Model.instance.getUserById(userId);
-
-        friendsList = user.getFriendsList();
+        User signedUser = Model.instance.getSignedUser();
+        friendsList = Model.instance.getFriendsList(userId);
         friendsList.remove(Model.instance.getSignedUser());
-
+        String signedUserId = signedUser.getId();
+        if(!userId.equals(signedUserId)){
+            signedUserFriendsList = Model.instance.getFriendsList(signedUserId);
+        }
+        signedUserFriendRequestList = Model.instance.getFriendsRequests(signedUserId);
 
         dishReviewList = Model.instance.getUserHighestRatingReviewsByUserId(user.getId());
 
@@ -97,21 +101,20 @@ public class UserProfileFragment extends Fragment {
         nameTv.setText(user.getFirstName()+ " "+ user.getLastName());
         totalReviewsTv.setText("Posted total of "+user.getTotalReviews()+" reviews");
         totalRestaurantsTv.setText("Posted reviews on "+user.getTotalRestaurantsVisited()+" restaurants");
-        User signedUser = Model.instance.getSignedUser();
-        signedUser.updateFriendLists();
-        String signedUserId = signedUser.getId();
+
+        //signedUser.updateFriendLists();
 
         if(userId.equals(signedUserId)) {
             addFriendIv.setOnClickListener((v) -> {
                 Navigation.findNavController(v).navigate(UserProfileFragmentDirections.actionUserProfileFragmentToAddFriendFragment());
             });
-        }else if(!signedUser.getFriendsList().contains(user)){
+        }else if(!signedUserFriendsList.contains(user)){
             User userProfile = Model.instance.getUserById(userId);
             flagRequest =false;
             addFriendIv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(signedUser.getFriendRequestList().contains(userProfile)){
+                    if(signedUserFriendRequestList.contains(userProfile)){
                         if(!flagRequest){
                             Model.instance.friendRequestConfirmed(userProfile.getId());
                             addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_disabled_orange_24);
@@ -134,7 +137,7 @@ public class UserProfileFragment extends Fragment {
                     }
                 }
             });
-        }else if(signedUser.getFriendsList().contains(user)){
+        }else if(signedUserFriendsList.contains(user)){
             User userProfile = Model.instance.getUserById(userId);
             addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_disabled_orange_24);
             flagRequest =false;
@@ -144,7 +147,7 @@ public class UserProfileFragment extends Fragment {
                     addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_orange24);
                     flagRequest=true;
                 }else{
-                    Model.instance.recoverFriendship(signedUser,userProfile);
+                    Model.instance.recoverFriendship(userProfile);
                     addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_disabled_orange_24);
                     flagRequest=false;
                 }
