@@ -4,6 +4,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.lifecycle.MutableLiveData;
+
 import com.example.foodies.R;
 
 import java.util.ArrayList;
@@ -21,54 +23,68 @@ public class Model {
     List<FriendshipStatus> friendshipStatuses = new LinkedList<>();
     List<User> signedUserFriends = new LinkedList<>();
     User signedUser;
+    ModelFireBase modelFireBase = new ModelFireBase();
     boolean signedFlag;
 
     public static final Model instance = new Model();
 
+    public enum UsersListLoadingState{
+        loading,
+        loaded
+    }
+
+    MutableLiveData<UsersListLoadingState> usersListLoadingState = new MutableLiveData<>();
+
     private Model() {
         signedFlag = false;
+
         for(int i=0;i<10;i++){
-            User user = new User("name "+i, "" + i ,"email"+i+"@gmail.com");
-            userList.add(user);
+            restaurantList.add(new Restaurant("name "+i));
         }
 
-        friendshipStatuses.add(new FriendshipStatus("0","1","friends"));
-        friendshipStatuses.add(new FriendshipStatus("0","3","friends"));
-        friendshipStatuses.add(new FriendshipStatus("0","5","friends"));
-        friendshipStatuses.add(new FriendshipStatus("0","7","friends"));
-        friendshipStatuses.add(new FriendshipStatus("1","8","friends"));
-        friendshipStatuses.add(new FriendshipStatus("1","3","friends"));
-        friendshipStatuses.add(new FriendshipStatus("1","4","friends"));
-        friendshipStatuses.add(new FriendshipStatus("1","6","friends"));
-        friendshipStatuses.add(new FriendshipStatus("2","3","friends"));
-        friendshipStatuses.add(new FriendshipStatus("2","5","friends"));
-        friendshipStatuses.add(new FriendshipStatus("2","9","friends"));
-        friendshipStatuses.add(new FriendshipStatus("2","4","friends"));
-        friendshipStatuses.add(new FriendshipStatus("3","5","friends"));
-        friendshipStatuses.add(new FriendshipStatus("3","7","friends"));
-        friendshipStatuses.add(new FriendshipStatus("3","8","friends"));
-        friendshipStatuses.add(new FriendshipStatus("3","6","friends"));
-        setSignedUser(userList.get(0));
-        setSignedFlag(true);
-        friendshipStatuses.add(new FriendshipStatus("0","8","pending"));
-        friendshipStatuses.add(new FriendshipStatus("0","9","pending"));
 
-        Random random = new Random();
-        for(int i=0;i<10;i++){
-            Restaurant res = new Restaurant("Restaurant name "+i);
-            restaurantList.add(res);
-            for(int j=0;j<10;j++){
-                Dish dish = new Dish("Dish name "+i + " " + j);
-                dish.setRestaurantId(res.getId());
-                addDish(dish);
-                for(int k=0;k<10;k++){
-                        String rating  = Integer.toString(Math.abs((random.nextInt()%5))+1);
-                        DishReview dishReview = new DishReview(dish.getId(), res.getId(),userList.get(k).getId(),rating);
-                        dish.setPrice(Integer.toString(Math.abs(random.nextInt()%500))+"$");
-                        addDishReview(dishReview);
-                }
-            }
-        }
+//        for(int i=0;i<10;i++){
+//            User user = new User("name "+i, "" + i ,"email"+i+"@gmail.com");
+//            userList.add(user);
+//        }
+//
+//        friendshipStatuses.add(new FriendshipStatus("0","1","friends"));
+//        friendshipStatuses.add(new FriendshipStatus("0","3","friends"));
+//        friendshipStatuses.add(new FriendshipStatus("0","5","friends"));
+//        friendshipStatuses.add(new FriendshipStatus("0","7","friends"));
+//        friendshipStatuses.add(new FriendshipStatus("1","8","friends"));
+//        friendshipStatuses.add(new FriendshipStatus("1","3","friends"));
+//        friendshipStatuses.add(new FriendshipStatus("1","4","friends"));
+//        friendshipStatuses.add(new FriendshipStatus("1","6","friends"));
+//        friendshipStatuses.add(new FriendshipStatus("2","3","friends"));
+//        friendshipStatuses.add(new FriendshipStatus("2","5","friends"));
+//        friendshipStatuses.add(new FriendshipStatus("2","9","friends"));
+//        friendshipStatuses.add(new FriendshipStatus("2","4","friends"));
+//        friendshipStatuses.add(new FriendshipStatus("3","5","friends"));
+//        friendshipStatuses.add(new FriendshipStatus("3","7","friends"));
+//        friendshipStatuses.add(new FriendshipStatus("3","8","friends"));
+//        friendshipStatuses.add(new FriendshipStatus("3","6","friends"));
+//        setSignedUser(userList.get(0));
+//        setSignedFlag(true);
+//        friendshipStatuses.add(new FriendshipStatus("0","8","pending"));
+//        friendshipStatuses.add(new FriendshipStatus("0","9","pending"));
+//
+//        Random random = new Random();
+//        for(int i=0;i<10;i++){
+//            Restaurant res = new Restaurant("Restaurant name "+i);
+//            restaurantList.add(res);
+//            for(int j=0;j<10;j++){
+//                Dish dish = new Dish("Dish name "+i + " " + j);
+//                dish.setRestaurantId(res.getId());
+//                addDish(dish);
+//                for(int k=0;k<10;k++){
+//                        String rating  = Integer.toString(Math.abs((random.nextInt()%5))+1);
+//                        DishReview dishReview = new DishReview(dish.getId(), res.getId(),userList.get(k).getId(),rating);
+//                        dish.setPrice(Integer.toString(Math.abs(random.nextInt()%500))+"$");
+//                        addDishReview(dishReview);
+//                }
+//            }
+//        }
     }
 
     //-------Getters and Setters-------//
@@ -127,6 +143,13 @@ public class Model {
     }
     //---------------------------------//
 
+    /**
+     * Authentication
+     *
+     */
+    public boolean isSignedIn() {
+        return modelFireBase.isSignedIn();
+    }
 
     public void dishUpdateRating(String dishId){
 
@@ -260,8 +283,19 @@ public class Model {
     public void addRestaurant(Restaurant restaurant){
         restaurantList.add(restaurant);
     }
-    public void addUser(User user){
-        userList.add(user);
+
+    public interface AddUserListener{
+        void onComplete();
+    }
+    public void addUser(User user,AddUserListener listener){
+        usersListLoadingState.setValue(UsersListLoadingState.loading);
+        modelFireBase.addUser(user, new AddUserListener() {
+            @Override
+            public void onComplete() {
+                //refreshStudentList();
+                listener.onComplete();
+            }
+        });
     }
 
     public void deleteReview(DishReview dishReview){
@@ -926,35 +960,37 @@ public class Model {
 
     public int getNumOfFriendVisitedRestaurant(String restaurantId){
         int res = 0;
-        User user = getSignedUser();
-        List<User> friends = new LinkedList<>();
-        List<User> list = getFriendsList(user.getId());
-        for(User u:list){
-            friends.add(u);
-        }
-        for(DishReview rev:dishReviewList){
-            if(rev.getRestaurantId().equals(restaurantId) && friends.contains(getUserById(rev.getUserId()))){
-                friends.remove(getUserById(rev.getUserId()));
-                res++;
+        if(isSignedFlag()) {
+            User user = getSignedUser();
+            List<User> friends = new LinkedList<>();
+            List<User> list = getFriendsList(user.getId());
+            for (User u : list) {
+                friends.add(u);
+            }
+            for (DishReview rev : dishReviewList) {
+                if (rev.getRestaurantId().equals(restaurantId) && friends.contains(getUserById(rev.getUserId()))) {
+                    friends.remove(getUserById(rev.getUserId()));
+                    res++;
+                }
             }
         }
-
         return res;
     }
     public String getAFriendNameWhoVisitedARestaurant(String restaurantId){
-        String res = null;
-        User user = getSignedUser();
-        List<User> friends = new LinkedList<>();
-        List<User> list = getFriendsList(user.getId());
-        for(User u:list){
-            friends.add(u);
-        }
-        for(DishReview rev:dishReviewList){
-            if(rev.getRestaurantId().equals(restaurantId) && friends.contains(getUserById(rev.getUserId()))){
-                res= getUserById(rev.getUserId()).getFirstName();
+        String res = "";
+        if(isSignedFlag()) {
+            User user = getSignedUser();
+            List<User> friends = new LinkedList<>();
+            List<User> list = getFriendsList(user.getId());
+            for (User u : list) {
+                friends.add(u);
+            }
+            for (DishReview rev : dishReviewList) {
+                if (rev.getRestaurantId().equals(restaurantId) && friends.contains(getUserById(rev.getUserId()))) {
+                    res = getUserById(rev.getUserId()).getFirstName();
+                }
             }
         }
-
         return res;
     }
 

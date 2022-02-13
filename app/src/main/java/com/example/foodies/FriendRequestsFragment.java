@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -46,7 +47,7 @@ public class FriendRequestsFragment extends Fragment {
             @Override
             public void onItemClick(View v, int position) {
                 String userId = userList.get(position).getId();
-                Navigation.findNavController(v).navigate(FriendRequestsFragmentDirections.actionFriendRequestsFragmentToUserProfileFragment(userId));
+                Navigation.findNavController(v).navigate((NavDirections) FriendRequestsFragmentDirections.actionFriendRequestsFragmentToUserProfileFragment(userId));
             }
         });
         setHasOptionsMenu(true);

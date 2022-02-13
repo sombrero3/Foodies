@@ -12,4 +12,8 @@
     <string name="dish_name">Dish Name:</string>
     <string name="dish_price">Dish price:</string>
     <string name="enter_your_review">Enter Your Review:</string>
+    <string name="Firstname">Firstname</string>
+    <string name="Lasttname">Lastname</string>
+    <string name="LastName">Last name</string>
+    <string name="FirstName">First name</string>
 </resources>

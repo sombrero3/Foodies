@@ -1,5 +1,6 @@
 package com.example.foodies;
 
+import android.app.Application;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.foodies.AdaptersAndViewHolders.OnItemClickListener;
 import com.example.foodies.AdaptersAndViewHolders.UserAdapter;
 import com.example.foodies.model.Model;
+import com.example.foodies.model.ModelFireBase;
 import com.example.foodies.model.User;
 
 import java.util.LinkedList;
@@ -38,6 +40,7 @@ public class AddFriendFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_friend, container, false);
+
 
         searchResultList = Model.instance.peopleYouMayKnow();
         list = view.findViewById(R.id.add_friend_rv);
