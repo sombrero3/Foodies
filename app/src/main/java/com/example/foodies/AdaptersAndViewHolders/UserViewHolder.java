@@ -7,17 +7,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodies.R;
+import com.example.foodies.model.User;
 
 public class UserViewHolder extends RecyclerView.ViewHolder{
-    TextView nameEt;
-    TextView restaurantEt;
-    TextView reviewsEt;
+
+    TextView nameTv;
+    TextView restaurantTv;
+    TextView reviewsTv;
 
     public UserViewHolder(@NonNull View itemView, OnItemClickListener listener) {
         super(itemView);
-        nameEt = itemView.findViewById(R.id.user_row_name_tv);
-        restaurantEt = itemView.findViewById(R.id.user_row_resto_tv);
-        reviewsEt = itemView.findViewById(R.id.user_row_reviews_tv);
+        nameTv = itemView.findViewById(R.id.user_row_name_tv);
+        restaurantTv = itemView.findViewById(R.id.user_row_resto_tv);
+        reviewsTv = itemView.findViewById(R.id.user_row_reviews_tv);
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -27,4 +29,10 @@ public class UserViewHolder extends RecyclerView.ViewHolder{
         });
 
     }
+    public void bind(User user){
+        nameTv.setText(user.getFirstName()+" "+user.getLastName());
+        restaurantTv.setText("Visited "+ user.getTotalRestaurantsVisited() +" restaurants total");
+        reviewsTv.setText("Has total of " + user.getTotalReviews()+ " reviews");
+    }
+
 }
