@@ -31,7 +31,6 @@ public class FriendRequestsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_friend_requests, container, false);
 
-        //User user = Model.instance.getUserById(UserListRvFragmentArgs.fromBundle(getArguments()).getUserId());
         User signedUser = Model.instance.getSignedUser();
 //        signedUser.updateFriendLists();
 

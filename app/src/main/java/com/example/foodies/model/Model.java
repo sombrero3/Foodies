@@ -64,7 +64,7 @@ public class Model {
                 for(int k=0;k<10;k++){
                         String rating  = Integer.toString(Math.abs((random.nextInt()%5))+1);
                         DishReview dishReview = new DishReview(dish.getId(), res.getId(),userList.get(k).getId(),rating);
-                        dish.setPrice(Integer.toString(k)+"$");
+                        dish.setPrice(Integer.toString(Math.abs(random.nextInt()%500))+"$");
                         addDishReview(dishReview);
                 }
             }
@@ -762,8 +762,8 @@ public class Model {
     public List<User> getFriendsRequests(String userId){
         List<User> res = new LinkedList<>();
         for(FriendshipStatus fs:friendshipStatuses){
-            if(fs.getUser2Id().equals(userId) && fs.getStatus().equals("pending") && fs.isDeleted()==false){
-                res.add(getUserById(fs.getUser1Id()));
+            if(fs.getUser1Id().equals(userId) && fs.getStatus().equals("pending") && fs.isDeleted()==false){
+                res.add(getUserById(fs.getUser2Id()));
             }
         }
         return res;
@@ -862,7 +862,7 @@ public class Model {
         String userId = user.getId();
         for(FriendshipStatus fs:friendshipStatuses){
             if(fs.getUser1Id().equals(signedUserId) && fs.getUser2Id().equals(userId) && fs.getStatus().equals("friends")){
-                fs.setDeleted(true);
+                fs.setStatus("pending");
                 break;
             }
         }
