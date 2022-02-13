@@ -8,7 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodies.R;
-import com.example.foodies.model.Model;
 import com.example.foodies.model.User;
 
 import java.util.List;
@@ -34,9 +33,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
         User user = userList.get(position);
-        holder.nameEt.setText(user.getFirstName()+" "+user.getLastName());
-        holder.restaurantEt.setText("Visited "+ user.getTotalRestaurantsVisited() +" restaurants total");
-        holder.reviewsEt.setText("Has total of " + user.getTotalReviews()+ " reviews");
+        holder.bind(user);
     }
 
     @Override
