@@ -27,13 +27,14 @@ import com.example.foodies.model.User;
 
 
 public class NewReviewFragment extends Fragment {
-       EditText restaurantEt,dishEt,priceEt,descriptionEt,generalDescriptionEt;
-       Button postReviewBtn, uploadImgBtn;
-       TextView locationTv,titleTv,ratingTv;
-       ImageView locationIv,image,star1,star2,star3,star4,star5;
-       DishReview dishReview;
-       User user;
-       boolean flagEditing,flagFromRestaurantPage,flagStar1,flagStar2,flagStar3,flagStar4,flagStar5;
+    EditText restaurantEt, dishEt, priceEt, descriptionEt, generalDescriptionEt;
+    Button postReviewBtn, uploadImgBtn;
+    TextView locationTv, titleTv, ratingTv;
+    ImageView locationIv, image, star1, star2, star3, star4, star5;
+    DishReview dishReview;
+    User user;
+    boolean flagEditing, flagFromRestaurantPage, flagStar1, flagStar2, flagStar3, flagStar4, flagStar5;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -53,159 +54,164 @@ public class NewReviewFragment extends Fragment {
         locationTv = view.findViewById(R.id.new_review_location_tv);
         titleTv = view.findViewById(R.id.new_review_title_tv);
         ratingTv = view.findViewById(R.id.new_review_rating_tv);
-        star1= view.findViewById(R.id.new_review_star1_iv);
-        star2= view.findViewById(R.id.new_review_star2_iv);
-        star3= view.findViewById(R.id.new_review_star3_iv);
-        star4= view.findViewById(R.id.new_review_star4_iv);
-        star5= view.findViewById(R.id.new_review_star5_iv);
+        star1 = view.findViewById(R.id.new_review_star1_iv);
+        star2 = view.findViewById(R.id.new_review_star2_iv);
+        star3 = view.findViewById(R.id.new_review_star3_iv);
+        star4 = view.findViewById(R.id.new_review_star4_iv);
+        star5 = view.findViewById(R.id.new_review_star5_iv);
         flagEditing = false;
         ratingTv.setText("No rating yet");
-        if(!args.equals("")){
-            String []arr = args.split(" ");
+        if (!args.equals("")) {
+            String[] arr = args.split(" ");
             String reviewId = arr[1];
-            if(arr[0].equals("edit")) {
+            if (arr[0].equals("edit")) {
                 flagEditing = true;
                 titleTv.setText("REVIEW EDITOR");
                 dishReview = Model.instance.getReviewById(reviewId);
                 Dish dish = Model.instance.getDishById(dishReview.getDishId());
                 Restaurant restaurant = Model.instance.getRestaurantById(dishReview.getRestaurantId());
                 String restaurantName = restaurant.getName();
-                String generalDescription = Model.instance.getUserGeneralReview(user.getId(),restaurant.getId()).getDescription();
+                String generalDescription = Model.instance.getUserGeneralReview(user.getId(), restaurant.getId()).getDescription();
                 generalDescriptionEt.setText(generalDescription);
                 restaurantEt.setText(restaurantName);
                 dishEt.setText(dish.getName());
                 priceEt.setText(dish.getPrice());
                 descriptionEt.setText(dishReview.getDescription());
                 ratingTv.setText(dishReview.getRating());
-            }else if(arr[0].equals("restaurant")){
-                flagFromRestaurantPage=true;
+            } else if (arr[0].equals("restaurant")) {
+                flagFromRestaurantPage = true;
                 Restaurant restaurant = Model.instance.getRestaurantById(arr[1]);
                 String restaurantName = restaurant.getName();
-                String generalDescription = Model.instance.getUserGeneralReview(user.getId(),restaurant.getId()).getDescription();
+                String generalDescription = Model.instance.getUserGeneralReview(user.getId(), restaurant.getId()).getDescription();
                 generalDescriptionEt.setText(generalDescription);
                 restaurantEt.setText(restaurantName);
             }
-        }else{
+        } else {
 
         }
 
         setStarsOnClick();
-        locationTv.setOnClickListener((v)->{
+        locationTv.setOnClickListener((v) -> {
             //Navigation.findNavController(v).navigate(NewReviewFragmentDirections.actionNewReviewFragmentToMapA());
         });
-        locationIv.setOnClickListener((v)->{
+        locationIv.setOnClickListener((v) -> {
             //Navigation.findNavController(v).navigate(NewReviewFragmentDirections.actionNewReviewFragmentToMapFragment());
         });
 
-        postReviewBtn.setOnClickListener((v)->{
+        postReviewBtn.setOnClickListener((v) -> {
             postReview();
             Navigation.findNavController(v).navigate((NavDirections) NewReviewFragmentDirections.actionNewReviewFragmentToReviewFragment2(dishReview.getId()));
         });
         setHasOptionsMenu(true);
-       return view;
+        return view;
     }
+
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.all_other_fragments_menu,menu);
+        inflater.inflate(R.menu.all_other_fragments_menu, menu);
     }
+
     @Override
-    public void onPrepareOptionsMenu (Menu menu) {
-            menu.findItem(R.id.main_menu_add_review).setEnabled(false);
+    public void onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.main_menu_add_review).setEnabled(false);
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         return super.onOptionsItemSelected(item);
     }
-    public void postReview(){
+
+    public void postReview() {
         Restaurant restaurant;
-        if(!flagEditing) {
+        if (!flagEditing) {
             dishReview = new DishReview();
             dishReview.setUserId(user.getId());
         }
         dishReview.setRating(ratingTv.getText().toString());
         dishReview.setDescription(descriptionEt.getText().toString());
         String resId = Model.instance.getRestaurantIdByName(restaurantEt.getText().toString());
-        if(resId.equals("No Such Restaurant")){
+        if (resId.equals("No Such Restaurant")) {
             restaurant = new Restaurant(restaurantEt.getText().toString());
             resId = restaurant.getId();
-            Dish dish = new Dish(resId,dishEt.getText().toString(),priceEt.getText().toString());
+            Dish dish = new Dish(resId, dishEt.getText().toString(), priceEt.getText().toString());
             dishReview.setRestaurantId(resId);
             dishReview.setDishId(dish.getId());
             //restaurant.addDish(dish);
-            Review generalReview =new Review(restaurant.getId(),user.getId(),generalDescriptionEt.getText().toString());
-          //  restaurant.addGeneralReview(generalReview);
+            Review generalReview = new Review(restaurant.getId(), user.getId(), generalDescriptionEt.getText().toString());
+            //  restaurant.addGeneralReview(generalReview);
             Model.instance.addDish(dish);
             Model.instance.addRestaurant(restaurant);
-        }else{
+        } else {
             restaurant = Model.instance.getRestaurantById(resId);
-            Review generalReview =new Review(restaurant.getId(),user.getId(),generalDescriptionEt.getText().toString());
+            Review generalReview = new Review(restaurant.getId(), user.getId(), generalDescriptionEt.getText().toString());
             //restaurant.addGeneralReview(generalReview);
             dishReview.setRestaurantId(resId);
-            String dishId = Model.instance.getDishIdByRestaurantIdAndDishName(resId,dishEt.getText().toString());
-            if(dishId.equals("No Such Dish")){
-                Dish dish = new Dish(resId,dishEt.getText().toString(),priceEt.getText().toString());
+            String dishId = Model.instance.getDishIdByRestaurantIdAndDishName(resId, dishEt.getText().toString());
+            if (dishId.equals("No Such Dish")) {
+                Dish dish = new Dish(resId, dishEt.getText().toString(), priceEt.getText().toString());
                 dishReview.setDishId(dish.getId());
                 Model.instance.addDish(dish);
-            }else{
+            } else {
                 dishReview.setDishId(dishId);
             }
         }
         Model.instance.addDishReview(dishReview);
     }
-    public void setStarsOnClick(){
-        flagStar1=false;
-        star1.setOnClickListener((v)->{
-            if(!flagStar1) {
+
+    public void setStarsOnClick() {
+        flagStar1 = false;
+        star1.setOnClickListener((v) -> {
+            if (!flagStar1) {
                 ratingTv.setText("1");
-                flagStar1=true;
-            }else{
+                flagStar1 = true;
+            } else {
                 ratingTv.setText("0.5");
-                flagStar1=false;
+                flagStar1 = false;
             }
         });
 
-        flagStar2=false;
-        star2.setOnClickListener((v)->{
-            if(!flagStar2) {
+        flagStar2 = false;
+        star2.setOnClickListener((v) -> {
+            if (!flagStar2) {
                 ratingTv.setText("2");
-                flagStar2=true;
-            }else{
+                flagStar2 = true;
+            } else {
                 ratingTv.setText("1.5");
-                flagStar2=false;
+                flagStar2 = false;
             }
         });
 
-        flagStar3=false;
-        star3.setOnClickListener((v)->{
-            if(!flagStar3) {
+        flagStar3 = false;
+        star3.setOnClickListener((v) -> {
+            if (!flagStar3) {
                 ratingTv.setText("3");
-                flagStar3=true;
-            }else{
+                flagStar3 = true;
+            } else {
                 ratingTv.setText("2.5");
-                flagStar3=false;
+                flagStar3 = false;
             }
         });
 
-        flagStar4=false;
-        star4.setOnClickListener((v)->{
-            if(!flagStar4) {
+        flagStar4 = false;
+        star4.setOnClickListener((v) -> {
+            if (!flagStar4) {
                 ratingTv.setText("4");
-                flagStar4=true;
-            }else{
+                flagStar4 = true;
+            } else {
                 ratingTv.setText("3.5");
-                flagStar4=false;
+                flagStar4 = false;
             }
         });
 
-        flagStar5=false;
-        star5.setOnClickListener((v)->{
-            if(!flagStar5) {
+        flagStar5 = false;
+        star5.setOnClickListener((v) -> {
+            if (!flagStar5) {
                 ratingTv.setText("5");
-                flagStar5=true;
-            }else{
+                flagStar5 = true;
+            } else {
                 ratingTv.setText("4.5");
-                flagStar5=false;
+                flagStar5 = false;
             }
         });
     }

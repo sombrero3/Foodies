@@ -20,7 +20,7 @@ public class NewUserFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.fragment_new_user, container, false);
         signUp = view.findViewById(R.id.new_user_sign_up_btn);
         upload = view.findViewById(R.id.new_user_upload_img_iv);
