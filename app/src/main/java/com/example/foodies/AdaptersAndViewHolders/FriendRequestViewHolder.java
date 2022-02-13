@@ -34,9 +34,10 @@ public class FriendRequestViewHolder extends RecyclerView.ViewHolder{
         confirmBtn = itemView.findViewById(R.id.friend_request_row_confirm_btn);
         ignoreBtn = itemView.findViewById(R.id.friend_request_row_ignore_btn);
 
+        signedUser = Model.instance.getSignedUser();
         friendRequestsList = Model.instance.getFriendsRequests(signedUser.getId());
 
-        signedUser = Model.instance.getSignedUser();
+
         flagConfirm=false;
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
