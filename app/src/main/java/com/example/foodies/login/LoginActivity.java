@@ -21,7 +21,7 @@ public class LoginActivity extends AppCompatActivity {
 //        Model.instance.setSignedFlag(true);
         //----------------------------------------------------------------//
 
-        NavHost navHost = (NavHost) getSupportFragmentManager().findFragmentById(R.id.main_navhost);
+        NavHost navHost = (NavHost) getSupportFragmentManager().findFragmentById(R.id.login_activity_navhost);
         navCtl = navHost.getNavController();
         NavigationUI.setupActionBarWithNavController(this, navCtl);
     }
