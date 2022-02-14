@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".UserReviewsOnRestaurantRvFragment">
+    tools:context=".feed.UserReviewsOnRestaurantRvFragment">
 
     <TextView
         android:id="@+id/user_reviews_on_restaurant_rating_tv"

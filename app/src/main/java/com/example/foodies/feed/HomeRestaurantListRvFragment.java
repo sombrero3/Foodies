@@ -1,4 +1,4 @@
-package com.example.foodies;
+package com.example.foodies.feed;
 
 import android.os.Bundle;
 
@@ -22,6 +22,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.foodies.R;
 import com.example.foodies.model.Model;
 import com.example.foodies.AdaptersAndViewHolders.OnItemClickListener;
 import com.example.foodies.model.Restaurant;
@@ -45,7 +46,7 @@ public class HomeRestaurantListRvFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_restaurant_list_rv, container, false);
 
-        
+
         User user = Model.instance.getSignedUser();
         myRestaurantList=new LinkedList<>();
         myRestaurantList.addAll(Model.instance.getRestaurantList());

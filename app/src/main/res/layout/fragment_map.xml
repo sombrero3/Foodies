@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#B69F9F"
-    tools:context=".MapFragment">
+    tools:context=".map.MapFragment">
 
     <ImageView
         android:id="@+id/imageView3"

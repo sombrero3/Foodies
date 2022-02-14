@@ -10,7 +10,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".NewReviewFragment">
+    tools:context=".feed.NewReviewFragment">
 
     <ImageView
         android:id="@+id/new_review_star3_iv"

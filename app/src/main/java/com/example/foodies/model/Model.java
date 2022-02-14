@@ -1,9 +1,12 @@
 package com.example.foodies.model;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.core.os.HandlerCompat;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.foodies.R;
@@ -12,6 +15,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+
 
 public class Model {
 
@@ -27,7 +33,8 @@ public class Model {
     boolean signedFlag;
 
     public static final Model instance = new Model();
-
+    public Executor executor = Executors.newFixedThreadPool(1);
+    public Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
     public enum UsersListLoadingState{
         loading,
         loaded

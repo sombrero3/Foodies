@@ -1,4 +1,4 @@
-package com.example.foodies;
+package com.example.foodies.login;
 
 import android.os.Bundle;
 
@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.foodies.R;
 import com.example.foodies.model.Model;
 
 

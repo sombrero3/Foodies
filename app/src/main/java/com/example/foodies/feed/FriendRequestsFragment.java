@@ -1,4 +1,4 @@
-package com.example.foodies;
+package com.example.foodies.feed;
 
 import android.os.Bundle;
 
@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 
 import com.example.foodies.AdaptersAndViewHolders.FriendRequestAdapter;
 import com.example.foodies.AdaptersAndViewHolders.OnItemClickListener;
+import com.example.foodies.R;
 import com.example.foodies.model.Model;
 import com.example.foodies.model.User;
 

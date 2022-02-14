@@ -1,4 +1,4 @@
-package com.example.foodies;
+package com.example.foodies.feed;
 
 import android.app.Application;
 import android.os.Bundle;
@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodies.AdaptersAndViewHolders.OnItemClickListener;
 import com.example.foodies.AdaptersAndViewHolders.UserAdapter;
+import com.example.foodies.R;
 import com.example.foodies.model.Model;
 import com.example.foodies.model.ModelFireBase;
 import com.example.foodies.model.User;
