@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.core.os.HandlerCompat;
@@ -35,6 +36,11 @@ public class Model {
     public static final Model instance = new Model();
     public Executor executor = Executors.newFixedThreadPool(1);
     public Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
+
+    public void signUp(String email, String password,String firstName,String lastName,ProgressBar progressBar) {
+        modelFireBase.signIn(email,password,firstName,lastName,progressBar);
+    }
+
     public enum UsersListLoadingState{
         loading,
         loaded

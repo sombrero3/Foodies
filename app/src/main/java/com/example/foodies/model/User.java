@@ -55,6 +55,17 @@ public class User {
         this.password = password;
         totalRestaurantsVisited = "0";
     }
+    //TODO- id
+    public User(String email,String password,String firstName,String lastName){
+        //id = Integer.toString(IdGenerator.instance.getNextId());
+        id = "something";
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        totalReviews ="0";
+        this.password = password;
+        totalRestaurantsVisited = "0";
+    }
 
     //-------Getters and Setters-------//
     public String getId() {

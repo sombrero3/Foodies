@@ -8,6 +8,7 @@ import androidx.navigation.NavHost;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.example.foodies.R;
+import com.example.foodies.login.LoginActivity;
 import com.example.foodies.model.Model;
 import com.google.android.material.navigation.NavigationView;
 
@@ -86,7 +88,9 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.main_menu_logout:
                     Toast.makeText(this,"Logging Out",Toast.LENGTH_SHORT).show();
-                    //navCtl.navigate(R.id.action_global_friendRequestsFragment);
+                    Intent intent = new Intent(this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
                     return true;
             }
         }

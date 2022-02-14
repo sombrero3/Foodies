@@ -1,4 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/login_nav_graph" />
+    android:id="@+id/login_nav_graph"
+    app:startDestination="@id/registeredUserFragment">
+    <fragment
+        android:id="@+id/registeredUserFragment"
+        android:name="com.example.foodies.login.RegisteredUserFragment">
+        <action
+            android:id="@+id/action_registeredUserFragment_to_newUserFragment"
+            app:destination="@id/newUserFragment"
+            app:popUpTo="@id/registeredUserFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/newUserFragment"
+        android:name="com.example.foodies.login.NewUserFragment">
+        <action
+            android:id="@+id/action_newUserFragment_to_registeredUserFragment"
+            app:destination="@id/registeredUserFragment"
+            app:popUpTo="@id/newUserFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+</navigation>

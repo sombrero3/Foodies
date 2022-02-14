@@ -31,23 +31,23 @@ public class HomeFragment extends Fragment {
        signUpBtn = view.findViewById(R.id.home_signup_tv);
 
        if(Model.instance.isSignedFlag()) {
-           User user = Model.instance.getSignedUser();
-           home.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_homeFragment_to_homeRestaurantListRvFragment));
-           myReviews.setOnClickListener((v) -> {
-               Navigation.findNavController(v).navigate(HomeFragmentDirections.actionHomeFragmentToUserRestaurantListRvFragment(user.getId()));
-           });
-           myFriends.setOnClickListener((v) -> {
-               Navigation.findNavController(v).navigate(HomeFragmentDirections.actionHomeFragmentToUserListRvFragment(user.getId()));
-           });
-           myProfile.setOnClickListener((v)->{
-               Navigation.findNavController(v).navigate(HomeFragmentDirections.actionHomeFragmentToUserProfileFragment(user.getId()));
-           });
+//           User user = Model.instance.getSignedUser();
+//           home.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_homeFragment_to_homeRestaurantListRvFragment));
+//           myReviews.setOnClickListener((v) -> {
+//               Navigation.findNavController(v).navigate(HomeFragmentDirections.actionHomeFragmentToUserRestaurantListRvFragment(user.getId()));
+//           });
+//           myFriends.setOnClickListener((v) -> {
+//               Navigation.findNavController(v).navigate(HomeFragmentDirections.actionHomeFragmentToUserListRvFragment(user.getId()));
+//           });
+//           myProfile.setOnClickListener((v)->{
+//               Navigation.findNavController(v).navigate(HomeFragmentDirections.actionHomeFragmentToUserProfileFragment(user.getId()));
+//           });
        }
        signInBtn.setOnClickListener((v)->{
-           Navigation.findNavController(v).navigate(HomeFragmentDirections.actionHomeFragmentToRegisteredUserFragment());
+           //Navigation.findNavController(v).navigate(HomeFragmentDirections.actionHomeFragmentToRegisteredUserFragment());
        });
        signUpBtn.setOnClickListener((v)->{
-           Navigation.findNavController(v).navigate(HomeFragmentDirections.actionHomeFragmentToNewUserFragment());
+           //Navigation.findNavController(v).navigate(HomeFragmentDirections.actionHomeFragmentToNewUserFragment());
        });
 
         return view;
