@@ -117,13 +117,16 @@ public class NewUserFragment extends Fragment {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful()){
-                                        Toast.makeText(getActivity(),"Successfully Registered",Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getActivity(),"Successfully Registered.",Toast.LENGTH_LONG).show();
                                         goToFeedActivity();
                                     }else{
                                         Toast.makeText(getActivity(),"Failed To Registered",Toast.LENGTH_LONG).show();
                                         progressBar.setVisibility(View.GONE);
+
+
                                     }
                                 }
+
                             });
                         }else{
                             Toast.makeText(getActivity(),"Failed To Registered",Toast.LENGTH_LONG).show();

@@ -94,12 +94,23 @@ public class RegisteredUserFragment extends Fragment {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    ///------in comment: verification with email-----///
+//                    ///------in comment: verification with email-----///
 //                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 //                    if(user.isEmailVerified()) {
                         toFeedActivity();
 //                    }else{
-//                        Toast.makeText(getActivity(),"Please check your email to verify your account!!",Toast.LENGTH_LONG).show();
+
+//                        user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<Void> task) {
+//                                if(task.isSuccessful()){
+//                                    Toast.makeText(getActivity(),"Please check your email to verify your account!!",Toast.LENGTH_LONG).show();
+//                                }else{
+//                        Toast.makeText(getActivity(),"Something went wrong please try again!!",Toast.LENGTH_LONG).show();//                       progressBar.setVisibility(View.GONE);
+//                                }
+//                                progressBar.setVisibility(View.GONE);
+//                            }
+//                        });
 //                    }
                 }else{
                     Toast.makeText(getActivity(),"Failed To Login",Toast.LENGTH_LONG).show();

@@ -68,6 +68,7 @@ public class ForgotPasswordFragment extends Fragment {
                     Navigation.findNavController(prog).navigate(ForgotPasswordFragmentDirections.actionForgotPasswordFragmentToRegisteredUserFragment());
                 }else{
                     Toast.makeText(getContext(),"Something went wrong!",Toast.LENGTH_LONG).show();
+                    confirmBtn.setEnabled(true);
                 }
                 prog.setVisibility(View.GONE);
             }
