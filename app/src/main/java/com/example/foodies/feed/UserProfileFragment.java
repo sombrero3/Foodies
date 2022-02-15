@@ -48,15 +48,24 @@ public class UserProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_user_profile, container, false);
 
-        String userId = UserProfileFragmentArgs.fromBundle(getArguments()).getUserId();
-
-
         prog = view.findViewById(R.id.user_profile_prog);
-        setUser(userId);
+        String userId = UserProfileFragmentArgs.fromBundle(getArguments()).getUserId();
+        setUserUI(userId);
         User signedUser = Model.instance.getSignedUser();
-        friendsList = Model.instance.getFriendsList(userId);
-        friendsList.remove(Model.instance.getSignedUser());
         String signedUserId = signedUser.getId();
+        nameTv = view.findViewById(R.id.user_profile_name_tv);
+        totalRestaurantsTv =view.findViewById(R.id.user_profile_total_restaurants_num_tv);
+        totalReviewsTv = view.findViewById(R.id.user_profile_total_reviews_num_tv);
+        addFriendIv = view.findViewById(R.id.user_profile_add_friend_iv);
+        allReviewsBtn = view.findViewById(R.id.user_profile_all_reviews_btn);
+
+        if(signedUserId.equals(userId)){
+            allReviewsBtn.setText("My reviews");
+        }else{
+            allReviewsBtn.setText("All reviews");
+        }
+        friendsList = Model.instance.getFriendsList(userId);
+        //friendsList.remove(Model.instance.getSignedUser());
         if(!userId.equals(signedUserId)){
             signedUserFriendsList = Model.instance.getFriendsList(signedUserId);
         }
@@ -78,12 +87,6 @@ public class UserProfileFragment extends Fragment {
         UserAdapter userAdapter = new UserAdapter(friendsList);
         friendsRv.setAdapter(userAdapter);
 
-        nameTv = view.findViewById(R.id.user_profile_name_tv);
-        totalRestaurantsTv =view.findViewById(R.id.user_profile_total_restaurants_num_tv);
-        totalReviewsTv = view.findViewById(R.id.user_profile_total_reviews_num_tv);
-        addFriendIv = view.findViewById(R.id.user_profile_add_friend_iv);
-        allReviewsBtn = view.findViewById(R.id.user_profile_all_reviews_btn);
-
         favoriteDishAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
@@ -103,8 +106,6 @@ public class UserProfileFragment extends Fragment {
                 Navigation.findNavController(v).navigate((NavDirections) UserProfileFragmentDirections.actionUserProfileFragmentSelf(friendsList.get(position).getId()));
             }
         });
-
-
 
 /// ------ add friend btn logic in comment!! please do not delete ---------//
 
@@ -158,13 +159,6 @@ public class UserProfileFragment extends Fragment {
 //            });
 //        }
 
-        if(signedUserId.equals(userId)){
-            allReviewsBtn.setText("My reviews");
-        }else{
-            allReviewsBtn.setText("All reviews");
-        }
-
-
         allReviewsBtn.setOnClickListener((v)-> {
             Navigation.findNavController(v).navigate((NavDirections) UserProfileFragmentDirections.actionUserProfileFragmentToUserRestaurantListRvFragment(userId));
         });
@@ -173,7 +167,7 @@ public class UserProfileFragment extends Fragment {
         return view;
     }
 
-    private void setUser(String userId) {
+    private void setUserUI(String userId) {
             prog.setVisibility(View.VISIBLE);
             Model.instance.getUserById(userId, (user)-> {
                 this.user = user;
