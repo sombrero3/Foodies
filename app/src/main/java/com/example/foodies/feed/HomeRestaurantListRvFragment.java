@@ -28,6 +28,7 @@ import com.example.foodies.AdaptersAndViewHolders.OnItemClickListener;
 import com.example.foodies.model.Restaurant;
 import com.example.foodies.AdaptersAndViewHolders.RestaurantListGeneralRatingAdapter;
 import com.example.foodies.model.User;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -74,7 +75,7 @@ public class HomeRestaurantListRvFragment extends Fragment {
 
         nameTv = view.findViewById(R.id.home_restaurant_list_name_tv);
 
-        if(Model.instance.isSignedFlag()) {
+        if(user!=null) {
             nameTv.setText("Hello " + user.getFirstName());
             flag = true;
         }

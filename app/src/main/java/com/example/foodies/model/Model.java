@@ -15,7 +15,6 @@ import com.example.foodies.R;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -39,6 +38,26 @@ public class Model {
 
     public void signUp(String email, String password,String firstName,String lastName,ProgressBar progressBar) {
         modelFireBase.signIn(email,password,firstName,lastName,progressBar);
+    }
+
+
+
+
+    public User getSignedUser() {
+        return signedUser;
+    }
+
+    public interface setCurrentUserListener {
+        void onComplete(User user);
+    }
+    public void setCurrentUser(setCurrentUserListener listener) {
+            modelFireBase.setCurrentUser(new setCurrentUserListener() {
+                @Override
+                public void onComplete(User user) {
+                    signedUser = user;
+                    listener.onComplete(user);
+                }
+            });
     }
 
     public enum UsersListLoadingState{
@@ -142,16 +161,15 @@ public class Model {
     public void setReviewList(List<DishReview> dishReviewList) {
         this.dishReviewList = dishReviewList;
     }
-    public User getSignedUser() {
-        return signedUser;
-    }
-    public void setSignedUser(User signedUser) {
-        this.signedUser = signedUser;
-    }
+
+
+
+
     public boolean isSignedFlag() {
         return signedFlag;
     }
     public void setSignedFlag(boolean signedFlag) {
+
         this.signedFlag = signedFlag;
     }
     //---------------------------------//
@@ -218,16 +236,16 @@ public class Model {
         }
         getRestaurantById(restaurantId).setRating(rating);
     }
-    public boolean confirmUserLogin(String name,String password){
-        for (User user:userList) {
-            if(user.getFirstName().equals(name) && user.getPassword().equals(password)){
-                setSignedFlag(true);
-                setSignedUser(user);
-                return true;
-            }
-        }
-        return false;
-    }
+//    public boolean confirmUserLogin(String name,String password){
+//        for (User user:userList) {
+//            if(user.getFirstName().equals(name) && user.getPassword().equals(password)){
+//                setSignedFlag(true);
+//                setSignedUser(user);
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
     public Dish getDishById(String dishId){
         for(Dish dish:dishList){
             if(dish.getId().equals(dishId)){
@@ -252,13 +270,17 @@ public class Model {
         }
         return new DishReview();
     }
-    public User getUserById(String id){
-        for(int i=0;i< userList.size();i++){
-            if(userList.get(i).getId().equals(id)){
-                return userList.get(i);
-            }
-        }
-        return new User();
+
+    public interface getUserByIdListener{
+        void onComplete(User user);
+    }
+    public void getUserById(String id,getUserByIdListener listener){
+        modelFireBase.getUserById(id,listener);
+//        for(int i=0;i< userList.size();i++){
+//            if(userList.get(i).getId().equals(id)){
+//                return userList.get(i);
+//            }
+//        }
     }
 
     public boolean ifUserHasReviewOnThatRestaurant(String userId,String restaurantId){

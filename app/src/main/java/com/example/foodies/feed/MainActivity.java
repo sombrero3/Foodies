@@ -19,6 +19,7 @@ import com.example.foodies.R;
 import com.example.foodies.login.LoginActivity;
 import com.example.foodies.model.Model;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
     NavController navCtl;
@@ -88,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.main_menu_logout:
                     Toast.makeText(this,"Logging Out",Toast.LENGTH_SHORT).show();
+                    FirebaseAuth.getInstance().signOut();
                     Intent intent = new Intent(this, LoginActivity.class);
                     startActivity(intent);
                     finish();

@@ -1,5 +1,6 @@
 package com.example.foodies.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.foodies.R;
+import com.example.foodies.feed.MainActivity;
 import com.example.foodies.model.Model;
 import com.example.foodies.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -108,6 +110,7 @@ public class NewUserFragment extends Fragment {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             User user = new User(email,password,firstName,lastName);
+                            user.setId(FirebaseAuth.getInstance().getUid());
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                     .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -115,7 +118,7 @@ public class NewUserFragment extends Fragment {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful()){
                                         Toast.makeText(getActivity(),"Successfully Registered",Toast.LENGTH_LONG).show();
-                                        progressBar.setVisibility(View.INVISIBLE);
+                                        goToFeedActivity();
                                     }else{
                                         Toast.makeText(getActivity(),"Failed To Registered",Toast.LENGTH_LONG).show();
                                         progressBar.setVisibility(View.GONE);
@@ -128,5 +131,17 @@ public class NewUserFragment extends Fragment {
                         }
                     }
                 });
+    }
+    public void goToFeedActivity(){
+        Model.instance.setCurrentUser(new Model.setCurrentUserListener() {
+            @Override
+            public void onComplete(User user) {
+                progressBar.setVisibility(View.INVISIBLE);
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+            }
+        });
+
     }
 }

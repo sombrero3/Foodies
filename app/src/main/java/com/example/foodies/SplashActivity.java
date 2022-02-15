@@ -10,6 +10,7 @@ import android.os.Bundle;
 import com.example.foodies.feed.MainActivity;
 import com.example.foodies.login.LoginActivity;
 import com.example.foodies.model.Model;
+import com.example.foodies.model.User;
 import com.google.firebase.FirebaseApp;
 
 public class SplashActivity extends AppCompatActivity {
@@ -23,13 +24,19 @@ public class SplashActivity extends AppCompatActivity {
 
         Model.instance.executor.execute(()->{
             try {
-                Thread.sleep(4000);
+                Thread.sleep(3000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             if(Model.instance.isSignedIn()){
                 Model.instance.mainThread.post(()->{
-                    toFeedActivity();
+                    Model.instance.setCurrentUser(new Model.setCurrentUserListener() {
+                        @Override
+                        public void onComplete(User user) {
+                            toFeedActivity();
+                        }
+                    });
+
                 });
             }else{
                 Model.instance.mainThread.post(()-> {

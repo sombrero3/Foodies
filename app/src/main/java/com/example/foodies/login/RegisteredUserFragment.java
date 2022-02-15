@@ -3,6 +3,7 @@ package com.example.foodies.login;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -14,12 +15,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.foodies.R;
 import com.example.foodies.feed.MainActivity;
 import com.example.foodies.model.Model;
-
-import java.util.regex.Pattern;
+import com.example.foodies.model.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 
 public class RegisteredUserFragment extends Fragment {
@@ -27,6 +33,7 @@ public class RegisteredUserFragment extends Fragment {
     TextView forgotTv, invalidDetaisTv;
     EditText emailEt, passwordEt;
     ProgressBar progressBar;
+    FirebaseAuth mAuth;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -43,29 +50,20 @@ public class RegisteredUserFragment extends Fragment {
        progressBar.setVisibility(View.INVISIBLE);
        invalidDetaisTv.setVisibility(View.INVISIBLE);
 
+        mAuth = FirebaseAuth.getInstance();
+
         signUpBtn.setOnClickListener((v)->{
             Navigation.findNavController(v).navigate(RegisteredUserFragmentDirections.actionRegisteredUserFragmentToNewUserFragment());
         });
 
        loginBtn.setOnClickListener((v)->{
-           registeration();
-
-
-
-//           if(Model.instance.confirmUserLogin(email,password)){
-//
-//               toFeedActivity();
-//           }else{
-//               invalidDetaisTv.setVisibility(View.VISIBLE);
-//               signUpBtn.setVisibility(View.VISIBLE);
-//           }
-
+           login();
        });
 
        return view;
     }
 
-    private void registeration() {
+    private void login() {
         String email = emailEt.getEditableText().toString();
         String password =passwordEt.getEditableText().toString();
         if(email.isEmpty()){
@@ -74,7 +72,7 @@ public class RegisteredUserFragment extends Fragment {
             return;
         }
         if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            emailEt.setError("Please provide valid email");
+            emailEt.setError("Please provide a valid email");
             emailEt.requestFocus();
             return;
         }
@@ -83,12 +81,41 @@ public class RegisteredUserFragment extends Fragment {
             passwordEt.requestFocus();
             return;
         }
+        if(password.length()<6){
+            passwordEt.setError("Password must contain 6 or more characters");
+            passwordEt.requestFocus();
+            return;
+        }
         progressBar.setVisibility(View.VISIBLE);
+        mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    ///------in comment: verification with email-----///
+//                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//                    if(user.isEmailVerified()) {
+                        toFeedActivity();
+//                    }else{
+//                        Toast.makeText(getActivity(),"Please check your email to verify your account!!",Toast.LENGTH_LONG).show();
+//                    }
+                }else{
+                    Toast.makeText(getActivity(),"Failed To Login",Toast.LENGTH_LONG).show();
+                    progressBar.setVisibility(View.GONE);
+                }
+            }
+        });
+
     }
 
     private void toFeedActivity() {
-        Intent intent = new Intent(getContext(), MainActivity.class);
-        startActivity(intent);
-        getActivity().finish();
+        Model.instance.setCurrentUser(new Model.setCurrentUserListener() {
+            @Override
+            public void onComplete(User user) {
+                progressBar.setVisibility(View.INVISIBLE);
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+            }
+        });
     }
 }

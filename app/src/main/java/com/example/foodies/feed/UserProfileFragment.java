@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.foodies.AdaptersAndViewHolders.FavoriteDishAdapter;
@@ -40,6 +41,7 @@ public class UserProfileFragment extends Fragment {
     List<DishReview> dishReviewList;
     User user;
     boolean flagRequest;
+    ProgressBar prog;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -47,7 +49,10 @@ public class UserProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_user_profile, container, false);
 
         String userId = UserProfileFragmentArgs.fromBundle(getArguments()).getUserId();
-        user = Model.instance.getUserById(userId);
+
+
+        prog = view.findViewById(R.id.user_profile_prog);
+        setUser(userId);
         User signedUser = Model.instance.getSignedUser();
         friendsList = Model.instance.getFriendsList(userId);
         friendsList.remove(Model.instance.getSignedUser());
@@ -99,61 +104,59 @@ public class UserProfileFragment extends Fragment {
             }
         });
 
-        nameTv.setText(user.getFirstName()+ " "+ user.getLastName());
-        totalReviewsTv.setText("Posted total of "+user.getTotalReviews()+" reviews");
-        totalRestaurantsTv.setText("Posted reviews on "+user.getTotalRestaurantsVisited()+" restaurants");
 
-        //signedUser.updateFriendLists();
 
-        if(userId.equals(signedUserId)) {
-            addFriendIv.setOnClickListener((v) -> {
-                Navigation.findNavController(v).navigate(UserProfileFragmentDirections.actionUserProfileFragmentToAddFriendFragment());
-            });
-        }else if(!signedUserFriendsList.contains(user)){
-            User userProfile = Model.instance.getUserById(userId);
-            flagRequest =false;
-            addFriendIv.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(signedUserFriendRequestList.contains(userProfile)){
-                        if(!flagRequest){
-                            Model.instance.friendRequestConfirmed(userProfile.getId());
-                            addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_disabled_orange_24);
-                            flagRequest = true;
-                        }else{
-                            Model.instance.cancelFriendsihp(userProfile);
-                            addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_orange24);
-                            flagRequest = false;
-                        }
-                    }else {
-                        if (!flagRequest) {
-                            Model.instance.friendRequestSendRequestToUser(userProfile);
-                            addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_disabled_orange_24);
-                            flagRequest = true;
-                        } else {
-                            Model.instance.friendRequestCancel(userProfile);
-                            addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_orange24);
-                            flagRequest = false;
-                        }
-                    }
-                }
-            });
-        }else if(signedUserFriendsList.contains(user)){
-            User userProfile = Model.instance.getUserById(userId);
-            addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_disabled_orange_24);
-            flagRequest =false;
-            addFriendIv.setOnClickListener((v)->{
-                if(!flagRequest) {
-                    Model.instance.cancelFriendsihp(userProfile);
-                    addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_orange24);
-                    flagRequest=true;
-                }else{
-                    Model.instance.recoverFriendship(userProfile);
-                    addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_disabled_orange_24);
-                    flagRequest=false;
-                }
-            });
-        }
+/// ------ add friend btn logic in comment!! please do not delete ---------//
+
+//        if(userId.equals(signedUserId)) {
+//            addFriendIv.setOnClickListener((v) -> {
+//                Navigation.findNavController(v).navigate(UserProfileFragmentDirections.actionUserProfileFragmentToAddFriendFragment());
+//            });
+//        }else if(!signedUserFriendsList.contains(user)){
+//            User userProfile = Model.instance.getUserById(userId);
+//            flagRequest =false;
+//            addFriendIv.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    if(signedUserFriendRequestList.contains(userProfile)){
+//                        if(!flagRequest){
+//                            Model.instance.friendRequestConfirmed(userProfile.getId());
+//                            addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_disabled_orange_24);
+//                            flagRequest = true;
+//                        }else{
+//                            Model.instance.cancelFriendsihp(userProfile);
+//                            addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_orange24);
+//                            flagRequest = false;
+//                        }
+//                    }else {
+//                        if (!flagRequest) {
+//                            Model.instance.friendRequestSendRequestToUser(userProfile);
+//                            addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_disabled_orange_24);
+//                            flagRequest = true;
+//                        } else {
+//                            Model.instance.friendRequestCancel(userProfile);
+//                            addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_orange24);
+//                            flagRequest = false;
+//                        }
+//                    }
+//                }
+//            });
+//        }else if(signedUserFriendsList.contains(user)){
+//            User userProfile = Model.instance.getUserById(userId);
+//            addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_disabled_orange_24);
+//            flagRequest =false;
+//            addFriendIv.setOnClickListener((v)->{
+//                if(!flagRequest) {
+//                    Model.instance.cancelFriendsihp(userProfile);
+//                    addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_orange24);
+//                    flagRequest=true;
+//                }else{
+//                    Model.instance.recoverFriendship(userProfile);
+//                    addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_disabled_orange_24);
+//                    flagRequest=false;
+//                }
+//            });
+//        }
 
         if(signedUserId.equals(userId)){
             allReviewsBtn.setText("My reviews");
@@ -169,6 +172,37 @@ public class UserProfileFragment extends Fragment {
         setHasOptionsMenu(true);
         return view;
     }
+
+    private void setUser(String userId) {
+            prog.setVisibility(View.VISIBLE);
+            Model.instance.getUserById(userId, (user)-> {
+                this.user = user;
+//                if(user.getId().equals("")){
+//                    user.setId("deleteMe");
+//                    Model.instance.deleteLeftoverStudent(student, new Model.DeleteLeftoverStudentListener() {
+//                        @Override
+//                        public void onComplete() {
+//                            Navigation.findNavController(nameTv).navigateUp();
+//                        }
+//                    });
+//
+//                }
+                nameTv.setText(user.getFirstName());
+                nameTv.setText(user.getFirstName()+ " "+ user.getLastName());
+                totalReviewsTv.setText("Posted total of "+user.getTotalReviews()+" reviews");
+                totalRestaurantsTv.setText("Posted reviews on "+user.getTotalRestaurantsVisited()+" restaurants");
+
+//                if (student.getAvatarUrl() != null) {
+//                    Picasso.get().load(student.getAvatarUrl()).into(avatarIv);
+//                }
+            });
+
+
+
+            prog.setVisibility(View.GONE);
+
+    }
+
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
