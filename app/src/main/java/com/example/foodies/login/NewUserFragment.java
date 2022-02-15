@@ -2,6 +2,7 @@ package com.example.foodies.login;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -14,10 +15,16 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.foodies.R;
 import com.example.foodies.model.Model;
+import com.example.foodies.model.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class NewUserFragment extends Fragment {
 
@@ -44,6 +51,7 @@ public class NewUserFragment extends Fragment {
         emailEt = view.findViewById(R.id.new_user_email_et);
         progressBar = view.findViewById(R.id.new_user_prog);
         progressBar.setVisibility(View.INVISIBLE);
+
         signUp.setOnClickListener((v)->{
             registration();
         });
@@ -92,33 +100,33 @@ public class NewUserFragment extends Fragment {
         }
 
         progressBar.setVisibility(View.VISIBLE);
-        Model.instance.signUp(email,password,firstName,lastName,progressBar);
-//        mAuth = FirebaseAuth.getInstance();
-//        mAuth.createUserWithEmailAndPassword(email,password)
-//                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        if(task.isSuccessful()){
-//                            User user = new User(email,password,firstName,lastName);
-//                            FirebaseDatabase.getInstance().getReference("Users")
-//                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-//                                    .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                @Override
-//                                public void onComplete(@NonNull Task<Void> task) {
-//                                    if(task.isSuccessful()){
-//                                        Toast.makeText(getActivity(),"Successfully Registered",Toast.LENGTH_LONG).show();
-//                                        progressBar.setVisibility(View.INVISIBLE);
-//                                    }else{
-//                                        Toast.makeText(getActivity(),"Failed To Registered",Toast.LENGTH_LONG).show();
-//                                        progressBar.setVisibility(View.GONE);
-//                                    }
-//                                }
-//                            });
-//                        }else{
-//                            Toast.makeText(getActivity(),"Failed To Registered",Toast.LENGTH_LONG).show();
-//                            progressBar.setVisibility(View.GONE);
-//                        }
-//                    }
-//                });
+      //  Model.instance.signUp(email,password,firstName,lastName,progressBar);
+        mAuth = FirebaseAuth.getInstance();
+        mAuth.createUserWithEmailAndPassword(email,password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            User user = new User(email,password,firstName,lastName);
+                            FirebaseDatabase.getInstance().getReference("Users")
+                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                    .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful()){
+                                        Toast.makeText(getActivity(),"Successfully Registered",Toast.LENGTH_LONG).show();
+                                        progressBar.setVisibility(View.INVISIBLE);
+                                    }else{
+                                        Toast.makeText(getActivity(),"Failed To Registered",Toast.LENGTH_LONG).show();
+                                        progressBar.setVisibility(View.GONE);
+                                    }
+                                }
+                            });
+                        }else{
+                            Toast.makeText(getActivity(),"Failed To Registered",Toast.LENGTH_LONG).show();
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    }
+                });
     }
 }

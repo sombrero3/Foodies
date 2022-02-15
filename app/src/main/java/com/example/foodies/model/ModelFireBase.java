@@ -55,32 +55,51 @@ public class ModelFireBase {
     }
 
     public void signIn(String email, String password, String firstName, String lastName, ProgressBar progressBar) {
+        Log.d("TAG", "signIn: "+email +" "+password+" "+mAuth );
         mAuth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            User user = new User(email,password,firstName,lastName);
-                            FirebaseDatabase.getInstance().getReference("Users")
-                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                    .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if(task.isSuccessful()){
-                                        Toast.makeText(progressBar.getContext(), "Successfully Registered",Toast.LENGTH_LONG).show();
-                                        progressBar.setVisibility(View.VISIBLE);
-                                    }else{
-                                        Toast.makeText(progressBar.getContext(),"Failed To Registered",Toast.LENGTH_LONG).show();
-                                        progressBar.setVisibility(View.GONE);
-                                    }
-                                }
-                            });
+                            Log.d("TAG", "onComplete: succeed"+email +" "+password+" "+mAuth.getCurrentUser() );
                         }else{
                             Toast.makeText(progressBar.getContext(),"Failed To Registered 2",Toast.LENGTH_LONG).show();
+
+                            Log.d("TAG", "onComplete failed: "+email +" "+password+" "+mAuth+" "+task.getException().toString() );
                             progressBar.setVisibility(View.GONE);
                         }
                     }
                 });
     }
+//    public void signIn(String email, String password, String firstName, String lastName, ProgressBar progressBar) {
+//        mAuth.createUserWithEmailAndPassword(email,password)
+//                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                        if(task.isSuccessful()){
+//                            User user = new User(email,password,firstName,lastName);
+//                            FirebaseDatabase.getInstance().getReference("Users")
+//                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+//                                    .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                @Override
+//                                public void onComplete(@NonNull Task<Void> task) {
+//                                    if(task.isSuccessful()){
+//                                        Toast.makeText(progressBar.getContext(), "Successfully Registered",Toast.LENGTH_LONG).show();
+//                                        progressBar.setVisibility(View.VISIBLE);
+//                                    }else{
+//                                        Toast.makeText(progressBar.getContext(),"Failed To Registered",Toast.LENGTH_LONG).show();
+//                                        progressBar.setVisibility(View.GONE);
+//                                    }
+//                                }
+//                            });
+//                        }else{
+//                            Toast.makeText(progressBar.getContext(),"Failed To Registered 2",Toast.LENGTH_LONG).show();
+//
+//                            Log.d("TAG", "onComplete: "+email +" "+password+" "+mAuth );
+//                            progressBar.setVisibility(View.GONE);
+//                        }
+//                    }
+//                });
+//    }
 
 }

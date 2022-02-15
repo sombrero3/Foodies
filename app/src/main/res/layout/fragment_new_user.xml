@@ -88,7 +88,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             android:backgroundTint="@color/orange_1"
-            android:text="Sign Up"
+            android:text="confirm"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.448"
@@ -98,7 +98,7 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/linearLayout"
             android:layout_width="300dp"
-            android:layout_height="350dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="90dp"
@@ -127,17 +127,6 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:id="@+id/new_user_invalid_name_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Invalid last name"
-                android:textColor="#F44336"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="@+id/textView4"
-                app:layout_constraintTop_toBottomOf="@+id/new_user_first_name_et" />
-
-
             <com.google.android.material.textfield.TextInputLayout
 
                 android:layout_width="match_parent"
@@ -148,23 +137,13 @@
                     android:id="@+id/new_user_last_name_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
                     android:hint="Last name:"
                     android:inputType="text"
                     android:maxLines="1" />
 
 
             </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/new_user_invalid_Lastname_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Invalid user name"
-                android:textColor="#F44336"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="@+id/textView4"
-                app:layout_constraintTop_toBottomOf="@+id/new_user_first_name_et" />
-
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -176,19 +155,10 @@
                     android:id="@+id/new_user_password_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
                     android:inputType="text"
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/new_user_invalid_password_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Invalid password"
-                android:textColor="#F44336"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="@+id/textView6"
-                app:layout_constraintTop_toBottomOf="@+id/new_user_password_et" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -200,19 +170,10 @@
                     android:id="@+id/new_user_email_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
                     android:inputType="text"
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/new_user_invalid_email_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Invalid email"
-                android:textColor="#F44336"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="@+id/textView4"
-                app:layout_constraintTop_toBottomOf="@+id/new_user_email_et" />
 
 
         </androidx.appcompat.widget.LinearLayoutCompat>
