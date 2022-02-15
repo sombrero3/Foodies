@@ -39,7 +39,7 @@ public class UserListRvFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_user_list_rv, container, false);
 
 
-        user = Model.instance.getUserById(UserListRvFragmentArgs.fromBundle(getArguments()).getUserId());
+        user = Model.instance.getUserByIdOld(UserListRvFragmentArgs.fromBundle(getArguments()).getUserId());
         userList = Model.instance.getFriendsList(user.getId());
 
         RecyclerView list = view.findViewById(R.id.userlist_rv);

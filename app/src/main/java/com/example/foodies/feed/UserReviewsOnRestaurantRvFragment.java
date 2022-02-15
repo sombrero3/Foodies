@@ -43,7 +43,7 @@ public class UserReviewsOnRestaurantRvFragment extends Fragment {
         public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.fragment_user_reviews_on_restaurant_rv, container, false);
 
-            User user = Model.instance.getUserById(UserReviewsOnRestaurantRvFragmentArgs.fromBundle(getArguments()).getUserId());
+            User user = Model.instance.getUserByIdOld(UserReviewsOnRestaurantRvFragmentArgs.fromBundle(getArguments()).getUserId());
             Restaurant restaurant = Model.instance.getRestaurantById(UserReviewsOnRestaurantRvFragmentArgs.fromBundle(getArguments()).getRestaurantId());
             Log.d("TAG","user review on restaurant");
             dishList = Model.instance.getAllDishesThatTheUserHasAReviewedOnInThisRestaurantByUserIdAndRestaurantId(user.getId(),restaurant.getId());

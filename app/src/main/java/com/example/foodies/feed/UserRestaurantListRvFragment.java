@@ -48,7 +48,7 @@ public class UserRestaurantListRvFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_user_restaurant_list_rv, container, false);
 
         String userId = UserRestaurantListRvFragmentArgs.fromBundle(getArguments()).getUserId();
-        user = Model.instance.getUserById(userId);
+        user = Model.instance.getUserByIdOld(userId);
         restaurantList = Model.instance.getAllRestaurantsThatUserHasReviewsOnByUserId(user.getId());
 
         RecyclerView list = view.findViewById(R.id.user_restaurant_rv);

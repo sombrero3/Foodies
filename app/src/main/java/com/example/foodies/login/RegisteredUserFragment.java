@@ -60,6 +60,9 @@ public class RegisteredUserFragment extends Fragment {
            login();
        });
 
+       forgotTv.setOnClickListener((v) -> {
+           Navigation.findNavController(v).navigate(RegisteredUserFragmentDirections.actionRegisteredUserFragmentToForgotPasswordFragment());
+       });
        return view;
     }
 

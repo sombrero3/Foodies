@@ -276,12 +276,17 @@ public class Model {
     }
     public void getUserById(String id,getUserByIdListener listener){
         modelFireBase.getUserById(id,listener);
-//        for(int i=0;i< userList.size();i++){
-//            if(userList.get(i).getId().equals(id)){
-//                return userList.get(i);
-//            }
-//        }
+
     }
+    public User getUserByIdOld(String id){
+        for(int i=0;i< userList.size();i++){
+            if(userList.get(i).getId().equals(id)){
+                return userList.get(i);
+            }
+        }
+        return new User();
+    }
+
 
     public boolean ifUserHasReviewOnThatRestaurant(String userId,String restaurantId){
         boolean res = false;
@@ -304,10 +309,10 @@ public class Model {
 
     public void addDishReview(DishReview dishReview){
         if(!ifUserHasReviewOnThatRestaurant(dishReview.getUserId(),dishReview.getRestaurantId())){
-            getUserById(dishReview.getUserId()).increaseTotalRestaurantsVisited();
+            getUserByIdOld(dishReview.getUserId()).increaseTotalRestaurantsVisited();
         }
         dishReviewList.add(dishReview);
-        getUserById(dishReview.getUserId()).increaseTotalReviews();
+        getUserByIdOld(dishReview.getUserId()).increaseTotalReviews();
         dishUpdateRating(dishReview.getDishId());
         restaurantUpdateRating(dishReview.getRestaurantId());
 
@@ -416,8 +421,8 @@ public class Model {
     public List<User> getAllUsersThatHaveReviewsOnRestaurantByRestaurantId(String restaurantId){
         List<User> result = new LinkedList<>();
         for(int i = 0; i< dishReviewList.size(); i++){
-            if(dishReviewList.get(i).getRestaurantId().equals(restaurantId) && !result.contains(getUserById(dishReviewList.get(i).getUserId()))){
-                result.add(getUserById(dishReviewList.get(i).getUserId()));
+            if(dishReviewList.get(i).getRestaurantId().equals(restaurantId) && !result.contains(getUserByIdOld(dishReviewList.get(i).getUserId()))){
+                result.add(getUserByIdOld(dishReviewList.get(i).getUserId()));
 
             }
         }
@@ -787,7 +792,7 @@ public class Model {
 
     public String getReviewRatingByDishIdAndUserId(String dishId, String userId) {
         String rating ="";
-        User user = getUserById(userId);
+        User user = getUserByIdOld(userId);
         List<DishReview> list = getUserDishReviewsList(userId);
         for (DishReview dishReview :list) {
             if(dishReview.getDishId().equals(dishId)){
@@ -832,7 +837,7 @@ public class Model {
         List<User> res = new LinkedList<>();
         for(FriendshipStatus fs:friendshipStatuses){
             if(fs.getUser1Id().equals(userId) && fs.getStatus().equals("pending") && fs.isDeleted()==false){
-                res.add(getUserById(fs.getUser2Id()));
+                res.add(getUserByIdOld(fs.getUser2Id()));
             }
         }
         return res;
@@ -1003,8 +1008,8 @@ public class Model {
                 friends.add(u);
             }
             for (DishReview rev : dishReviewList) {
-                if (rev.getRestaurantId().equals(restaurantId) && friends.contains(getUserById(rev.getUserId()))) {
-                    friends.remove(getUserById(rev.getUserId()));
+                if (rev.getRestaurantId().equals(restaurantId) && friends.contains(getUserByIdOld(rev.getUserId()))) {
+                    friends.remove(getUserByIdOld(rev.getUserId()));
                     res++;
                 }
             }
@@ -1021,8 +1026,8 @@ public class Model {
                 friends.add(u);
             }
             for (DishReview rev : dishReviewList) {
-                if (rev.getRestaurantId().equals(restaurantId) && friends.contains(getUserById(rev.getUserId()))) {
-                    res = getUserById(rev.getUserId()).getFirstName();
+                if (rev.getRestaurantId().equals(restaurantId) && friends.contains(getUserByIdOld(rev.getUserId()))) {
+                    res = getUserByIdOld(rev.getUserId()).getFirstName();
                 }
             }
         }
