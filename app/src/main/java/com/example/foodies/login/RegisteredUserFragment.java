@@ -69,56 +69,45 @@ public class RegisteredUserFragment extends Fragment {
     private void login() {
         String email = emailEt.getEditableText().toString();
         String password =passwordEt.getEditableText().toString();
+        if(validation(email,password)){
+            progressBar.setVisibility(View.VISIBLE);
+            mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if(task.isSuccessful()){
+                        toFeedActivityWithEmailVerification();
+                       // toFeedActivity();
+                    }else{
+                        Toast.makeText(getActivity(),"Failed To Login",Toast.LENGTH_LONG).show();
+                        progressBar.setVisibility(View.GONE);
+                    }
+                }
+            });
+        }
+    }
+
+    private boolean validation(String email,String password) {
         if(email.isEmpty()){
             emailEt.setError("Email address is required");
             emailEt.requestFocus();
-            return;
+            return false;
         }
         if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             emailEt.setError("Please provide a valid email");
             emailEt.requestFocus();
-            return;
+            return false;
         }
         if(password.isEmpty()){
             passwordEt.setError("Password is required");
             passwordEt.requestFocus();
-            return;
+            return false;
         }
         if(password.length()<6){
             passwordEt.setError("Password must contain 6 or more characters");
             passwordEt.requestFocus();
-            return;
+            return false;
         }
-        progressBar.setVisibility(View.VISIBLE);
-        mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-//                    ///------in comment: verification with email-----///
-//                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//                    if(user.isEmailVerified()) {
-                        toFeedActivity();
-//                    }else{
-
-//                        user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-//                            @Override
-//                            public void onComplete(@NonNull Task<Void> task) {
-//                                if(task.isSuccessful()){
-//                                    Toast.makeText(getActivity(),"Please check your email to verify your account!!",Toast.LENGTH_LONG).show();
-//                                }else{
-//                        Toast.makeText(getActivity(),"Something went wrong please try again!!",Toast.LENGTH_LONG).show();//                       progressBar.setVisibility(View.GONE);
-//                                }
-//                                progressBar.setVisibility(View.GONE);
-//                            }
-//                        });
-//                    }
-                }else{
-                    Toast.makeText(getActivity(),"Failed To Login",Toast.LENGTH_LONG).show();
-                    progressBar.setVisibility(View.GONE);
-                }
-            }
-        });
-
+        return true;
     }
 
     private void toFeedActivity() {
@@ -131,5 +120,24 @@ public class RegisteredUserFragment extends Fragment {
                 getActivity().finish();
             }
         });
+    }
+
+    public void toFeedActivityWithEmailVerification() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user.isEmailVerified()) {
+            toFeedActivity();
+        }else{
+            user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()){
+                        Toast.makeText(getActivity(),"Please check your email to verify your account!!",Toast.LENGTH_LONG).show();
+                    }else{
+                        Toast.makeText(getActivity(),"Something went wrong please try again!!",Toast.LENGTH_LONG).show();//                       progressBar.setVisibility(View.GONE);
+                    }
+                    progressBar.setVisibility(View.GONE);
+                }
+            });
+        }
     }
 }

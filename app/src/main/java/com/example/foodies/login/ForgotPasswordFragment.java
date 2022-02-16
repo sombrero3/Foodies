@@ -64,7 +64,7 @@ public class ForgotPasswordFragment extends Fragment {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(getContext(),"Pleas check your email to reset you password",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(),"Pleas check your email to reset your password",Toast.LENGTH_LONG).show();
                     Navigation.findNavController(prog).navigate(ForgotPasswordFragmentDirections.actionForgotPasswordFragmentToRegisteredUserFragment());
                 }else{
                     Toast.makeText(getContext(),"Something went wrong!",Toast.LENGTH_LONG).show();
