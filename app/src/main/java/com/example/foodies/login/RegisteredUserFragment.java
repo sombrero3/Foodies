@@ -30,7 +30,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class RegisteredUserFragment extends Fragment {
     Button loginBtn, signUpBtn;
-    TextView forgotTv, invalidDetaisTv;
+    TextView forgotTv;
     EditText emailEt, passwordEt;
     ProgressBar progressBar;
     FirebaseAuth mAuth;
@@ -42,13 +42,11 @@ public class RegisteredUserFragment extends Fragment {
        loginBtn = view.findViewById(R.id.RegisteredUser_signIn_btn);
        signUpBtn = view.findViewById(R.id.registered_user_signup_btn);
        forgotTv = view.findViewById(R.id.registered_user_forgot_tv);
-       invalidDetaisTv = view.findViewById(R.id.registered_user_ivalid_details_tv);
        emailEt = view.findViewById(R.id.registered_user_email_et);
        passwordEt = view.findViewById(R.id.registered_user_password_et);
        progressBar = view.findViewById(R.id.registered_user_prog);
 
        progressBar.setVisibility(View.INVISIBLE);
-       invalidDetaisTv.setVisibility(View.INVISIBLE);
 
         mAuth = FirebaseAuth.getInstance();
 
