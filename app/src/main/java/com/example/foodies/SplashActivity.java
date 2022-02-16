@@ -24,7 +24,7 @@ public class SplashActivity extends AppCompatActivity {
 
         Model.instance.executor.execute(()->{
             try {
-                Thread.sleep(3000);
+                Thread.sleep(2500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -36,7 +36,6 @@ public class SplashActivity extends AppCompatActivity {
                             toFeedActivity();
                         }
                     });
-
                 });
             }else{
                 Model.instance.mainThread.post(()-> {
