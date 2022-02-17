@@ -24,9 +24,11 @@ import com.example.foodies.model.Model;
 import com.example.foodies.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FieldValue;
 
 public class NewUserFragment extends Fragment {
 
@@ -62,52 +64,6 @@ public class NewUserFragment extends Fragment {
 
         return view;
     }
-
-    private void registration() {
-        String email = emailEt.getEditableText().toString().trim();
-        String password =passwordEt.getEditableText().toString().trim();
-        String firstName = firstNameEt.getEditableText().toString().trim();
-        String lastName = lastNameEt.getEditableText().toString().trim();
-
-        if(validation(email,password,firstName,lastName)) {
-            progressBar.setVisibility(View.VISIBLE);
-            //  Model.instance.signUp(email,password,firstName,lastName,progressBar);
-            mAuth = FirebaseAuth.getInstance();
-            mAuth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                User user = new User(email, password, firstName, lastName);
-                                user.setId(FirebaseAuth.getInstance().getUid());
-                                addUserToRealTimeDataBase(user);
-                            } else {
-                                Toast.makeText(getActivity(), "Failed To Registered", Toast.LENGTH_LONG).show();
-                                progressBar.setVisibility(View.GONE);
-                            }
-                        }
-                    });
-        }
-    }
-
-    private void addUserToRealTimeDataBase(User user) {
-        FirebaseDatabase.getInstance().getReference("Users")
-                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(getActivity(), "Successfully Registered.", Toast.LENGTH_LONG).show();
-                    goToFeedActivity();
-                } else {
-                    Toast.makeText(getActivity(), "Failed to add user to db", Toast.LENGTH_LONG).show();
-                    progressBar.setVisibility(View.GONE);
-                }
-            }
-        });
-
-    }
-
     private boolean validation(String email, String password, String firstName, String lastName) {
         if(firstName.isEmpty()){
             firstNameEt.setError("First name is required");
@@ -140,6 +96,52 @@ public class NewUserFragment extends Fragment {
             return false;
         }
         return true;
+    }
+
+    private void registration() {
+        String email = emailEt.getEditableText().toString().trim();
+        String password =passwordEt.getEditableText().toString().trim();
+        String firstName = firstNameEt.getEditableText().toString().trim();
+        String lastName = lastNameEt.getEditableText().toString().trim();
+
+        if(validation(email,password,firstName,lastName)) {
+            progressBar.setVisibility(View.VISIBLE);
+            //  Model.instance.signUp(email,password,firstName,lastName,progressBar);
+            mAuth = FirebaseAuth.getInstance();
+            mAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                User user = new User(email, password, firstName, lastName);
+                                user.setId(FirebaseAuth.getInstance().getUid());
+                                user.setUpdateDate(Timestamp.now().getSeconds());
+                                addUserToRealTimeDataBase(user);
+                            } else {
+                                Toast.makeText(getActivity(), "Failed To Registered", Toast.LENGTH_LONG).show();
+                                progressBar.setVisibility(View.GONE);
+                            }
+                        }
+                    });
+        }
+    }
+
+    private void addUserToRealTimeDataBase(User user) {
+        FirebaseDatabase.getInstance().getReference("Users")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(getActivity(), "Successfully Registered.", Toast.LENGTH_LONG).show();
+                    goToFeedActivity();
+                } else {
+                    Toast.makeText(getActivity(), "Failed to add user to db", Toast.LENGTH_LONG).show();
+                    progressBar.setVisibility(View.GONE);
+                }
+            }
+        });
+
     }
 
     public void goToFeedActivity(){

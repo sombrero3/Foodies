@@ -73,8 +73,8 @@ public class RegisteredUserFragment extends Fragment {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
-                        toFeedActivityWithEmailVerification();
-                       // toFeedActivity();
+                      //  toFeedActivityWithEmailVerification();
+                        toFeedActivity();
                     }else{
                         Toast.makeText(getActivity(),"Failed To Login",Toast.LENGTH_LONG).show();
                         progressBar.setVisibility(View.GONE);

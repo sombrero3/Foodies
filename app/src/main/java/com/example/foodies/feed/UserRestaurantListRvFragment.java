@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.foodies.AdaptersAndViewHolders.RestaurantListGeneralRatingAdapter;
@@ -42,16 +43,27 @@ public class UserRestaurantListRvFragment extends Fragment {
     ImageButton searchIbtn;
     EditText searchEt;
     User user;
+    ProgressBar prog;
     boolean flag;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_restaurant_list_rv, container, false);
 
-        String userId = UserRestaurantListRvFragmentArgs.fromBundle(getArguments()).getUserId();
-        user = Model.instance.getUserByIdOld(userId);
-        restaurantList = Model.instance.getAllRestaurantsThatUserHasReviewsOnByUserId(user.getId());
-
         RecyclerView list = view.findViewById(R.id.user_restaurant_rv);
+        nameTv = view.findViewById(R.id.user_restaurant_name_tv);
+        totalReviewsTv = view.findViewById(R.id.user_restaurant_num_reviews_tv);
+        titleTv = view.findViewById(R.id.user_restaurant_title_tv);
+        addReviewBtn = view.findViewById(R.id.user_restaurant_list_addreview_btn);
+        searchIbtn = view.findViewById(R.id.user_restaurant_search_ibtn);
+        searchEt = view.findViewById(R.id.user_restaurant_list_search_et);
+        prog=view.findViewById(R.id.user_restaurant_prog);
+
+        prog.setVisibility(View.VISIBLE);
+        String userId = UserRestaurantListRvFragmentArgs.fromBundle(getArguments()).getUserId();
+        user=Model.instance.getUserByIdOld(userId);
+        setUserUi(userId);
+
+        restaurantList = Model.instance.getAllRestaurantsThatUserHasReviewsOnByUserId(user.getId());
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
         RestaurantListUserRatingAdapter adapter = new RestaurantListUserRatingAdapter(restaurantList,user);
@@ -66,16 +78,6 @@ public class UserRestaurantListRvFragment extends Fragment {
 
             }
         });
-        nameTv = view.findViewById(R.id.user_restaurant_name_tv);
-        totalReviewsTv = view.findViewById(R.id.user_restaurant_num_reviews_tv);
-        titleTv = view.findViewById(R.id.user_restaurant_title_tv);
-        addReviewBtn = view.findViewById(R.id.user_restaurant_list_addreview_btn);
-        searchIbtn = view.findViewById(R.id.user_restaurant_search_ibtn);
-        searchEt = view.findViewById(R.id.user_restaurant_list_search_et);
-
-        nameTv.setText(user.getFirstName() +" "+ user.getLastName());
-        totalReviewsTv.setText("Posted "+user.getTotalReviews()+" reviews");
-        titleTv.setText(user.getFirstName()+"'s reviews :");
         if(user.getId().equals(Model.instance.getSignedUser().getId())){
             addReviewBtn.setOnClickListener((v)->{
                 Navigation.findNavController(v).navigate((NavDirections) UserRestaurantListRvFragmentDirections.actionUserRestaurantListRvFragmentToNewReviewFragment(""));
@@ -83,6 +85,16 @@ public class UserRestaurantListRvFragment extends Fragment {
         }else{
             addReviewBtn.setVisibility(View.INVISIBLE);
         }
+
+        searchIbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                restaurantList.clear();
+                restaurantList.addAll(Model.instance.searchRestaurantByName(searchEt.getEditableText().toString()));
+                adapter.notifyDataSetChanged();
+            }
+        });
+
         flag = true;
         searchEt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,26 +108,30 @@ public class UserRestaurantListRvFragment extends Fragment {
             }
         });
 
-        searchIbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                restaurantList = Model.instance.searchRestaurantByName(searchEt.getEditableText().toString());
-                //adapter.notifyDataSetChanged();
-                RestaurantListGeneralRatingAdapter newAdapter = new RestaurantListGeneralRatingAdapter(restaurantList);
-                list.setAdapter(newAdapter);
-                newAdapter.setOnItemClickListener(new OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View v, int position) {
-                        String restaurantId = restaurantList.get(position).getId();
-                        Navigation.findNavController(v).navigate((NavDirections) UserRestaurantListRvFragmentDirections.actionUserRestaurantListRvFragmentToUserReviewsOnRestaurantRvFragment(user.getId(),restaurantList.get(position).getId()));
-                    }
-                });
-            }
-        });
-
+        prog.setVisibility(View.GONE);
         setHasOptionsMenu(true);
         return view;
     }
+
+    private void setUserUi(String userId) {
+        String signedUserId = Model.instance.getSignedUser().getId();
+        if(signedUserId.equals(userId)){
+            User user =Model.instance.getSignedUser();
+            nameTv.setText(user.getFirstName() +" "+ user.getLastName());
+            totalReviewsTv.setText("Posted "+user.getTotalReviews()+" reviews");
+            titleTv.setText(user.getFirstName()+"'s reviews :");
+        }else {
+            Model.instance.getUserById(userId, new Model.getUserByIdListener() {
+                @Override
+                public void onComplete(User user) {
+                    nameTv.setText(user.getFirstName() + " " + user.getLastName());
+                    totalReviewsTv.setText("Posted " + user.getTotalReviews() + " reviews");
+                    titleTv.setText(user.getFirstName() + "'s reviews :");
+                }
+            });
+        }
+    }
+
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);

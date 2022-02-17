@@ -49,63 +49,18 @@ public class UserProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_user_profile, container, false);
 
         prog = view.findViewById(R.id.user_profile_prog);
-        String userId = UserProfileFragmentArgs.fromBundle(getArguments()).getUserId();
-        setUserUI(userId);
-        User signedUser = Model.instance.getSignedUser();
-        String signedUserId = signedUser.getId();
         nameTv = view.findViewById(R.id.user_profile_name_tv);
         totalRestaurantsTv =view.findViewById(R.id.user_profile_total_restaurants_num_tv);
         totalReviewsTv = view.findViewById(R.id.user_profile_total_reviews_num_tv);
         addFriendIv = view.findViewById(R.id.user_profile_add_friend_iv);
         allReviewsBtn = view.findViewById(R.id.user_profile_all_reviews_btn);
-
-        if(signedUserId.equals(userId)){
-            allReviewsBtn.setText("My reviews");
-        }else{
-            allReviewsBtn.setText("All reviews");
-        }
-        friendsList = Model.instance.getFriendsList(userId);
-        //friendsList.remove(Model.instance.getSignedUser());
-        if(!userId.equals(signedUserId)){
-            signedUserFriendsList = Model.instance.getFriendsList(signedUserId);
-        }
-        signedUserFriendRequestList = Model.instance.getFriendsRequests(signedUserId);
-
-        dishReviewList = Model.instance.getUserHighestRatingReviewsByUserId(user.getId());
-
         reviewsRv = view.findViewById(R.id.user_profile_favorit_dishes_rv);
-        reviewsRv.setHasFixedSize(true);
-        RecyclerView.LayoutManager horizontalLayout = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
-        reviewsRv.setLayoutManager(horizontalLayout);
-        FavoriteDishAdapter favoriteDishAdapter = new FavoriteDishAdapter(dishReviewList);
-        reviewsRv.setAdapter(favoriteDishAdapter);
-
         friendsRv = view.findViewById(R.id.user_profile_friends_rv);
-        friendsRv.setHasFixedSize(true);
-        RecyclerView.LayoutManager horizontalLayout2 = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
-        friendsRv.setLayoutManager(horizontalLayout2);
-        UserAdapter userAdapter = new UserAdapter(friendsList);
-        friendsRv.setAdapter(userAdapter);
 
-        favoriteDishAdapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(View v, int position) {
-                Dish dish = Model.instance.getDishById(dishReviewList.get(position).getDishId());
-                String dishName = dish.getName();
-                String price = dish.getPrice();
-                Log.d("TAG","dish clicked: " + dishName + " price: "+price );
-                Navigation.findNavController(v).navigate((NavDirections) UserProfileFragmentDirections.actionUserProfileFragmentToReviewFragment2(dishReviewList.get(position).getId()));
-            }
-        });
-
-        userAdapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(View v, int position) {
-                String userName = friendsList.get(position).getLastName();
-                Log.d("TAG","user's row clicked: " + userName);
-                Navigation.findNavController(v).navigate((NavDirections) UserProfileFragmentDirections.actionUserProfileFragmentSelf(friendsList.get(position).getId()));
-            }
-        });
+        String userId = UserProfileFragmentArgs.fromBundle(getArguments()).getUserId();
+        User signedUser = Model.instance.getSignedUser();
+        String signedUserId = signedUser.getId();
+        setUserUI(userId);
 
 /// ------ add friend btn logic in comment!! please do not delete ---------//
 
@@ -168,33 +123,78 @@ public class UserProfileFragment extends Fragment {
     }
 
     private void setUserUI(String userId) {
-            prog.setVisibility(View.VISIBLE);
-            Model.instance.getUserById(userId, (user)-> {
-                this.user = user;
-//                if(user.getId().equals("")){
-//                    user.setId("deleteMe");
-//                    Model.instance.deleteLeftoverStudent(student, new Model.DeleteLeftoverStudentListener() {
-//                        @Override
-//                        public void onComplete() {
-//                            Navigation.findNavController(nameTv).navigateUp();
-//                        }
-//                    });
+        prog.setVisibility(View.VISIBLE);
+        User signedUser = Model.instance.getSignedUser();
+        String signedUserId = signedUser.getId();
+        Model.instance.getUserById(userId, (user)-> {
+            this.user = user;
+//              if(user.getId().equals("")){
+//                   user.setId("deleteMe");
+//                   Model.instance.deleteLeftoverStudent(student, new Model.DeleteLeftoverStudentListener() {
+//                       @Override
+//                       public void onComplete() {
+//                           Navigation.findNavController(nameTv).navigateUp();
+//                       }
+//                   });
 //
-//                }
-                nameTv.setText(user.getFirstName());
-                nameTv.setText(user.getFirstName()+ " "+ user.getLastName());
-                totalReviewsTv.setText("Posted total of "+user.getTotalReviews()+" reviews");
-                totalRestaurantsTv.setText("Posted reviews on "+user.getTotalRestaurantsVisited()+" restaurants");
+//              }
+            nameTv.setText(user.getFirstName());
+            nameTv.setText(user.getFirstName()+ " "+ user.getLastName());
+            totalReviewsTv.setText("Posted total of "+user.getTotalReviews()+" reviews");
+            totalRestaurantsTv.setText("Posted reviews on "+user.getTotalRestaurantsVisited()+" restaurants");
 
-//                if (student.getAvatarUrl() != null) {
-//                    Picasso.get().load(student.getAvatarUrl()).into(avatarIv);
-//                }
+            if(signedUserId.equals(userId)){
+                allReviewsBtn.setText("My reviews");
+            }else{
+                allReviewsBtn.setText("All reviews");
+            }
+            friendsList = Model.instance.getFriendsList(userId);
+            //friendsList.remove(Model.instance.getSignedUser());
+            if(!userId.equals(signedUserId)){
+                signedUserFriendsList = Model.instance.getFriendsList(signedUserId);
+            }
+            signedUserFriendRequestList = Model.instance.getFriendsRequests(signedUserId);
+
+            dishReviewList = Model.instance.getUserHighestRatingReviewsByUserId(user.getId());
+
+            reviewsRv.setHasFixedSize(true);
+            RecyclerView.LayoutManager horizontalLayout = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
+            reviewsRv.setLayoutManager(horizontalLayout);
+            FavoriteDishAdapter favoriteDishAdapter = new FavoriteDishAdapter(dishReviewList);
+            reviewsRv.setAdapter(favoriteDishAdapter);
+
+            friendsRv.setHasFixedSize(true);
+            RecyclerView.LayoutManager horizontalLayout2 = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
+            friendsRv.setLayoutManager(horizontalLayout2);
+            UserAdapter userAdapter = new UserAdapter(friendsList);
+            friendsRv.setAdapter(userAdapter);
+
+            favoriteDishAdapter.setOnItemClickListener(new OnItemClickListener() {
+                @Override
+                public void onItemClick(View v, int position) {
+                    Dish dish = Model.instance.getDishById(dishReviewList.get(position).getDishId());
+                    String dishName = dish.getName();
+                    String price = dish.getPrice();
+                    Log.d("TAG","dish clicked: " + dishName + " price: "+price );
+                    Navigation.findNavController(v).navigate((NavDirections) UserProfileFragmentDirections.actionUserProfileFragmentToReviewFragment2(dishReviewList.get(position).getId()));
+                }
             });
 
+            userAdapter.setOnItemClickListener(new OnItemClickListener() {
+                @Override
+                public void onItemClick(View v, int position) {
+                    String userName = friendsList.get(position).getLastName();
+                    Log.d("TAG","user's row clicked: " + userName);
+                    Navigation.findNavController(v).navigate((NavDirections) UserProfileFragmentDirections.actionUserProfileFragmentSelf(friendsList.get(position).getId()));
+                }
+            });
 
+//              if (student.getAvatarUrl() != null) {
+//                  Picasso.get().load(student.getAvatarUrl()).into(avatarIv);
+//              }
+        });
 
-            prog.setVisibility(View.GONE);
-
+        prog.setVisibility(View.GONE);
     }
 
     @Override

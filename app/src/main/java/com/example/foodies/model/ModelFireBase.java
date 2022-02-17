@@ -81,9 +81,10 @@ public class ModelFireBase {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
-                    if(user!=null) {
-                        listener.onComplete(user);
-                    }
+                //if(user!=null) {
+                listener.onComplete(user);
+            //}
+
             }
 
             @Override
