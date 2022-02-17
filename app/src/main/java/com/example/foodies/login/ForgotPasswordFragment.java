@@ -30,12 +30,13 @@ public class ForgotPasswordFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_forgot_password, container, false);
-
+        String email = ForgotPasswordFragmentArgs.fromBundle(getArguments()).getEmail();
         emailEt = view.findViewById(R.id.forgot_password_email_et);
         confirmBtn = view.findViewById(R.id.forgot_password_btn);
         prog = view.findViewById(R.id.forgot_password_prog);
         prog.setVisibility(View.GONE);
 
+        emailEt.setText(email);
         mAuth = FirebaseAuth.getInstance();
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override

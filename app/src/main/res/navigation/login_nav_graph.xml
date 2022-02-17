@@ -35,5 +35,8 @@
             app:destination="@id/registeredUserFragment"
             app:popUpTo="@id/registeredUserFragment"
             app:popUpToInclusive="true" />
+        <argument
+            android:name="email"
+            app:argType="string" />
     </fragment>
 </navigation>

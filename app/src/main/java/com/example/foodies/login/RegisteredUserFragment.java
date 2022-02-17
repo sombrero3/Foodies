@@ -59,7 +59,11 @@ public class RegisteredUserFragment extends Fragment {
        });
 
        forgotTv.setOnClickListener((v) -> {
-           Navigation.findNavController(v).navigate(RegisteredUserFragmentDirections.actionRegisteredUserFragmentToForgotPasswordFragment());
+           String email = emailEt.getText().toString().trim();
+           if(email.isEmpty()){
+               email = "";
+           }
+           Navigation.findNavController(v).navigate(RegisteredUserFragmentDirections.actionRegisteredUserFragmentToForgotPasswordFragment(email));
        });
        return view;
     }
