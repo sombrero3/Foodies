@@ -6,6 +6,11 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.google.firebase.Timestamp;
+
+import org.json.JSONException;
+
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -49,7 +54,7 @@ public class User {
     public User(String firstName,String password,String email){
         id = Integer.toString(IdGenerator.instance.getNextId());
         this.firstName = firstName;
-        this.lastName = password;
+        this.lastName = "";
         this.email = email;
         totalReviews ="0";
         this.password = password;
@@ -65,6 +70,16 @@ public class User {
         totalReviews ="0";
         this.password = password;
         totalRestaurantsVisited = "0";
+    }
+
+    public User(String firstName, String lastName, String id, String email,String totalReviews, String totalRestaurantsVisited, boolean deleted, Long updateDate) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.totalReviews =totalReviews;
+        this.totalRestaurantsVisited = totalRestaurantsVisited;
+        this.password = "password";
     }
 
     //-------Getters and Setters-------//
@@ -145,5 +160,24 @@ public class User {
 
 
         return null;
+    }
+    public static User create(Map<String, Object> json) throws JSONException {
+        User user;
+        if(json!=null) {
+            String firstName = (String) json.get("firstName");
+            String lastName = (String) json.get("lastName");
+            String id = (String) json.get("id");
+            String email = (String) json.get("email");
+            String totalReviews = (String) json.get("totalReviews");
+            String totalRestaurantsVisited = (String) json.get("totalRestaurantsVisited");
+            boolean deleted = (boolean) json.get("deleted");
+            Long updateDate= (Long) json.get("updateDate");
+            String url = (String) json.get("avatarUrl");
+            user = new User(firstName,lastName, id, email,totalReviews, totalRestaurantsVisited, deleted,updateDate);
+            user.setImageUrl(url);
+        }else{
+            user = new User();
+        }
+        return user;
     }
 }

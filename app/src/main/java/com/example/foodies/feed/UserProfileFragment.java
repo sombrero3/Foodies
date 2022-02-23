@@ -1,14 +1,6 @@
 package com.example.foodies.feed;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.NavDirections;
-import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,15 +13,24 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.foodies.AdaptersAndViewHolders.FavoriteDishAdapter;
 import com.example.foodies.AdaptersAndViewHolders.OnItemClickListener;
 import com.example.foodies.AdaptersAndViewHolders.UserAdapter;
 import com.example.foodies.R;
 import com.example.foodies.model.Dish;
-import com.example.foodies.model.Model;
 import com.example.foodies.model.DishReview;
+import com.example.foodies.model.Model;
 import com.example.foodies.model.User;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class UserProfileFragment extends Fragment {
@@ -40,8 +41,12 @@ public class UserProfileFragment extends Fragment {
     List<User> friendsList, signedUserFriendsList,signedUserFriendRequestList;
     List<DishReview> dishReviewList;
     User user;
+    String userId;
     boolean flagRequest;
     ProgressBar prog;
+    FavoriteDishAdapter favoriteDishAdapter;
+    UserAdapter userAdapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -57,63 +62,57 @@ public class UserProfileFragment extends Fragment {
         reviewsRv = view.findViewById(R.id.user_profile_favorit_dishes_rv);
         friendsRv = view.findViewById(R.id.user_profile_friends_rv);
 
-        String userId = UserProfileFragmentArgs.fromBundle(getArguments()).getUserId();
+        signedUserFriendsList = new LinkedList<>();
+        setSignedUserFriendsList();
+        signedUserFriendRequestList = new LinkedList<>();
         User signedUser = Model.instance.getSignedUser();
         String signedUserId = signedUser.getId();
+
+        dishReviewList = new LinkedList<>();
+        friendsList = new LinkedList<>();
+
+        userId = UserProfileFragmentArgs.fromBundle(getArguments()).getUserId();
+        setSignedUserFriendRequestList();
         setUserUI(userId);
+        reviewsRv.setHasFixedSize(true);
+        RecyclerView.LayoutManager horizontalLayout = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
+        reviewsRv.setLayoutManager(horizontalLayout);
+        favoriteDishAdapter = new FavoriteDishAdapter(dishReviewList);
+        reviewsRv.setAdapter(favoriteDishAdapter);
 
-/// ------ add friend btn logic in comment!! please do not delete ---------//
+        friendsRv.setHasFixedSize(true);
+        RecyclerView.LayoutManager horizontalLayout2 = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
+        friendsRv.setLayoutManager(horizontalLayout2);
+        userAdapter = new UserAdapter(friendsList);
+        friendsRv.setAdapter(userAdapter);
 
-//        if(userId.equals(signedUserId)) {
-//            addFriendIv.setOnClickListener((v) -> {
-//                Navigation.findNavController(v).navigate(UserProfileFragmentDirections.actionUserProfileFragmentToAddFriendFragment());
-//            });
-//        }else if(!signedUserFriendsList.contains(user)){
-//            User userProfile = Model.instance.getUserById(userId);
-//            flagRequest =false;
-//            addFriendIv.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    if(signedUserFriendRequestList.contains(userProfile)){
-//                        if(!flagRequest){
-//                            Model.instance.friendRequestConfirmed(userProfile.getId());
-//                            addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_disabled_orange_24);
-//                            flagRequest = true;
-//                        }else{
-//                            Model.instance.cancelFriendsihp(userProfile);
-//                            addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_orange24);
-//                            flagRequest = false;
-//                        }
-//                    }else {
-//                        if (!flagRequest) {
-//                            Model.instance.friendRequestSendRequestToUser(userProfile);
-//                            addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_disabled_orange_24);
-//                            flagRequest = true;
-//                        } else {
-//                            Model.instance.friendRequestCancel(userProfile);
-//                            addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_orange24);
-//                            flagRequest = false;
-//                        }
-//                    }
-//                }
-//            });
-//        }else if(signedUserFriendsList.contains(user)){
-//            User userProfile = Model.instance.getUserById(userId);
-//            addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_disabled_orange_24);
-//            flagRequest =false;
-//            addFriendIv.setOnClickListener((v)->{
-//                if(!flagRequest) {
-//                    Model.instance.cancelFriendsihp(userProfile);
-//                    addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_orange24);
-//                    flagRequest=true;
-//                }else{
-//                    Model.instance.recoverFriendship(userProfile);
-//                    addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_disabled_orange_24);
-//                    flagRequest=false;
-//                }
-//            });
-//        }
+        favoriteDishAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                Dish dish = Model.instance.getDishById(dishReviewList.get(position).getDishId());
+                String dishName = dish.getName();
+                String price = dish.getPrice();
+                Log.d("TAG","dish clicked: " + dishName + " price: "+price );
+                Navigation.findNavController(v).navigate((NavDirections) UserProfileFragmentDirections.actionUserProfileFragmentToReviewFragment2(dishReviewList.get(position).getId()));
+            }
+        });
 
+        userAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                String userName = friendsList.get(position).getLastName();
+                Log.d("TAG","user's row clicked: " + userName);
+                Navigation.findNavController(v).navigate((NavDirections) UserProfileFragmentDirections.actionUserProfileFragmentSelf(friendsList.get(position).getId()));
+            }
+        });
+
+        setAddFriendBtnLogic();
+
+        if(signedUserId.equals(userId)){
+            allReviewsBtn.setText("My reviews");
+        }else{
+            allReviewsBtn.setText("All reviews");
+        }
         allReviewsBtn.setOnClickListener((v)-> {
             Navigation.findNavController(v).navigate((NavDirections) UserProfileFragmentDirections.actionUserProfileFragmentToUserRestaurantListRvFragment(userId));
         });
@@ -122,79 +121,143 @@ public class UserProfileFragment extends Fragment {
         return view;
     }
 
+    private void setSignedUserFriendRequestList() {
+        Model.instance.getFriendsRequests(Model.instance.getSignedUser().getId(),new Model.GetFriendsRequestsListener() {
+            @Override
+            public void onComplete(List<User> fr) {
+                signedUserFriendRequestList.clear();
+                signedUserFriendRequestList.addAll(fr);
+            }
+        });
+    }
+
+    private void setAddFriendBtnLogic() {
+        User signedUser = Model.instance.getSignedUser();
+        String signedUserId = signedUser.getId();
+        if(userId.equals(signedUserId)) {
+            addFriendIv.setOnClickListener((v) -> {
+                Navigation.findNavController(v).navigate(UserProfileFragmentDirections.actionUserProfileFragmentToAddFriendFragment());
+            });
+        }else if(!signedUserFriendsList.contains(user)){
+            User userProfile = Model.instance.getUserByIdOld(userId);
+            flagRequest =false;
+            addFriendIv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    addFriendIv.setEnabled(false);
+                    if(signedUserFriendRequestList.contains(userProfile)){
+                        if(!flagRequest){
+                            flagRequest = true;
+                            addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_disabled_orange_24);
+                            try {
+                                Model.instance.friendRequestConfirmed(userProfile.getId(), new Model.FriendRequestConfirmedListener() {
+                                    @Override
+                                    public void onComplete() {
+                                        addFriendIv.setEnabled(true);
+                                    }
+                                });
+                            } catch (JsonProcessingException e) {
+                                e.printStackTrace();
+                            }
+                        }else{
+                            Model.instance.cancelFriendsihp(userProfile, new Model.CancelFriendshipListener() {
+                                @Override
+                                public void onComplete() {
+                                    addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_orange24);
+                                    addFriendIv.setEnabled(true);
+                                }
+                            });
+                            flagRequest = false;
+                        }
+                    }else {
+                        if (!flagRequest) {
+                            try {
+                                Model.instance.friendRequestSendRequestToUser(userProfile);
+                            } catch (JsonProcessingException e) {
+                                e.printStackTrace();
+                            }
+                            addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_disabled_orange_24);
+                            flagRequest = true;
+                        } else {
+                            Model.instance.friendRequestCancel(userProfile);
+                            addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_orange24);
+                            flagRequest = false;
+                        }
+                    }
+                }
+            });
+        }else if(signedUserFriendsList.contains(user)){
+            User userProfile = Model.instance.getUserByIdOld(userId);
+            addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_disabled_orange_24);
+            flagRequest =false;
+            addFriendIv.setOnClickListener((v)->{
+                addFriendIv.setEnabled(false);
+                if(!flagRequest) {
+                    Model.instance.cancelFriendsihp(userProfile, new Model.CancelFriendshipListener() {
+                        @Override
+                        public void onComplete() {
+                            addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_orange24);
+                            addFriendIv.setEnabled(true);
+                        }
+                    });
+                    flagRequest=true;
+                }else{
+                    Model.instance.recoverFriendship(userProfile);
+                    addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_disabled_orange_24);
+                    flagRequest=false;
+                }
+            });
+        }
+    }
+
     private void setUserUI(String userId) {
         prog.setVisibility(View.VISIBLE);
         User signedUser = Model.instance.getSignedUser();
         String signedUserId = signedUser.getId();
-        Model.instance.getUserById(userId, (user)-> {
-            this.user = user;
-//              if(user.getId().equals("")){
-//                   user.setId("deleteMe");
-//                   Model.instance.deleteLeftoverStudent(student, new Model.DeleteLeftoverStudentListener() {
-//                       @Override
-//                       public void onComplete() {
-//                           Navigation.findNavController(nameTv).navigateUp();
-//                       }
-//                   });
-//
-//              }
-            nameTv.setText(user.getFirstName());
-            nameTv.setText(user.getFirstName()+ " "+ user.getLastName());
-            totalReviewsTv.setText("Posted total of "+user.getTotalReviews()+" reviews");
-            totalRestaurantsTv.setText("Posted reviews on "+user.getTotalRestaurantsVisited()+" restaurants");
+        Model.instance.getUserById(userId, new Model.getUserByIdListener() {
+            @Override
+            public void onComplete(User user) {
+                nameTv.setText(user.getFirstName());
+                nameTv.setText(user.getFirstName()+ " "+ user.getLastName());
+                totalReviewsTv.setText("Posted total of "+user.getTotalReviews()+" reviews");
+                totalRestaurantsTv.setText("Posted reviews on "+user.getTotalRestaurantsVisited()+" restaurants");
+                prog.setVisibility(View.INVISIBLE);
+                setFriendList(userId);
+                setFavoriteList(userId);
 
-            if(signedUserId.equals(userId)){
-                allReviewsBtn.setText("My reviews");
-            }else{
-                allReviewsBtn.setText("All reviews");
             }
-            friendsList = Model.instance.getFriendsList(userId);
-            //friendsList.remove(Model.instance.getSignedUser());
-            if(!userId.equals(signedUserId)){
-                signedUserFriendsList = Model.instance.getFriendsList(signedUserId);
-            }
-            signedUserFriendRequestList = Model.instance.getFriendsRequests(signedUserId);
-
-            dishReviewList = Model.instance.getUserHighestRatingReviewsByUserId(user.getId());
-
-            reviewsRv.setHasFixedSize(true);
-            RecyclerView.LayoutManager horizontalLayout = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
-            reviewsRv.setLayoutManager(horizontalLayout);
-            FavoriteDishAdapter favoriteDishAdapter = new FavoriteDishAdapter(dishReviewList);
-            reviewsRv.setAdapter(favoriteDishAdapter);
-
-            friendsRv.setHasFixedSize(true);
-            RecyclerView.LayoutManager horizontalLayout2 = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
-            friendsRv.setLayoutManager(horizontalLayout2);
-            UserAdapter userAdapter = new UserAdapter(friendsList);
-            friendsRv.setAdapter(userAdapter);
-
-            favoriteDishAdapter.setOnItemClickListener(new OnItemClickListener() {
-                @Override
-                public void onItemClick(View v, int position) {
-                    Dish dish = Model.instance.getDishById(dishReviewList.get(position).getDishId());
-                    String dishName = dish.getName();
-                    String price = dish.getPrice();
-                    Log.d("TAG","dish clicked: " + dishName + " price: "+price );
-                    Navigation.findNavController(v).navigate((NavDirections) UserProfileFragmentDirections.actionUserProfileFragmentToReviewFragment2(dishReviewList.get(position).getId()));
-                }
-            });
-
-            userAdapter.setOnItemClickListener(new OnItemClickListener() {
-                @Override
-                public void onItemClick(View v, int position) {
-                    String userName = friendsList.get(position).getLastName();
-                    Log.d("TAG","user's row clicked: " + userName);
-                    Navigation.findNavController(v).navigate((NavDirections) UserProfileFragmentDirections.actionUserProfileFragmentSelf(friendsList.get(position).getId()));
-                }
-            });
-
+        });
 //              if (student.getAvatarUrl() != null) {
 //                  Picasso.get().load(student.getAvatarUrl()).into(avatarIv);
 //              }
-        });
+//        });
 
         prog.setVisibility(View.GONE);
+    }
+    private void setSignedUserFriendsList() {
+        Model.instance.getFriendsList(Model.instance.getSignedUser().getId(), new Model.GetFriendListListener() {
+            @Override
+            public void onComplete(List<User> friends) {
+                signedUserFriendsList.clear();
+                signedUserFriendsList.addAll(friends);
+            }
+        });
+    }
+    private void setFavoriteList(String userId) {
+        dishReviewList.clear();
+        dishReviewList.addAll(Model.instance.getUserHighestRatingReviewsByUserId(userId));
+        favoriteDishAdapter.notifyDataSetChanged();
+
+    }
+    private void setFriendList(String userId) {
+        Model.instance.getFriendsList(userId, new Model.GetFriendListListener() {
+            @Override
+            public void onComplete(List<User> friends) {
+                friendsList.clear();
+                friendsList.addAll(friends);
+                userAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
@@ -205,11 +268,10 @@ public class UserProfileFragment extends Fragment {
     }
     @Override
     public void onPrepareOptionsMenu (Menu menu) {
-        if (user.getId().equals(Model.instance.getSignedUser().getId())) {
+        if (userId.equals(Model.instance.getSignedUser().getId())) {
             menu.findItem(R.id.main_menu_profile).setEnabled(false);
         }
     }
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 

@@ -22,6 +22,7 @@ import com.example.foodies.R;
 import com.example.foodies.feed.MainActivity;
 import com.example.foodies.model.Model;
 import com.example.foodies.model.User;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
@@ -64,6 +65,7 @@ public class NewUserFragment extends Fragment {
 
         return view;
     }
+
     private boolean validation(String email, String password, String firstName, String lastName) {
         if(firstName.isEmpty()){
             firstNameEt.setError("First name is required");
@@ -116,7 +118,12 @@ public class NewUserFragment extends Fragment {
                                 User user = new User(email, password, firstName, lastName);
                                 user.setId(FirebaseAuth.getInstance().getUid());
                                 user.setUpdateDate(Timestamp.now().getSeconds());
-                                addUserToRealTimeDataBase(user);
+                                //addUserToRealTimeDataBase(user);
+                                try {
+                                    addUserToFireStore(user);
+                                } catch (JsonProcessingException e) {
+                                    e.printStackTrace();
+                                }
                             } else {
                                 Toast.makeText(getActivity(), "Failed To Registered", Toast.LENGTH_LONG).show();
                                 progressBar.setVisibility(View.GONE);
@@ -126,6 +133,15 @@ public class NewUserFragment extends Fragment {
         }
     }
 
+    private void addUserToFireStore(User user) throws JsonProcessingException {
+        Model.instance.addUser(user, new Model.AddUserListener() {
+            @Override
+            public void onComplete() {
+                Toast.makeText(getActivity(), "Successfully Registered.", Toast.LENGTH_LONG).show();
+                goToFeedActivity();
+            }
+        });
+    }
     private void addUserToRealTimeDataBase(User user) {
         FirebaseDatabase.getInstance().getReference("Users")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
@@ -141,7 +157,6 @@ public class NewUserFragment extends Fragment {
                 }
             }
         });
-
     }
 
     public void goToFeedActivity(){

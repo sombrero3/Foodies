@@ -1,5 +1,7 @@
 package com.example.foodies.model;
 
+import java.util.Map;
+
 public class FriendshipStatus {
     String user1Id;
     String user2Id;
@@ -14,6 +16,31 @@ public class FriendshipStatus {
         this.user1Id=user1Id;
         this.user2Id=user2Id;
         this.status=status;
+    }
+
+    public FriendshipStatus(String user1Id, String user2Id, String status, boolean deleted, Long updateDate) {
+        this.user1Id=user1Id;
+        this.user2Id=user2Id;
+        this.status=status;
+        this.deleted=deleted;
+        this.updateDate=updateDate;
+    }
+
+    public static FriendshipStatus create(Map<String, Object> json) {
+        FriendshipStatus fs;
+        if(json!=null) {
+            String user1Id = (String) json.get("user1Id");
+            String user2Id = (String) json.get("user2Id");
+            String status = (String) json.get("status");
+            boolean deleted = (boolean) json.get("deleted");
+            Long updateDate= (Long) json.get("updateDate");
+            String url = (String) json.get("avatarUrl");
+            fs = new FriendshipStatus(user1Id,user2Id,status,deleted,updateDate);
+        }else{
+            fs = new FriendshipStatus();
+        }
+        return fs;
+
     }
 
     public boolean isDeleted() {

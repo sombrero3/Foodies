@@ -42,8 +42,17 @@ public class AddFriendFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_friend, container, false);
 
+        searchResultList = new LinkedList<>();
 
-        searchResultList = Model.instance.peopleYouMayKnow();
+        //searchResultList = Model.instance.peopleYouMayKnow();
+        Model.instance.getAllUsers(new Model.GetAllUsersListener() {
+            @Override
+            public void onComplete(List<User> users) {
+                searchResultList.clear();
+                searchResultList.addAll(users);
+                adapter.notifyDataSetChanged();
+            }
+        });
         list = view.findViewById(R.id.add_friend_rv);
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getContext()));

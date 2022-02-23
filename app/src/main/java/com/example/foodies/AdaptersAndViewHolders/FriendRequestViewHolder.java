@@ -10,9 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.example.foodies.R;
+import com.example.foodies.model.FriendshipStatus;
 import com.example.foodies.model.Model;
 import com.example.foodies.model.User;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class FriendRequestViewHolder extends RecyclerView.ViewHolder{
@@ -32,24 +35,48 @@ public class FriendRequestViewHolder extends RecyclerView.ViewHolder{
         ignoreBtn = itemView.findViewById(R.id.friend_request_row_ignore_btn);
 
         signedUser = Model.instance.getSignedUser();
-        friendRequestsList = Model.instance.getFriendsRequests(signedUser.getId());
+        friendRequestsList = new LinkedList<>();
+        Model.instance.getFriendsRequests(signedUser.getId(),new Model.GetFriendsRequestsListener() {
+            @Override
+            public void onComplete(List<User> users) {
+                friendRequestsList.clear();
+                friendRequestsList.addAll(users);
+            }
+        });
 
-
-        flagConfirm=false;
+        flagConfirm = false;
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(confirmBtn.isEnabled()) {
                     if (!flagConfirm) {
                         flagConfirm = true;
-                        Model.instance.friendRequestConfirmed(friendRequestsList.get(getAdapterPosition()).getId());
+                        confirmBtn.setEnabled(false);
                         confirmBtn.setText("cancel");
                         ignoreBtn.setEnabled(false);
+                        try {
+                            Model.instance.friendRequestConfirmed(friendRequestsList.get(getAdapterPosition()).getId(), new Model.FriendRequestConfirmedListener() {
+                                @Override
+                                public void onComplete() {
+                                    confirmBtn.setEnabled(true);
+                                }
+                            });
+                        } catch (JsonProcessingException e) {
+                            e.printStackTrace();
+                        }
                     } else {
                         flagConfirm = false;
-                        Model.instance.friendRequestUnConfirmed(friendRequestsList.get(getAdapterPosition()));
-                        confirmBtn.setText("confirm");
-                        ignoreBtn.setEnabled(true);
+                        try {
+                            Model.instance.friendRequestUnConfirmed(friendRequestsList.get(getAdapterPosition()), new Model.FriendRequestUnConfirmed() {
+                                @Override
+                                public void onComplete() {
+                                    confirmBtn.setText("confirm");
+                                    ignoreBtn.setEnabled(true);
+                                }
+                            });
+                        } catch (JsonProcessingException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
