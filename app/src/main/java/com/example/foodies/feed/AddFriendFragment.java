@@ -43,16 +43,8 @@ public class AddFriendFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_add_friend, container, false);
 
         searchResultList = new LinkedList<>();
+        setSearchResultList();
 
-        //searchResultList = Model.instance.peopleYouMayKnow();
-        Model.instance.getAllUsers(new Model.GetAllUsersListener() {
-            @Override
-            public void onComplete(List<User> users) {
-                searchResultList.clear();
-                searchResultList.addAll(users);
-                adapter.notifyDataSetChanged();
-            }
-        });
         list = view.findViewById(R.id.add_friend_rv);
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -73,6 +65,17 @@ public class AddFriendFragment extends Fragment {
         searchBtn.setOnClickListener(view1 -> search());
         setHasOptionsMenu(true);
         return view;
+    }
+
+    private void setSearchResultList() {
+        Model.instance.peopleYouMayKnow(new Model.PeopleYouMayKnow() {
+            @Override
+            public void onComplete(List<User> users) {
+                searchResultList.clear();
+                searchResultList.addAll(users);
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
 
     private void search() {
@@ -107,6 +110,9 @@ public class AddFriendFragment extends Fragment {
         }
     }
 
+
+
+
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
@@ -117,7 +123,6 @@ public class AddFriendFragment extends Fragment {
     public void onPrepareOptionsMenu (Menu menu) {
         menu.findItem(R.id.main_menu_add_friend).setEnabled(false);
     }
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         return super.onOptionsItemSelected(item);

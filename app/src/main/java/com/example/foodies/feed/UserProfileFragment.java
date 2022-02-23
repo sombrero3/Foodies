@@ -147,12 +147,12 @@ public class UserProfileFragment extends Fragment {
                     addFriendIv.setEnabled(false);
                     if(signedUserFriendRequestList.contains(userProfile)){
                         if(!flagRequest){
-                            flagRequest = true;
-                            addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_disabled_orange_24);
                             try {
                                 Model.instance.friendRequestConfirmed(userProfile.getId(), new Model.FriendRequestConfirmedListener() {
                                     @Override
                                     public void onComplete() {
+                                        flagRequest = true;
+                                        addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_disabled_orange_24);
                                         addFriendIv.setEnabled(true);
                                     }
                                 });
@@ -165,23 +165,38 @@ public class UserProfileFragment extends Fragment {
                                 public void onComplete() {
                                     addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_orange24);
                                     addFriendIv.setEnabled(true);
+                                    flagRequest = false;
                                 }
                             });
-                            flagRequest = false;
                         }
                     }else {
                         if (!flagRequest) {
                             try {
-                                Model.instance.friendRequestSendRequestToUser(userProfile);
+                                Model.instance.friendRequestSendRequestToUser(userProfile, new Model.VoidListener() {
+                                    @Override
+                                    public void onComplete() {
+                                        addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_disabled_orange_24);
+                                        addFriendIv.setEnabled(true);
+                                        flagRequest = true;
+                                    }
+                                });
                             } catch (JsonProcessingException e) {
                                 e.printStackTrace();
                             }
-                            addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_disabled_orange_24);
-                            flagRequest = true;
                         } else {
-                            Model.instance.friendRequestCancel(userProfile);
-                            addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_orange24);
-                            flagRequest = false;
+                            try {
+                                Model.instance.friendRequestCancel(userProfile, new Model.VoidListener() {
+                                    @Override
+                                    public void onComplete() {
+                                        addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_orange24);
+                                        addFriendIv.setEnabled(true);
+                                        flagRequest = false;
+                                    }
+                                });
+                            } catch (JsonProcessingException e) {
+                                e.printStackTrace();
+                            }
+
                         }
                     }
                 }
@@ -198,13 +213,19 @@ public class UserProfileFragment extends Fragment {
                         public void onComplete() {
                             addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_orange24);
                             addFriendIv.setEnabled(true);
+                            flagRequest=true;
                         }
                     });
-                    flagRequest=true;
+
                 }else{
-                    Model.instance.recoverFriendship(userProfile);
-                    addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_disabled_orange_24);
-                    flagRequest=false;
+                    Model.instance.recoverFriendship(userProfile, new Model.VoidListener() {
+                        @Override
+                        public void onComplete() {
+                            addFriendIv.setImageResource(R.drawable.ic_baseline_person_add_disabled_orange_24);
+                            addFriendIv.setEnabled(true);
+                            flagRequest=false;
+                        }
+                    });
                 }
             });
         }

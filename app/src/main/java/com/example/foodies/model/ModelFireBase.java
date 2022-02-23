@@ -36,11 +36,12 @@ import java.util.Map;
 
 public class ModelFireBase {
     FirebaseAuth currentUser;
-    String currentUserId;;
+    String currentUserId;
+    ;
     FirebaseDatabase dbRealTime = FirebaseDatabase.getInstance();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    public ModelFireBase(){
+    public ModelFireBase() {
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
                 .setPersistenceEnabled(false)
                 .build();
@@ -50,15 +51,15 @@ public class ModelFireBase {
     private String getSignedUserId() {
         return Model.instance.getSignedUser().getId();
     }
+
     /**
-     *
      * User CRUD + Dao
      */
     //Create
-    public void addUser(User user,Model.AddUserListener listener) throws JsonProcessingException {
+    public void addUser(User user, Model.AddUserListener listener) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         String userString = objectMapper.writeValueAsString(user);
-        Map<String, Object> json = objectMapper.readValue(userString,Map.class);
+        Map<String, Object> json = objectMapper.readValue(userString, Map.class);
         db.collection("users")
                 .document(user.getId())
                 .set(json)
@@ -67,7 +68,7 @@ public class ModelFireBase {
     }
 
     //Create
-    public void updateUser(User user,Model.AddUserListener listener) throws JsonProcessingException {
+    public void updateUser(User user, Model.AddUserListener listener) throws JsonProcessingException {
         addUser(user, new Model.AddUserListener() {
             @Override
             public void onComplete() {
@@ -82,11 +83,11 @@ public class ModelFireBase {
                 //  .whereEqualTo("id",studentId)
                 .document(id)
                 .get()
-                .addOnCompleteListener(task->{
+                .addOnCompleteListener(task -> {
                     User user = null;
-                    if(task.isSuccessful() && task.getResult()!=null){
+                    if (task.isSuccessful() && task.getResult() != null) {
                         try {
-                          //  ObjectMapper map = new ObjectMapper();
+                            //  ObjectMapper map = new ObjectMapper();
                             user = User.create(task.getResult().getData());
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -101,23 +102,23 @@ public class ModelFireBase {
 //        return usersReference.child(user.getId()).removeValue();
 //    }
 
-    public void getAllUsers(Model.GetAllUsersListener listener){
+    public void getAllUsers(Model.GetAllUsersListener listener) {
 
         db.collection("users")
                 //      .whereEqualTo("deleted",false)
                 //  .whereGreaterThanOrEqualTo("updateDate", new Timestamp(lastUpdateDate,0))
                 .get()
-                .addOnCompleteListener(task->{
+                .addOnCompleteListener(task -> {
                     List<User> list = new LinkedList<>();
-                    if(task.isSuccessful()){
-                        for(QueryDocumentSnapshot doc:task.getResult()){
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot doc : task.getResult()) {
                             User user = null;
                             try {
                                 user = User.create(doc.getData());
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                            if(user!=null){
+                            if (user != null) {
                                 list.add(user);
                             }
                         }
@@ -126,65 +127,68 @@ public class ModelFireBase {
                     listener.onComplete(list);
                 });
     }
-    public interface GetUsersListListener{
+
+    public interface GetUsersListListener {
         void onComplete(List<User> users);
     }
-    public void getUsersList(List<String> usersId,GetUsersListListener listener){
-       if(!usersId.isEmpty()) {
-           db.collection("users")
-                   .whereIn("id", usersId)
-                   .get()
-                   .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                       @Override
-                       public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                           if (task.isSuccessful()) {
-                               List<User> users = new LinkedList<>();
-                               for (QueryDocumentSnapshot doc : task.getResult()) {
-                                   try {
-                                       User user = User.create(doc.getData());
-                                       if (user != null) {
-                                           users.add(user);
-                                       }
-                                   } catch (JSONException e) {
-                                       e.printStackTrace();
-                                   }
-                               }
-                               listener.onComplete(users);
-                           }
-                       }
-                   });
-       }
-    }
 
+    public void getUsersList(List<String> usersId, GetUsersListListener listener) {
+        if (!usersId.isEmpty()) {
+            db.collection("users")
+                    .whereIn("id", usersId)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                List<User> users = new LinkedList<>();
+                                for (QueryDocumentSnapshot doc : task.getResult()) {
+                                    try {
+                                        User user = User.create(doc.getData());
+                                        if (user != null) {
+                                            users.add(user);
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                listener.onComplete(users);
+                            }
+                        }
+                    });
+        }
+    }
 
 
     /**
-     *
      * Authentication
      */
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    public boolean isSignedIn(){
+
+    public boolean isSignedIn() {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         return (currentUser != null);
     }
+
     public void signIn(String email, String password, String firstName, String lastName, ProgressBar progressBar) {
-        Log.d("TAG", "signIn: "+email +" "+password+" "+mAuth );
-        mAuth.createUserWithEmailAndPassword(email,password)
+        Log.d("TAG", "signIn: " + email + " " + password + " " + mAuth);
+        mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            Log.d("TAG", "onComplete: succeed"+email +" "+password+" "+mAuth.getCurrentUser() );
-                        }else{
-                            Toast.makeText(progressBar.getContext(),"Failed To Registered 2",Toast.LENGTH_LONG).show();
+                        if (task.isSuccessful()) {
+                            Log.d("TAG", "onComplete: succeed" + email + " " + password + " " + mAuth.getCurrentUser());
+                        } else {
+                            Toast.makeText(progressBar.getContext(), "Failed To Registered 2", Toast.LENGTH_LONG).show();
 
-                            Log.d("TAG", "onComplete failed: "+email +" "+password+" "+mAuth+" "+task.getException().toString() );
+                            Log.d("TAG", "onComplete failed: " + email + " " + password + " " + mAuth + " " + task.getException().toString());
                             progressBar.setVisibility(View.GONE);
                         }
                     }
                 });
     }
+
     public void setCurrentUser(Model.setCurrentUserListener listener) {
         currentUser = FirebaseAuth.getInstance();
         String userUid = currentUser.getCurrentUser().getUid();
@@ -197,47 +201,49 @@ public class ModelFireBase {
     }
 
     /**
-     *
      * FriendshipDao
      */
-    public interface AddFriendshipStatusListener{
+    public interface AddFriendshipStatusListener {
         void onComplete();
     }
-    public void addFriendshipStatus(FriendshipStatus fs,AddFriendshipStatusListener listener) throws JsonProcessingException {
+
+    public void addFriendshipStatus(FriendshipStatus fs, Model.VoidListener listener) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         String fsString = objectMapper.writeValueAsString(fs);
-        Map<String, Object> json = objectMapper.readValue(fsString,Map.class);
+        Map<String, Object> json = objectMapper.readValue(fsString, Map.class);
         db.collection("friendshipStatuses")
-                .document(fs.getUser1Id()+fs.getUser2Id())
+                .document(fs.getUser1Id() + fs.getUser2Id())
                 .set(json)
                 .addOnSuccessListener(u -> listener.onComplete())
                 .addOnFailureListener(e -> listener.onComplete());
     }
-    public void addFriendRequest(String userId,Model.AddFriendRequestListener listener) throws JsonProcessingException {
+
+    public void addFriendRequest(String userId, Model.VoidListener listener) throws JsonProcessingException {
         String signedUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        FriendshipStatus fs = new FriendshipStatus(userId,signedUserId,"pending");
+        FriendshipStatus fs = new FriendshipStatus(userId, signedUserId, "pending");
         ObjectMapper objectMapper = new ObjectMapper();
         String fsString = objectMapper.writeValueAsString(fs);
-        Map<String, Object> json = objectMapper.readValue(fsString,Map.class);
+        Map<String, Object> json = objectMapper.readValue(fsString, Map.class);
         db.collection("friendshipStatuses")
-                .document(fs.getUser1Id()+fs.getUser2Id())
+                .document(fs.getUser1Id() + fs.getUser2Id())
                 .set(json)
-                .addOnSuccessListener(u -> listener.onComplete(fs))
-                .addOnFailureListener(e -> listener.onComplete(fs));
+                .addOnSuccessListener(u -> listener.onComplete())
+                .addOnFailureListener(e -> listener.onComplete());
     }
+
     public void getFriendsRequests(String userId, Model.GetFriendsRequestsListener listener) {
         List<String> usersRequested = new LinkedList<>();
         db.collection("friendshipStatuses")
                 //      .whereEqualTo("deleted",false)
                 //.whereGreaterThanOrEqualTo("updateDate", new Timestamp(lastUpdateDate,0))
-                .whereEqualTo("user1Id",userId)
-                .whereEqualTo("status","pending")
+                .whereEqualTo("user1Id", userId)
+                .whereEqualTo("status", "pending")
                 .get()
-                .addOnCompleteListener(task->{
-                    if(task.isSuccessful()){
-                        for(QueryDocumentSnapshot doc:task.getResult()){
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot doc : task.getResult()) {
                             FriendshipStatus fs = FriendshipStatus.create(doc.getData());
-                            if(fs!=null){
+                            if (fs != null) {
                                 usersRequested.add(fs.getUser2Id());
                             }
                         }
@@ -250,75 +256,77 @@ public class ModelFireBase {
                     }
                 });
     }
+
     public void getFriendsList(String user1Id, Model.GetFriendListListener listener) {
         List<User> res = new LinkedList<>();
         List<String> usersId = new LinkedList<>();
         db.collection("friendshipStatuses")
-                .whereEqualTo("user1Id",user1Id)
-                .whereEqualTo("status","friends")
+                .whereEqualTo("user1Id", user1Id)
+                .whereEqualTo("status", "friends")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        for(QueryDocumentSnapshot qs:task.getResult()) {
+                        for (QueryDocumentSnapshot qs : task.getResult()) {
                             FriendshipStatus fs = FriendshipStatus.create(qs.getData());
                             usersId.add(fs.getUser2Id());
                         }
-                            db.collection("friendshipStatuses")
-                                    .whereEqualTo("user2Id",user1Id)
-                                    .whereEqualTo("status","friends")
-                                    .get()
-                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                            for(QueryDocumentSnapshot qs:task.getResult()){
-                                                FriendshipStatus fs = FriendshipStatus.create(qs.getData());
-                                                usersId.add(fs.getUser1Id());
-                                            }
-                                           getUsersList(usersId, new GetUsersListListener() {
-                                               @Override
-                                               public void onComplete(List<User> users) {
-                                                   listener.onComplete(users);
-                                               }
-                                           });
+                        db.collection("friendshipStatuses")
+                                .whereEqualTo("user2Id", user1Id)
+                                .whereEqualTo("status", "friends")
+                                .get()
+                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                        for (QueryDocumentSnapshot qs : task.getResult()) {
+                                            FriendshipStatus fs = FriendshipStatus.create(qs.getData());
+                                            usersId.add(fs.getUser1Id());
                                         }
-                                    });
+                                        getUsersList(usersId, new GetUsersListListener() {
+                                            @Override
+                                            public void onComplete(List<User> users) {
+                                                listener.onComplete(users);
+                                            }
+                                        });
+                                    }
+                                });
                     }
                 });
     }
+
     public void friendRequestConfirmed(String userId, Model.FriendRequestConfirmedListener listener) throws JsonProcessingException {
         String signedUserId = Model.instance.getSignedUser().getId();
-        FriendshipStatus fs = new FriendshipStatus(signedUserId,userId,"friends");
-        addFriendshipStatus(fs, new AddFriendshipStatusListener() {
+        FriendshipStatus fs = new FriendshipStatus(signedUserId, userId, "friends");
+        addFriendshipStatus(fs, new Model.VoidListener() {
             @Override
             public void onComplete() {
                 listener.onComplete();
             }
         });
     }
+
     public void friendRequestUnConfirmed(User user, Model.FriendRequestUnConfirmed listener) throws JsonProcessingException {
         String signedUserId = Model.instance.getSignedUser().getId();
-        FriendshipStatus fs = new FriendshipStatus(signedUserId,user.getId(),"pending");
-        addFriendshipStatus(fs, new AddFriendshipStatusListener() {
+        FriendshipStatus fs = new FriendshipStatus(signedUserId, user.getId(), "pending");
+        addFriendshipStatus(fs, new Model.VoidListener() {
             @Override
             public void onComplete() {
                 listener.onComplete();
             }
         });
     }
+
     public void cancelFriendship(String userId, Model.CancelFriendshipListener listener) {
         String signedUserId = getSignedUserId();
-        String id1 = signedUserId+userId;
-        String id2 = userId+signedUserId;
         db.collection("friendshipStatuses")
-                .whereEqualTo("user1Id",signedUserId)
-                .whereEqualTo("user2Id",userId)
-                .whereEqualTo("status","friends")
+                .whereEqualTo("user1Id", signedUserId)
+                .whereEqualTo("user2Id", userId)
+                .whereEqualTo("status", "friends")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()) {
+                        if (task.isSuccessful()) {
                             if (task.getResult().isEmpty()) {
                                 db.collection("friendshipStatuses")
                                         .whereEqualTo("user1Id", userId)
@@ -331,7 +339,7 @@ public class ModelFireBase {
                                                 if (task.isSuccessful()) {
                                                     FriendshipStatus fs = new FriendshipStatus(userId, signedUserId, "canceled");
                                                     try {
-                                                        addFriendshipStatus(fs, new AddFriendshipStatusListener() {
+                                                        addFriendshipStatus(fs, new Model.VoidListener() {
                                                             @Override
                                                             public void onComplete() {
                                                                 listener.onComplete();
@@ -346,7 +354,62 @@ public class ModelFireBase {
                             } else {
                                 FriendshipStatus fs = new FriendshipStatus(signedUserId, userId, "canceled");
                                 try {
-                                    addFriendshipStatus(fs, new AddFriendshipStatusListener() {
+                                    addFriendshipStatus(fs, new Model.VoidListener() {
+                                        @Override
+                                        public void onComplete() {
+                                            listener.onComplete();
+                                        }
+                                    });
+                                } catch (JsonProcessingException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        }
+                    }
+                });
+
+    }
+
+    public void recoverFriendship(String userId, Model.VoidListener listener) {
+        String signedUserId = getSignedUserId();
+        db.collection("friendshipStatuses")
+                .whereEqualTo("user1Id", signedUserId)
+                .whereEqualTo("user2Id", userId)
+                .whereEqualTo("status", "canceled")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            if (task.getResult().isEmpty()) {
+                                db.collection("friendshipStatuses")
+                                        .whereEqualTo("user1Id", userId)
+                                        .whereEqualTo("user2Id", signedUserId)
+                                        .whereEqualTo("status", "canceled")
+                                        .get()
+                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                if (task.isSuccessful()) {
+                                                    FriendshipStatus fs = new FriendshipStatus(userId, signedUserId, "friends");
+                                                    try {
+                                                        addFriendshipStatus(fs, new Model.VoidListener() {
+                                                            @Override
+                                                            public void onComplete() {
+                                                                listener.onComplete();
+                                                            }
+                                                        });
+                                                    } catch (JsonProcessingException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                }
+                                            }
+                                        });
+                            } else {
+                                FriendshipStatus fs = new FriendshipStatus(signedUserId, userId, "friends");
+                                try {
+                                    addFriendshipStatus(fs, new Model.VoidListener() {
                                         @Override
                                         public void onComplete() {
                                             listener.onComplete();

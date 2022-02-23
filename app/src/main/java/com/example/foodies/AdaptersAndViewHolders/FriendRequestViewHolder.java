@@ -87,15 +87,31 @@ public class FriendRequestViewHolder extends RecyclerView.ViewHolder{
             public void onClick(View view) {
                 if(ignoreBtn.isEnabled()) {
                     if (!flagIgnore) {
-                        flagIgnore = true;
-                        Model.instance.friendRequestIgnored(friendRequestsList.get(getAdapterPosition()));
-                        ignoreBtn.setText("UnIgnore");
-                        confirmBtn.setEnabled(false);
+                        try {
+                            Model.instance.friendRequestIgnored(friendRequestsList.get(getAdapterPosition()), new Model.VoidListener() {
+                                @Override
+                                public void onComplete() {
+                                    ignoreBtn.setText("UnIgnore");
+                                    flagIgnore = true;
+                                    confirmBtn.setEnabled(false);
+                                }
+                            });
+                        } catch (JsonProcessingException e) {
+                            e.printStackTrace();
+                        }
                     } else {
-                        flagIgnore = false;
-                        Model.instance.friendRequestCancelIgnore(friendRequestsList.get(getAdapterPosition()));
-                        ignoreBtn.setText("Ignore");
-                        confirmBtn.setEnabled(true);
+                        try {
+                            Model.instance.friendRequestCancelIgnore(friendRequestsList.get(getAdapterPosition()), new Model.VoidListener() {
+                                @Override
+                                public void onComplete() {
+                                    flagIgnore = false;
+                                    ignoreBtn.setText("Ignore");
+                                    confirmBtn.setEnabled(true);
+                                }
+                            });
+                        } catch (JsonProcessingException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }

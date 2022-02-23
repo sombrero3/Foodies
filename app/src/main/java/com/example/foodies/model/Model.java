@@ -342,14 +342,8 @@ public class Model {
         void onComplete();
     }
     public void addUser(User user,AddUserListener listener) throws JsonProcessingException {
-        usersListLoadingState.setValue(UsersListLoadingState.loading);
-        modelFireBase.addUser(user, new AddUserListener() {
-            @Override
-            public void onComplete() {
-                //refreshStudentList();
-                listener.onComplete();
-            }
-        });
+//        usersListLoadingState.setValue(UsersListLoadingState.loading);
+        modelFireBase.addUser(user,listener);
     }
 
     public void deleteReview(DishReview dishReview){
@@ -463,7 +457,6 @@ public class Model {
         }
         return result;
     }
-
     private List<DishReview> getUserDishReviewsList(String userId) {
         List<DishReview> result = new LinkedList<>();
         for(DishReview dr:dishReviewList){
@@ -473,7 +466,6 @@ public class Model {
         }
         return result;
     }
-
     public DishReview getReviewOnDishByDishIdAndUserId(String dishId, String userId){
         List<DishReview> dishReviews = Model.instance.getUserDishReviewsList(userId);
         for(DishReview dishReview : dishReviews){
@@ -501,7 +493,6 @@ public class Model {
         }
         return "No Such Dish";
     }
-
     private List<Dish> getAlldisheListOfRestaurant(String resId) {
         List<Dish> dishes= new LinkedList<>();
         for(Dish dish:dishList){
@@ -511,40 +502,8 @@ public class Model {
         }
         return dishes;
     }
-    public boolean areFriends(String user1Id,String user2Id){
-        for(FriendshipStatus fs:friendshipStatuses){
-            if(((fs.getUser1Id().equals(user1Id) && fs.getUser2Id().equals(user2Id))
-                || (fs.getUser1Id().equals(user2Id) && fs.getUser2Id().equals(user1Id)))
-                    && fs.getStatus().equals("friends")
-                        && fs.isDeleted()==false){
-                return true;
-            }
-        }
-        return false;
-    }
 
 
-
-    public interface GetFriendListListener{
-       void  onComplete(List<User> friends);
-    }
-    public void getFriendsList(String user1Id,GetFriendListListener listener){
-        modelFireBase.getFriendsList(user1Id, new GetFriendListListener() {
-            @Override
-            public void onComplete(List<User> friends) {
-                listener.onComplete(friends);
-            }
-        });
-
-
-//        List<User> res = new LinkedList<>();
-//        for(User user:userList) {
-//            if (!user1Id.equals(user.getId()) && areFriends(user1Id,user.getId()) && !res.contains(user)){
-//                res.add(user);
-//            }
-//        }
-//        return res;
-    }
     public List<DishReview> getAllFriendsReviewsOnDishByDishId(String dishId){
         User signedUser = getSignedUser();
         String signedUserId = signedUser.getId();
@@ -571,6 +530,8 @@ public class Model {
         }
         return result;
     }
+
+
     public List<User> getUsersByName(String name){
         List<User> result = new LinkedList<>();
         for (User user :userList) {
@@ -609,7 +570,6 @@ public class Model {
         }
         return result;
     }
-
     public List<User> getNotFriendsUsersByEmail(String email) {
         List<User> result = new LinkedList<>();
         //List<User> friends = getFriendsList(signedUser.getId());
@@ -632,92 +592,52 @@ public class Model {
         }
         return result;
     }
-    public List<User> peopleYouMayKnow(){
-        List<User> signedUserFriends , result ,friendfriendsList;
-        result = new LinkedList<>();
-        //signedUserFriends = getFriendsList(signedUser.getId());
-        signedUserFriends = new LinkedList<>();
-        for (User friend: signedUserFriends) {
-            //friendfriendsList = getFriendsList(friend.getId());
-            friendfriendsList = new LinkedList<>();
-            for (User friendfriends:friendfriendsList) {
-                if(!result.contains(friendfriends) && !signedUserFriends.contains(friendfriends) && !friendfriends.getId().equals(signedUser.getId())) {
-                    result.add(friendfriends);
-                }
-            }
-        }
-        return result;
+
+    public interface GetFriendListListener{
+        void  onComplete(List<User> friends);
     }
-
-    public String getRestaurantRatingGivenByAUser(User user,String restaurantId){
-        List<DishReview> dishReviews = getUserDishReviewsList(user.getId());
-        double f ,reminder,sum=0,avg;
-        int counter=0;
-        String rating="No rating yet";
-        for (DishReview dishReview : dishReviews) {
-            if(dishReview.getRestaurantId().equals(restaurantId) && !dishReview.getRating().equals("No rating yet")){
-                sum += Double.parseDouble(dishReview.getRating());
-                counter++;
-
+    public void getFriendsList(String user1Id,GetFriendListListener listener){
+        modelFireBase.getFriendsList(user1Id, new GetFriendListListener() {
+            @Override
+            public void onComplete(List<User> friends) {
+                listener.onComplete(friends);
             }
-        }
-
-        if(counter>0) {
-            f = sum / counter;
-            avg = Math.floor(sum / counter);
-            reminder = f - avg;
-            if (reminder < 0.25) {
-                rating = Double.toString(avg);
-            } else if (reminder >= 0.25 && reminder < 0.75) {
-                rating = Double.toString(avg + 0.5);
-            } else if (reminder >= 0.75) {
-                rating = Double.toString(avg + 1);
-            }
-        }
-
-        return rating;
+        });
     }
-
-    public List<DishReview> getUserHighestRatingReviewsByUserId(String userId) {
-        List<DishReview> result = new LinkedList<>();
-        List<DishReview> dishReviews = getUserDishReviewsList(userId);
-        for (DishReview dishReview : dishReviews) {
-            if(Double.parseDouble(dishReview.getRating())>4.0){
-                result.add(dishReview);
+    public interface PeopleYouMayKnow{
+        void onComplete(List<User> users);
+    }
+    public void peopleYouMayKnow(PeopleYouMayKnow listener){
+        List<User> res = new LinkedList<>();
+        List<User> friends = new LinkedList<>();
+        modelFireBase.getAllUsers(new GetAllUsersListener() {
+            @Override
+            public void onComplete(List<User> users) {
+                res.addAll(users);
+                modelFireBase.getFriendsList(signedUser.getId(), new GetFriendListListener() {
+                    @Override
+                    public void onComplete(List<User> friends) {
+                        for(User friend:friends){
+                            for(User user:res){
+                                if(user.getId().equals(friend.getId())){
+                                    res.remove(user);
+                                }
+                            }
+                        }
+                        for(User user:res){
+                            if(user.getId().equals(signedUser.getId())){
+                                res.remove(user);
+                            }
+                        }
+                        listener.onComplete(res);
+                    }
+                });
             }
-        }
-        return result;
+        });
     }
 
 
 
-//    public Integer getNumOfFriendsVisitedInRestaurant(String restaurantID){
-//        int count=0;
-//        List<User> myFriends=getSignedUser().getFriendsList();
-//        for (User friend: myFriends) {
-//            for(Review rev: reviewList){
-//                if(rev.restaurantId.equals(restaurantID) && friend.getReviewList().contains(rev)){
-//                    count++;
-//                }
-//            }
-//        }
-//        return count;
-//    }
-
-
-//    public String getRandomFriendNameVisitedInRestaurant(String restaurantID){
-//        List <User> myFriends=getSignedUser().getFriendsList();
-//        Set <User> myFriendsWithReview=new HashSet<User>();
-////        List <User> myFriendsWithReview=new LinkedList<>();
-//        for(User friend:myFriends) {
-//            for (Review rev : reviewList) {
-//                if (rev.restaurantId.equals(restaurantID) && friend.getReviewList().contains(rev)) {
-//                    myFriendsWithReview.add(friend);
-//                }
-//           }
-//        }
-//       return null;
-//    }
     public void setStarByRating(String ratingVal, ImageView star1, ImageView star2, ImageView star3, ImageView star4, ImageView star5, TextView rateTv){
 
         if(!ratingVal.equals("No rating yet")){
@@ -813,7 +733,6 @@ public class Model {
         }
         return result;
     }
-
     public List<Restaurant> searchRestaurantByNameAndRestaurantList(String text, List<Restaurant> restaurantList) {
         List<Restaurant> result = new LinkedList<>();
         for (Restaurant res:restaurantList) {
@@ -824,6 +743,44 @@ public class Model {
         return result;
     }
 
+    public String getRestaurantRatingGivenByAUser(User user,String restaurantId){
+        List<DishReview> dishReviews = getUserDishReviewsList(user.getId());
+        double f ,reminder,sum=0,avg;
+        int counter=0;
+        String rating="No rating yet";
+        for (DishReview dishReview : dishReviews) {
+            if(dishReview.getRestaurantId().equals(restaurantId) && !dishReview.getRating().equals("No rating yet")){
+                sum += Double.parseDouble(dishReview.getRating());
+                counter++;
+
+            }
+        }
+
+        if(counter>0) {
+            f = sum / counter;
+            avg = Math.floor(sum / counter);
+            reminder = f - avg;
+            if (reminder < 0.25) {
+                rating = Double.toString(avg);
+            } else if (reminder >= 0.25 && reminder < 0.75) {
+                rating = Double.toString(avg + 0.5);
+            } else if (reminder >= 0.75) {
+                rating = Double.toString(avg + 1);
+            }
+        }
+
+        return rating;
+    }
+    public List<DishReview> getUserHighestRatingReviewsByUserId(String userId) {
+        List<DishReview> result = new LinkedList<>();
+        List<DishReview> dishReviews = getUserDishReviewsList(userId);
+        for (DishReview dishReview : dishReviews) {
+            if(Double.parseDouble(dishReview.getRating())>4.0){
+                result.add(dishReview);
+            }
+        }
+        return result;
+    }
     public String getReviewRatingByDishIdAndUserId(String dishId, String userId) {
         String rating ="";
         User user = getUserByIdOld(userId);
@@ -837,6 +794,7 @@ public class Model {
         return rating;
     }
 
+
     public List<User> getUsersFromListByEmail(List<User> userList, String email) {
         List<User> result = new LinkedList<>();
         for (User user : userList) {
@@ -846,7 +804,6 @@ public class Model {
         }
         return result;
     }
-
     public List<User> getUsersFromListByName(List<User> userList,String name){
         List<User> result = new LinkedList<>();
         for (User user :userList) {
@@ -856,7 +813,6 @@ public class Model {
         }
         return result;
     }
-
     public List<User> getUsersFromListByNameAndEmail(List<User> userList,String name,String email){
         List<User> result = new LinkedList<>();
         for (User user :userList) {
@@ -867,34 +823,25 @@ public class Model {
         return result;
     }
 
+
     public interface GetFriendsRequestsListener {
         void onComplete(List<User> fr);
     }
     public void getFriendsRequests(String userId,GetFriendsRequestsListener listener){
         modelFireBase.getFriendsRequests(userId,listener);
     }
-    public void friendRequestCancel(User user2){
+    public interface VoidListener{
+        void onComplete();
+    }
+    public void friendRequestCancel(User user2,VoidListener listener) throws JsonProcessingException {
         String signedUserId = signedUser.getId();
         String userId = user2.getId();
-        for(FriendshipStatus fs:friendshipStatuses){
-            if(fs.getUser1Id().equals(userId) && fs.getUser2Id().equals(signedUserId) && fs.getStatus().equals("pending")){
-                fs.setDeleted(true);
-            }
-        }
+        FriendshipStatus fs = new FriendshipStatus(userId,signedUserId,"canceled");
+        modelFireBase.addFriendshipStatus(fs,listener);
     }
-    public interface AddFriendRequestListener{
-        void onComplete(FriendshipStatus fruendshipStatus);
+    public void friendRequestSendRequestToUser(User user2,VoidListener listener ) throws JsonProcessingException {
+            modelFireBase.addFriendRequest(user2.getId(),listener);
     }
-    public void friendRequestSendRequestToUser(User user2 ) throws JsonProcessingException {
-            modelFireBase.addFriendRequest(user2.getId(),new AddFriendRequestListener() {
-                @Override
-                public void onComplete(FriendshipStatus friendshipStatus) {
-                    //friendshipStatuses.add(friendshipStatus);
-                }
-            });
-    }
-
-
     public interface FriendRequestConfirmedListener{
         void onComplete();
     }
@@ -906,7 +853,6 @@ public class Model {
             }
         });
     }
-
     public interface FriendRequestUnConfirmed{
         void onComplete();
     }
@@ -918,50 +864,31 @@ public class Model {
     }
     public void cancelFriendsihp(User user2,CancelFriendshipListener listener){
         modelFireBase.cancelFriendship(user2.getId(),listener);
-
-
-//        for(FriendshipStatus fs:friendshipStatuses){
-//            if(((fs.getUser1Id().equals(user1Id) && fs.getUser2Id().equals(user2Id))
-//                    || (fs.getUser1Id().equals(user1Id) && fs.getUser2Id().equals(user2Id)))
-//                    && fs.getStatus().equals("friends")
-//                    && fs.isDeleted()==false){
-//                fs.setDeleted(true);
-//                break;
-//            }
-//        }
     }
-    public void recoverFriendship(User user2) {
-        String user1Id = signedUser.getId();
-        String user2Id = user2.getId();
-        for(FriendshipStatus fs:friendshipStatuses){
-            if(((fs.getUser1Id().equals(user1Id) && fs.getUser2Id().equals(user2Id))
-                    || (fs.getUser1Id().equals(user1Id) && fs.getUser2Id().equals(user2Id)))
-                    && fs.getStatus().equals("friends")
-                    && fs.isDeleted()==true){
-                fs.setDeleted(false);
-                break;
-            }
-        }
+    public void recoverFriendship(User user2,VoidListener listener) {
+        modelFireBase.recoverFriendship(user2.getId(),listener);
     }
-    public void friendRequestIgnored(User user){
+    public void friendRequestIgnored(User user,VoidListener listener) throws JsonProcessingException {
         String signedUserId = signedUser.getId();
         String userId = user.getId();
-        for(FriendshipStatus fs:friendshipStatuses){
-            if(fs.getUser1Id().equals(signedUserId) && fs.getUser2Id().equals(userId) && fs.getStatus().equals("pending")){
-                fs.setStatus("ignored");
-                break;
+        FriendshipStatus fs = new FriendshipStatus(signedUserId,userId,"Ignored");
+        modelFireBase.addFriendshipStatus(fs, new VoidListener() {
+            @Override
+            public void onComplete() {
+                listener.onComplete();
             }
-        }
+        });
     }
-    public void friendRequestCancelIgnore(User user){
+    public void friendRequestCancelIgnore(User user,VoidListener listener) throws JsonProcessingException {
         String signedUserId = signedUser.getId();
         String userId = user.getId();
-        for(FriendshipStatus fs:friendshipStatuses){
-            if(fs.getUser1Id().equals(signedUserId) && fs.getUser2Id().equals(userId) && fs.getStatus().equals("ignored")){
-                fs.setStatus("pending");
-                break;
+        FriendshipStatus fs = new FriendshipStatus(signedUserId,userId,"pending");
+        modelFireBase.addFriendshipStatus(fs, new VoidListener() {
+            @Override
+            public void onComplete() {
+                listener.onComplete();
             }
-        }
+        });
     }
 
 
@@ -979,7 +906,6 @@ public class Model {
         }
         return counter;
     }
-
     public Review getUserGeneralReview(String userId, String restaurantId) {
         for (Review rev: generalReviewList) {
             if(rev.getUserId().equals(userId) && rev.getRestaurantId().equals(restaurantId)){
@@ -988,7 +914,6 @@ public class Model {
         }
         return new Review();
     }
-
     public List<User> getAllFriendsThatHaveReviewsOnRestaurantByRestaurantId(String restaurantId) {
         List<User> result = new LinkedList<>();
         //List<User> friends = getFriendsList(signedUser.getId());
@@ -1004,7 +929,6 @@ public class Model {
         }
         return result;
     }
-
     public List<DishReview> getAllFriendsReviewsOnDishByDishIdAndUserId(String dishId, String userId) {
         User signedUser = getSignedUser();
         String signedUserId = signedUser.getId();
@@ -1022,8 +946,6 @@ public class Model {
         }
         return dishReviews;
     }
-
-
     public int getNumOfFriendVisitedRestaurant(String restaurantId){
         int res = 0;
         if(isSignedFlag()) {
