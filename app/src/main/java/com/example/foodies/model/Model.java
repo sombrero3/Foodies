@@ -21,7 +21,6 @@ import java.util.concurrent.Executors;
 
 
 public class Model {
-
     List<User> userList = new LinkedList<>();
     List<Restaurant> restaurantList = new ArrayList<>();
     List<Dish> dishList = new LinkedList<>();
@@ -38,48 +37,10 @@ public class Model {
     public Executor executor = Executors.newFixedThreadPool(1);
     public Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
 
-    public void signUp(String email, String password,String firstName,String lastName,ProgressBar progressBar) {
-        modelFireBase.signIn(email,password,firstName,lastName,progressBar);
-    }
-
-    public User getSignedUser() {
-        return signedUser;
-    }
-
-
-    public interface GetAllUsersListener{
-        void onComplete(List<User> users);
-    }
-    public void getAllUsers(GetAllUsersListener listener) {
-        modelFireBase.getAllUsers(new GetAllUsersListener() {
-            @Override
-            public void onComplete(List<User> users) {
-                userList.clear();
-                userList.addAll(users);
-                listener.onComplete(userList);
-            }
-        });
-    }
-
-    public interface setCurrentUserListener {
-        void onComplete(User user);
-    }
-    public void setCurrentUser(setCurrentUserListener listener) {
-            modelFireBase.setCurrentUser(new setCurrentUserListener() {
-                @Override
-                public void onComplete(User user) {
-                    signedUser = user;
-                    listener.onComplete(user);
-                }
-            });
-    }
-
     public enum UsersListLoadingState{
         loading,
         loaded
     }
-
-
 
     private Model() {
         signedFlag = false;
@@ -88,49 +49,6 @@ public class Model {
             restaurantList.add(new Restaurant("name "+i));
         }
         usersListLoadingState.setValue(UsersListLoadingState.loaded);
-
-//        for(int i=0;i<10;i++){
-//            User user = new User("name "+i, "" + i ,"email"+i+"@gmail.com");
-//            userList.add(user);
-//        }
-//
-//        friendshipStatuses.add(new FriendshipStatus("0","1","friends"));
-//        friendshipStatuses.add(new FriendshipStatus("0","3","friends"));
-//        friendshipStatuses.add(new FriendshipStatus("0","5","friends"));
-//        friendshipStatuses.add(new FriendshipStatus("0","7","friends"));
-//        friendshipStatuses.add(new FriendshipStatus("1","8","friends"));
-//        friendshipStatuses.add(new FriendshipStatus("1","3","friends"));
-//        friendshipStatuses.add(new FriendshipStatus("1","4","friends"));
-//        friendshipStatuses.add(new FriendshipStatus("1","6","friends"));
-//        friendshipStatuses.add(new FriendshipStatus("2","3","friends"));
-//        friendshipStatuses.add(new FriendshipStatus("2","5","friends"));
-//        friendshipStatuses.add(new FriendshipStatus("2","9","friends"));
-//        friendshipStatuses.add(new FriendshipStatus("2","4","friends"));
-//        friendshipStatuses.add(new FriendshipStatus("3","5","friends"));
-//        friendshipStatuses.add(new FriendshipStatus("3","7","friends"));
-//        friendshipStatuses.add(new FriendshipStatus("3","8","friends"));
-//        friendshipStatuses.add(new FriendshipStatus("3","6","friends"));
-//        setSignedUser(userList.get(0));
-//        setSignedFlag(true);
-//        friendshipStatuses.add(new FriendshipStatus("0","8","pending"));
-//        friendshipStatuses.add(new FriendshipStatus("0","9","pending"));
-//
-//        Random random = new Random();
-//        for(int i=0;i<10;i++){
-//            Restaurant res = new Restaurant("Restaurant name "+i);
-//            restaurantList.add(res);
-//            for(int j=0;j<10;j++){
-//                Dish dish = new Dish("Dish name "+i + " " + j);
-//                dish.setRestaurantId(res.getId());
-//                addDish(dish);
-//                for(int k=0;k<10;k++){
-//                        String rating  = Integer.toString(Math.abs((random.nextInt()%5))+1);
-//                        DishReview dishReview = new DishReview(dish.getId(), res.getId(),userList.get(k).getId(),rating);
-//                        dish.setPrice(Integer.toString(Math.abs(random.nextInt()%500))+"$");
-//                        addDishReview(dishReview);
-//                }
-//            }
-//        }
     }
 
     //-------Getters and Setters-------//
@@ -138,19 +56,15 @@ public class Model {
     public List<DishReview> getDishReviewList() {
         return dishReviewList;
     }
-
     public void setDishReviewList(List<DishReview> dishReviewList) {
         this.dishReviewList = dishReviewList;
     }
-
     public List<Review> getGeneralReviewList() {
         return generalReviewList;
     }
-
     public void setGeneralReviewList(List<Review> generalReviewList) {
         this.generalReviewList = generalReviewList;
     }
-
     public List<User> getUserList() {
         return userList;
     }
@@ -176,16 +90,6 @@ public class Model {
         this.dishReviewList = dishReviewList;
     }
 
-
-
-
-    public boolean isSignedFlag() {
-        return signedFlag;
-    }
-    public void setSignedFlag(boolean signedFlag) {
-
-        this.signedFlag = signedFlag;
-    }
     //---------------------------------//
 
     /**
@@ -195,7 +99,29 @@ public class Model {
     public boolean isSignedIn() {
         return modelFireBase.isSignedIn();
     }
+    public User getSignedUser() {
+        return signedUser;
+    }
+    public interface setCurrentUserListener {
+        void onComplete(User user);
+    }
+    public void setCurrentUser(setCurrentUserListener listener) {
+        modelFireBase.setCurrentUser(new setCurrentUserListener() {
+            @Override
+            public void onComplete(User user) {
+                signedUser = user;
+                listener.onComplete(user);
+            }
+        });
+    }
+    public void signUp(String email, String password,String firstName,String lastName,ProgressBar progressBar) {
+        modelFireBase.signIn(email,password,firstName,lastName,progressBar);
+    }
 
+    /**
+     *
+     * Rating
+     */
     public void dishUpdateRating(String dishId){
 
         String rating ="No rating yet";
@@ -250,16 +176,8 @@ public class Model {
         }
         getRestaurantById(restaurantId).setRating(rating);
     }
-//    public boolean confirmUserLogin(String name,String password){
-//        for (User user:userList) {
-//            if(user.getFirstName().equals(name) && user.getPassword().equals(password)){
-//                setSignedFlag(true);
-//                setSignedUser(user);
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
+
+
     public Dish getDishById(String dishId){
         for(Dish dish:dishList){
             if(dish.getId().equals(dishId)){
@@ -284,14 +202,6 @@ public class Model {
         }
         return new DishReview();
     }
-
-    public interface getUserByIdListener{
-        void onComplete(User user);
-    }
-    public void getUserById(String id,getUserByIdListener listener){
-        modelFireBase.getUserById(id,listener);
-
-    }
     public User getUserByIdOld(String id){
         for(int i=0;i< userList.size();i++){
             if(userList.get(i).getId().equals(id)){
@@ -301,6 +211,26 @@ public class Model {
         return new User();
     }
 
+    public interface getUserByIdListener{
+        void onComplete(User user);
+    }
+    public void getUserById(String id,getUserByIdListener listener){
+        modelFireBase.getUserById(id,listener);
+
+    }
+    public interface GetAllUsersListener{
+        void onComplete(List<User> users);
+    }
+    public void getAllUsers(GetAllUsersListener listener) {
+        modelFireBase.getAllUsers(new GetAllUsersListener() {
+            @Override
+            public void onComplete(List<User> users) {
+                userList.clear();
+                userList.addAll(users);
+                listener.onComplete(userList);
+            }
+        });
+    }
 
     public boolean ifUserHasReviewOnThatRestaurant(String userId,String restaurantId){
         boolean res = false;
@@ -342,7 +272,7 @@ public class Model {
         void onComplete();
     }
     public void addUser(User user,AddUserListener listener) throws JsonProcessingException {
-//        usersListLoadingState.setValue(UsersListLoadingState.loading);
+        usersListLoadingState.setValue(UsersListLoadingState.loading);
         modelFireBase.addUser(user,listener);
     }
 
@@ -948,37 +878,33 @@ public class Model {
     }
     public int getNumOfFriendVisitedRestaurant(String restaurantId){
         int res = 0;
-        if(isSignedFlag()) {
-            User user = getSignedUser();
-            List<User> friends = new LinkedList<>();
-          //  List<User> list = getFriendsList(user.getId());
-            List<User> list = new LinkedList<>();
-            for (User u : list) {
-                friends.add(u);
-            }
-            for (DishReview rev : dishReviewList) {
-                if (rev.getRestaurantId().equals(restaurantId) && friends.contains(getUserByIdOld(rev.getUserId()))) {
-                    friends.remove(getUserByIdOld(rev.getUserId()));
-                    res++;
-                }
+        User user = getSignedUser();
+        List<User> friends = new LinkedList<>();
+        //  List<User> list = getFriendsList(user.getId());
+        List<User> list = new LinkedList<>();
+        for (User u : list) {
+            friends.add(u);
+        }
+        for (DishReview rev : dishReviewList) {
+            if (rev.getRestaurantId().equals(restaurantId) && friends.contains(getUserByIdOld(rev.getUserId()))) {
+                friends.remove(getUserByIdOld(rev.getUserId()));
+                res++;
             }
         }
         return res;
     }
     public String getAFriendNameWhoVisitedARestaurant(String restaurantId){
         String res = "";
-        if(isSignedFlag()) {
-            User user = getSignedUser();
-            List<User> friends = new LinkedList<>();
-            //List<User> list = getFriendsList(user.getId());
-            List<User> list = new LinkedList<>();
-            for (User u : list) {
-                friends.add(u);
-            }
-            for (DishReview rev : dishReviewList) {
-                if (rev.getRestaurantId().equals(restaurantId) && friends.contains(getUserByIdOld(rev.getUserId()))) {
-                    res = getUserByIdOld(rev.getUserId()).getFirstName();
-                }
+        User user = getSignedUser();
+        List<User> friends = new LinkedList<>();
+        //List<User> list = getFriendsList(user.getId());
+        List<User> list = new LinkedList<>();
+        for (User u : list) {
+            friends.add(u);
+        }
+        for (DishReview rev : dishReviewList) {
+            if (rev.getRestaurantId().equals(restaurantId) && friends.contains(getUserByIdOld(rev.getUserId()))) {
+                res = getUserByIdOld(rev.getUserId()).getFirstName();
             }
         }
         return res;

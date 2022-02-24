@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.AuthResult;
@@ -36,9 +37,6 @@ import java.util.Map;
 
 public class ModelFireBase {
     FirebaseAuth currentUser;
-    String currentUserId;
-    ;
-    FirebaseDatabase dbRealTime = FirebaseDatabase.getInstance();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public ModelFireBase() {
@@ -48,6 +46,43 @@ public class ModelFireBase {
         db.setFirestoreSettings(settings);
     }
 
+    /**
+     * Authentication
+     */
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+    public boolean isSignedIn() {
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        return (currentUser != null);
+    }
+    public void signIn(String email, String password, String firstName, String lastName, ProgressBar progressBar) {
+        Log.d("TAG", "signIn: " + email + " " + password + " " + mAuth);
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Log.d("TAG", "onComplete: succeed" + email + " " + password + " " + mAuth.getCurrentUser());
+                        } else {
+                            Toast.makeText(progressBar.getContext(), "Failed To Registered 2", Toast.LENGTH_LONG).show();
+
+                            Log.d("TAG", "onComplete failed: " + email + " " + password + " " + mAuth + " " + task.getException().toString());
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    }
+                });
+    }
+    public void setCurrentUser(Model.setCurrentUserListener listener) {
+        currentUser = FirebaseAuth.getInstance();
+        String userUid = currentUser.getCurrentUser().getUid();
+        getUserById(userUid, new Model.getUserByIdListener() {
+            @Override
+            public void onComplete(User user) {
+                listener.onComplete(user);
+            }
+        });
+    }
     private String getSignedUserId() {
         return Model.instance.getSignedUser().getId();
     }
@@ -63,11 +98,15 @@ public class ModelFireBase {
         db.collection("users")
                 .document(user.getId())
                 .set(json)
-                .addOnSuccessListener(u -> listener.onComplete())
-                .addOnFailureListener(e -> listener.onComplete());
+                .addOnSuccessListener(unused -> {
+                    listener.onComplete();
+                })
+                .addOnFailureListener(e -> {
+                    listener.onComplete();
+                });
     }
 
-    //Create
+    //Update
     public void updateUser(User user, Model.AddUserListener listener) throws JsonProcessingException {
         addUser(user, new Model.AddUserListener() {
             @Override
@@ -97,13 +136,11 @@ public class ModelFireBase {
                 });
     }
 
+/////////////////////////////
     //Delete
-//    public Task<Void> removeUser(User user){
-//        return usersReference.child(user.getId()).removeValue();
-//    }
+/////////////////////////////
 
     public void getAllUsers(Model.GetAllUsersListener listener) {
-
         db.collection("users")
                 //      .whereEqualTo("deleted",false)
                 //  .whereGreaterThanOrEqualTo("updateDate", new Timestamp(lastUpdateDate,0))
@@ -127,11 +164,9 @@ public class ModelFireBase {
                     listener.onComplete(list);
                 });
     }
-
     public interface GetUsersListListener {
         void onComplete(List<User> users);
     }
-
     public void getUsersList(List<String> usersId, GetUsersListListener listener) {
         if (!usersId.isEmpty()) {
             db.collection("users")
@@ -159,54 +194,9 @@ public class ModelFireBase {
         }
     }
 
-
     /**
-     * Authentication
+     * FriendshipStatusDao
      */
-    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
-
-    public boolean isSignedIn() {
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        return (currentUser != null);
-    }
-
-    public void signIn(String email, String password, String firstName, String lastName, ProgressBar progressBar) {
-        Log.d("TAG", "signIn: " + email + " " + password + " " + mAuth);
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Log.d("TAG", "onComplete: succeed" + email + " " + password + " " + mAuth.getCurrentUser());
-                        } else {
-                            Toast.makeText(progressBar.getContext(), "Failed To Registered 2", Toast.LENGTH_LONG).show();
-
-                            Log.d("TAG", "onComplete failed: " + email + " " + password + " " + mAuth + " " + task.getException().toString());
-                            progressBar.setVisibility(View.GONE);
-                        }
-                    }
-                });
-    }
-
-    public void setCurrentUser(Model.setCurrentUserListener listener) {
-        currentUser = FirebaseAuth.getInstance();
-        String userUid = currentUser.getCurrentUser().getUid();
-        getUserById(userUid, new Model.getUserByIdListener() {
-            @Override
-            public void onComplete(User user) {
-                listener.onComplete(user);
-            }
-        });
-    }
-
-    /**
-     * FriendshipDao
-     */
-    public interface AddFriendshipStatusListener {
-        void onComplete();
-    }
-
     public void addFriendshipStatus(FriendshipStatus fs, Model.VoidListener listener) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         String fsString = objectMapper.writeValueAsString(fs);
@@ -217,7 +207,6 @@ public class ModelFireBase {
                 .addOnSuccessListener(u -> listener.onComplete())
                 .addOnFailureListener(e -> listener.onComplete());
     }
-
     public void addFriendRequest(String userId, Model.VoidListener listener) throws JsonProcessingException {
         String signedUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         FriendshipStatus fs = new FriendshipStatus(userId, signedUserId, "pending");
@@ -230,7 +219,6 @@ public class ModelFireBase {
                 .addOnSuccessListener(u -> listener.onComplete())
                 .addOnFailureListener(e -> listener.onComplete());
     }
-
     public void getFriendsRequests(String userId, Model.GetFriendsRequestsListener listener) {
         List<String> usersRequested = new LinkedList<>();
         db.collection("friendshipStatuses")
@@ -256,7 +244,6 @@ public class ModelFireBase {
                     }
                 });
     }
-
     public void getFriendsList(String user1Id, Model.GetFriendListListener listener) {
         List<User> res = new LinkedList<>();
         List<String> usersId = new LinkedList<>();
@@ -293,7 +280,6 @@ public class ModelFireBase {
                     }
                 });
     }
-
     public void friendRequestConfirmed(String userId, Model.FriendRequestConfirmedListener listener) throws JsonProcessingException {
         String signedUserId = Model.instance.getSignedUser().getId();
         FriendshipStatus fs = new FriendshipStatus(signedUserId, userId, "friends");
@@ -304,7 +290,6 @@ public class ModelFireBase {
             }
         });
     }
-
     public void friendRequestUnConfirmed(User user, Model.FriendRequestUnConfirmed listener) throws JsonProcessingException {
         String signedUserId = Model.instance.getSignedUser().getId();
         FriendshipStatus fs = new FriendshipStatus(signedUserId, user.getId(), "pending");
@@ -315,7 +300,6 @@ public class ModelFireBase {
             }
         });
     }
-
     public void cancelFriendship(String userId, Model.CancelFriendshipListener listener) {
         String signedUserId = getSignedUserId();
         db.collection("friendshipStatuses")
@@ -370,7 +354,6 @@ public class ModelFireBase {
                 });
 
     }
-
     public void recoverFriendship(String userId, Model.VoidListener listener) {
         String signedUserId = getSignedUserId();
         db.collection("friendshipStatuses")
@@ -424,4 +407,20 @@ public class ModelFireBase {
                     }
                 });
     }
+
+    /**
+     * RestaurantDao
+     */
+
+    /**
+     * DishDao
+     */
+
+    /**
+     * GeneralReviewDao
+     */
+
+    /**
+     * DishReviewDao
+     */
 }
