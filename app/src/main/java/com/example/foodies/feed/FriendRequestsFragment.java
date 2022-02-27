@@ -1,9 +1,10 @@
-package com.example.foodies;
+package com.example.foodies.feed;
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,14 +18,18 @@ import android.view.ViewGroup;
 
 import com.example.foodies.AdaptersAndViewHolders.FriendRequestAdapter;
 import com.example.foodies.AdaptersAndViewHolders.OnItemClickListener;
+import com.example.foodies.R;
+import com.example.foodies.model.FriendshipStatus;
 import com.example.foodies.model.Model;
 import com.example.foodies.model.User;
 
+import java.util.LinkedList;
 import java.util.List;
 
 
 public class FriendRequestsFragment extends Fragment {
     List<User> userList;
+    FriendRequestAdapter adapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -33,25 +38,37 @@ public class FriendRequestsFragment extends Fragment {
 
         User signedUser = Model.instance.getSignedUser();
 //        signedUser.updateFriendLists();
-
-        userList = Model.instance.getFriendsRequests(signedUser.getId());
+        userList = new LinkedList<>();
+        setUserList();
 
         RecyclerView list = view.findViewById(R.id.friend_request_rv);
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
-        FriendRequestAdapter adapter = new FriendRequestAdapter(userList);
+        adapter = new FriendRequestAdapter(userList);
         list.setAdapter(adapter);
 
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
                 String userId = userList.get(position).getId();
-                Navigation.findNavController(v).navigate(FriendRequestsFragmentDirections.actionFriendRequestsFragmentToUserProfileFragment(userId));
+                Navigation.findNavController(v).navigate((NavDirections) FriendRequestsFragmentDirections.actionFriendRequestsFragmentToUserProfileFragment(userId));
             }
         });
         setHasOptionsMenu(true);
         return view;
     }
+
+    private void setUserList() {
+        Model.instance.getFriendsRequests(Model.instance.getSignedUser().getId(),new Model.GetFriendsRequestsListener() {
+            @Override
+            public void onComplete(List<User> users) {
+                userList.clear();
+                userList.addAll(users);
+                adapter.notifyDataSetChanged();
+            }
+        });
+    }
+
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);

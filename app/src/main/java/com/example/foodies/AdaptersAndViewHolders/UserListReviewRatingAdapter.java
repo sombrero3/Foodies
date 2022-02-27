@@ -35,7 +35,7 @@ public class UserListReviewRatingAdapter extends RecyclerView.Adapter<UserWithRa
         @Override
         public void onBindViewHolder(@NonNull UserWithRatingViewHolder holder, int position) {
             DishReview rev = dishReviewList.get(position);
-            holder.nameTv.setText(Model.instance.getUserById(rev.getUserId()).getFirstName()+ " " +position);
+            holder.nameTv.setText(Model.instance.getUserByIdOld(rev.getUserId()).getFirstName()+ " " +position);
             Model.instance.setStarByRating(rev.getRating(), holder.star1, holder.star2, holder.star3, holder.star4, holder.star5, holder.ratingTv);
         }
 

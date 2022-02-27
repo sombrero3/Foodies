@@ -1,5 +1,6 @@
-package com.example.foodies;
+package com.example.foodies.feed;
 
+import android.app.Application;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,7 +22,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodies.AdaptersAndViewHolders.OnItemClickListener;
 import com.example.foodies.AdaptersAndViewHolders.UserAdapter;
+import com.example.foodies.R;
 import com.example.foodies.model.Model;
+import com.example.foodies.model.ModelFireBase;
 import com.example.foodies.model.User;
 
 import java.util.LinkedList;
@@ -39,7 +42,9 @@ public class AddFriendFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_friend, container, false);
 
-        searchResultList = Model.instance.peopleYouMayKnow();
+        searchResultList = new LinkedList<>();
+        setSearchResultList();
+
         list = view.findViewById(R.id.add_friend_rv);
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -60,6 +65,17 @@ public class AddFriendFragment extends Fragment {
         searchBtn.setOnClickListener(view1 -> search());
         setHasOptionsMenu(true);
         return view;
+    }
+
+    private void setSearchResultList() {
+        Model.instance.peopleYouMayKnow(new Model.PeopleYouMayKnow() {
+            @Override
+            public void onComplete(List<User> users) {
+                searchResultList.clear();
+                searchResultList.addAll(users);
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
 
     private void search() {
@@ -94,6 +110,9 @@ public class AddFriendFragment extends Fragment {
         }
     }
 
+
+
+
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
@@ -104,7 +123,6 @@ public class AddFriendFragment extends Fragment {
     public void onPrepareOptionsMenu (Menu menu) {
         menu.findItem(R.id.main_menu_add_friend).setEnabled(false);
     }
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         return super.onOptionsItemSelected(item);

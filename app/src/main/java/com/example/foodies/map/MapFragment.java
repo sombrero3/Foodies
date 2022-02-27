@@ -1,4 +1,4 @@
-package com.example.foodies;
+package com.example.foodies.map;
 
 import android.os.Bundle;
 
@@ -11,6 +11,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.foodies.R;
 
 
 public class MapFragment extends Fragment {

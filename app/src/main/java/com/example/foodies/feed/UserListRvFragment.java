@@ -1,4 +1,4 @@
-package com.example.foodies;
+package com.example.foodies.feed;
 
 import android.os.Bundle;
 
@@ -20,11 +20,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.foodies.R;
 import com.example.foodies.model.Model;
 import com.example.foodies.AdaptersAndViewHolders.OnItemClickListener;
 import com.example.foodies.model.User;
 import com.example.foodies.AdaptersAndViewHolders.UserAdapter;
 
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -33,18 +35,20 @@ public class UserListRvFragment extends Fragment {
     TextView nameTv,numOfFriendsTv,emailTv;
     ImageView imgIv,addFriendIv;
     User user;
+    UserAdapter adapter;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_list_rv, container, false);
 
 
-        user = Model.instance.getUserById(UserListRvFragmentArgs.fromBundle(getArguments()).getUserId());
-        userList = Model.instance.getFriendsList(user.getId());
-
+        user = Model.instance.getUserByIdOld(UserListRvFragmentArgs.fromBundle(getArguments()).getUserId());
+        // userList = Model.instance.getFriendsList(user.getId());
+        userList = new LinkedList<>();
+        setUserList();
         RecyclerView list = view.findViewById(R.id.userlist_rv);
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
-        UserAdapter adapter = new UserAdapter(userList);
+        adapter = new UserAdapter(userList);
         list.setAdapter(adapter);
 
         adapter.setOnItemClickListener(new OnItemClickListener() {
@@ -72,6 +76,18 @@ public class UserListRvFragment extends Fragment {
         return view;
 
     }
+
+    private void setUserList() {
+        Model.instance.getFriendsList(Model.instance.getSignedUser().getId(), new Model.GetFriendListListener() {
+            @Override
+            public void onComplete(List<User> friends) {
+                userList.clear();
+                userList.addAll(friends);
+                adapter.notifyDataSetChanged();
+            }
+        });
+    }
+
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);

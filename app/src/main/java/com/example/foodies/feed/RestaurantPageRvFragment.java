@@ -1,4 +1,4 @@
-package com.example.foodies;
+package com.example.foodies.feed;
 
 import android.os.Bundle;
 
@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.example.foodies.AdaptersAndViewHolders.OnItemClickListener;
 import com.example.foodies.AdaptersAndViewHolders.UserListRestaurantRatingAdapter;
+import com.example.foodies.R;
 import com.example.foodies.model.Model;
 import com.example.foodies.model.Restaurant;
 import com.example.foodies.model.User;

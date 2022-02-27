@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".RestaurantPageRvFragment">
+    tools:context=".feed.RestaurantPageRvFragment">
 
     <Button
         android:id="@+id/restaurant_page_addreview_btn"

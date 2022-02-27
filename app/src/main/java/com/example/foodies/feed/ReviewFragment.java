@@ -1,4 +1,4 @@
-package com.example.foodies;
+package com.example.foodies.feed;
 
 import android.os.Bundle;
 
@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.example.foodies.AdaptersAndViewHolders.OnItemClickListener;
 import com.example.foodies.AdaptersAndViewHolders.UserListReviewRatingAdapter;
+import com.example.foodies.R;
 import com.example.foodies.model.Dish;
 import com.example.foodies.model.Model;
 import com.example.foodies.model.DishReview;
@@ -71,11 +72,11 @@ public class ReviewFragment extends Fragment {
         star5 = view.findViewById(R.id.review_star5_iv);
 
         Dish dish = Model.instance.getDishById(dishReview.getDishId());
-        User user = Model.instance.getUserById(dishReview.getUserId());
+        User user = Model.instance.getUserByIdOld(dishReview.getUserId());
 
         Model.instance.setStarByRating(dishReview.getRating(),star1,star2,star3,star4,star5,ratingTv);
 
-        dishNameTv.setText(Model.instance.getUserById(dishReview.getUserId()).getFirstName()+"'s review about "+dish.getName());
+        dishNameTv.setText(Model.instance.getUserByIdOld(dishReview.getUserId()).getFirstName()+"'s review about "+dish.getName());
         dishPriceTv.setText(dish.getPrice());
 //        userNameTv.setText(user.getFirstName()+ " "+user.getLastName());
         descriptionTv.setText(dishReview.getDescription());
