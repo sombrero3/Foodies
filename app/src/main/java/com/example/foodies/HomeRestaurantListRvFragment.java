@@ -89,7 +89,7 @@ public class HomeRestaurantListRvFragment extends Fragment {
         });
 
         locationIv.setOnClickListener((v)->{
-            Navigation.findNavController(v).navigate(HomeRestaurantListRvFragmentDirections.actionHomeRestaurantListRvFragmentToMapFragment());
+            Navigation.findNavController(v).navigate(HomeRestaurantListRvFragmentDirections.actionHomeRestaurantListRvFragmentToMapsActivity());
         });
 
         searchIbtn.setOnClickListener(new View.OnClickListener() {

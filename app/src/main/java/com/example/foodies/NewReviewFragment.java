@@ -91,10 +91,10 @@ public class NewReviewFragment extends Fragment {
 
         setStarsOnClick();
         locationTv.setOnClickListener((v)->{
-            Navigation.findNavController(v).navigate(NewReviewFragmentDirections.actionNewReviewFragmentToMapFragment());
+            Navigation.findNavController(v).navigate(NewReviewFragmentDirections.actionNewReviewFragmentToMapsActivity());
         });
         locationIv.setOnClickListener((v)->{
-            Navigation.findNavController(v).navigate(NewReviewFragmentDirections.actionNewReviewFragmentToMapFragment());
+            Navigation.findNavController(v).navigate(NewReviewFragmentDirections.actionNewReviewFragmentToMapsActivity());
         });
 
         postReviewBtn.setOnClickListener((v)->{

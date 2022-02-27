@@ -41,9 +41,6 @@
             android:id="@+id/action_homeRestaurantListRvFragment_to_restaurantPageRvFragment"
             app:destination="@id/restaurantPageRvFragment" />
         <action
-            android:id="@+id/action_homeRestaurantListRvFragment_to_mapFragment"
-            app:destination="@id/mapFragment" />
-        <action
             android:id="@+id/action_homeRestaurantListRvFragment_to_newReviewFragment"
             app:destination="@id/newReviewFragment" />
         <action
@@ -141,12 +138,12 @@
             app:destination="@id/reviewFragment2"
             app:popUpTo="@id/newReviewFragment"
             app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/action_newReviewFragment_to_mapFragment"
-            app:destination="@id/mapFragment" />
         <argument
             android:name="edit_space_reviewId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_newReviewFragment_to_mapsActivity"
+            app:destination="@id/mapsActivity" />
     </fragment>
     <fragment
         android:id="@+id/registeredUserFragment"

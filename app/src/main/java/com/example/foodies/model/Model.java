@@ -413,18 +413,18 @@ public class Model {
 
 
 
-    public Integer getNumOfFriendsVisitedInRestaurant(String restaurantID){
-        int count=0;
-        List<User> myFriends=getSignedUser().getFriendsList();
-        for (User friend: myFriends) {
-            for(Review rev: reviewList){
-                if(rev.restaurantId.equals(restaurantID) && friend.getReviewList().contains(rev)){
-                    count++;
-                }
-            }
-        }
-        return count;
-    }
+//    public Integer getNumOfFriendsVisitedInRestaurant(String restaurantID){
+//        int count=0;
+//        List<User> myFriends=getSignedUser().getFriendsList();
+//        for (User friend: myFriends) {
+//            for(Review rev: reviewList){
+//                if(rev.restaurantId.equals(restaurantID) && friend.getReviewList().contains(rev)){
+//                    count++;
+//                }
+//            }
+//        }
+//        return count;
+//    }
 
 
 //    public String getRandomFriendNameVisitedInRestaurant(String restaurantID){
