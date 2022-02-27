@@ -31,9 +31,7 @@ public class MapFragment extends Fragment {
         inflater.inflate(R.menu.all_other_fragments_menu,menu);
 
     }
-    {
 
-    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
