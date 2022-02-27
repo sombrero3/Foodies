@@ -30,7 +30,7 @@ public class HomeFragment extends Fragment {
        signInBtn = view.findViewById(R.id.home_signin_tv);
        signUpBtn = view.findViewById(R.id.home_signup_tv);
 
-       if(Model.instance.isSignedFlag()) {
+
 //           User user = Model.instance.getSignedUser();
 //           home.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_homeFragment_to_homeRestaurantListRvFragment));
 //           myReviews.setOnClickListener((v) -> {
@@ -42,7 +42,7 @@ public class HomeFragment extends Fragment {
 //           myProfile.setOnClickListener((v)->{
 //               Navigation.findNavController(v).navigate(HomeFragmentDirections.actionHomeFragmentToUserProfileFragment(user.getId()));
 //           });
-       }
+
        signInBtn.setOnClickListener((v)->{
            //Navigation.findNavController(v).navigate(HomeFragmentDirections.actionHomeFragmentToRegisteredUserFragment());
        });
