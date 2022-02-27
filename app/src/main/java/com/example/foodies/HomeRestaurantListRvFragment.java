@@ -17,7 +17,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -36,7 +35,7 @@ public class HomeRestaurantListRvFragment extends Fragment {
     List<Restaurant> restaurantList;
     EditText searchEt;
     TextView nameTv;
-    ImageButton searchIbtn;
+    ImageButton searchIBtn;
     ImageView locationIv;
     boolean flag;
     //Button addReviewBtn,menuBtn;
@@ -44,7 +43,6 @@ public class HomeRestaurantListRvFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_restaurant_list_rv, container, false);
-
 
 
         User user = Model.instance.getSignedUser();
@@ -56,35 +54,29 @@ public class HomeRestaurantListRvFragment extends Fragment {
         RestaurantListGeneralRatingAdapter adapter = new RestaurantListGeneralRatingAdapter(restaurantList);
         list.setAdapter(adapter);
 
-        adapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(View v, int position) {
-                String restaurantName = restaurantList.get(position).getName();
-                String restaurantId = restaurantList.get(position).getId();
-                Log.d("TAG","Restaurant clicked: " + restaurantName + " " + restaurantId);
-                Navigation.findNavController(v).navigate((NavDirections) HomeRestaurantListRvFragmentDirections.actionHomeRestaurantListRvFragmentToRestaurantPageRvFragment(restaurantId));
+        adapter.setOnItemClickListener((v, position) -> {
+            String restaurantName = restaurantList.get(position).getName();
+            String restaurantId = restaurantList.get(position).getId();
+            Log.d("TAG", "Restaurant clicked: " + restaurantName + " " + restaurantId);
+            Navigation.findNavController(v).navigate((NavDirections) HomeRestaurantListRvFragmentDirections.actionHomeRestaurantListRvFragmentToRestaurantPageRvFragment(restaurantId));
 
-            }
         });
 
         searchEt = view.findViewById(R.id.home_restaurant_list_search_et);
-        searchIbtn = view.findViewById(R.id.home_restaurant_search_ibtn);
+        searchIBtn = view.findViewById(R.id.home_restaurant_search_ibtn);
         locationIv = view.findViewById(R.id.home_restaurant_location_iv);
 
         nameTv = view.findViewById(R.id.home_restaurant_list_name_tv);
 
 
-        nameTv.setText("Hello "+ user.getFirstName() );
+        nameTv.setText("Hello " + user.getFirstName());
         flag = true;
-        searchEt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(flag) {
-                    searchEt.setText("");
-                    flag = false;
-                }else{
-                    flag = true;
-                }
+        searchEt.setOnClickListener(view1 -> {
+            if (flag) {
+                searchEt.setText("");
+                flag = false;
+            } else {
+                flag = true;
             }
         });
 
@@ -92,21 +84,18 @@ public class HomeRestaurantListRvFragment extends Fragment {
             Navigation.findNavController(v).navigate(HomeRestaurantListRvFragmentDirections.actionHomeRestaurantListRvFragmentToMapsActivity());
         });
 
-        searchIbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                restaurantList = Model.instance.searchRestaurantByName(searchEt.getEditableText().toString());
-                //adapter.notifyDataSetChanged();
-                RestaurantListGeneralRatingAdapter newAdapter = new RestaurantListGeneralRatingAdapter(restaurantList);
-                list.setAdapter(newAdapter);
-                newAdapter.setOnItemClickListener(new OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View v, int position) {
-                        String restaurantId = restaurantList.get(position).getId();
-                        Navigation.findNavController(v).navigate((NavDirections) HomeRestaurantListRvFragmentDirections.actionHomeRestaurantListRvFragmentToRestaurantPageRvFragment(restaurantId));
-                    }
-                });
-            }
+        searchIBtn.setOnClickListener(view12 -> {
+            restaurantList = Model.instance.searchRestaurantByName(searchEt.getEditableText().toString());
+            //adapter.notifyDataSetChanged();
+            RestaurantListGeneralRatingAdapter newAdapter = new RestaurantListGeneralRatingAdapter(restaurantList);
+            list.setAdapter(newAdapter);
+            newAdapter.setOnItemClickListener(new OnItemClickListener() {
+                @Override
+                public void onItemClick(View v, int position) {
+                    String restaurantId = restaurantList.get(position).getId();
+                    Navigation.findNavController(v).navigate((NavDirections) HomeRestaurantListRvFragmentDirections.actionHomeRestaurantListRvFragmentToRestaurantPageRvFragment(restaurantId));
+                }
+            });
         });
 
 //          addReviewBtn = view.findViewById(R.id.home_restaurant_list_review_btn);
@@ -123,10 +112,11 @@ public class HomeRestaurantListRvFragment extends Fragment {
         return view;
 
     }
+
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.home_restaurant_menu,menu);
+        inflater.inflate(R.menu.home_restaurant_menu, menu);
 
     }
 

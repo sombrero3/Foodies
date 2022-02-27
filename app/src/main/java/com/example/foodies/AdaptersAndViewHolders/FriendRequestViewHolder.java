@@ -24,6 +24,7 @@ public class FriendRequestViewHolder extends RecyclerView.ViewHolder{
     Button confirmBtn,ignoreBtn;
     boolean flagConfirm,flagIgnore;
     User signedUser;
+    List<User> friendRequestsList;
 
     public FriendRequestViewHolder(@NonNull View itemView, OnItemClickListener listener) {
         super(itemView);
@@ -34,6 +35,9 @@ public class FriendRequestViewHolder extends RecyclerView.ViewHolder{
         ignoreBtn = itemView.findViewById(R.id.friend_request_row_ignore_btn);
 
         signedUser = Model.instance.getSignedUser();
+        friendRequestsList = Model.instance.getFriendsRequests(signedUser.getId());
+
+
         flagConfirm=false;
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,12 +45,12 @@ public class FriendRequestViewHolder extends RecyclerView.ViewHolder{
                 if(confirmBtn.isEnabled()) {
                     if (!flagConfirm) {
                         flagConfirm = true;
-                        Model.instance.friendRequestConfirmed(signedUser.getFriendRequestList().get(getAdapterPosition()).getId());
+                        Model.instance.friendRequestConfirmed(friendRequestsList.get(getAdapterPosition()).getId());
                         confirmBtn.setText("cancel");
                         ignoreBtn.setEnabled(false);
                     } else {
                         flagConfirm = false;
-                        Model.instance.friendRequestUnConfirmed(signedUser.getFriendRequestList().get(getAdapterPosition()));
+                        Model.instance.friendRequestUnConfirmed(friendRequestsList.get(getAdapterPosition()));
                         confirmBtn.setText("confirm");
                         ignoreBtn.setEnabled(true);
                     }
@@ -60,12 +64,12 @@ public class FriendRequestViewHolder extends RecyclerView.ViewHolder{
                 if(ignoreBtn.isEnabled()) {
                     if (!flagIgnore) {
                         flagIgnore = true;
-                        Model.instance.friendRequestIgnored(signedUser.getFriendRequestList().get(getAdapterPosition()));
+                        Model.instance.friendRequestIgnored(friendRequestsList.get(getAdapterPosition()));
                         ignoreBtn.setText("UnIgnore");
                         confirmBtn.setEnabled(false);
                     } else {
                         flagIgnore = false;
-                        Model.instance.friendRequestCancelIgnore(signedUser.getFriendRequestList().get(getAdapterPosition()));
+                        Model.instance.friendRequestCancelIgnore(friendRequestsList.get(getAdapterPosition()));
                         ignoreBtn.setText("Ignore");
                         confirmBtn.setEnabled(true);
                     }

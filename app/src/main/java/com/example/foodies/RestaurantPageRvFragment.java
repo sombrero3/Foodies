@@ -42,7 +42,7 @@ public class RestaurantPageRvFragment extends Fragment {
 
         String resId = RestaurantPageRvFragmentArgs.fromBundle(getArguments()).getRestaurantId();
         restaurant = Model.instance.getRestaurantById(resId);
-        usersList = Model.instance.getAllFriendssThatHaveReviewsOnRestaurantByRestaurantId(resId);
+        usersList = Model.instance.getAllFriendsThatHaveReviewsOnRestaurantByRestaurantId(resId);
 
         RecyclerView list = view.findViewById(R.id.restaurant_page_rv);
         list.setHasFixedSize(true);

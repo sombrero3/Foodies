@@ -3,4 +3,13 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="name">Name:</string>
+    <string name="email">Email:</string>
+    <string name="username">UserName:</string>
+    <string name="password">Password:</string>
+    <string name="restauarnt_name">Restauarnt Name:</string>
+    <string name="general_review">General review:</string>
+    <string name="dish_name">Dish Name:</string>
+    <string name="dish_price">Dish price:</string>
+    <string name="enter_your_review">Enter Your Review:</string>
 </resources>

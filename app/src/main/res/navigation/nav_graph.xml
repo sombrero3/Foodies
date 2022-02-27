@@ -171,10 +171,6 @@
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
-        android:id="@+id/mapFragment"
-        android:name="com.example.foodies.MapFragment"
-        tools:layout="@layout/fragment_map" />
-    <fragment
         android:id="@+id/addFriendFragment"
         android:name="com.example.foodies.AddFriendFragment"
         tools:layout="@layout/fragment_add_friend">

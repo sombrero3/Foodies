@@ -44,8 +44,9 @@ public class UserReviewsOnRestaurantRvFragment extends Fragment {
 
             User user = Model.instance.getUserById(UserReviewsOnRestaurantRvFragmentArgs.fromBundle(getArguments()).getUserId());
             Restaurant restaurant = Model.instance.getRestaurantById(UserReviewsOnRestaurantRvFragmentArgs.fromBundle(getArguments()).getRestaurantId());
+            Log.d("TAG","user review on restaurant");
             dishList = Model.instance.getAllDishesThatTheUserHasAReviewedOnInThisRestaurantByUserIdAndRestaurantId(user.getId(),restaurant.getId());
-            generalReview = restaurant.getGeneralReviewDescriptionByUserId(user.getId());
+            generalReview = Model.instance.getUserGeneralReview(user.getId(),restaurant.getId()).getDescription();
             RecyclerView list = view.findViewById(R.id.user_reviews_on_restaurant_dishes_list_rv);
             list.setHasFixedSize(true);
             list.setLayoutManager(new LinearLayoutManager(getContext()));

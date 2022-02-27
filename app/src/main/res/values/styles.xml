@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+        <style name="Splash" parent="Theme.AppCompat.Light.NoActionBar">
+
+
+            <item name="android:windowBackground">@drawable/foodies_screen</item>
+            <item name="windowNoTitle">true</item>
+            <item name="windowActionBar">false</item>
+            <item name="android:windowFullscreen">false</item>
+            <item name="android:windowContentOverlay">@null</item>
+
+
+        </style>
+</resources>
